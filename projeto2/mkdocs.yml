@@ -15,7 +15,6 @@ nav:
       - Visão Geral & MVP: projeto/visao-geral.md
       - Arquitetura: projeto/arquitetura.md
       - Setup Inicial: projeto/setup.md
-      - APIs e Endpoints: projeto/api.md
   - Padrões de Trabalho:
       - Commits e Branches: padroes/git.md
       - Padrões de Código: padroes/codigo.md
