@@ -1,0 +1,51 @@
+site_name: AILAB - Projeto 2
+repo_url: https://github.com/Diogo-Olivv/AILAB_Makers---Grupo-2.git
+
+theme:
+  name: material
+  features:
+    - navigation.tabs
+    - navigation.indexes
+    - search.suggest
+
+nav:
+  - Home: index.md
+  - Cronograma Fase 2: cronograma_fase2.md
+  - Projeto:
+      - Visão Geral & MVP: projeto/visao-geral.md
+      - Arquitetura: projeto/arquitetura.md
+      - Setup Inicial: projeto/setup.md
+      - APIs e Endpoints: projeto/api.md
+  - Padrões de Trabalho:
+      - Commits e Branches: padroes/git.md
+      - Padrões de Código: padroes/codigo.md
+      - Fluxo de Code Review: padroes/review.md
+  - Rotatividade de Papéis:
+      - Como funciona a Rotação: rotacoes/index.md
+      - Padrões de Relatório:
+          - Template: rotacoes/template_relatorio.md
+          - Exemplo: rotacoes/exemplo_relatorio.md
+      - Ciclo 1 (Semanas 7-8):
+          - Backend: rotacoes/ciclo1/backend.md
+          - Frontend: rotacoes/ciclo1/frontend.md
+          - DevOps: rotacoes/ciclo1/devops.md
+          - Documentação: rotacoes/ciclo1/documentacao.md
+          - Tech Lead: rotacoes/ciclo1/tech-lead.md
+      - Ciclo 2 (Semanas 9-10):
+          - Backend: rotacoes/ciclo2/backend.md
+          - Frontend: rotacoes/ciclo2/frontend.md
+          - DevOps: rotacoes/ciclo2/devops.md
+          - Documentação: rotacoes/ciclo2/documentacao.md
+          - Tech Lead: rotacoes/ciclo2/tech-lead.md
+      - Ciclo 3 (Semanas 11-12):
+          - Backend: rotacoes/ciclo3/backend.md
+          - Frontend: rotacoes/ciclo3/frontend.md
+          - DevOps: rotacoes/ciclo3/devops.md
+          - Documentação: rotacoes/ciclo3/documentacao.md
+          - Tech Lead: rotacoes/ciclo3/tech-lead.md
+      - Ciclo 4 (Semanas 13-14):
+          - Backend: rotacoes/ciclo4/backend.md
+          - Frontend: rotacoes/ciclo4/frontend.md
+          - DevOps: rotacoes/ciclo4/devops.md
+          - Documentação: rotacoes/ciclo4/documentacao.md
+          - Tech Lead: rotacoes/ciclo4/tech-lead.md
