@@ -17,7 +17,7 @@ Abrir Pull Request somente quando:
 - Preferir PRs pequenos e objetivos.
 - Se um PR misturar muitas responsabilidades, ele deve ser dividido.
 
-## Estrutura obrigatória do PR
+## [Estrutura obrigatória do PR](template_PR.md)
 
 Todo PR deve conter:
 
@@ -27,6 +27,8 @@ Todo PR deve conter:
 - Evidencias visuais, quando houver frontend
 - Riscos ou pontos de atenção
 - Checklist de segurança e logs, quando aplicável
+
+Clique [aqui](template_PR.md) para visualizar o template
 
 ## O que o Revisor deve verificar
 

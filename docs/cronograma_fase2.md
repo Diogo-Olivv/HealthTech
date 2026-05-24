@@ -2,7 +2,7 @@
 
 Este documento detalha o planejamento, as etapas de desenvolvimento e as entregas para o **Ciclo 1** do Projeto Aplicado. O objetivo é a construção e implantação de uma aplicação web robusta na infraestrutura do Google Cloud.
 
----
+- Clique [aqui](assets/ciclo_01.pdf) para acessar o PDF do Ciclo 1, incluindo o cronograma da Fase 2 do projeto aplicado.
 
 ## 📅 Cronograma Semanal e Entregas
 
