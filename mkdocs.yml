@@ -28,6 +28,7 @@ nav:
   - Atas & Checklists:
       - Atas de Reunião:
           - Template: atas_e_checklists/atas_reuniao/template_ata.md
+          - 25-05-2026: atas_e_checklists/atas_reuniao/25-05-2026.md
 
       - Checklist Semanal:
           - Template: atas_e_checklists/checklist_semanal/template.md
