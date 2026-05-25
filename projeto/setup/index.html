@@ -64,7 +64,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#setup-inicial-do-projeto" class="md-skip">
+        <a href="#setup-inicial" class="md-skip">
           Skip to content
         </a>
       
@@ -479,6 +479,24 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Setup Inicial
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -495,6 +513,324 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#pre-requisitos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pré-requisitos
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Pré-requisitos">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#nodejs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Node.js
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#docker" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Docker
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#git" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Git
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-clonar-o-repositorio" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Clonar o repositório
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-configurar-variaveis-de-ambiente" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Configurar variáveis de ambiente
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Configurar variáveis de ambiente">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#backend" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Backend
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#frontend" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Frontend
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-instalar-dependencias" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Instalar dependências
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-subir-o-banco-de-dados" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Subir o banco de dados
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-rodar-o-backend" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Rodar o backend
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-rodar-o-frontend" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Rodar o frontend
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-verificar-que-tudo-esta-funcionando" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Verificar que tudo está funcionando
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-visualizar-o-banco-de-dados" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Visualizar o banco de dados
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#comandos-uteis-do-dia-a-dia" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Comandos úteis do dia a dia
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Comandos úteis do dia a dia">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#iniciar-tudo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Iniciar tudo
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parar-tudo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parar tudo
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#resetar-o-banco-apaga-todos-os-dados" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Resetar o banco (apaga todos os dados)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#porta-3001-travada-ao-reiniciar-o-backend" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Porta 3001 travada ao reiniciar o backend
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#problemas-comuns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problemas comuns
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Problemas comuns">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cannot-connect-to-the-docker-daemon" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cannot connect to the Docker daemon
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#error-connect-econnrefused-1270015433" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Error: connect ECONNREFUSED 127.0.0.1:5433
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#error-listen-eaddrinuse-3001" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Error: listen EADDRINUSE :::3001
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tabelas-nao-aparecem-no-adminerdbeaver" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tabelas não aparecem no Adminer/DBeaver
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#referencias" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Referências
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -1004,6 +1340,8 @@
       
         
       
+        
+      
     
     
     
@@ -1062,6 +1400,34 @@
     
   
     Template
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../atas_e_checklists/atas_reuniao/25-05-2026/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    25-05-2026
   
 
     
@@ -1200,6 +1566,313 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#pre-requisitos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pré-requisitos
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Pré-requisitos">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#nodejs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Node.js
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#docker" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Docker
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#git" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Git
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-clonar-o-repositorio" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Clonar o repositório
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-configurar-variaveis-de-ambiente" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Configurar variáveis de ambiente
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Configurar variáveis de ambiente">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#backend" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Backend
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#frontend" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Frontend
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-instalar-dependencias" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Instalar dependências
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-subir-o-banco-de-dados" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Subir o banco de dados
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-rodar-o-backend" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Rodar o backend
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-rodar-o-frontend" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Rodar o frontend
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-verificar-que-tudo-esta-funcionando" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Verificar que tudo está funcionando
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-visualizar-o-banco-de-dados" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Visualizar o banco de dados
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#comandos-uteis-do-dia-a-dia" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Comandos úteis do dia a dia
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Comandos úteis do dia a dia">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#iniciar-tudo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Iniciar tudo
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parar-tudo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parar tudo
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#resetar-o-banco-apaga-todos-os-dados" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Resetar o banco (apaga todos os dados)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#porta-3001-travada-ao-reiniciar-o-backend" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Porta 3001 travada ao reiniciar o backend
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#problemas-comuns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problemas comuns
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Problemas comuns">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cannot-connect-to-the-docker-daemon" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cannot connect to the Docker daemon
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#error-connect-econnrefused-1270015433" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Error: connect ECONNREFUSED 127.0.0.1:5433
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#error-listen-eaddrinuse-3001" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Error: listen EADDRINUSE :::3001
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tabelas-nao-aparecem-no-adminerdbeaver" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tabelas não aparecem no Adminer/DBeaver
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#referencias" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Referências
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -1218,7 +1891,254 @@
   
 
 
-<h1 id="setup-inicial-do-projeto">Setup Inicial do Projeto</h1>
+<h1 id="setup-inicial">Setup Inicial</h1>
+<p>Guia completo para rodar o projeto do zero após clonar o repositório.</p>
+<hr />
+<h2 id="pre-requisitos">Pré-requisitos</h2>
+<h3 id="nodejs">Node.js</h3>
+<p>O projeto requer <strong>Node.js v18 ou superior</strong>.</p>
+<p><strong>Verificar se já está instalado:</strong></p>
+<pre><code class="language-bash">node --version   # deve mostrar v18.x.x ou superior
+npm --version
+</code></pre>
+<p><strong>Instalar (caso não tenha):</strong></p>
+<ul>
+<li>Acesse <a href="https://nodejs.org">https://nodejs.org</a> e baixe a versão <strong>LTS</strong></li>
+<li>No Linux, é recomendado usar o <a href="https://github.com/nvm-sh/nvm">nvm</a>:
+  <code>bash
+  curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+  # Reinicie o terminal, depois:
+  nvm install --lts
+  nvm use --lts</code></li>
+</ul>
+<h3 id="docker">Docker</h3>
+<p>O Docker é usado para rodar o banco de dados PostgreSQL localmente.</p>
+<p><strong>Windows:</strong></p>
+<ol>
+<li>Acesse <a href="https://www.docker.com/products/docker-desktop">https://www.docker.com/products/docker-desktop</a></li>
+<li>Baixe e instale o <strong>Docker Desktop para Windows</strong></li>
+<li>Durante a instalação, mantenha a opção <strong>WSL 2</strong> marcada</li>
+<li>Após instalar, abra o Docker Desktop e aguarde o ícone ficar verde na bandeja do sistema</li>
+<li>Verifique no terminal:
+   <code>bash
+   docker --version
+   docker compose version</code></li>
+</ol>
+<p><strong>Linux (Ubuntu/Debian):</strong></p>
+<pre><code class="language-bash"># Instalar Docker Engine
+sudo apt-get update
+sudo apt-get install -y ca-certificates curl
+sudo install -m 0755 -d /etc/apt/keyrings
+sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+sudo chmod a+r /etc/apt/keyrings/docker.asc
+
+echo \
+  &quot;deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
+  $(. /etc/os-release &amp;&amp; echo &quot;$VERSION_CODENAME&quot;) stable&quot; | \
+  sudo tee /etc/apt/sources.list.d/docker.list &gt; /dev/null
+
+sudo apt-get update
+sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+
+# Permitir rodar Docker sem sudo
+sudo usermod -aG docker $USER
+newgrp docker
+
+# Verificar
+docker --version
+docker compose version
+</code></pre>
+<h3 id="git">Git</h3>
+<p><strong>Windows:</strong> Baixe em <a href="https://git-scm.com">https://git-scm.com</a> e instale com as opções padrão.</p>
+<p><strong>Linux:</strong></p>
+<pre><code class="language-bash">sudo apt-get install -y git
+</code></pre>
+<hr />
+<h2 id="1-clonar-o-repositorio">1. Clonar o repositório</h2>
+<pre><code class="language-bash">git clone &lt;URL_DO_REPOSITÓRIO&gt;
+cd AILAB_Makers---Grupo-2
+</code></pre>
+<hr />
+<h2 id="2-configurar-variaveis-de-ambiente">2. Configurar variáveis de ambiente</h2>
+<h3 id="backend">Backend</h3>
+<p>Na <strong>raiz</strong> do repositório rode:</p>
+<pre><code class="language-bash">cd backend
+cp .env.example .env
+</code></pre>
+<p>O arquivo <code>.env</code> criado já vem com os valores corretos para desenvolvimento local. <strong>Não altere nada por enquanto.</strong></p>
+<p>Conteúdo padrão do <code>.env</code> para dev:</p>
+<pre><code>PORT=3001
+NODE_ENV=development
+FRONTEND_URL=http://localhost:3000
+
+DB_HOST=localhost
+DB_PORT=5433
+DB_USER=postgres
+DB_PASSWORD=postgres
+DB_NAME=healthtech
+
+INSTANCE_CONNECTION_NAME=
+</code></pre>
+<h3 id="frontend">Frontend</h3>
+<p>Na <strong>raiz</strong> do repositório rode:</p>
+<pre><code class="language-bash">cd frontend
+cp .env.example .env
+</code></pre>
+<hr />
+<h2 id="3-instalar-dependencias">3. Instalar dependências</h2>
+<p>Execute a partir da raiz do projeto:</p>
+<p><strong>Backend:</strong></p>
+<pre><code class="language-bash">cd backend
+npm install
+</code></pre>
+<p><strong>Frontend:</strong></p>
+<pre><code class="language-bash">cd frontend
+npm install
+</code></pre>
+<hr />
+<h2 id="4-subir-o-banco-de-dados">4. Subir o banco de dados</h2>
+<p>A partir da <strong>raiz do projeto</strong> (pasta <code>AILAB_Makers---Grupo-2</code>):</p>
+<pre><code class="language-bash">docker compose up -d
+</code></pre>
+<p>Verifique se os containers estão rodando:</p>
+<pre><code class="language-bash">docker compose ps
+</code></pre>
+<p>Você deve ver dois containers ativos:</p>
+<pre><code>NAME               STATUS         PORTS
+...-postgres-1     Up             0.0.0.0:5433-&gt;5432/tcp
+...-adminer-1      Up             0.0.0.0:8080-&gt;8080/tcp
+</code></pre>
+<blockquote>
+<p><strong>Windows:</strong> se o comando <code>docker compose</code> não funcionar, verifique se o Docker Desktop está aberto e com o ícone verde na bandeja do sistema.</p>
+</blockquote>
+<hr />
+<h2 id="5-rodar-o-backend">5. Rodar o backend</h2>
+<p>Em um terminal separado:</p>
+<pre><code class="language-bash">cd backend
+npm run start:dev
+</code></pre>
+<p>Aguarde até ver a mensagem:</p>
+<pre><code>[NestApplication] Nest application successfully started
+</code></pre>
+<p>O backend estará disponível em <code>http://localhost:3001/api</code>.</p>
+<hr />
+<h2 id="6-rodar-o-frontend">6. Rodar o frontend</h2>
+<p>Em outro terminal separado:</p>
+<pre><code class="language-bash">cd frontend
+npm run dev
+</code></pre>
+<p>Aguarde até ver:</p>
+<pre><code>✓ Ready in Xs
+- Local: http://localhost:3000
+</code></pre>
+<hr />
+<h2 id="7-verificar-que-tudo-esta-funcionando">7. Verificar que tudo está funcionando</h2>
+<p>Com backend e banco rodando, teste a API:</p>
+<p><strong>Linux / macOS / Windows (PowerShell 7+):</strong></p>
+<pre><code class="language-bash">curl -X POST http://localhost:3001/api/users/register \
+  -H &quot;Content-Type: application/json&quot; \
+  -d '{&quot;name&quot;:&quot;Teste&quot;,&quot;email&quot;:&quot;teste@healthtech.com&quot;,&quot;password&quot;:&quot;senha123&quot;}'
+</code></pre>
+<p><strong>Windows (PowerShell padrão):</strong></p>
+<pre><code class="language-powershell">Invoke-RestMethod -Uri &quot;http://localhost:3001/api/users/register&quot; `
+  -Method POST `
+  -ContentType &quot;application/json&quot; `
+  -Body '{&quot;name&quot;:&quot;Teste&quot;,&quot;email&quot;:&quot;teste@healthtech.com&quot;,&quot;password&quot;:&quot;senha123&quot;}'
+</code></pre>
+<p>Resposta esperada:</p>
+<pre><code class="language-json">{
+  &quot;id&quot;: &quot;...&quot;,
+  &quot;email&quot;: &quot;teste@healthtech.com&quot;,
+  &quot;name&quot;: &quot;Teste&quot;
+}
+</code></pre>
+<p>Acesse também <code>http://localhost:3000/register</code> para ver o formulário de cadastro.</p>
+<hr />
+<h2 id="8-visualizar-o-banco-de-dados">8. Visualizar o banco de dados</h2>
+<p>Acesse o <strong>Adminer</strong> em <code>http://localhost:8080</code> e preencha:</p>
+<table>
+<thead>
+<tr>
+<th>Campo</th>
+<th>Valor</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Sistema</td>
+<td>PostgreSQL</td>
+</tr>
+<tr>
+<td>Servidor</td>
+<td><code>postgres</code></td>
+</tr>
+<tr>
+<td>Usuário</td>
+<td><code>postgres</code></td>
+</tr>
+<tr>
+<td>Senha</td>
+<td><code>postgres</code></td>
+</tr>
+<tr>
+<td>Base de dados</td>
+<td><code>healthtech</code></td>
+</tr>
+</tbody>
+</table>
+<p>Navegue até <strong>healthtech → Schemas → public → Tables → users</strong> para ver os registros cadastrados.</p>
+<hr />
+<h2 id="comandos-uteis-do-dia-a-dia">Comandos úteis do dia a dia</h2>
+<h3 id="iniciar-tudo">Iniciar tudo</h3>
+<pre><code class="language-bash"># Terminal 1 — Banco (raiz do projeto)
+docker compose up -d
+
+# Terminal 2 — Backend
+cd backend &amp;&amp; npm run start:dev
+
+# Terminal 3 — Frontend
+cd frontend &amp;&amp; npm run dev
+</code></pre>
+<h3 id="parar-tudo">Parar tudo</h3>
+<pre><code class="language-bash"># Parar banco (preserva os dados)
+docker compose down
+
+# Parar backend/frontend: Ctrl+C nos terminais respectivos
+</code></pre>
+<h3 id="resetar-o-banco-apaga-todos-os-dados">Resetar o banco (apaga todos os dados)</h3>
+<pre><code class="language-bash">docker compose down -v &amp;&amp; docker compose up -d
+</code></pre>
+<h3 id="porta-3001-travada-ao-reiniciar-o-backend">Porta 3001 travada ao reiniciar o backend</h3>
+<p>No caso de reinicio do backend, caso ele não inicie corretamente pela rota não ter sido liberada corretamente, rode:</p>
+<pre><code class="language-bash"># Linux/macOS
+kill $(lsof -ti:3001)
+
+# Windows (PowerShell)
+Stop-Process -Id (Get-NetTCPConnection -LocalPort 3001).OwningProcess -Force
+</code></pre>
+<hr />
+<h2 id="problemas-comuns">Problemas comuns</h2>
+<h3 id="cannot-connect-to-the-docker-daemon"><code>Cannot connect to the Docker daemon</code></h3>
+<p>O Docker Desktop não está aberto. Abra o aplicativo e aguarde o ícone ficar verde.</p>
+<h3 id="error-connect-econnrefused-1270015433"><code>Error: connect ECONNREFUSED 127.0.0.1:5433</code></h3>
+<p>O banco não está rodando. Execute <code>docker compose up -d</code> na raiz do projeto.</p>
+<h3 id="error-listen-eaddrinuse-3001"><code>Error: listen EADDRINUSE :::3001</code></h3>
+<p>A porta 3001 está em uso. Use o comando de liberar porta acima.</p>
+<h3 id="tabelas-nao-aparecem-no-adminerdbeaver">Tabelas não aparecem no Adminer/DBeaver</h3>
+<p>O backend precisa estar rodando ao menos uma vez para o TypeORM criar as tabelas. Suba o backend com <code>npm run start:dev</code> e tente novamente.</p>
+<hr />
+<h2 id="referencias">Referências</h2>
+<ul>
+<li><a href="https://nodejs.org/en/download">Node.js — Downloads</a></li>
+<li><a href="https://github.com/nvm-sh/nvm">nvm — Node Version Manager</a></li>
+<li><a href="https://docs.docker.com/desktop/install/windows-install/">Docker Desktop — Windows</a></li>
+<li><a href="https://docs.docker.com/engine/install/ubuntu/">Docker Engine — Ubuntu</a></li>
+<li><a href="https://docs.docker.com/compose/gettingstarted/">Docker Compose — Getting Started</a></li>
+<li><a href="https://docs.nestjs.com/first-steps">NestJS — Installation</a></li>
+<li><a href="https://nextjs.org/docs/getting-started/installation">Next.js — Installation</a></li>
+<li><a href="https://www.adminer.org/">Adminer — Documentação</a></li>
+<li><a href="https://dbeaver.io/download/">DBeaver — Download</a></li>
+</ul>
 
 
 
