@@ -63,6 +63,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#healthtech-backlog-infraestrutura" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -617,6 +622,8 @@
       
       <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
       
+      
+        
       
       
       <a href="./" class="md-nav__link md-nav__link--active">
@@ -1489,6 +1496,8 @@
   
   
   
+    
+  
   
 </nav>
                   </div>
@@ -1508,9 +1517,225 @@
   
 
 
-  <h1>Luiza</h1>
-
-
+<h1 id="healthtech-backlog-infraestrutura">HealthTech - Backlog infraestrutura</h1>
+<h1 id="epico-1-provisionamento-cloud">Epico 1 — Provisionamento Cloud</h1>
+<hr />
+<h2 id="01-criacao-do-projeto-cloud">01 — Criação do Projeto Cloud</h2>
+<p>Descrição:
+Como equipe de infraestrutura, quero criar um projeto no Google Cloud para hospedar os serviços do sistema HealthTech.</p>
+<h3 id="criterios-de-aceitacao">Critérios de Aceitação</h3>
+<p>Projeto criado no Google Cloud.</p>
+<p>Equipe técnica com acesso configurado.</p>
+<p>APIs necessárias habilitadas.</p>
+<p>Estrutura inicial documentada.</p>
+<hr />
+<h2 id="02-separacao-de-ambientes">02 — Separação de Ambientes</h2>
+<p>Descrição:
+Como equipe de infraestrutura, quero separar ambientes de desenvolvimento, homologação e produção para evitar impactos no sistema principal.</p>
+<h3 id="criterios-de-aceitacao_1">Critérios de Aceitação</h3>
+<p>Ambientes dev, staging e prod criados.</p>
+<p>Recursos isolados entre ambientes.</p>
+<p>Variáveis de ambiente independentes.</p>
+<p>Deploy separado para cada ambiente.</p>
+<hr />
+<h2 id="03-configuracao-de-iam">03 — Configuração de IAM</h2>
+<p>Descrição:
+Como administrador da plataforma, quero configurar permissões IAM para restringir acessos conforme a função de cada membro da equipe.</p>
+<h3 id="criterios-de-aceitacao_2">Critérios de Aceitação</h3>
+<p>Permissões separadas por perfil.</p>
+<p>Usuários sem privilégios administrativos desnecessários.</p>
+<p>Logs de acesso habilitados.</p>
+<p>Apenas administradores podem alterar permissões.</p>
+<hr />
+<h2 id="04-configuracao-de-firewall-e-vpc">04 — Configuração de Firewall e VPC</h2>
+<p>Descrição:
+Como equipe de infraestrutura, quero configurar firewall e VPC para proteger os recursos da aplicação.</p>
+<h3 id="criterios-de-aceitacao_3">Critérios de Aceitação</h3>
+<p>Apenas portas autorizadas liberadas.</p>
+<p>Banco de dados inacessível publicamente.</p>
+<p>Comunicação interna funcionando.</p>
+<p>Regras documentadas.</p>
+<hr />
+<h1 id="epico-2-devops-e-containers">Épico 2 — DevOps e Containers</h1>
+<hr />
+<h2 id="01-configuracao-do-repositorio">01 — Configuração do Repositório</h2>
+<p>Descrição:
+Como desenvolvedor, quero utilizar um repositório GitHub padronizado para versionar o código da aplicação.</p>
+<h3 id="criterios-de-aceitacao_4">Critérios de Aceitação</h3>
+<p>Repositório criado.</p>
+<p>Branch main protegida.</p>
+<p>Estratégia Git Flow configurada.</p>
+<p>README inicial criado.</p>
+<hr />
+<h2 id="02-configuracao-docker">02 — Configuração Docker</h2>
+<p>Descrição:
+Como desenvolvedor, quero utilizar Docker para padronizar o ambiente da aplicação.</p>
+<h3 id="criterios-de-aceitacao_5">Critérios de Aceitação</h3>
+<p>Aplicação executando via Docker.</p>
+<p>Dockerfile documentado.</p>
+<p>Build funcionando sem erros.</p>
+<p>Containers iniciando corretamente.</p>
+<hr />
+<h2 id="03-configuracao-de-cicd">03 — Configuração de CI/CD</h2>
+<p>Descrição:
+Como equipe DevOps, quero configurar CI/CD para automatizar build e deploy.</p>
+<h3 id="criterios-de-aceitacao_6">Critérios de Aceitação</h3>
+<p>Pipeline executando automaticamente.</p>
+<p>Build realizado após push.</p>
+<p>Deploy automático configurado.</p>
+<p>Falhas registradas na pipeline.</p>
+<hr />
+<h2 id="04-rollback-automatico">04 — Rollback Automático</h2>
+<p>Descrição:
+Como equipe DevOps, quero configurar rollback automático para recuperar versões estáveis após falhas.</p>
+<h3 id="criterios-de-aceitacao_7">Critérios de Aceitação</h3>
+<p>Sistema retorna à última versão estável em caso de erro.</p>
+<p>Logs de rollback registrados.</p>
+<p>Deploy falho não permanece em produção.</p>
+<p>Processo automatizado funcionando.</p>
+<hr />
+<h1 id="3-banco-de-dados">3 — Banco de Dados</h1>
+<hr />
+<h2 id="-01-provisionamento-do-banco">-01 — Provisionamento do Banco</h2>
+<p>Descrição:
+Como sistema, quero utilizar Cloud SQL para armazenar os dados médicos de forma segura.</p>
+<h3 id="criterios-de-aceitacao_8">Critérios de Aceitação</h3>
+<p>Instância Cloud SQL criada.</p>
+<p>Banco acessível apenas pela aplicação.</p>
+<p>Comunicação criptografada.</p>
+<p>Banco monitorado.</p>
+<hr />
+<h2 id="02-backup-automatico">02 — Backup Automático</h2>
+<p>Descrição:
+Como administrador da plataforma, quero realizar backups automáticos para recuperar dados em caso de falha.</p>
+<h3 id="criterios-de-aceitacao_9">Critérios de Aceitação</h3>
+<p>Backup diário configurado.</p>
+<p>Backups armazenados automaticamente.</p>
+<p>Processo de restauração validado.</p>
+<p>Histórico de backups disponível.</p>
+<hr />
+<h2 id="-03-monitoramento-do-banco">-03 — Monitoramento do Banco</h2>
+<p>Descrição:
+Como equipe de operações, quero monitorar métricas do banco para identificar lentidão ou indisponibilidade.</p>
+<h3 id="criterios-de-aceitacao_10">Critérios de Aceitação</h3>
+<p>Métricas disponíveis no dashboard.</p>
+<p>Alertas configurados.</p>
+<p>Uso de CPU e memória monitorados.</p>
+<p>Falhas registradas automaticamente.</p>
+<hr />
+<h1 id="4-armazenamento-de-arquivos-medicos">4 — Armazenamento de Arquivos Médicos</h1>
+<hr />
+<h2 id="-01-configuracao-do-cloud-storage">-01 — Configuração do Cloud Storage</h2>
+<p>Descrição:
+Como sistema, quero armazenar exames no Google Cloud Storage para garantir disponibilidade dos arquivos.</p>
+<h3 id="criterios-de-aceitacao_11">Critérios de Aceitação</h3>
+<p>Buckets criados.</p>
+<p>Upload funcionando.</p>
+<p>Arquivos acessíveis pela aplicação.</p>
+<p>Estrutura organizada por paciente.</p>
+<hr />
+<h2 id="-02-buckets-privados">-02 — Buckets Privados</h2>
+<p>Descrição:
+Como administrador da infraestrutura, quero configurar buckets privados para impedir acesso público aos documentos médicos.</p>
+<h3 id="criterios-de-aceitacao_12">Critérios de Aceitação</h3>
+<p>Acesso público desabilitado.</p>
+<p>Apenas usuários autorizados acessam arquivos.</p>
+<p>Permissões configuradas via IAM.</p>
+<p>Tentativas não autorizadas bloqueadas.</p>
+<hr />
+<h2 id="-03-criptografia-de-arquivos">-03 — Criptografia de Arquivos</h2>
+<p>Descrição:
+Como equipe de segurança, quero criptografar os arquivos armazenados para proteger dados sensíveis.</p>
+<h3 id="criterios-de-aceitacao_13">Critérios de Aceitação</h3>
+<p>Arquivos criptografados em repouso.</p>
+<p>Transferências usando HTTPS/TLS.</p>
+<p>Chaves armazenadas com segurança.</p>
+<p>Arquivos descriptografados apenas para usuários autorizados.</p>
+<hr />
+<h2 id="-04-validacao-de-upload">-04 — Validação de Upload</h2>
+<p>Descrição:
+Como sistema, quero validar uploads de arquivos para impedir envio de arquivos inválidos ou maliciosos.</p>
+<h3 id="criterios-de-aceitacao_14">Critérios de Aceitação</h3>
+<p>Apenas formatos permitidos aceitos.</p>
+<p>Limite de tamanho configurado.</p>
+<p>Uploads inválidos bloqueados.</p>
+<p>Mensagens de erro exibidas corretamente.</p>
+<hr />
+<h1 id="epico-5-seguranca">Épico 5 — Segurança</h1>
+<hr />
+<h2 id="-01-configuracao-https">-01 — Configuração HTTPS</h2>
+<p>Descrição:
+Como usuário do sistema, quero acessar a plataforma via HTTPS para navegar de forma segura.</p>
+<h3 id="criterios-de-aceitacao_15">Critérios de Aceitação</h3>
+<p>Certificado SSL/TLS configurado.</p>
+<p>HTTP redirecionado para HTTPS.</p>
+<p>Comunicação criptografada.</p>
+<p>Certificado válido.</p>
+<hr />
+<h2 id="-02-autenticacao-jwt">-02 — Autenticação JWT</h2>
+<p>Descrição:
+Como equipe de segurança, quero utilizar JWT para autenticar usuários com segurança.</p>
+<h3 id="criterios-de-aceitacao_16">Critérios de Aceitação</h3>
+<p>Tokens gerados corretamente.</p>
+<p>Tokens expirando automaticamente.</p>
+<p>Rotas protegidas funcionando.</p>
+<p>Tokens inválidos rejeitados.</p>
+<hr />
+<h2 id="-03-controle-de-permissoes">-03 — Controle de Permissões</h2>
+<p>Descrição:
+Como administrador do sistema, quero configurar RBAC para controlar permissões por perfil.</p>
+<h3 id="criterios-de-aceitacao_17">Critérios de Aceitação</h3>
+<p>Perfis separados por função.</p>
+<p>Pacientes acessam apenas seus exames.</p>
+<p>Médicos acessam apenas pacientes vinculados.</p>
+<p>Rotas protegidas por permissão.</p>
+<hr />
+<h2 id="-04-secret-manager">-04 — Secret Manager</h2>
+<p>Descrição:
+Como administrador da plataforma, quero armazenar segredos no Secret Manager para evitar exposição de credenciais.</p>
+<h3 id="criterios-de-aceitacao_18">Critérios de Aceitação</h3>
+<p>Senhas removidas do código-fonte.</p>
+<p>Segredos acessíveis apenas por serviços autorizados.</p>
+<p>Rotação de segredos funcionando.</p>
+<p>Logs de acesso habilitados.</p>
+<hr />
+<h1 id="epico-6-operacoes-e-monitoramento">Épico 6 — Operações e Monitoramento</h1>
+<hr />
+<h2 id="-01-deploy-no-cloud-rungke">-01 — Deploy no Cloud Run/GKE</h2>
+<p>Descrição:
+Como equipe DevOps, quero hospedar a aplicação no Cloud Run/GKE para garantir disponibilidade do sistema.</p>
+<p>Critérios de Aceitação</p>
+<p>Aplicação publicada.</p>
+<p>Deploy automatizado funcionando.</p>
+<p>Serviço acessível externamente.</p>
+<p>Logs disponíveis.</p>
+<hr />
+<h2 id="-02-auto-scaling">-02 — Auto Scaling</h2>
+<p>Descrição:
+Como equipe de infraestrutura, quero configurar auto scaling para suportar aumento de acessos.</p>
+<h3 id="criterios-de-aceitacao_19">Critérios de Aceitação</h3>
+<p>Escalabilidade automática habilitada.</p>
+<p>Novas instâncias criadas sob alta carga.</p>
+<p>Recursos liberados após redução de tráfego.</p>
+<p>Métricas de escala monitoradas.</p>
+<hr />
+<h2 id="03-health-checks">03 — Health Checks</h2>
+<p>Descrição:
+Como equipe DevOps, quero configurar health checks para verificar automaticamente a saúde dos serviços.</p>
+<h3 id="criterios-de-aceitacao_20">Critérios de Aceitação</h3>
+<p>Endpoints de health check criados.</p>
+<p>Serviços indisponíveis detectados automaticamente.</p>
+<p>Alertas enviados em caso de falha.</p>
+<p>Health checks executados periodicamente.</p>
+<hr />
+<h2 id="-04-disaster-recovery">-04 — Disaster Recovery</h2>
+<p>Descrição :
+Como administrador da infraestrutura, quero configurar disaster recovery para restaurar o sistema em caso de falha grave.</p>
+<h3 id="criterios-de-aceitacao_21">Critérios de Aceitação</h3>
+<p>Estratégia de recuperação documentada.</p>
+<p>Backups disponíveis.</p>
+<p>Processo de restauração validado.</p>
+<p>Tempo de recuperação definido.</p>
 
 
 
