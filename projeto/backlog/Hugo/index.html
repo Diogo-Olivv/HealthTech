@@ -63,6 +63,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#backlog-de-auditoria-tecnica-mvp" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -534,6 +539,26 @@
       <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
       
       
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hugo
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
         
@@ -551,6 +576,80 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#epico-1-auditoria-de-controle-de-acesso" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Épico 1: Auditoria de Controle de Acesso
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#epico-2-auditoria-de-upload-e-armazenamento-de-documentos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Épico 2: Auditoria de Upload e Armazenamento de Documentos
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#epico-3-auditoria-de-logs-e-rastreabilidade" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Épico 3: Auditoria de Logs e Rastreabilidade
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#epico-4-auditoria-de-apis-e-servicos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Épico 4: Auditoria de APIs e Serviços
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#epico-5-auditoria-de-banco-de-dados-e-seguranca" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Épico 5: Auditoria de Banco de Dados e Segurança
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -1489,6 +1588,71 @@
   
   
   
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#epico-1-auditoria-de-controle-de-acesso" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Épico 1: Auditoria de Controle de Acesso
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#epico-2-auditoria-de-upload-e-armazenamento-de-documentos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Épico 2: Auditoria de Upload e Armazenamento de Documentos
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#epico-3-auditoria-de-logs-e-rastreabilidade" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Épico 3: Auditoria de Logs e Rastreabilidade
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#epico-4-auditoria-de-apis-e-servicos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Épico 4: Auditoria de APIs e Serviços
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#epico-5-auditoria-de-banco-de-dados-e-seguranca" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Épico 5: Auditoria de Banco de Dados e Segurança
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
   
 </nav>
                   </div>
@@ -1508,9 +1672,151 @@
   
 
 
-  <h1>Hugo</h1>
-
-
+<h1 id="backlog-de-auditoria-tecnica-mvp">Backlog de Auditoria Técnica (MVP)</h1>
+<h3 id="epico-1-auditoria-de-controle-de-acesso">Épico 1: Auditoria de Controle de Acesso</h3>
+<p><strong>US 1.1: Validação de Isolamento entre Pacientes</strong></p>
+<ul>
+<li><strong>Descrição:</strong> Como desenvolvedor, quero validar que um paciente não consegue acessar exames de outros pacientes para garantir a confidencialidade dos dados médicos.</li>
+<li><strong>Critérios de Aceitação:</strong></li>
+<li>Tentar acessar exames de outro paciente utilizando alteração de URL ou ID.</li>
+<li>O sistema deve retornar erro de autorização.</li>
+<li>Nenhuma informação do exame deve ser exibida.</li>
+<li>O acesso negado deve ser registrado em log.</li>
+</ul>
+<p><strong>US 1.2: Validação de Isolamento Médico-Paciente</strong></p>
+<ul>
+<li><strong>Descrição:</strong> Como desenvolvedor, quero validar que médicos visualizem apenas pacientes vinculados a eles para garantir a segurança dos prontuários.</li>
+<li><strong>Critérios de Aceitação:</strong></li>
+<li>Realizar testes com médicos vinculados e não vinculados.</li>
+<li>O sistema deve bloquear acessos indevidos.</li>
+<li>O sistema deve registrar tentativas de acesso não autorizado.</li>
+<li>Nenhum dado sensível deve ser retornado.</li>
+</ul>
+<p><strong>US 1.3: Validação de Escalonamento de Privilégios</strong></p>
+<ul>
+<li><strong>Descrição:</strong> Como desenvolvedor, quero validar que usuários não consigam obter permissões superiores às definidas pelo sistema.</li>
+<li><strong>Critérios de Aceitação:</strong></li>
+<li>Testar manipulação de tokens de autenticação.</li>
+<li>Testar acesso a recursos administrativos com perfis comuns.</li>
+<li>O sistema deve bloquear tentativas de escalonamento.</li>
+<li>O evento deve ser registrado em log.</li>
+</ul>
+<hr />
+<h3 id="epico-2-auditoria-de-upload-e-armazenamento-de-documentos">Épico 2: Auditoria de Upload e Armazenamento de Documentos</h3>
+<p><strong>US 2.1: Verificação de Tipos de Arquivos Permitidos</strong></p>
+<ul>
+<li><strong>Descrição:</strong> Como desenvolvedor, quero validar os tipos de arquivos aceitos pelo sistema para evitar uploads maliciosos.</li>
+<li><strong>Critérios de Aceitação:</strong></li>
+<li>Testar upload de PDFs, imagens e documentos válidos.</li>
+<li>Testar upload de arquivos executáveis ou formatos não permitidos.</li>
+<li>O sistema deve rejeitar arquivos inválidos.</li>
+<li>O sistema deve informar o motivo da rejeição.</li>
+</ul>
+<p><strong>US 2.2: Verificação de Limites de Upload</strong></p>
+<ul>
+<li><strong>Descrição:</strong> Como desenvolvedor, quero validar o limite de tamanho dos arquivos enviados para garantir estabilidade e segurança.</li>
+<li><strong>Critérios de Aceitação:</strong></li>
+<li>Testar arquivos abaixo do limite permitido.</li>
+<li>Testar arquivos acima do limite permitido.</li>
+<li>O sistema deve bloquear uploads excedentes.</li>
+<li>O evento deve ser registrado em log.</li>
+</ul>
+<p><strong>US 2.3: Verificação de Armazenamento Seguro</strong></p>
+<ul>
+<li><strong>Descrição:</strong> Como desenvolvedor, quero validar que os documentos médicos sejam armazenados de forma segura.</li>
+<li><strong>Critérios de Aceitação:</strong></li>
+<li>Verificar que arquivos não sejam acessíveis diretamente por URL pública.</li>
+<li>Verificar uso de identificadores únicos para armazenamento.</li>
+<li>Garantir controle de acesso aos arquivos armazenados.</li>
+<li>Impedir exposição de caminhos internos do sistema.</li>
+</ul>
+<hr />
+<h3 id="epico-3-auditoria-de-logs-e-rastreabilidade">Épico 3: Auditoria de Logs e Rastreabilidade</h3>
+<p><strong>US 3.1: Validação de Logs de Visualização</strong></p>
+<ul>
+<li><strong>Descrição:</strong> Como desenvolvedor, quero verificar se toda visualização de documento médico é registrada para garantir rastreabilidade.</li>
+<li><strong>Critérios de Aceitação:</strong></li>
+<li>Acessar um exame como paciente.</li>
+<li>Acessar um exame como médico.</li>
+<li>O log deve registrar usuário, documento e data/hora.</li>
+<li>O registro deve ser persistido no banco de dados.</li>
+</ul>
+<p><strong>US 3.2: Validação de Logs de Download</strong></p>
+<ul>
+<li><strong>Descrição:</strong> Como desenvolvedor, quero verificar se downloads de exames são registrados para atender requisitos de auditoria.</li>
+<li><strong>Critérios de Aceitação:</strong></li>
+<li>Realizar download de documentos.</li>
+<li>Verificar criação automática do log.</li>
+<li>O log deve registrar usuário, documento e timestamp.</li>
+<li>O registro deve permanecer disponível para consulta.</li>
+</ul>
+<p><strong>US 3.3: Validação de Logs de Alteração</strong></p>
+<ul>
+<li><strong>Descrição:</strong> Como desenvolvedor, quero verificar se alterações em documentos médicos são registradas corretamente.</li>
+<li><strong>Critérios de Aceitação:</strong></li>
+<li>Modificar informações de um documento.</li>
+<li>Registrar usuário responsável pela alteração.</li>
+<li>Registrar data e hora da modificação.</li>
+<li>Registrar informações alteradas.</li>
+</ul>
+<p><strong>US 3.4: Validação de Integridade dos Logs</strong></p>
+<ul>
+<li><strong>Descrição:</strong> Como desenvolvedor, quero garantir que registros de auditoria não possam ser alterados indevidamente.</li>
+<li><strong>Critérios de Aceitação:</strong></li>
+<li>Tentar alterar registros diretamente no banco.</li>
+<li>Verificar mecanismos de proteção dos logs.</li>
+<li>Detectar alterações não autorizadas.</li>
+<li>Preservar histórico de auditoria.</li>
+</ul>
+<hr />
+<h3 id="epico-4-auditoria-de-apis-e-servicos">Épico 4: Auditoria de APIs e Serviços</h3>
+<p><strong>US 4.1: Verificação de Controle de Permissões</strong></p>
+<ul>
+<li><strong>Descrição:</strong> Como desenvolvedor, quero validar que cada perfil possua acesso apenas aos recursos autorizados.</li>
+<li><strong>Critérios de Aceitação:</strong></li>
+<li>Testar acessos utilizando perfis de paciente e médico.</li>
+<li>Verificar restrições em endpoints administrativos.</li>
+<li>O sistema deve retornar erro de autorização.</li>
+<li>Os acessos negados devem ser registrados.</li>
+</ul>
+<p><strong>US 4.2: Verificação de Exposição de Dados Sensíveis</strong></p>
+<ul>
+<li><strong>Descrição:</strong> Como desenvolvedor, quero validar que APIs não exponham informações sensíveis indevidamente.</li>
+<li><strong>Critérios de Aceitação:</strong></li>
+<li>Inspecionar respostas de sucesso e erro.</li>
+<li>Verificar ausência de senhas, hashes e tokens.</li>
+<li>Garantir mascaramento de informações sensíveis.</li>
+</ul>
+<hr />
+<h3 id="epico-5-auditoria-de-banco-de-dados-e-seguranca">Épico 5: Auditoria de Banco de Dados e Segurança</h3>
+<p><strong>US 5.1: Verificação de Armazenamento de Senhas</strong></p>
+<ul>
+<li><strong>Descrição:</strong> Como desenvolvedor, quero validar que senhas sejam armazenadas de forma segura.</li>
+<li><strong>Critérios de Aceitação:</strong></li>
+<li>Verificar uso de hash seguro.</li>
+<li>Confirmar ausência de senhas em texto puro.</li>
+<li>Validar política de criptografia aplicada.</li>
+<li>Garantir conformidade com boas práticas de segurança.</li>
+</ul>
+<p><strong>US 5.2: Verificação de Criptografia de Dados Sensíveis</strong></p>
+<ul>
+<li><strong>Descrição:</strong> Como desenvolvedor, quero validar que informações médicas estejam protegidas contra acesso indevido.</li>
+<li><strong>Critérios de Aceitação:</strong></li>
+<li>Identificar dados sensíveis armazenados.</li>
+<li>Verificar mecanismos de criptografia.</li>
+<li>Garantir proteção dos dados em repouso.</li>
+<li>Garantir proteção dos dados em trânsito.</li>
+</ul>
+<p><strong>US 5.3: Verificação de Backups e Recuperação</strong></p>
+<ul>
+<li><strong>Descrição:</strong> Como desenvolvedor, quero validar que os dados possam ser recuperados em caso de falha.</li>
+<li><strong>Critérios de Aceitação:</strong></li>
+<li>Executar rotina de backup.</li>
+<li>Simular processo de restauração.</li>
+<li>Garantir integridade dos dados recuperados.</li>
+<li>Registrar operações realizadas.</li>
+</ul>
+<hr />
 
 
 
