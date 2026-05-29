@@ -1,4 +1,4 @@
-site_name: AILAB - Projeto 2
+site_name: AILAB - HealthTech
 repo_url: https://github.com/Diogo-Olivv/AILAB_Makers---Grupo-2.git
 
 theme:
@@ -8,36 +8,6 @@ theme:
     - navigation.indexes
     - search.suggest
 
-nav:
-  - Home: index.md
-  - Projeto:
-      - Backlog:
-          - Base: projeto/backlog/index.md
-          - Hugo: projeto/backlog/Hugo.md
-          - Martin: projeto/backlog/Martin.md
-          - Gabriel: projeto/backlog/Gabriel.md
-          - Luiza: projeto/backlog/Luiza.md
-          - Lucas: projeto/backlog/Lucas.md
-      - Arquitetura: projeto/arquitetura.md
-      - Setup Inicial: projeto/setup.md
-      - Tecnologias: projeto/tecnologias.md
-      - Cronograma Fase 2: cronograma_fase2.md
-
-  - Padrões de Trabalho:
-      - Commits e Branches: padroes/git.md
-      - Padrões de Código: padroes/codigo.md
-      - Fluxo de Code Review: padroes/review.md
-      - Template PR: padroes/template_PR.md
-  - Rotatividade de Duplas:
-      - Como funciona a Rotação: rotacoes/index.md
-      - Padrões de Relatório:
-          - Template: rotacoes/template_relatorio.md
-          - Exemplo: rotacoes/exemplo_relatorio.md
-  - Atas & Checklists:
-      - Atas de Reunião:
-          - Template: atas_e_checklists/atas_reuniao/template_ata.md
-          - 25-05-2026: atas_e_checklists/atas_reuniao/25-05-2026.md
-          - 27-05-2026: atas_e_checklists/atas_reuniao/27-05-2026.md
-
-      - Checklist Semanal:
-          - Template: atas_e_checklists/checklist_semanal/template.md
+plugins:
+  - search
+  - awesome-pages

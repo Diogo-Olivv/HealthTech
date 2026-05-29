@@ -1,4 +1,4 @@
-# Cronograma Fase 2 – Projeto Aplicado (Semanas 7–14)
+# Cronograma
 
 Este documento detalha o planejamento, as etapas de desenvolvimento e as entregas para o **Ciclo 1** do Projeto Aplicado. O objetivo é a construção e implantação de uma aplicação web robusta na infraestrutura do Google Cloud.
 
