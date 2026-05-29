@@ -19,31 +19,44 @@ AILAB_Makers---Grupo-2/
 
 ### Separação de responsabilidades
 
-O sistema é dividido em três camadas independentes que se comunicam:
+O sistema é dividido em três camadas independentes que se comunicam de forma bidirecional. 
+O diagrama abaixo mostra o fluxo completo de uma requisição, 
+desde a interface do usuário até a persistência no banco de dados, incluindo a 
+ramificação entre ambiente de desenvolvimento (Docker local) e produção 
+(Google Cloud).
 
-```
-┌─────────────────────────────────────────────────────────────────┐
-│  USUÁRIO (navegador)                                             │
-│  Acessa http://localhost:3000                                    │
-└────────────────────────┬────────────────────────────────────────┘
-                         │ HTTP (fetch)
-┌────────────────────────▼────────────────────────────────────────┐
-│  FRONTEND — Next.js (porta 3000)                                 │
-│  Responsável pela interface visual e experiência do usuário      │
-└────────────────────────┬────────────────────────────────────────┘
-                         │ HTTP REST (JSON)
-┌────────────────────────▼────────────────────────────────────────┐
-│  BACKEND — NestJS (porta 3001)                                   │
-│  Responsável pelas regras de negócio e segurança dos dados       │
-└────────────────────────┬────────────────────────────────────────┘
-                         │ TCP (PostgreSQL protocol)
-┌────────────────────────▼────────────────────────────────────────┐
-│  BANCO DE DADOS — PostgreSQL                                     │
-│  Dev: Docker (porta 5433)  |  Prod: Google Cloud SQL             │
-└─────────────────────────────────────────────────────────────────┘
-```
 
-O frontend **nunca** acessa o banco de dados diretamente. Toda operação passa pelo backend, que valida, processa e então persiste os dados.
+![Arquitetura do projeto](../assets/diagramas/arquitetura.jpg)
+
+> **Figura 1** — Fluxo de dados e infraestrutura do projeto.
+
+#### **Como ler o diagrama:**
+
+| Cor       | Camada    | Responsabilidade                          |
+| --------- | --------- | ----------------------------------------- |
+| 🔵 Azul    | Frontend  | Interface, chamadas HTTP, tipagem (DTO)   |
+| 🟢 Verde   | Backend   | Controllers, regras de negócio, ORM       |
+| 🟣 Roxo    | Produção  | Google Cloud (Cloud Run + Cloud SQL)      |
+| 🟡 Amarelo | Dev local | Docker Compose + Adminer                  |
+
+#### **Fluxo principal:**
+
+1. `app/páginas` chama `services/HTTP`
+2. `services/HTTP` envia REST --> `controllers/` do backend
+3. `controllers/` delega para `services/` (cuida das regras de negócio)
+4. `services/` usa `TypeORM Repository` padronizado por `entities/`
+5. Repository persiste no **Banco de Dados**
+
+#### **Ambiente de Desenvolvimento?**
+
+- **SIM:** Docker Compose local --> Adminer (`localhost:8080`) para visualização rápida
+- **NÃO:** Google Cloud SQL (produção)
+**Deploy:** Backend hospedado no **Cloud Run** (Google Cloud).
+
+#### **Observações:**
+
+- **DTOs:** Data Tranfer Object. Evita colocar múltiplos campos para envio de requisições em um service. Por exemplo: Ao invés de passar "nome, e-mail, senha", simplificamos e passamos apenas o "Usuário" que é um objeto que contém esses atributos.
+- **Entities (Models):** Também conhecido como 'models', são as entidades da aplicação (Usuários, Logs, Arquivos) estruturadas com os campos necessários (id, nome, ...) para serem enviados para o banco de dados, garante consistência nas operações e evita o envio de múltiplos campos nas requisições para o Banco de Dados.
 
 ---
 
@@ -135,12 +148,6 @@ Resposta JSON            ← Retorna { id, email, name } --> senha nunca retorna
 - **Resposta**: o campo `passwordHash` **nunca** é retornado nas respostas da API
 - **Validação**: o `ValidationPipe` com `whitelist: true` remove automaticamente qualquer campo extra que o cliente envie
 - **Variáveis sensíveis**: credenciais ficam no `.env`, que está no `.gitignore`
-
-### Rota disponível
-
-| Método | Rota                | Descrição           | Auth |
-| ------ | ------------------- | ------------------- | ---- |
-| POST   | /api/users/register | Cadastro de usuário | Não  |
 
 ---
 

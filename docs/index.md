@@ -71,7 +71,7 @@ A documentação é mantida via MkDocs com tema Material, hospedada no GitHub Pa
 
 - **Sprint semanal:** Backlog priorizado com duração de 1 semana
 - **2 reuniões na semana:** Registrar cada reunião seguindo um padrão de [ata](atas_e_checklists/atas_reuniao/template_ata.md) na documentação.
-- **Retrospectiva (A ser definida):** 15 min toda sexta (o que funcionou · o que travou · ação concreta)
+- **Retrospectiva (A ser definida):** 15 min (o que funcionou / impedimentos / próximas tarefas)
 - **Relatório STAR:** ao fim de cada ciclo de 2 semanas ([ver template](rotacoes/template_relatorio.md))
 - **Checklist Semana do Integrante:** [Checklist Template](atas_e_checklists/checklist_semanal/template.md)
 
