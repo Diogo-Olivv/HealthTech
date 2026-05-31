@@ -72,15 +72,6 @@
   cursor: not-allowed;
 }
 
-.success {
-  background-color: #dcfce7;
-  color: #166534;
-  border-radius: 6px;
-  padding: 0.75rem;
-  font-size: 0.875rem;
-  margin-bottom: 0.5rem;
-}
-
 .error {
   color: #dc2626;
   font-size: 0.875rem;

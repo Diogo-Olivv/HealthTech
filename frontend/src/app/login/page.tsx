@@ -2,15 +2,17 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { registerUser } from '@/services/users.service';
-import styles from './register.module.css';
+import { useRouter } from 'next/navigation';
+import { loginUser, saveToken } from '@/services/users.service';
+import styles from './login.module.css';
 
-type FormState = { name: string; email: string; password: string };
-type Status = 'idle' | 'loading' | 'success' | 'error';
+type FormState = { email: string; password: string };
+type Status = 'idle' | 'loading' | 'error';
 
-const INITIAL_FORM: FormState = { name: '', email: '', password: '' };
+const INITIAL_FORM: FormState = { email: '', password: '' };
 
-export default function RegisterPage() {
+export default function LoginPage() {
+  const router = useRouter();
   const [form, setForm] = useState<FormState>(INITIAL_FORM);
   const [status, setStatus] = useState<Status>('idle');
   const [errorMsg, setErrorMsg] = useState('');
@@ -25,11 +27,11 @@ export default function RegisterPage() {
     setErrorMsg('');
 
     try {
-      await registerUser(form);
-      setStatus('success');
-      setForm(INITIAL_FORM);
+      const { accessToken } = await loginUser(form);
+      saveToken(accessToken);
+      router.push('/dashboard');
     } catch (err) {
-      setErrorMsg(err instanceof Error ? err.message : 'Erro ao cadastrar. Tente novamente.');
+      setErrorMsg(err instanceof Error ? err.message : 'Erro ao entrar. Tente novamente.');
       setStatus('error');
     }
   }
@@ -37,25 +39,9 @@ export default function RegisterPage() {
   return (
     <main className={styles.page}>
       <div className={styles.card}>
-        <h1 className={styles.title}>Criar conta</h1>
-
-        {status === 'success' && (
-          <p className={styles.success}>Cadastro realizado com sucesso!</p>
-        )}
+        <h1 className={styles.title}>Entrar</h1>
 
         <form onSubmit={handleSubmit} className={styles.form} noValidate>
-          <label className={styles.label}>
-            Nome
-            <input
-              className={styles.input}
-              type="text"
-              name="name"
-              value={form.name}
-              onChange={handleChange}
-              required
-            />
-          </label>
-
           <label className={styles.label}>
             E-mail
             <input
@@ -84,12 +70,12 @@ export default function RegisterPage() {
           {status === 'error' && <p className={styles.error}>{errorMsg}</p>}
 
           <button className={styles.button} type="submit" disabled={status === 'loading'}>
-            {status === 'loading' ? 'Cadastrando...' : 'Cadastrar'}
+            {status === 'loading' ? 'Entrando...' : 'Entrar'}
           </button>
         </form>
 
         <p className={styles.footer}>
-          Já tem conta? <Link href="/login">Entrar</Link>
+          Não tem conta? <Link href="/register">Cadastre-se</Link>
         </p>
       </div>
     </main>
