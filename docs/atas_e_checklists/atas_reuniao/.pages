@@ -1,3 +1,6 @@
 nav:
-  - Template da Ata: template_ata.md
-  - ...
+
+- Template da Ata: template_ata.md
+- ...
+
+order: desc
