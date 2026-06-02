@@ -43,7 +43,7 @@ Há algo que o revisor precisa saber? Dependências, side effects, decisões nã
 - [ ] O PR tem escopo único e não mistura responsabilidades
 - [ ] Branch atualizada com a `main` e sem conflitos
 - [ ] Testes executados e passando
-- [ ] Padrões de código e Git seguidos ([ver padrões](../docs/padroes/review.md))
+- [ ] Padrões de código e Git seguidos ([ver padrões](review.md))
 - [ ] Documentação (MkDocs) atualizada, se necessário
 
 **Segurança e Logs** _(marque quando aplicável)_
