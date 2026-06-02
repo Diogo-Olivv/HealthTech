@@ -2,7 +2,7 @@
 
 Plataforma SaaS para clínicas e profissionais de saúde independentes, onde pacientes e médicos gerenciam resultados de exames e documentos médicos com segurança.
 
-**Contexto:** Projeto de extensão da UnB (FCTE), ministrado pelo Prof. Nilton. Ciclo 1 com duração de 7 semanas (Semanas 7–14). Leia o documento completo da [Fase 2](assets/Fase2.pdf) antes de iniciar.
+**Contexto:** Projeto de extensão da UnB (FCTE), ministrado pelo Prof. Nilton. Ciclo 1 com duração de 7 semanas (Semanas 7-14). Leia o documento completo da [Fase 2](assets/Fase2.pdf) antes de iniciar.
 
 ---
 
@@ -13,7 +13,7 @@ A aplicação é tratada como MVP comercial (SaaS) com os seguintes requisitos o
 - **Autenticação:** Login e cadastro com hashing de senhas e JWT (ou sessões seguras).
 - **Gerenciamento de arquivos:** Upload, listagem, download e exclusão integrados ao Google Cloud Storage (GCS).
 - **Isolamento de dados:** Documentos associados estritamente ao usuário autenticado que os enviou.
-- **Auditoria:** Logs persistidos de Login, Logout, Upload, Download, Exclusão e acessos inválidos — com `timestamp`, `user_id`, `tipo_evento` e `status`.
+- **Auditoria:** Logs persistidos de Login, Logout, Upload, Download, Exclusão e acessos inválidos - com `timestamp`, `user_id`, `tipo_evento` e `status`.
 - **Infraestrutura:** Deploy no Cloud Run ou App Engine; banco de dados no Cloud SQL ou Firestore.
 
 ---
@@ -24,12 +24,12 @@ A aplicação é tratada como MVP comercial (SaaS) com os seguintes requisitos o
 
 | Perfil         | Foco principal                                                     |
 | -------------- | ------------------------------------------------------------------ |
-| **Júnior (3)** | Backend & Frontend — com exposição gradual a DevOps e Documentação |
+| **Júnior (3)** | Backend & Frontend - com exposição gradual a DevOps e Documentação |
 | **Sênior (3)** | DevOps & Cloud, Documentação & Logs e Guia Técnico dos Júniors     |
 
-A rotação das duplas ocorre a cada 2 semanas, em 3 ciclos (Semanas 8–13). Cada dupla é formada por 1 Sênior + 1 Júnior.
+A rotação das duplas ocorre a cada 2 semanas, em 3 ciclos (Semanas 8-13). Cada dupla é formada por 1 Sênior + 1 Júnior.
 
-> Papéis detalhados, nomes e cronograma de rotação → [Rotatividade de Duplas](rotacoes/index.md)
+> Papéis detalhados, nomes e cronograma de rotação em [Rotatividade de Duplas](rotacoes/index.md)
 
 ---
 
@@ -51,16 +51,16 @@ A documentação é mantida via MkDocs com tema Material, hospedada no GitHub Pa
 | Semana    | Fase                | Entregáveis principais                                        |
 | --------- | ------------------- | ------------------------------------------------------------- |
 | **7**     | Arquitetura & Setup | Diagrama de arquitetura, ADRs, Docker funcional, CI/CD básico |
-| **8–12**  | Desenvolvimento     | Features iterativas: auth → upload → GCS → isolamento → logs  |
-| **13–14** | Deploy & Demo       | URL pública no Cloud Run/App Engine e apresentação final      |
+| **8-12**  | Desenvolvimento     | Features iterativas: auth, upload, GCS, isolamento e logs     |
+| **13-14** | Deploy & Demo       | URL pública no Cloud Run/App Engine e apresentação final      |
 
-> Detalhamento semana a semana → [Cronograma Fase 2](cronograma_fase2.md)
+> Detalhamento semana a semana em [Cronograma Fase 2](cronograma_fase2.md)
 
 **Fluxo por feature (Fase 2):**
 
 1. Júnior abre branch seguindo os [padrões de Git](padroes/git.md)
 2. Implementa com pair programming (opcional) com o Sênior
-3. Abre PR → Sênior revisa → Merge na `main`
+3. Abre PR, o Sênior revisa e faz o merge na `main`
 4. Júnior atualiza a documentação da feature no MkDocs
 
 **Dedicação esperada:** 10h semanais por integrante.
@@ -95,7 +95,7 @@ A documentação é mantida via MkDocs com tema Material, hospedada no GitHub Pa
 - Não trazer pessoas de fora do projeto.
 - Manter o laboratório organizado; desligar tudo ao sair por último.
 - Evitar uso às quartas-feiras das 14h30 às 15h.
-- PRs são o principal critério de avaliação — mantê-los atualizados e sem conflitos é responsabilidade de cada grupo.
+- PRs são o principal critério de avaliação - mantê-los atualizados e sem conflitos é responsabilidade de cada grupo.
 
 ---
 
