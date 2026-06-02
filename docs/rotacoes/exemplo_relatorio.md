@@ -12,8 +12,8 @@
 
 ## O que foi entregue neste ciclo
 
-- [#12](https://github.com/...) — Implementação da rota de autenticação de usuário e geração de token JWT.
-- [#14](https://github.com/...) — Configuração do docker-compose e banco de dados para o ambiente de desenvolvimento.
+- [#12](https://github.com/...) - Implementação da rota de autenticação de usuário e geração de token JWT.
+- [#14](https://github.com/...) - Configuração do docker-compose e banco de dados para o ambiente de desenvolvimento.
 
 ---
 
@@ -32,7 +32,7 @@ Padronização do ambiente local de desenvolvimento da equipe.
 
 ## Dívidas Técnicas e Dicas para o Próximo Ciclo
 
-- Os testes unitários das rotas de autenticação não foram finalizados — prioridade para o Ciclo 2.
+- Os testes unitários das rotas de autenticação não foram finalizados - prioridade para o Ciclo 2.
 - O `fix-perms.sh` foi testado apenas em Ubuntu; verificar comportamento no macOS.
 
 ## Avaliação do Guia Técnico
@@ -59,7 +59,7 @@ Padronização do ambiente local de desenvolvimento da equipe.
 
 | Critério                      | Observação                                                             |
 | ----------------------------- | ---------------------------------------------------------------------- |
-| Autonomia técnica             | Boa — resolveu a maioria dos problemas sozinho após orientação inicial |
+| Autonomia técnica             | Boa - resolveu a maioria dos problemas sozinho após orientação inicial |
 | Qualidade das entregas        | PRs dentro do padrão, com commits bem descritos                        |
 | Comunicação de impedimentos   | Comunicou o problema de permissão rapidamente, sem travar o ciclo      |
 | Adoção dos padrões do projeto | Seguiu as convenções de Git e código sem necessidade de retrabalho     |
@@ -76,4 +76,4 @@ Padronização do ambiente local de desenvolvimento da equipe.
 
 ### Débitos técnicos gerados por falta de suporte ou contexto
 
-- A integração com o Cloud SQL não foi orientada neste ciclo — responsabilidade do Guia do Ciclo 2 cobrir esse contexto antes de iniciar a feature de storage.
+- A integração com o Cloud SQL não foi orientada neste ciclo - responsabilidade do Guia do Ciclo 2 cobrir esse contexto antes de iniciar a feature de storage.

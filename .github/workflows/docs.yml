@@ -29,7 +29,9 @@ jobs:
           python-version: 3.x
 
       - name: Instalar MkDocs e Tema Material
-        run: pip install mkdocs-material
+        run: |
+          pip install mkdocs-material
+          pip install mkdocs-awesome-pages-plugin
 
       - name: Deploy para o GitHub Pages
         run: mkdocs gh-deploy --force

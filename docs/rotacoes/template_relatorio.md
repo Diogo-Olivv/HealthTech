@@ -6,7 +6,7 @@
 
 ## **Papel no Ciclo:** [Backend | Frontend | DevOps & Cloud | Documentação & Logs | Guia Técnico]
 
-## **Guia Técnico:** [Nome do Sênior responsável — preencher apenas se o autor for Júnior]
+## **Guia Técnico:** [Nome do Sênior responsável - preencher apenas se o autor for Júnior]
 
 ## **Período:** [Data de Início] a [Data de Fim]
 
@@ -14,8 +14,8 @@
 
 ## O que foi entregue neste ciclo
 
-- [Link para o PR/Commit] — [Descrição breve da entrega]
-- [Link para o PR/Commit] — [Descrição breve da entrega]
+- [Link para o PR/Commit] - [Descrição breve da entrega]
+- [Link para o PR/Commit] - [Descrição breve da entrega]
 
 ---
 
@@ -74,4 +74,4 @@ Descreva os obstáculos encontrados e como foram solucionados utilizando a metod
 
 ### Débitos técnicos gerados por falta de suporte ou contexto
 
-- [Algo que não foi entregue ou ficou mal feito por falta de orientação — responsabilidade do Guia registrar]
+- [Algo que não foi entregue ou ficou mal feito por falta de orientação - responsabilidade do Guia registrar]

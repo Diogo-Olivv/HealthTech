@@ -1,12 +1,12 @@
-# dd-mm-yyyy
+# yyyy-mm-dd
 
---- 
+---
 
 > **Tipo de reunião:** Retrospectiva | Planejamento de Sprint | Técnica | Daily | Weekly
 
-> **Data:** DD-MM-AAAA
+> **Data:** YYYY-MM-DD
 
-> **Horário:** HH:MM – HH:MM
+> **Horário:** HH:MM - HH:MM
 
 > **Local/Canal:** Laboratório | Google Meet | Discord
 
@@ -27,7 +27,7 @@
 | Luíza   | ✅❎     |
 | Gabriel | ✅❎     |
 
-**Ausências justificadas:** nome · motivo
+**Ausências justificadas:** nome - motivo
 
 ---
 
@@ -97,4 +97,4 @@
 
 ---
 
-_Ata registrada por: nome · Revisada por: nome_
+_Ata registrada por: nome - Revisada por: nome_

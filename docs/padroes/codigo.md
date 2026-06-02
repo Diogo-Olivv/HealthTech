@@ -26,7 +26,7 @@
 
 - Senhas implementadas sempre com hash, nunca salvo em string pura.
 - Nunca salvar variáveis sensíveis no repositório.
-- **Sempre** utilizar o .env para variáveis sensíveis (Colocar no .gitignore --> Nunca subir para o repositório).
+- **Sempre** utilizar o .env para variáveis sensíveis (colocar no .gitignore para nunca subir ao repositório).
 - Validar entrada de dados no backend (Utilizar Postman/Insomnia ou similares).
 - Garantir isolamento por usuário em todas as rotas protegidas (Testar manualmente).
 - Logs nunca devem expor senha, token ou dados sensíveis.
