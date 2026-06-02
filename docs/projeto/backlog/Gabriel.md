@@ -1,10 +1,10 @@
-# Gabriel — Isolamento de Dados
+# Gabriel - Isolamento de Dados
 
 ---
 
 ## Persona: Marina Fonseca
 
-**Perfil:** Médica clínica geral, 34 anos, Brasília – DF.  
+**Perfil:** Médica clínica geral, 34 anos, Brasília - DF.  
 Atende em clínica particular e pelo plano de saúde. Usa prontuário eletrônico no dia a dia e tem familiaridade intermediária com tecnologia.
 
 **Contexto de uso:**  
@@ -56,7 +56,7 @@ Como médica, quero ter a garantia de que nenhum outro usuário da plataforma po
 ### Critérios de Aceitação:
 - O endpoint de exclusão verifica a propriedade do arquivo antes de qualquer operação no GCS.
 - Retorna `403` se o `user_id` do token não coincide com o dono do arquivo.
-- Nenhuma exclusão parcial ocorre — a operação é atômica (banco + GCS juntos ou nenhum).
+- Nenhuma exclusão parcial ocorre - a operação é atômica (banco + GCS juntos ou nenhum).
 
 ---
 

@@ -1,11 +1,11 @@
 # HealthTech - Backlog infraestrutura
 
-# Epico 1 — Provisionamento Cloud
+# Epico 1 - Provisionamento Cloud
 
 
 ---
 
-## 01 — Criação do Projeto Cloud
+## 01 - Criação do Projeto Cloud
 
 Descrição:
 Como equipe de infraestrutura, quero criar um projeto no Google Cloud para hospedar os serviços do sistema HealthTech.
@@ -24,7 +24,7 @@ Estrutura inicial documentada.
 
 ---
 
-## 02 — Separação de Ambientes
+## 02 - Separação de Ambientes
 
 Descrição:
 Como equipe de infraestrutura, quero separar ambientes de desenvolvimento, homologação e produção para evitar impactos no sistema principal.
@@ -43,7 +43,7 @@ Deploy separado para cada ambiente.
 
 ---
 
-## 03 — Configuração de IAM
+## 03 - Configuração de IAM
 
 Descrição:
 Como administrador da plataforma, quero configurar permissões IAM para restringir acessos conforme a função de cada membro da equipe.
@@ -62,7 +62,7 @@ Apenas administradores podem alterar permissões.
 
 ---
 
-## 04 — Configuração de Firewall e VPC
+## 04 - Configuração de Firewall e VPC
 
 Descrição:
 Como equipe de infraestrutura, quero configurar firewall e VPC para proteger os recursos da aplicação.
@@ -81,12 +81,12 @@ Regras documentadas.
 
 ---
 
-# Épico 2 — DevOps e Containers
+# Épico 2 - DevOps e Containers
 
 
 ---
 
-## 01 — Configuração do Repositório
+## 01 - Configuração do Repositório
 
 Descrição:
 Como desenvolvedor, quero utilizar um repositório GitHub padronizado para versionar o código da aplicação.
@@ -105,7 +105,7 @@ README inicial criado.
 
 ---
 
-## 02 — Configuração Docker
+## 02 - Configuração Docker
 
 Descrição:
 Como desenvolvedor, quero utilizar Docker para padronizar o ambiente da aplicação.
@@ -124,7 +124,7 @@ Containers iniciando corretamente.
 
 ---
 
-## 03 — Configuração de CI/CD
+## 03 - Configuração de CI/CD
 
 Descrição:
 Como equipe DevOps, quero configurar CI/CD para automatizar build e deploy.
@@ -143,7 +143,7 @@ Falhas registradas na pipeline.
 
 ---
 
-## 04 — Rollback Automático
+## 04 - Rollback Automático
 
 Descrição:
 Como equipe DevOps, quero configurar rollback automático para recuperar versões estáveis após falhas.
@@ -162,12 +162,12 @@ Processo automatizado funcionando.
 
 ---
 
-# 3 — Banco de Dados
+# 3 - Banco de Dados
 
 
 ---
 
-## -01 — Provisionamento do Banco
+## -01 - Provisionamento do Banco
 
 Descrição:
 Como sistema, quero utilizar Cloud SQL para armazenar os dados médicos de forma segura.
@@ -186,7 +186,7 @@ Banco monitorado.
 
 ---
 
-## 02 — Backup Automático
+## 02 - Backup Automático
 
 Descrição:
 Como administrador da plataforma, quero realizar backups automáticos para recuperar dados em caso de falha.
@@ -205,7 +205,7 @@ Histórico de backups disponível.
 
 ---
 
-## -03 — Monitoramento do Banco
+## -03 - Monitoramento do Banco
 
 Descrição:
 Como equipe de operações, quero monitorar métricas do banco para identificar lentidão ou indisponibilidade.
@@ -224,12 +224,12 @@ Falhas registradas automaticamente.
 
 ---
 
-# 4 — Armazenamento de Arquivos Médicos
+# 4 - Armazenamento de Arquivos Médicos
 
 
 ---
 
-## -01 — Configuração do Cloud Storage
+## -01 - Configuração do Cloud Storage
 
 Descrição:
 Como sistema, quero armazenar exames no Google Cloud Storage para garantir disponibilidade dos arquivos.
@@ -248,7 +248,7 @@ Estrutura organizada por paciente.
 
 ---
 
-## -02 — Buckets Privados
+## -02 - Buckets Privados
 
 Descrição:
 Como administrador da infraestrutura, quero configurar buckets privados para impedir acesso público aos documentos médicos.
@@ -267,7 +267,7 @@ Tentativas não autorizadas bloqueadas.
 
 ---
 
-## -03 — Criptografia de Arquivos
+## -03 - Criptografia de Arquivos
 
 Descrição:
 Como equipe de segurança, quero criptografar os arquivos armazenados para proteger dados sensíveis.
@@ -286,7 +286,7 @@ Arquivos descriptografados apenas para usuários autorizados.
 
 ---
 
-## -04 — Validação de Upload
+## -04 - Validação de Upload
 
 Descrição:
 Como sistema, quero validar uploads de arquivos para impedir envio de arquivos inválidos ou maliciosos.
@@ -305,12 +305,12 @@ Mensagens de erro exibidas corretamente.
 
 ---
 
-# Épico 5 — Segurança
+# Épico 5 - Segurança
 
 
 ---
 
-## -01 — Configuração HTTPS
+## -01 - Configuração HTTPS
 
 Descrição:
 Como usuário do sistema, quero acessar a plataforma via HTTPS para navegar de forma segura.
@@ -329,7 +329,7 @@ Certificado válido.
 
 ---
 
-## -02 — Autenticação JWT
+## -02 - Autenticação JWT
 
 Descrição:
 Como equipe de segurança, quero utilizar JWT para autenticar usuários com segurança.
@@ -348,7 +348,7 @@ Tokens inválidos rejeitados.
 
 ---
 
-## -03 — Controle de Permissões
+## -03 - Controle de Permissões
 
 Descrição:
 Como administrador do sistema, quero configurar RBAC para controlar permissões por perfil.
@@ -367,7 +367,7 @@ Rotas protegidas por permissão.
 
 ---
 
-## -04 — Secret Manager
+## -04 - Secret Manager
 
 Descrição:
 Como administrador da plataforma, quero armazenar segredos no Secret Manager para evitar exposição de credenciais.
@@ -386,12 +386,12 @@ Logs de acesso habilitados.
 
 ---
 
-# Épico 6 — Operações e Monitoramento
+# Épico 6 - Operações e Monitoramento
 
 
 ---
 
-## -01 — Deploy no Cloud Run/GKE
+## -01 - Deploy no Cloud Run/GKE
 
 Descrição:
 Como equipe DevOps, quero hospedar a aplicação no Cloud Run/GKE para garantir disponibilidade do sistema.
@@ -410,7 +410,7 @@ Logs disponíveis.
 
 ---
 
-## -02 — Auto Scaling
+## -02 - Auto Scaling
 
 Descrição:
 Como equipe de infraestrutura, quero configurar auto scaling para suportar aumento de acessos.
@@ -429,7 +429,7 @@ Métricas de escala monitoradas.
 
 ---
 
-## 03 — Health Checks
+## 03 - Health Checks
 
 Descrição:
 Como equipe DevOps, quero configurar health checks para verificar automaticamente a saúde dos serviços.
@@ -448,7 +448,7 @@ Health checks executados periodicamente.
 
 ---
 
-## -04 — Disaster Recovery
+## -04 - Disaster Recovery
 
 Descrição :
 Como administrador da infraestrutura, quero configurar disaster recovery para restaurar o sistema em caso de falha grave.

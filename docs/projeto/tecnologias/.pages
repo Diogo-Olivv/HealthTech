@@ -1,0 +1,8 @@
+nav:
+  - Visão Geral: index.md
+  - Frontend: frontend.md
+  - Backend: backend.md
+  - Banco de Dados: banco-de-dados.md
+  - Autenticação: autenticacao.md
+  - Armazenamento de Arquivos: armazenamento.md
+  - Testes Automatizados: testes.md

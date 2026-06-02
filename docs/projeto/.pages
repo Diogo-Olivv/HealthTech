@@ -1,6 +1,7 @@
 nav:
-  - Backlog: backlog
-  - Arquitetura: arquitetura.md
-  - Setup Inicial: setup.md
-  - Tecnologias: tecnologias.md
-  - Roadmap Técnico: roadmap.md
+
+- Arquitetura: arquitetura
+- Tecnologias: tecnologias
+- Backlog: backlog
+- Setup Inicial: setup.md
+- Roadmap Técnico: roadmap

@@ -87,7 +87,7 @@ sudo apt-get install -y git
 
 ```bash
 git clone <URL_DO_REPOSITÓRIO>
-cd AILAB_Makers---Grupo-2
+cd HealthTech
 ```
 
 ---
@@ -154,7 +154,7 @@ npm install
 
 ## 4. Subir o banco de dados
 
-A partir da **raiz do projeto** (pasta `AILAB_Makers---Grupo-2`):
+A partir da **raiz do projeto** (pasta `HealthTech`):
 
 ```bash
 docker compose up -d
@@ -209,7 +209,7 @@ npm run dev
 Aguarde até ver:
 
 ```
-✓ Ready in Xs
+Ready in Xs
 - Local: http://localhost:3000
 ```
 
@@ -262,7 +262,7 @@ Acesse o **Adminer** em `http://localhost:8080` e preencha:
 | Senha         | `postgres`   |
 | Base de dados | `healthtech` |
 
-Navegue até **healthtech → Schemas → public → Tables → users** para ver os registros cadastrados.
+Navegue até **healthtech > Schemas > public > Tables > users** para ver os registros cadastrados.
 
 ---
 
@@ -271,13 +271,13 @@ Navegue até **healthtech → Schemas → public → Tables → users** para ver
 ### Iniciar tudo
 
 ```bash
-# Terminal 1 — Banco (raiz do projeto)
+# Terminal 1 - Banco (raiz do projeto)
 docker compose up -d
 
-# Terminal 2 — Backend
+# Terminal 2 - Backend
 cd backend && npm run start:dev
 
-# Terminal 3 — Frontend
+# Terminal 3 - Frontend
 cd frontend && npm run dev
 ```
 
@@ -332,12 +332,12 @@ O backend precisa estar rodando ao menos uma vez para o TypeORM criar as tabelas
 
 ## Referências
 
-- [Node.js — Downloads](https://nodejs.org/en/download)
-- [nvm — Node Version Manager](https://github.com/nvm-sh/nvm)
-- [Docker Desktop — Windows](https://docs.docker.com/desktop/install/windows-install/)
-- [Docker Engine — Ubuntu](https://docs.docker.com/engine/install/ubuntu/)
-- [Docker Compose — Getting Started](https://docs.docker.com/compose/gettingstarted/)
-- [NestJS — Installation](https://docs.nestjs.com/first-steps)
-- [Next.js — Installation](https://nextjs.org/docs/getting-started/installation)
-- [Adminer — Documentação](https://www.adminer.org/)
-- [DBeaver — Download](https://dbeaver.io/download/)
+- [Node.js - Downloads](https://nodejs.org/en/download)
+- [nvm - Node Version Manager](https://github.com/nvm-sh/nvm)
+- [Docker Desktop - Windows](https://docs.docker.com/desktop/install/windows-install/)
+- [Docker Engine - Ubuntu](https://docs.docker.com/engine/install/ubuntu/)
+- [Docker Compose - Getting Started](https://docs.docker.com/compose/gettingstarted/)
+- [NestJS - Installation](https://docs.nestjs.com/first-steps)
+- [Next.js - Installation](https://nextjs.org/docs/getting-started/installation)
+- [Adminer - Documentação](https://www.adminer.org/)
+- [DBeaver - Download](https://dbeaver.io/download/)
