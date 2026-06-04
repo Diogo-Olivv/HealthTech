@@ -2,6 +2,8 @@ import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './entities/user.entity';
+import { Paciente } from './entities/paciente.entity';
+import { Medico } from './entities/medico.entity';
 import { UsersModule } from './users/users.module';
 
 @Module({
@@ -21,7 +23,7 @@ import { UsersModule } from './users/users.module';
           username: config.get('DB_USER', 'postgres'),
           password: config.get('DB_PASSWORD', 'postgres'),
           database: config.get('DB_NAME', 'healthtech'),
-          entities: [User],
+          entities: [User, Paciente, Medico],
           synchronize: config.get('NODE_ENV') !== 'production',
           logging: true,
         };
