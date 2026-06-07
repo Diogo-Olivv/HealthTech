@@ -9,10 +9,10 @@
       
       
       
-        <link rel="prev" href="../identidade_visual/">
+        <link rel="prev" href="../../padroes/template_PR/">
       
       
-        <link rel="next" href="../setup/">
+        <link rel="next" href="../modelagem_usuarios/">
       
       
         
@@ -23,7 +23,7 @@
     
     
       
-        <title>Modelagem de Usuários - AILAB - HealthTech</title>
+        <title>Documento de Identidade Visual para Site - AILAB - HealthTech</title>
       
     
     
@@ -64,7 +64,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#modelagem-de-usuarios" class="md-skip">
+        <a href="#documento-de-identidade-visual-para-site" class="md-skip">
           Skip to content
         </a>
       
@@ -98,7 +98,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Modelagem de Usuários
+              Documento de Identidade Visual para Site
             
           </span>
         </div>
@@ -2125,88 +2125,87 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#abordagem-escolhida-tabela-base-tabelas-filhas-11" class="md-nav__link">
+  <a href="#1-visao-geral-do-projeto" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Abordagem Escolhida: Tabela base + tabelas filhas (1:1)
+        1. Visão Geral do Projeto
       
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="Abordagem Escolhida: Tabela base + tabelas filhas (1:1)">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#justificativas" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Justificativas
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#estrutura-de-atributos" class="md-nav__link">
+  <a href="#2-logo" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Estrutura de Atributos
+        2. Logo
       
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="Estrutura de Atributos">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#users-tabela-base" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        users (tabela base)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#pacientes-tabela-filha" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        pacientes (tabela filha)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#medicos-tabela-filha" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        medicos (tabela filha)
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#diagrama-entidade-relacionamento" class="md-nav__link">
+  <a href="#3-imagens" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Diagrama Entidade-Relacionamento
+        3. Imagens
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-cores" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Cores
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-tipografia" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Tipografia
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-tamanhos-e-espacamentos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Tamanhos e Espaçamentos
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-aplicacoes-no-site" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Aplicações no Site
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-observacoes-finais" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Observações Finais
       
     </span>
   </a>
@@ -2233,147 +2232,80 @@
   
 
 
-<h1 id="modelagem-de-usuarios">Modelagem de Usuários</h1>
-<h2 id="abordagem-escolhida-tabela-base-tabelas-filhas-11">Abordagem Escolhida: Tabela base + tabelas filhas (1:1)</h2>
-<p>Todos os usuários compartilham uma tabela central <code>users</code> para autenticação e dados comuns. Cada usuário possui uma relação 1:1 com a tabela específica do seu perfil (<code>pacientes</code> ou <code>medicos</code>).</p>
-<h3 id="justificativas">Justificativas</h3>
+<h1 id="documento-de-identidade-visual-para-site">Documento de Identidade Visual para Site</h1>
+<h2 id="1-visao-geral-do-projeto">1. Visão Geral do Projeto</h2>
 <ul>
-<li><strong>Unicidade de e-mail garantida pelo banco:</strong> a constraint <code>UNIQUE</code> em <code>users.email</code> impede nativamente colisões entre médicos e pacientes.</li>
-<li><strong>Login simples:</strong> o endpoint <code>/users/login</code> consulta apenas <code>users</code> para validar credenciais e identificar o tipo de perfil via coluna <code>tipo</code>.</li>
-<li><strong>JWT centralizado:</strong> um único UUID por usuário facilita autorização via Guards no NestJS.</li>
-<li><strong>Sem duplicação de lógica:</strong> autenticação, hash de senha e geração de token ficam em um único serviço.</li>
+<li>Propósito do site: ______</li>
+<li>Público-alvo: ______</li>
+<li>Estilo desejado: ______</li>
+<li>Tom de voz: ______</li>
 </ul>
-<hr />
-<h2 id="estrutura-de-atributos">Estrutura de Atributos</h2>
-<h3 id="users-tabela-base"><code>users</code> (tabela base)</h3>
-<table>
-<thead>
-<tr>
-<th>Coluna</th>
-<th>Tipo</th>
-<th>Restrição</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>id</code></td>
-<td>UUID</td>
-<td>PK</td>
-</tr>
-<tr>
-<td><code>email</code></td>
-<td>String</td>
-<td>UNIQUE</td>
-</tr>
-<tr>
-<td><code>passwordHash</code></td>
-<td>String</td>
-<td></td>
-</tr>
-<tr>
-<td><code>name</code></td>
-<td>String</td>
-<td></td>
-</tr>
-<tr>
-<td><code>tipo</code></td>
-<td>Enum</td>
-<td>PACIENTE | MEDICO</td>
-</tr>
-<tr>
-<td><code>createdAt</code></td>
-<td>Timestamp</td>
-<td>auto</td>
-</tr>
-<tr>
-<td><code>updatedAt</code></td>
-<td>Timestamp</td>
-<td>auto</td>
-</tr>
-</tbody>
-</table>
-<h3 id="pacientes-tabela-filha"><code>pacientes</code> (tabela filha)</h3>
-<table>
-<thead>
-<tr>
-<th>Coluna</th>
-<th>Tipo</th>
-<th>Restrição</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>userId</code></td>
-<td>UUID</td>
-<td>PK + FK → users</td>
-</tr>
-<tr>
-<td><code>cpf</code></td>
-<td>String</td>
-<td>UNIQUE</td>
-</tr>
-<tr>
-<td><code>dataNascimento</code></td>
-<td>Date</td>
-<td></td>
-</tr>
-</tbody>
-</table>
-<h3 id="medicos-tabela-filha"><code>medicos</code> (tabela filha)</h3>
-<table>
-<thead>
-<tr>
-<th>Coluna</th>
-<th>Tipo</th>
-<th>Restrição</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>userId</code></td>
-<td>UUID</td>
-<td>PK + FK → users</td>
-</tr>
-<tr>
-<td><code>crm</code></td>
-<td>String</td>
-<td>UNIQUE</td>
-</tr>
-<tr>
-<td><code>especialidade</code></td>
-<td>String</td>
-<td></td>
-</tr>
-</tbody>
-</table>
-<hr />
-<h2 id="diagrama-entidade-relacionamento">Diagrama Entidade-Relacionamento</h2>
-<pre><code class="language-mermaid">erDiagram
-    users ||--o| pacientes : &quot;&quot;
-    users ||--o| medicos : &quot;&quot;
-
-    users {
-        uuid id PK
-        string email UK
-        string passwordHash
-        string name
-        enum tipo &quot;PACIENTE | MEDICO&quot;
-        timestamp createdAt
-        timestamp updatedAt
-    }
-
-    pacientes {
-        uuid userId PK, FK
-        string cpf UK
-        date dataNascimento
-    }
-
-    medicos {
-        uuid userId PK, FK
-        string crm UK
-        string especialidade
-    }
-</code></pre>
+<h2 id="2-logo">2. Logo</h2>
+<ul>
+<li>Descrição do logo: ______</li>
+<li>Conceito e significado: ______</li>
+<li>Versão principal: ______</li>
+<li>Versão secundária / ícone: ______</li>
+<li>Usos recomendados: ______</li>
+<li>Espaçamento mínimo ao redor do logo: ______</li>
+</ul>
+<h2 id="3-imagens">3. Imagens</h2>
+<ul>
+<li>Estilo visual das imagens: ______</li>
+<li>Tipos de imagens a utilizar (fotos, ilustrações, ícones): ______</li>
+<li>Tratamento de imagens (filtros, saturação, contraste): ______</li>
+<li>Exemplo de imagens permitidas: ______</li>
+<li>Imagens a evitar: ______</li>
+</ul>
+<h2 id="4-cores">4. Cores</h2>
+<ul>
+<li>Cor principal: ______</li>
+<li>Cor secundária: ______</li>
+<li>Cor de destaque/acento: ______</li>
+<li>Cor de fundo: ______</li>
+<li>Cor de texto principal: ______</li>
+<li>Cor de texto secundário: ______</li>
+<li>Paleta adicional: ______</li>
+</ul>
+<h2 id="5-tipografia">5. Tipografia</h2>
+<ul>
+<li>Fonte principal (títulos): ______</li>
+<li>Fonte secundária (corpo de texto): ______</li>
+<li>Fonte alternativa (botões/legendas): ______</li>
+<li>Hierarquia tipográfica:</li>
+<li>H1: ______</li>
+<li>H2: ______</li>
+<li>H3: ______</li>
+<li>Corpo: ______</li>
+<li>Legenda: ______</li>
+</ul>
+<h2 id="6-tamanhos-e-espacamentos">6. Tamanhos e Espaçamentos</h2>
+<ul>
+<li>Tamanho dos títulos:</li>
+<li>H1: ______</li>
+<li>H2: ______</li>
+<li>H3: ______</li>
+<li>Tamanho do corpo de texto: ______</li>
+<li>Altura de linha padrão: ______</li>
+<li>Espaçamento entre seções: ______</li>
+<li>Margens e padding principais: ______</li>
+<li>Tamanho de botões: ______</li>
+<li>Tamanho de ícones: ______</li>
+</ul>
+<h2 id="7-aplicacoes-no-site">7. Aplicações no Site</h2>
+<ul>
+<li>Homepage: ______</li>
+<li>Página de contato: ______</li>
+<li>Página de serviços/produtos: ______</li>
+<li>Formulários: ______</li>
+<li>Rodapé: ______</li>
+</ul>
+<h2 id="8-observacoes-finais">8. Observações Finais</h2>
+<ul>
+<li>Regras de uso da identidade visual: ______</li>
+<li>Elementos a evitar: ______</li>
+<li>Referências de inspiração: ______</li>
+</ul>
 
 
 
