@@ -10,7 +10,8 @@ import {
 } from '@nestjs/common';
 import type { Request } from 'express';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
-import { CreateUserDto } from './dto/create-user.dto';
+import { CreatePacienteDto } from './dto/create-paciente.dto';
+import { CreateMedicoDto } from './dto/create-medico.dto';
 import { LoginUserDto } from './dto/login-user.dto';
 import { UsersService } from './users.service';
 
@@ -18,10 +19,16 @@ import { UsersService } from './users.service';
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
-  @Post('register')
+  @Post('pacientes')
   @HttpCode(HttpStatus.CREATED)
-  register(@Body() dto: CreateUserDto) {
-    return this.usersService.create(dto);
+  createPaciente(@Body() dto: CreatePacienteDto) {
+    return this.usersService.createPaciente(dto);
+  }
+
+  @Post('medicos')
+  @HttpCode(HttpStatus.CREATED)
+  createMedico(@Body() dto: CreateMedicoDto) {
+    return this.usersService.createMedico(dto);
   }
 
   @Post('login')
