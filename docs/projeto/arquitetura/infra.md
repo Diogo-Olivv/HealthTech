@@ -3,6 +3,7 @@
 > **Status:** Proposta para aprovação do time
 > **Plataforma:** Google Cloud Platform (GCP)
 > **Modelo:** SaaS
+> **Projeto GCP:** [health-tech-ai-lab](https://console.cloud.google.com/welcome?hl=en&project=health-tech-ai-lab) Só funciona para quem já tem acesso ao projeto
 
 ---
 
