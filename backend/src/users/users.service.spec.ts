@@ -1,4 +1,4 @@
-import { ConflictException, BadRequestException } from '@nestjs/common';
+import { ConflictException } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { JwtService } from '@nestjs/jwt';
@@ -14,23 +14,24 @@ import { UsersService } from './users.service';
 import { User, UserType } from '../entities/user.entity';
 import { Paciente } from '../entities/paciente.entity';
 import { Medico } from '../entities/medico.entity';
-import { CreateUserDto } from './dto/create-user.dto';
+import { CreatePacienteDto } from './dto/create-paciente.dto';
+import { CreateMedicoDto } from './dto/create-medico.dto';
 
-const makePacienteDto = (overrides: Partial<CreateUserDto> = {}): CreateUserDto => ({
+const makePacienteDto = (overrides: Partial<CreatePacienteDto> = {}): CreatePacienteDto => ({
   name: 'João Paciente',
   email: 'joao@email.com',
   password: 'senha123',
-  tipo: UserType.PACIENTE,
-  paciente: { cpf: '123.456.789-00', dataNascimento: new Date('1990-05-15') },
+  cpf: '123.456.789-00',
+  dataNascimento: new Date('1990-05-15'),
   ...overrides,
 });
 
-const makeMedicoDto = (overrides: Partial<CreateUserDto> = {}): CreateUserDto => ({
+const makeMedicoDto = (overrides: Partial<CreateMedicoDto> = {}): CreateMedicoDto => ({
   name: 'Dra. Ana Médica',
   email: 'ana@email.com',
   password: 'senha123',
-  tipo: UserType.MEDICO,
-  medico: { crm: 'CRM/SP 123456', especialidade: 'Cardiologia' },
+  crm: 'CRM/SP 123456',
+  especialidade: 'Cardiologia',
   ...overrides,
 });
 
@@ -72,7 +73,7 @@ describe('UsersService', () => {
     service = module.get<UsersService>(UsersService);
   });
 
-  describe('create()', () => {
+  describe('createPaciente()', () => {
     it('deve armazenar a senha como hash bcrypt, nunca em texto puro', async () => {
       mockUserRepo.findOneBy.mockResolvedValue(null);
       mockPacienteRepo.findOneBy.mockResolvedValue(null);
@@ -80,7 +81,7 @@ describe('UsersService', () => {
       mockEntityManager.save.mockResolvedValueOnce(savedUser);
       mockEntityManager.save.mockResolvedValueOnce({});
 
-      await service.create(makePacienteDto());
+      await service.createPaciente(makePacienteDto());
 
       expect(bcrypt.hash).toHaveBeenCalledWith('senha123', 10);
       const userCreatedWith = mockEntityManager.create.mock.calls[0][1] as Record<string, unknown>;
@@ -95,63 +96,47 @@ describe('UsersService', () => {
       mockEntityManager.save.mockResolvedValueOnce(savedUser);
       mockEntityManager.save.mockResolvedValueOnce({});
 
-      const result = await service.create(makePacienteDto());
+      const result = await service.createPaciente(makePacienteDto());
 
       expect(result).toEqual({ id: 'uuid-1', email: 'joao@email.com', name: 'João', tipo: UserType.PACIENTE });
       expect(result).not.toHaveProperty('passwordHash');
     });
 
-    describe('cadastro de PACIENTE', () => {
-      it('deve lançar ConflictException se o e-mail já existir', async () => {
-        mockUserRepo.findOneBy.mockResolvedValue({ id: 'existing' });
-        await expect(service.create(makePacienteDto())).rejects.toThrow(ConflictException);
-      });
-
-      it('deve lançar ConflictException se o CPF já existir', async () => {
-        mockUserRepo.findOneBy.mockResolvedValue(null);
-        mockPacienteRepo.findOneBy.mockResolvedValue({ userId: 'other' });
-        await expect(service.create(makePacienteDto())).rejects.toThrow(ConflictException);
-      });
-
-      it('deve lançar BadRequestException se tipo=PACIENTE mas paciente não for fornecido', async () => {
-        mockUserRepo.findOneBy.mockResolvedValue(null);
-        const dto = makePacienteDto();
-        delete dto.paciente;
-        await expect(service.create(dto)).rejects.toThrow(BadRequestException);
-      });
+    it('deve lançar ConflictException se o e-mail já existir', async () => {
+      mockUserRepo.findOneBy.mockResolvedValue({ id: 'existing' });
+      await expect(service.createPaciente(makePacienteDto())).rejects.toThrow(ConflictException);
     });
 
-    describe('cadastro de MEDICO', () => {
-      it('deve lançar ConflictException se o e-mail já existir', async () => {
-        mockUserRepo.findOneBy.mockResolvedValue({ id: 'existing' });
-        await expect(service.create(makeMedicoDto())).rejects.toThrow(ConflictException);
-      });
+    it('deve lançar ConflictException se o CPF já existir', async () => {
+      mockUserRepo.findOneBy.mockResolvedValue(null);
+      mockPacienteRepo.findOneBy.mockResolvedValue({ userId: 'other' });
+      await expect(service.createPaciente(makePacienteDto())).rejects.toThrow(ConflictException);
+    });
+  });
 
-      it('deve lançar ConflictException se o CRM já existir', async () => {
-        mockUserRepo.findOneBy.mockResolvedValue(null);
-        mockMedicoRepo.findOneBy.mockResolvedValue({ userId: 'other' });
-        await expect(service.create(makeMedicoDto())).rejects.toThrow(ConflictException);
-      });
+  describe('createMedico()', () => {
+    it('deve armazenar senha como hash e retornar dados sem passwordHash', async () => {
+      mockUserRepo.findOneBy.mockResolvedValue(null);
+      mockMedicoRepo.findOneBy.mockResolvedValue(null);
+      const savedUser = { id: 'uuid-2', email: 'ana@email.com', name: 'Dra. Ana', tipo: UserType.MEDICO };
+      mockEntityManager.save.mockResolvedValueOnce(savedUser);
+      mockEntityManager.save.mockResolvedValueOnce({});
 
-      it('deve lançar BadRequestException se tipo=MEDICO mas medico não for fornecido', async () => {
-        mockUserRepo.findOneBy.mockResolvedValue(null);
-        const dto = makeMedicoDto();
-        delete dto.medico;
-        await expect(service.create(dto)).rejects.toThrow(BadRequestException);
-      });
+      const result = await service.createMedico(makeMedicoDto());
 
-      it('deve armazenar senha como hash e retornar dados sem passwordHash', async () => {
-        mockUserRepo.findOneBy.mockResolvedValue(null);
-        mockMedicoRepo.findOneBy.mockResolvedValue(null);
-        const savedUser = { id: 'uuid-2', email: 'ana@email.com', name: 'Dra. Ana', tipo: UserType.MEDICO };
-        mockEntityManager.save.mockResolvedValueOnce(savedUser);
-        mockEntityManager.save.mockResolvedValueOnce({});
+      expect(result).toEqual({ id: 'uuid-2', email: 'ana@email.com', name: 'Dra. Ana', tipo: UserType.MEDICO });
+      expect(result).not.toHaveProperty('passwordHash');
+    });
 
-        const result = await service.create(makeMedicoDto());
+    it('deve lançar ConflictException se o e-mail já existir', async () => {
+      mockUserRepo.findOneBy.mockResolvedValue({ id: 'existing' });
+      await expect(service.createMedico(makeMedicoDto())).rejects.toThrow(ConflictException);
+    });
 
-        expect(result).toEqual({ id: 'uuid-2', email: 'ana@email.com', name: 'Dra. Ana', tipo: UserType.MEDICO });
-        expect(result).not.toHaveProperty('passwordHash');
-      });
+    it('deve lançar ConflictException se o CRM já existir', async () => {
+      mockUserRepo.findOneBy.mockResolvedValue(null);
+      mockMedicoRepo.findOneBy.mockResolvedValue({ userId: 'other' });
+      await expect(service.createMedico(makeMedicoDto())).rejects.toThrow(ConflictException);
     });
   });
 });
