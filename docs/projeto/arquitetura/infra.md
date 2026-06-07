@@ -3,7 +3,6 @@
 > **Status:** Proposta para aprovação do time
 > **Plataforma:** Google Cloud Platform (GCP)
 > **Modelo:** SaaS
-> **Issue de referência:** 
 
 ---
 
