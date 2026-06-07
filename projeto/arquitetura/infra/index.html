@@ -9,10 +9,10 @@
       
       
       
-        <link rel="prev" href="../frontend/">
+        <link rel="prev" href="../banco-de-dados/">
       
       
-        <link rel="next" href="../../backlog/">
+        <link rel="next" href="../../tecnologias/">
       
       
         
@@ -23,7 +23,7 @@
     
     
       
-        <title>Arquitetura de Infraestrutura — MVP HealthTech - AILAB - HealthTech</title>
+        <title>Infraestrutura - AILAB - HealthTech</title>
       
     
     
@@ -98,7 +98,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Arquitetura de Infraestrutura — MVP HealthTech
+              Infraestrutura
             
           </span>
         </div>
@@ -489,6 +489,8 @@
       
         
       
+        
+      
     
     
     
@@ -620,6 +622,230 @@
   
 
       </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Infraestrutura
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Infraestrutura
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-visao-geral" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Visão Geral
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-componentes-da-arquitetura" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Componentes da Arquitetura
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Componentes da Arquitetura">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-hospedagem-cloud-run" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 Hospedagem — Cloud Run
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-banco-de-dados-cloud-sql-postgresql" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 Banco de Dados — Cloud SQL (PostgreSQL)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-armazenamento-de-arquivos-google-cloud-storage-gcs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3 Armazenamento de Arquivos — Google Cloud Storage (GCS)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24-autenticacao-firebase-authentication" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4 Autenticação — Firebase Authentication
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#25-gerenciamento-de-segredos-secret-manager" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.5 Gerenciamento de Segredos — Secret Manager
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#26-cicd-github-actions-cloud-build" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.6 CI/CD — GitHub Actions + Cloud Build
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#27-monitoramento-cloud-monitoring-cloud-logging" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.7 Monitoramento — Cloud Monitoring + Cloud Logging
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-diagrama-da-arquitetura" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Diagrama da Arquitetura
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-decisoes-tecnicas-sumario" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Decisões Técnicas — Sumário
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-conformidade-e-seguranca" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Conformidade e Segurança
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-referencias" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Referências
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
