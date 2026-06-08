@@ -1,7 +1,9 @@
 nav:
-  - Home: index.md
-  - Projeto: projeto
-  - Padrões de Trabalho: padroes
-  - Rotatividade de Duplas: rotacoes
-  - Atas & Checklists: atas_e_checklists
-  - Cronograma: cronograma_fase2.md
+
+- Home: index.md
+- Arquitetura: arquitetura
+- Projeto: projeto
+- Gestão do Projeto: gestao
+- Padrões de Trabalho: padroes
+- Cronograma: cronograma_fase2.md
+- ...

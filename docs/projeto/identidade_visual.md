@@ -1,66 +1,74 @@
-# Documento de Identidade Visual para Site
+# Identidade Visual do Site
 
 ## 1. Visão Geral do Projeto
-- Propósito do site: ______
-- Público-alvo: ______
-- Estilo desejado: ______
-- Tom de voz: ______
+
+- Propósito do site: **\_\_**
+- Público-alvo: **\_\_**
+- Estilo desejado: **\_\_**
+- Tom de voz: **\_\_**
 
 ## 2. Logo
-- Descrição do logo: ______
-- Conceito e significado: ______
-- Versão principal: ______
-- Versão secundária / ícone: ______
-- Usos recomendados: ______
-- Espaçamento mínimo ao redor do logo: ______
+
+- Descrição do logo: **\_\_**
+- Conceito e significado: **\_\_**
+- Versão principal: **\_\_**
+- Versão secundária / ícone: **\_\_**
+- Usos recomendados: **\_\_**
+- Espaçamento mínimo ao redor do logo: **\_\_**
 
 ## 3. Imagens
-- Estilo visual das imagens: ______
-- Tipos de imagens a utilizar (fotos, ilustrações, ícones): ______
-- Tratamento de imagens (filtros, saturação, contraste): ______
-- Exemplo de imagens permitidas: ______
-- Imagens a evitar: ______
+
+- Estilo visual das imagens: **\_\_**
+- Tipos de imagens a utilizar (fotos, ilustrações, ícones): **\_\_**
+- Tratamento de imagens (filtros, saturação, contraste): **\_\_**
+- Exemplo de imagens permitidas: **\_\_**
+- Imagens a evitar: **\_\_**
 
 ## 4. Cores
-- Cor principal: ______
-- Cor secundária: ______
-- Cor de destaque/acento: ______
-- Cor de fundo: ______
-- Cor de texto principal: ______
-- Cor de texto secundário: ______
-- Paleta adicional: ______
+
+- Cor principal: **\_\_**
+- Cor secundária: **\_\_**
+- Cor de destaque/acento: **\_\_**
+- Cor de fundo: **\_\_**
+- Cor de texto principal: **\_\_**
+- Cor de texto secundário: **\_\_**
+- Paleta adicional: **\_\_**
 
 ## 5. Tipografia
-- Fonte principal (títulos): ______
-- Fonte secundária (corpo de texto): ______
-- Fonte alternativa (botões/legendas): ______
+
+- Fonte principal (títulos): **\_\_**
+- Fonte secundária (corpo de texto): **\_\_**
+- Fonte alternativa (botões/legendas): **\_\_**
 - Hierarquia tipográfica:
-  - H1: ______
-  - H2: ______
-  - H3: ______
-  - Corpo: ______
-  - Legenda: ______
+  - H1: **\_\_**
+  - H2: **\_\_**
+  - H3: **\_\_**
+  - Corpo: **\_\_**
+  - Legenda: **\_\_**
 
 ## 6. Tamanhos e Espaçamentos
+
 - Tamanho dos títulos:
-  - H1: ______
-  - H2: ______
-  - H3: ______
-- Tamanho do corpo de texto: ______
-- Altura de linha padrão: ______
-- Espaçamento entre seções: ______
-- Margens e padding principais: ______
-- Tamanho de botões: ______
-- Tamanho de ícones: ______
+  - H1: **\_\_**
+  - H2: **\_\_**
+  - H3: **\_\_**
+- Tamanho do corpo de texto: **\_\_**
+- Altura de linha padrão: **\_\_**
+- Espaçamento entre seções: **\_\_**
+- Margens e padding principais: **\_\_**
+- Tamanho de botões: **\_\_**
+- Tamanho de ícones: **\_\_**
 
 ## 7. Aplicações no Site
-- Homepage: ______
-- Página de contato: ______
-- Página de serviços/produtos: ______
-- Formulários: ______
-- Rodapé: ______
+
+- Homepage: **\_\_**
+- Página de contato: **\_\_**
+- Página de serviços/produtos: **\_\_**
+- Formulários: **\_\_**
+- Rodapé: **\_\_**
 
 ## 8. Observações Finais
-- Regras de uso da identidade visual: ______
-- Elementos a evitar: ______
-- Referências de inspiração: ______
+
+- Regras de uso da identidade visual: **\_\_**
+- Elementos a evitar: **\_\_**
+- Referências de inspiração: **\_\_**

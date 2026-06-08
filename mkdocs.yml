@@ -8,6 +8,9 @@ theme:
     - navigation.indexes
     - search.suggest
 
+extra_css:
+  - assets/stylesheets/extra.css
+
 plugins:
   - search
   - awesome-pages

@@ -20,16 +20,36 @@ A aplicação é tratada como MVP comercial (SaaS) com os seguintes requisitos o
 
 ## 2. Equipe
 
-6 integrantes divididos em dois perfis com responsabilidades distintas:
+6 integrantes sem papel fixo. A cada semana, cada pessoa escolhe as issues que vai desenvolver e registra suas contribuições via commits e PRs vinculados à issue correspondente.
 
-| Perfil         | Foco principal                                                     |
-| -------------- | ------------------------------------------------------------------ |
-| **Júnior (3)** | Backend & Frontend - com exposição gradual a DevOps e Documentação |
-| **Sênior (3)** | DevOps & Cloud, Documentação & Logs e Guia Técnico dos Júniors     |
+<div class="team-grid">
+  <a class="team-member" href="https://github.com/Diogo-Olivv" target="_blank" rel="noopener">
+    <img src="https://github.com/Diogo-Olivv.png?size=200" alt="Diogo" />
+    <span>Diogo</span>
+  </a>
+  <a class="team-member" href="https://github.com/HugoRosa29" target="_blank" rel="noopener">
+    <img src="https://github.com/HugoRosa29.png?size=200" alt="Hugo" />
+    <span>Hugo</span>
+  </a>
+  <a class="team-member" href="https://github.com/MartinQMelo" target="_blank" rel="noopener">
+    <img src="https://github.com/MartinQMelo.png?size=200" alt="Martin" />
+    <span>Martin</span>
+  </a>
+  <a class="team-member" href="https://github.com/lucaspaulaleal" target="_blank" rel="noopener">
+    <img src="https://github.com/lucaspaulaleal.png?size=200" alt="Lucas" />
+    <span>Lucas</span>
+  </a>
+  <a class="team-member" href="https://github.com/LuizaCarvalho691" target="_blank" rel="noopener">
+    <img src="https://github.com/LuizaCarvalho691.png?size=200" alt="Luíza" />
+    <span>Luíza</span>
+  </a>
+  <a class="team-member" href="https://github.com/Gabrielxcx" target="_blank" rel="noopener">
+    <img src="https://github.com/Gabrielxcx.png?size=200" alt="Gabriel" />
+    <span>Gabriel</span>
+  </a>
+</div>
 
-A rotação das duplas ocorre a cada 2 semanas, em 3 ciclos (Semanas 8-13). Cada dupla é formada por 1 Sênior + 1 Júnior.
-
-> Papéis detalhados, nomes e cronograma de rotação em [Rotatividade de Duplas](rotacoes/index.md)
+> A rastreabilidade das contribuições individuais é feita pelo histórico de commits e PRs — não por papéis predefinidos.
 
 ---
 
@@ -58,10 +78,11 @@ A documentação é mantida via MkDocs com tema Material, hospedada no GitHub Pa
 
 **Fluxo por feature (Fase 2):**
 
-1. Júnior abre branch seguindo os [padrões de Git](padroes/git.md)
-2. Implementa com pair programming (opcional) com o Sênior
-3. Abre PR, o Sênior revisa e faz o merge na `main`
-4. Júnior atualiza a documentação da feature no MkDocs
+1. Integrante escolhe ou cria a issue que vai trabalhar na semana
+2. Abre branch seguindo os [padrões de Git](padroes/git.md)
+3. Implementa (pair programming com outro integrante é opcional)
+4. Abre PR, outro integrante revisa e faz o merge na `main`
+5. Atualiza a documentação da feature no MkDocs
 
 **Dedicação esperada:** 10h semanais por integrante.
 
@@ -72,8 +93,7 @@ A documentação é mantida via MkDocs com tema Material, hospedada no GitHub Pa
 - **Sprint semanal:** Backlog priorizado com duração de 1 semana
 - **2 reuniões na semana:** Registrar cada reunião seguindo um padrão de [ata](atas_e_checklists/atas_reuniao/template_ata.md) na documentação.
 - **Retrospectiva (A ser definida):** 15 min (o que funcionou / impedimentos / próximas tarefas)
-- **Relatório STAR:** ao fim de cada ciclo de 2 semanas ([ver template](rotacoes/template_relatorio.md))
-- **Checklist Semana do Integrante:** [Checklist Template](atas_e_checklists/checklist_semanal/template.md)
+- **Entrega semanal:** ao fim de cada semana o grupo preenche o [Formulário de Entrega](atas_e_checklists/checklist_semanal/template.md) e cada integrante preenche o [Formulário Individual](atas_e_checklists/checklist_semanal/form_individual.md)
 
 ---
 
