@@ -53,7 +53,7 @@ Guia de aprendizado das tecnologias do projeto, organizado por área.
 ## Referências
 
 - [Tecnologias do Projeto](../tecnologias/index.md): stack oficial e justificativas
-- [Arquitetura do Projeto](../arquitetura/index.md): como as camadas se conectam
+- [Arquitetura do Projeto](../../arquitetura/index.md): como as camadas se conectam
 - [Setup Inicial](../setup.md): como rodar tudo localmente
 - [Padrões de Código](../../padroes/codigo.md): o que esperamos de cada PR
 - [roadmap.sh](https://roadmap.sh/): mapa visual oficial de carreiras tech

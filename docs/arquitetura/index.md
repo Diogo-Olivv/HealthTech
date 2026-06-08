@@ -19,7 +19,7 @@ HealthTech/
 
 O sistema é dividido em três camadas independentes que se comunicam de forma bidirecional. O diagrama abaixo mostra o fluxo completo de uma requisição, desde a interface do usuário até a persistência no banco de dados, incluindo a ramificação entre ambiente de desenvolvimento (Docker local) e produção (Google Cloud).
 
-![Arquitetura do projeto](../../assets/diagramas/arquitetura.jpg)
+![Arquitetura do projeto](../assets/diagramas/arquitetura.jpg)
 
 > **Figura 1** - Fluxo de dados e infraestrutura do projeto.
 

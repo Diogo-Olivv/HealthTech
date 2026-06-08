@@ -91,9 +91,9 @@ A documentação é mantida via MkDocs com tema Material, hospedada no GitHub Pa
 ## 5. Metodologia de Desenvolvimento - Scrum Adaptado
 
 - **Sprint semanal:** Backlog priorizado com duração de 1 semana
-- **2 reuniões na semana:** Registrar cada reunião seguindo um padrão de [ata](atas_e_checklists/atas_reuniao/template_ata.md) na documentação.
+- **2 reuniões na semana:** Registrar cada reunião seguindo um padrão de [ata](gestao/atas_reuniao/template_ata.md) na documentação.
 - **Retrospectiva (A ser definida):** 15 min (o que funcionou / impedimentos / próximas tarefas)
-- **Entrega semanal:** ao fim de cada semana o grupo preenche o [Formulário de Entrega](atas_e_checklists/checklist_semanal/template.md) e cada integrante preenche o [Formulário Individual](atas_e_checklists/checklist_semanal/form_individual.md)
+- **Entrega semanal:** ao fim de cada semana o grupo preenche o [Formulário de Entrega](gestao/entrega_semanal/entrega_template.md)
 
 ---
 
