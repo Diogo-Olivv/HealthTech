@@ -9,10 +9,10 @@
       
       
       
-        <link rel="prev" href="../tecnologias/testes/">
+        <link rel="prev" href="../banco-de-dados/">
       
       
-        <link rel="next" href="frontend/">
+        <link rel="next" href="../../projeto/tecnologias/">
       
       
         
@@ -23,7 +23,7 @@
     
     
       
-        <title>Visão Geral - AILAB - HealthTech</title>
+        <title>Infraestrutura - AILAB - HealthTech</title>
       
     
     
@@ -66,7 +66,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#roadmap-tecnico" class="md-skip">
+        <a href="#arquitetura-de-infraestrutura-mvp-healthtech" class="md-skip">
           Skip to content
         </a>
       
@@ -100,7 +100,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Visão Geral
+              Infraestrutura
             
           </span>
         </div>
@@ -204,11 +204,13 @@
   
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
-        <a href="../../arquitetura/" class="md-tabs__link">
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
           
   
   
@@ -226,8 +228,6 @@
   
   
   
-    
-  
   
     
     
@@ -235,13 +235,11 @@
   
   
   
-    
-  
   
     
     
-      <li class="md-tabs__item md-tabs__item--active">
-        <a href="../tecnologias/" class="md-tabs__link">
+      <li class="md-tabs__item">
+        <a href="../../projeto/tecnologias/" class="md-tabs__link">
           
   
   
@@ -407,6 +405,8 @@
       
   
   
+    
+  
   
   
     
@@ -428,18 +428,21 @@
     
     
       
+        
+        
+      
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../arquitetura/" class="md-nav__link ">
+            <a href="../" class="md-nav__link ">
               
   
   
@@ -457,13 +460,13 @@
             </a>
             
               
-              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="0">
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_2">
             <span class="md-nav__icon md-icon"></span>
             
@@ -483,7 +486,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../arquitetura/frontend/" class="md-nav__link">
+      <a href="../frontend/" class="md-nav__link">
         
   
   
@@ -511,7 +514,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../arquitetura/backend/" class="md-nav__link">
+      <a href="../backend/" class="md-nav__link">
         
   
   
@@ -539,7 +542,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../arquitetura/banco-de-dados/" class="md-nav__link">
+      <a href="../banco-de-dados/" class="md-nav__link">
         
   
   
@@ -564,10 +567,37 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../../arquitetura/infra/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Infraestrutura
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -583,6 +613,175 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-visao-geral" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Visão Geral
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-componentes-da-arquitetura" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Componentes da Arquitetura
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Componentes da Arquitetura">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-hospedagem-cloud-run" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 Hospedagem — Cloud Run
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-banco-de-dados-cloud-sql-postgresql" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 Banco de Dados — Cloud SQL (PostgreSQL)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-armazenamento-de-arquivos-google-cloud-storage-gcs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3 Armazenamento de Arquivos — Google Cloud Storage (GCS)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24-autenticacao-firebase-authentication" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4 Autenticação — Firebase Authentication
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#25-gerenciamento-de-segredos-secret-manager" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.5 Gerenciamento de Segredos — Secret Manager
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#26-cicd-github-actions-cloud-build" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.6 CI/CD — GitHub Actions + Cloud Build
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#27-monitoramento-cloud-monitoring-cloud-logging" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.7 Monitoramento — Cloud Monitoring + Cloud Logging
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-diagrama-da-arquitetura" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Diagrama da Arquitetura
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-decisoes-tecnicas-sumario" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Decisões Técnicas — Sumário
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-conformidade-e-seguranca" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Conformidade e Segurança
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-referencias" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Referências
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -599,10 +798,8 @@
       
   
   
-    
   
   
-  
     
     
       
@@ -618,20 +815,17 @@
     
     
       
-        
-        
-      
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
         
           
-          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
             
   
   
@@ -649,7 +843,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
             
@@ -700,7 +894,7 @@
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../tecnologias/" class="md-nav__link ">
+            <a href="../../projeto/tecnologias/" class="md-nav__link ">
               
   
   
@@ -744,7 +938,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tecnologias/frontend/" class="md-nav__link">
+      <a href="../../projeto/tecnologias/frontend/" class="md-nav__link">
         
   
   
@@ -772,7 +966,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tecnologias/backend/" class="md-nav__link">
+      <a href="../../projeto/tecnologias/backend/" class="md-nav__link">
         
   
   
@@ -800,7 +994,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tecnologias/banco-de-dados/" class="md-nav__link">
+      <a href="../../projeto/tecnologias/banco-de-dados/" class="md-nav__link">
         
   
   
@@ -828,7 +1022,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tecnologias/autenticacao/" class="md-nav__link">
+      <a href="../../projeto/tecnologias/autenticacao/" class="md-nav__link">
         
   
   
@@ -856,7 +1050,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tecnologias/armazenamento/" class="md-nav__link">
+      <a href="../../projeto/tecnologias/armazenamento/" class="md-nav__link">
         
   
   
@@ -884,7 +1078,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tecnologias/testes/" class="md-nav__link">
+      <a href="../../projeto/tecnologias/testes/" class="md-nav__link">
         
   
   
@@ -917,8 +1111,6 @@
                 
   
   
-    
-  
   
   
     
@@ -945,15 +1137,15 @@
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" >
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="./" class="md-nav__link md-nav__link--active">
+            <a href="../../projeto/roadmap/" class="md-nav__link ">
               
   
   
@@ -971,13 +1163,13 @@
             </a>
             
               
-              <label class="md-nav__link md-nav__link--active" for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+              <label class="md-nav__link " for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_3_2">
             <span class="md-nav__icon md-icon"></span>
             
@@ -997,7 +1189,7 @@
   
   
     <li class="md-nav__item">
-      <a href="frontend/" class="md-nav__link">
+      <a href="../../projeto/roadmap/frontend/" class="md-nav__link">
         
   
   
@@ -1025,7 +1217,7 @@
   
   
     <li class="md-nav__item">
-      <a href="backend/" class="md-nav__link">
+      <a href="../../projeto/roadmap/backend/" class="md-nav__link">
         
   
   
@@ -1053,7 +1245,7 @@
   
   
     <li class="md-nav__item">
-      <a href="banco-de-dados/" class="md-nav__link">
+      <a href="../../projeto/roadmap/banco-de-dados/" class="md-nav__link">
         
   
   
@@ -1081,7 +1273,7 @@
   
   
     <li class="md-nav__item">
-      <a href="devops/" class="md-nav__link">
+      <a href="../../projeto/roadmap/devops/" class="md-nav__link">
         
   
   
@@ -1109,7 +1301,7 @@
   
   
     <li class="md-nav__item">
-      <a href="testes/" class="md-nav__link">
+      <a href="../../projeto/roadmap/testes/" class="md-nav__link">
         
   
   
@@ -1145,7 +1337,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../setup/" class="md-nav__link">
+      <a href="../../projeto/setup/" class="md-nav__link">
         
   
   
@@ -1173,7 +1365,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../identidade_visual/" class="md-nav__link">
+      <a href="../../projeto/identidade_visual/" class="md-nav__link">
         
   
   
@@ -2084,10 +2276,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#como-usar-este-documento" class="md-nav__link">
+  <a href="#1-visao-geral" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Como usar este documento
+        1. Visão Geral
       
     </span>
   </a>
@@ -2095,44 +2287,88 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#roadmaps-visuais" class="md-nav__link">
+  <a href="#2-componentes-da-arquitetura" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Roadmaps Visuais
+        2. Componentes da Arquitetura
       
     </span>
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#plano-sugerido-por-papel-no-time" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Plano sugerido por papel no time
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#recomendacoes-gerais" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Recomendações Gerais
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Recomendações Gerais">
+    <nav class="md-nav" aria-label="2. Componentes da Arquitetura">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#livros" class="md-nav__link">
+  <a href="#21-hospedagem-cloud-run" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Livros
+        2.1 Hospedagem — Cloud Run
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-banco-de-dados-cloud-sql-postgresql" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 Banco de Dados — Cloud SQL (PostgreSQL)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-armazenamento-de-arquivos-google-cloud-storage-gcs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3 Armazenamento de Arquivos — Google Cloud Storage (GCS)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24-autenticacao-firebase-authentication" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4 Autenticação — Firebase Authentication
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#25-gerenciamento-de-segredos-secret-manager" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.5 Gerenciamento de Segredos — Secret Manager
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#26-cicd-github-actions-cloud-build" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.6 CI/CD — GitHub Actions + Cloud Build
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#27-monitoramento-cloud-monitoring-cloud-logging" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.7 Monitoramento — Cloud Monitoring + Cloud Logging
       
     </span>
   </a>
@@ -2145,10 +2381,43 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#referencias" class="md-nav__link">
+  <a href="#3-diagrama-da-arquitetura" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Referências
+        3. Diagrama da Arquitetura
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-decisoes-tecnicas-sumario" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Decisões Técnicas — Sumário
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-conformidade-e-seguranca" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Conformidade e Segurança
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-referencias" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Referências
       
     </span>
   </a>
@@ -2175,85 +2444,512 @@
   
 
 
-<h1 id="roadmap-tecnico">Roadmap Técnico</h1>
-<p>Guia de aprendizado das tecnologias do projeto, organizado por área.</p>
+<h1 id="arquitetura-de-infraestrutura-mvp-healthtech">Arquitetura de Infraestrutura — MVP HealthTech</h1>
 <blockquote>
-<p>Este roadmap referencia a stack definida em <a href="../tecnologias/">Tecnologias do Projeto</a>. A seção de Tecnologias explica <strong>o que</strong> usamos e <strong>por que</strong>.</p>
+<p><strong>Status:</strong> Proposta para aprovação do time
+<strong>Plataforma:</strong> Google Cloud Platform (GCP)
+<strong>Modelo:</strong> SaaS
+<strong>Projeto GCP:</strong> <a href="https://console.cloud.google.com/welcome?hl=en&amp;project=health-tech-ai-lab">health-tech-ai-lab</a> Só funciona para quem já tem acesso ao projeto</p>
 </blockquote>
 <hr />
-<h2 id="como-usar-este-documento">Como usar este documento</h2>
-<ol>
-<li><strong>Identifique sua área de foco</strong> (Frontend, Backend, Banco, DevOps ou Testes).</li>
-<li><strong>Comece pelos fundamentos</strong> antes de pular para o framework.</li>
-<li><strong>Pratique enquanto estuda.</strong> Rode pelo menos um exemplo de cada tópico.</li>
-<li><strong>Use o <a href="https://roadmap.sh/">roadmap.sh</a></strong> como mapa visual complementar.</li>
-</ol>
+<h2 id="1-visao-geral">1. Visão Geral</h2>
+<p>O MVP do HealthTech será implantado inteiramente na Google Cloud Platform, utilizando serviços gerenciados para minimizar overhead operacional e permitir que a equipe foque no desenvolvimento do produto. A arquitetura segue o modelo de contêineres sem servidor (<em>serverless containers</em>) com escalabilidade automática.</p>
+<p>A aplicação é uma plataforma SaaS voltada a clínicas de saúde e profissionais autônomos, e todos os dados são tratados como dados sensíveis nos termos da LGPD (Lei 13.709/2018).</p>
 <hr />
-<h2 id="roadmaps-visuais">Roadmaps Visuais</h2>
-<ul>
-<li><a href="https://roadmap.sh/frontend">Frontend</a></li>
-<li><a href="https://roadmap.sh/backend">Backend</a></li>
-<li><a href="https://roadmap.sh/postgresql-dba">Postgresql-dba</a></li>
-<li><a href="https://roadmap.sh/devops">DevOps</a></li>
-<li><a href="https://roadmap.sh/qa">QA</a></li>
-<li><a href="https://roadmap.sh/react">React</a></li>
-<li><a href="https://roadmap.sh/nodejs">Nodejs</a></li>
-</ul>
-<hr />
-<h2 id="plano-sugerido-por-papel-no-time">Plano sugerido por papel no time</h2>
+<h2 id="2-componentes-da-arquitetura">2. Componentes da Arquitetura</h2>
+<h3 id="21-hospedagem-cloud-run">2.1 Hospedagem — Cloud Run</h3>
 <table>
 <thead>
 <tr>
-<th>Papel</th>
-<th>Foco primário</th>
-<th>Foco secundário</th>
+<th>Serviço</th>
+<th>Tecnologia</th>
+<th>Descrição</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Dev Frontend</td>
-<td>HTML/CSS/JS, React, Next.js, Testes</td>
-<td>TypeScript avançado, DevOps</td>
+<td><strong>Frontend</strong></td>
+<td>Next.js (TypeScript)</td>
+<td>Aplicação React containerizada, App Router</td>
 </tr>
 <tr>
-<td>Dev Backend</td>
-<td>Node/TS, NestJS, TypeORM, PostgreSQL</td>
-<td>Testes, CI/CD</td>
+<td><strong>Backend</strong></td>
+<td>NestJS (TypeScript)</td>
+<td>API REST — módulos, controllers, services, TypeORM</td>
 </tr>
 <tr>
-<td>Dev Fullstack</td>
-<td>Backend, Frontend, Testes</td>
-<td>DevOps, Banco avançado</td>
+<td><strong>Worker</strong></td>
+<td>NestJS (job queue)</td>
+<td>Processamento assíncrono de tarefas (notificações, relatórios)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Justificativa:</strong>
+O Cloud Run executa contêineres sob demanda sem necessidade de gerenciar infraestrutura de servidores. O modelo <em>pay-per-request</em> é ideal para um MVP com tráfego imprevisível. O escalonamento automático (incluindo <em>scale-to-zero</em>) reduz custo em períodos de baixo uso.</p>
+<p><strong>Configuração mínima recomendada:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Serviço</th>
+<th>Memória</th>
+<th>Concorrência</th>
+<th>Região</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Frontend</td>
+<td>256 MB</td>
+<td>80 req/instância</td>
+<td><code>southamerica-east1</code></td>
 </tr>
 <tr>
-<td>DevOps / Cloud</td>
-<td>Docker, GitHub Actions, Cloud Run/SQL</td>
-<td>Observabilidade, Segurança</td>
+<td>Backend</td>
+<td>512 MB</td>
+<td>80 req/instância</td>
+<td><code>southamerica-east1</code></td>
 </tr>
 <tr>
-<td>QA / Testes</td>
-<td>Pirâmide, Jest, Playwright</td>
-<td>NestJS Testing, API contract</td>
+<td>Worker</td>
+<td>512 MB</td>
+<td>10 req/instância</td>
+<td><code>southamerica-east1</code></td>
+</tr>
+</tbody>
+</table>
+<p>A região <code>southamerica-east1</code> (São Paulo) garante conformidade com a LGPD e menor latência para usuários brasileiros.</p>
+<hr />
+<h3 id="22-banco-de-dados-cloud-sql-postgresql">2.2 Banco de Dados — Cloud SQL (PostgreSQL)</h3>
+<p><strong>Justificativa:</strong>
+O Cloud SQL com PostgreSQL oferece um banco de dados relacional totalmente gerenciado, com backups automáticos, replicação e alta disponibilidade. PostgreSQL é a escolha padrão da indústria para dados de saúde, por sua robustez com dados estruturados, suporte a JSONB e maturidade do ecossistema. O TypeORM (ORM do NestJS) tem integração nativa com PostgreSQL, permitindo usar <code>synchronize: true</code> em desenvolvimento e <em>migrations</em> em produção sem mudança de código.</p>
+<p><strong>Configuração:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Parâmetro</th>
+<th>Valor</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Instância</td>
+<td><code>db-f1-micro</code> (MVP, escalonável)</td>
+</tr>
+<tr>
+<td>Versão</td>
+<td>PostgreSQL 16</td>
+</tr>
+<tr>
+<td>Localização</td>
+<td><code>southamerica-east1</code></td>
+</tr>
+<tr>
+<td>Acesso</td>
+<td>VPC privada (Cloud SQL Auth Proxy)</td>
+</tr>
+<tr>
+<td>Backups</td>
+<td>Automáticos, retenção 7 dias</td>
+</tr>
+<tr>
+<td>Criptografia</td>
+<td>Em repouso, habilitada por padrão</td>
+</tr>
+</tbody>
+</table>
+<p>O acesso é feito via <strong>Cloud SQL Auth Proxy</strong> dentro de uma VPC privada — sem IP público exposto.</p>
+<hr />
+<h3 id="23-armazenamento-de-arquivos-google-cloud-storage-gcs">2.3 Armazenamento de Arquivos — Google Cloud Storage (GCS)</h3>
+<p><strong>Justificativa:</strong>
+O GCS fornece armazenamento de objetos escalável e durável (99,999999999% de durabilidade). É a solução nativa para armazenar arquivos como exames, laudos e documentos enviados por usuários, sem impactar o banco de dados relacional. Os arquivos nunca são servidos diretamente ao público — o acesso é controlado pelo backend via Signed URLs com expiração configurável.</p>
+<p><strong>Estratégia de organização dos buckets:</strong></p>
+<pre><code>healthtech-mvp-uploads/
+  ├── exames/{user_id}/{timestamp}_{filename}
+  ├── laudos/{user_id}/{timestamp}_{filename}
+  └── avatares/{user_id}/profile.jpg
+</code></pre>
+<p><strong>Configuração:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Parâmetro</th>
+<th>Valor</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Região do bucket</td>
+<td><code>southamerica-east1</code></td>
+</tr>
+<tr>
+<td>Controle de acesso</td>
+<td>Uniform bucket-level access (IAM), sem ACLs</td>
+</tr>
+<tr>
+<td>Acesso público</td>
+<td>Desabilitado — servido via Signed URLs com expiração</td>
+</tr>
+<tr>
+<td>Classe ativa</td>
+<td><code>STANDARD</code></td>
+</tr>
+<tr>
+<td>Ciclo de vida</td>
+<td>Migrar para <code>NEARLINE</code> após 90 dias de inatividade</td>
+</tr>
+<tr>
+<td>Criptografia</td>
+<td>Chaves gerenciadas pelo Google (CMEK opcional depois)</td>
 </tr>
 </tbody>
 </table>
 <hr />
-<h2 id="recomendacoes-gerais">Recomendações Gerais</h2>
-<h3 id="livros">Livros</h3>
+<h3 id="24-autenticacao-firebase-authentication">2.4 Autenticação — Firebase Authentication</h3>
+<p><strong>Justificativa:</strong>
+O Firebase Auth oferece autenticação pronta para uso com suporte a e-mail/senha, OAuth (Google) e tokens JWT. Integra-se nativamente com os serviços GCP e evita a necessidade de implementar e manter lógica de autenticação do zero no MVP. No backend NestJS, o token é validado via Firebase Admin SDK em cada requisição.</p>
+<p><strong>Fluxo de autenticação:</strong></p>
+<pre><code>Usuário (browser)
+  │── [1] POST /auth/login (email + senha) ──▶ Firebase Auth
+  │◀── [2] JWT assinado ──────────────────────
+  │── [3] Requisições com Bearer Token ──▶ Backend NestJS
+                                            │── [4] Valida JWT (Firebase Admin SDK)
+                                            │── [5] Extrai claims (role, user_id)
+                                            └── [6] Autoriza ou rejeita (403)
+</code></pre>
+<p><strong>Roles gerenciados via claims do JWT:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Role</th>
+<th>Permissões</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>paciente</code></td>
+<td>Upload/download/exclusão dos próprios arquivos</td>
+</tr>
+<tr>
+<td><code>medico</code></td>
+<td>Acesso a arquivos dos pacientes associados</td>
+</tr>
+<tr>
+<td><code>admin</code></td>
+<td>Acesso administrativo completo</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="25-gerenciamento-de-segredos-secret-manager">2.5 Gerenciamento de Segredos — Secret Manager</h3>
+<p><strong>Justificativa:</strong>
+O Secret Manager armazena credenciais sensíveis fora do código e das variáveis de ambiente do contêiner. O acesso é controlado por IAM e auditável via Cloud Audit Logs. Cada serviço Cloud Run recebe permissão de leitura apenas para os segredos que lhe são necessários (<em>Least Privilege</em>).</p>
+<p><strong>Segredos gerenciados:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Segredo</th>
+<th>Consumido por</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>DATABASE_URL</code></td>
+<td>Backend, Worker</td>
+</tr>
+<tr>
+<td><code>FIREBASE_SERVICE_ACCOUNT</code></td>
+<td>Backend</td>
+</tr>
+<tr>
+<td><code>GCS_SERVICE_ACCOUNT_KEY</code></td>
+<td>Backend</td>
+</tr>
+<tr>
+<td><code>JWT_SECRET</code></td>
+<td>Backend (token interno opcional)</td>
+</tr>
+<tr>
+<td><code>EMAIL_API_KEY</code></td>
+<td>Worker</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Acesso:</strong> O Cloud Run injeta os segredos como variáveis de ambiente na inicialização do contêiner — nenhuma credencial é armazenada no repositório.</p>
+<hr />
+<h3 id="26-cicd-github-actions-cloud-build">2.6 CI/CD — GitHub Actions + Cloud Build</h3>
+<p><strong>Justificativa:</strong>
+O pipeline de CI/CD automatiza testes, build e deploy a cada push na branch <code>main</code>, garantindo que apenas código revisado e testado chegue ao ambiente de produção. A combinação de GitHub Actions (testes + lint) com Cloud Build (build da imagem Docker + deploy no Cloud Run) mantém o ecossistema GCP unificado.</p>
+<p><strong>Fluxo do pipeline:</strong></p>
+<pre><code>Push / Merge PR → main
+        │
+        ▼
+[ GitHub Actions ]
+  ├── Lint (ESLint + Prettier)
+  ├── Testes unitários (Jest)
+  └── Testes de integração (Supertest)
+        │
+        ▼ (apenas se testes passarem)
+[ Cloud Build ]
+  ├── Build da imagem Docker
+  ├── Push para Artifact Registry
+  └── Deploy no Cloud Run (backend / frontend)
+</code></pre>
+<p><strong>Ambientes:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Ambiente</th>
+<th>Branch</th>
+<th>Deploy automático</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Produção</td>
+<td><code>main</code></td>
+<td>Sim</td>
+</tr>
+<tr>
+<td>Preview (PR)</td>
+<td>Qualquer</td>
+<td>Não (manual)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="27-monitoramento-cloud-monitoring-cloud-logging">2.7 Monitoramento — Cloud Monitoring + Cloud Logging</h3>
+<p><strong>Justificativa:</strong>
+Observabilidade mínima necessária para detectar falhas, latência elevada e eventos de segurança em produção sem custo adicional no GCP.</p>
+<p><strong>O que é monitorado:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Métrica</th>
+<th>Ferramenta</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Latência de requisições</td>
+<td>Cloud Monitoring</td>
+</tr>
+<tr>
+<td>Uso de CPU e memória</td>
+<td>Cloud Monitoring</td>
+</tr>
+<tr>
+<td>Erros 5xx</td>
+<td>Cloud Monitoring + Alertas</td>
+</tr>
+<tr>
+<td>Logs da aplicação</td>
+<td>Cloud Logging</td>
+</tr>
+<tr>
+<td>Eventos de auditoria</td>
+<td>Cloud Audit Logs</td>
+</tr>
+<tr>
+<td>Logs de acesso a arquivos</td>
+<td>GCS Audit Logs</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Eventos de auditoria da aplicação</strong> (persistidos no banco):</p>
+<table>
+<thead>
+<tr>
+<th>Evento</th>
+<th>Registrado quando</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>LOGIN_SUCCESS</code></td>
+<td>Autenticação bem-sucedida</td>
+</tr>
+<tr>
+<td><code>LOGIN_FAILURE</code></td>
+<td>Credenciais inválidas</td>
+</tr>
+<tr>
+<td><code>UPLOAD_SUCCESS</code></td>
+<td>Arquivo enviado ao GCS</td>
+</tr>
+<tr>
+<td><code>DOWNLOAD_SUCCESS</code></td>
+<td>Arquivo baixado</td>
+</tr>
+<tr>
+<td><code>DELETE_SUCCESS</code></td>
+<td>Arquivo removido</td>
+</tr>
+<tr>
+<td><code>ACCESS_DENIED</code></td>
+<td>Tentativa de acesso não autorizado</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="3-diagrama-da-arquitetura">3. Diagrama da Arquitetura</h2>
+<pre><code>                        ┌─────────────────────┐
+                        │  Desenvolvedor (Git) │
+                        └──────────┬──────────┘
+                                   │ Push / PR
+                                   ▼
+                        ┌─────────────────────┐
+                        │    GitHub Actions    │
+                        │  Lint · Test · Build │
+                        └──────────┬──────────┘
+                                   │ (se OK)
+                                   ▼
+                        ┌─────────────────────┐
+                        │    Cloud Build       │
+                        │  Image → Artifact    │
+                        │  Registry → Cloud Run│
+                        └──────────┬──────────┘
+                                   │
+═══════════════════════════════════╪══════════════════════════════════
+                   AMBIENTE DE PRODUÇÃO (GCP)
+═══════════════════════════════════╪══════════════════════════════════
+                                   │
+                    ┌──────────────▼──────────────┐
+                    │    Usuário / Browser (HTTPS) │
+                    └──────────────┬──────────────┘
+                                   │
+                    ┌──────────────▼──────────────┐
+                    │  Cloud Load Balancer + CDN   │
+                    │     Cloud Armor (WAF)        │
+                    └──────┬───────────────────────┘
+                           │
+              ┌────────────▼────────────┐
+              │                         │
+   ┌──────────▼──────────┐   ┌─────────▼──────────┐
+   │  Frontend (Cloud Run)│   │ Backend (Cloud Run) │
+   │  Next.js + TypeScript│   │ NestJS REST API     │
+   └─────────────────────┘   └──────┬──────────────┘
+                                     │
+           ┌─────────────────────────┼──────────────────────────┐
+           │                         │                          │
+           ▼                         ▼                          ▼
+┌──────────────────┐    ┌────────────────────┐    ┌────────────────────┐
+│ Firebase Auth    │    │  Cloud SQL          │    │  Cloud Storage     │
+│ JWT / OAuth      │    │  PostgreSQL 16      │    │  (GCS)             │
+│                  │    │  VPC privada        │    │  Arquivos / exames │
+└──────────────────┘    │  Cloud SQL Proxy    │    │  Signed URLs       │
+                        └────────────────────┘    └────────────────────┘
+                                     │
+                        ┌────────────▼────────────┐
+                        │    Secret Manager        │
+                        │  Credenciais e API keys  │
+                        └─────────────────────────┘
+                                     │
+                        ┌────────────▼────────────┐
+                        │  Cloud Monitoring        │
+                        │  Cloud Logging           │
+                        │  Cloud Audit Logs        │
+                        └─────────────────────────┘
+</code></pre>
+<hr />
+<h2 id="4-decisoes-tecnicas-sumario">4. Decisões Técnicas — Sumário</h2>
+<table>
+<thead>
+<tr>
+<th>Componente</th>
+<th>Serviço GCP / Tecnologia</th>
+<th>Alternativa Descartada</th>
+<th>Razão da Escolha</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Hospedagem</td>
+<td>Cloud Run</td>
+<td>GKE, App Engine</td>
+<td>Menor complexidade operacional; <em>pay-per-use</em> ideal para MVP</td>
+</tr>
+<tr>
+<td>Banco de dados</td>
+<td>Cloud SQL (PostgreSQL 16)</td>
+<td>Firestore, BigQuery</td>
+<td>Dados relacionais estruturados; integração nativa TypeORM; LGPD</td>
+</tr>
+<tr>
+<td>Armazenamento</td>
+<td>Google Cloud Storage</td>
+<td>Firebase Storage</td>
+<td>Mais controle de acesso; Signed URLs; integração nativa GCP</td>
+</tr>
+<tr>
+<td>Autenticação</td>
+<td>Firebase Auth</td>
+<td>Auth0, implementação própria</td>
+<td>Integração nativa GCP; velocidade de implementação no MVP</td>
+</tr>
+<tr>
+<td>Segredos</td>
+<td>Secret Manager</td>
+<td>Variáveis de ambiente diretas</td>
+<td>Auditabilidade; rotação de segredos; segurança por IAM</td>
+</tr>
+<tr>
+<td>CDN / Edge</td>
+<td>Cloud CDN + Load Balancer</td>
+<td>Cloudflare</td>
+<td>Ecossistema GCP unificado; Cloud Armor incluso</td>
+</tr>
+<tr>
+<td>CI/CD</td>
+<td>GitHub Actions + Cloud Build</td>
+<td>CircleCI, Jenkins</td>
+<td>GitHub já é o VCS do projeto; Cloud Build integra com GCP nativo</td>
+</tr>
+<tr>
+<td>Monitoramento</td>
+<td>Cloud Monitoring + Logging</td>
+<td>Datadog, New Relic</td>
+<td>Sem custo adicional no GCP; integrado por padrão</td>
+</tr>
+<tr>
+<td>Backend</td>
+<td>NestJS (TypeScript)</td>
+<td>Express puro, Fastify</td>
+<td>Arquitetura modular; integração nativa TypeORM, JWT, class-validator</td>
+</tr>
+<tr>
+<td>Frontend</td>
+<td>Next.js (TypeScript)</td>
+<td>Create React App, Vite</td>
+<td>App Router; SSR; deploy simplificado no Cloud Run</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="5-conformidade-e-seguranca">5. Conformidade e Segurança</h2>
 <ul>
-<li><em>Clean Code</em>, Robert C. Martin</li>
-<li><em>The Pragmatic Programmer</em>, Hunt &amp; Thomas</li>
-<li><em>Designing Data-Intensive Applications</em>, Martin Kleppmann</li>
-<li><em>Refactoring</em>, Martin Fowler</li>
+<li><strong>LGPD:</strong> Dados de saúde são dados sensíveis (Art. 11). A escolha de <code>southamerica-east1</code> mantém os dados em território nacional.</li>
+<li><strong>Criptografia em trânsito:</strong> HTTPS obrigatório em todas as comunicações (TLS 1.2+). Cloud Run aplica TLS por padrão.</li>
+<li><strong>Criptografia em repouso:</strong> Habilitada por padrão em Cloud SQL e GCS.</li>
+<li><strong>Acesso mínimo (<em>Least Privilege</em>):</strong> Cada serviço Cloud Run recebe uma Service Account dedicada com apenas as permissões necessárias.</li>
+<li><strong>Senhas:</strong> Hash com <code>bcrypt</code> no backend — nunca armazenadas em texto plano.</li>
+<li><strong>Isolamento de dados:</strong> Documentos são estritamente associados ao <code>user_id</code> do token JWT autenticado. Cada acesso é validado pelo backend.</li>
+<li><strong>Arquivos privados:</strong> Nenhum arquivo no GCS é público. O acesso é feito via Signed URLs geradas pelo backend com expiração controlada.</li>
+<li><strong>Auditoria:</strong> Cloud Audit Logs habilitado para Secret Manager, Cloud SQL e GCS. Eventos de aplicação persistidos no banco de dados.</li>
+<li><strong>WAF:</strong> Cloud Armor no Load Balancer para proteção contra ataques comuns (DDoS, SQLi, XSS).</li>
 </ul>
 <hr />
-<h2 id="referencias">Referências</h2>
+<h2 id="6-referencias">6. Referências</h2>
 <ul>
-<li><a href="../tecnologias/">Tecnologias do Projeto</a>: stack oficial e justificativas</li>
-<li><a href="../arquitetura/index.md">Arquitetura do Projeto</a>: como as camadas se conectam</li>
-<li><a href="../setup/">Setup Inicial</a>: como rodar tudo localmente</li>
-<li><a href="../../padroes/codigo/">Padrões de Código</a>: o que esperamos de cada PR</li>
-<li><a href="https://roadmap.sh/">roadmap.sh</a>: mapa visual oficial de carreiras tech</li>
+<li><a href="https://cloud.google.com/run/docs">Cloud Run — Documentação</a></li>
+<li><a href="https://cloud.google.com/sql/docs/postgres">Cloud SQL — PostgreSQL</a></li>
+<li><a href="https://cloud.google.com/storage/docs">Google Cloud Storage</a></li>
+<li><a href="https://firebase.google.com/docs/auth">Firebase Authentication</a></li>
+<li><a href="https://cloud.google.com/secret-manager/docs">Secret Manager</a></li>
+<li><a href="https://cloud.google.com/build/docs">Cloud Build — CI/CD</a></li>
+<li><a href="https://cloud.google.com/monitoring/docs">Cloud Monitoring</a></li>
+<li><a href="https://docs.nestjs.com">NestJS — Documentação</a></li>
+<li><a href="https://nextjs.org/docs">Next.js — Documentação</a></li>
+<li><a href="https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2018/lei/l13709.htm">LGPD — Lei 13.709/2018</a></li>
 </ul>
 
 
