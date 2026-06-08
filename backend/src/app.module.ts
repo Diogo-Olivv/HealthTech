@@ -3,6 +3,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './entities/user.entity';
 import { UsersModule } from './users/users.module';
+import { HealthModule } from './health/health.module';
 
 @Module({
   imports: [
@@ -22,12 +23,13 @@ import { UsersModule } from './users/users.module';
           password: config.get('DB_PASSWORD', 'postgres'),
           database: config.get('DB_NAME', 'healthtech'),
           entities: [User],
-          synchronize: config.get('NODE_ENV') !== 'production',
-          logging: true,
+          synchronize: config.get('NODE_ENV') !== 'production' || config.get('DB_SYNC') === 'true',
+          logging: config.get('NODE_ENV') !== 'production',
         };
       },
     }),
     UsersModule,
+    HealthModule,
   ],
 })
 export class AppModule {}
