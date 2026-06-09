@@ -43,13 +43,19 @@
 
 ## 4. Cores
 
-- Cor principal: **#1c6882** <span style="display:inline-block;width:2em;height:1em;background:#1c6882;border:1px solid #ccc;border-radius:2px;vertical-align:middle;"></span>
-- Cor secundária: **#368ca0** <span style="display:inline-block;width:2em;height:1em;background:#368ca0;border:1px solid #ccc;border-radius:2px;vertical-align:middle;"></span>
-- Cor de destaque/acento: **\_\_**
-- Cor de fundo: **\_\_**
-- Cor de texto principal: **\_\_**
-- Cor de texto secundário: **\_\_**
-- Paleta adicional: **\_\_**
+
+| Categoria | Cor / Hex | Preview | Função Principal |
+| --- | --- | --- | --- |
+| Principal | #1e4969 | <span style="display:inline-block;width:1.5em;height:1em;background:#1e4969;border:1px solid #ccc;border-radius:2px;vertical-align:middle;"></span> | Logos, cabeçalhos, botões institucionais e autoridade. |
+| Secundária | #368ca0 | <span style="display:inline-block;width:1.5em;height:1em;background:#368ca0;border:1px solid #ccc;border-radius:2px;vertical-align:middle;"></span> | Elementos tech, links, sublinhados e destaques frios. |
+| Fundo Principal | #FFFFFF | <span style="display:inline-block;width:1.5em;height:1em;background:#FFFFFF;border:1px solid #ccc;border-radius:2px;vertical-align:middle;"></span> | Áreas de leitura e fundo geral. |
+| Fundo Alternativo | #F4F7F9 (Sugerido) | <span style="display:inline-block;width:1.5em;height:1em;background:#F4F7F9;border:1px solid #ccc;border-radius:2px;vertical-align:middle;"></span> | Fundo de seções, cards e separadores. |
+| Texto Escuro | #1A1A1A | <span style="display:inline-block;width:1.5em;height:1em;background:#1A1A1A;border:1px solid #ccc;border-radius:2px;vertical-align:middle;"></span> | Títulos e textos longos (alta legibilidade). |
+| Texto Claro | #595959 | <span style="display:inline-block;width:1.5em;height:1em;background:#595959;border:1px solid #ccc;border-radius:2px;vertical-align:middle;"></span> | Legendas, placeholders e textos de apoio. |
+| Sucesso | #70C1A3 | <span style="display:inline-block;width:1.5em;height:1em;background:#70C1A3;border:1px solid #ccc;border-radius:2px;vertical-align:middle;"></span> | Botões de sucesso, mensagens de confirmação e estados positivos. |
+| Alerta | #f2b138 | <span style="display:inline-block;width:1.5em;height:1em;background:#f2b138;border:1px solid #ccc;border-radius:2px;vertical-align:middle;"></span> | Avisos moderados, banners de atenção e alertas informativos. |
+| Erro | #e14c4c | <span style="display:inline-block;width:1.5em;height:1em;background:#e14c4c;border:1px solid #ccc;border-radius:2px;vertical-align:middle;"></span> | Erros, mensagens de falha e estados críticos. |
+
 
 ## 5. Tipografia
 
