@@ -107,6 +107,7 @@ describe('Registro de usuários (E2E)', () => {
         .post('/users/medicos')
         .send(medicoPayload)
         .expect(201);
+      
 
       expect(res.body).toHaveProperty('id');
       expect(res.body).toHaveProperty('email', medicoPayload.email);
@@ -138,5 +139,76 @@ describe('Registro de usuários (E2E)', () => {
       const { crm, ...semCrm } = medicoPayload;
       await request(app.getHttpServer()).post('/users/medicos').send(semCrm).expect(400);
     });
+  });
+});
+describe('Autorização por tipo de usuário (E2E)', () => {
+  let app: INestApplication;
+  let dataSource: DataSource;
+  let tokenMedico: string;
+  let tokenPaciente: string;
+
+  beforeAll(async () => {
+    const moduleFixture: TestingModule = await Test.createTestingModule({
+      imports: [AppModule],
+    }).compile();
+
+    app = moduleFixture.createNestApplication();
+    app.useGlobalPipes(
+      new ValidationPipe({ whitelist: true, forbidNonWhitelisted: true, transform: true }),
+    );
+    await app.init();
+
+    dataSource = moduleFixture.get<DataSource>(DataSource);
+
+    await dataSource.query(`DELETE FROM pacientes WHERE cpf = '${pacientePayload.cpf}'`);
+    await dataSource.query(`DELETE FROM medicos WHERE crm = '${medicoPayload.crm}'`);
+    await dataSource.query(
+      `DELETE FROM users WHERE email IN ('${pacientePayload.email}', '${medicoPayload.email}')`,
+    );
+
+    await request(app.getHttpServer()).post('/users/pacientes').send(pacientePayload);
+    await request(app.getHttpServer()).post('/users/medicos').send(medicoPayload);
+
+    const resPaciente = await request(app.getHttpServer())
+      .post('/users/login')
+      .send({ email: pacientePayload.email, password: pacientePayload.password });
+    tokenPaciente = resPaciente.body.accessToken;
+
+    const resMedico = await request(app.getHttpServer())
+      .post('/users/login')
+      .send({ email: medicoPayload.email, password: medicoPayload.password });
+    tokenMedico = resMedico.body.accessToken;
+  });
+
+  afterAll(async () => {
+    await app.close();
+  });
+
+  it('paciente não pode acessar rota restrita a médico (403)', async () => {
+    await request(app.getHttpServer())
+      .get('/users/medico/area')
+      .set('Authorization', `Bearer ${tokenPaciente}`)
+      .expect(403);
+  });
+
+  it('médico não pode acessar rota restrita a paciente (403)', async () => {
+    await request(app.getHttpServer())
+      .get('/users/paciente/area')
+      .set('Authorization', `Bearer ${tokenMedico}`)
+      .expect(403);
+  });
+
+  it('médico acessa rota de médico com sucesso (200)', async () => {
+    await request(app.getHttpServer())
+      .get('/users/medico/area')
+      .set('Authorization', `Bearer ${tokenMedico}`)
+      .expect(200);
+  });
+
+  it('paciente acessa rota de paciente com sucesso (200)', async () => {
+    await request(app.getHttpServer())
+      .get('/users/paciente/area')
+      .set('Authorization', `Bearer ${tokenPaciente}`)
+      .expect(200);
   });
 });
