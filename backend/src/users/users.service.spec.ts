@@ -1,4 +1,4 @@
-import { ConflictException } from '@nestjs/common';
+import { ConflictException, UnauthorizedException} from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { JwtService } from '@nestjs/jwt';
@@ -137,6 +137,60 @@ describe('UsersService', () => {
       mockUserRepo.findOneBy.mockResolvedValue(null);
       mockMedicoRepo.findOneBy.mockResolvedValue({ userId: 'other' });
       await expect(service.createMedico(makeMedicoDto())).rejects.toThrow(ConflictException);
+    });
+  });
+
+describe('login()', () => {
+    it('deve gerar token JWT contendo o tipo do usuário', async () => {
+      const mockUser = {
+        id: 'uuid-1',
+        email: 'joao@email.com',
+        name: 'João',
+        passwordHash: 'hashed-password',
+        tipo: UserType.PACIENTE,
+      };
+      mockUserRepo.findOneBy.mockResolvedValue(mockUser);
+      (bcrypt.compare as jest.Mock).mockResolvedValue(true);
+
+      await service.login({ email: 'joao@email.com', password: 'senha123' });
+
+      expect(mockJwtService.signAsync).toHaveBeenCalledWith(
+        expect.objectContaining({ tipo: UserType.PACIENTE }),
+      );
+    });
+
+    it('deve retornar o tipo do usuário junto com o accessToken', async () => {
+      const mockUser = {
+        id: 'uuid-1',
+        email: 'joao@email.com',
+        name: 'João',
+        passwordHash: 'hashed-password',
+        tipo: UserType.PACIENTE,
+      };
+      mockUserRepo.findOneBy.mockResolvedValue(mockUser);
+      (bcrypt.compare as jest.Mock).mockResolvedValue(true);
+
+      const result = await service.login({ email: 'joao@email.com', password: 'senha123' });
+
+      expect(result).toHaveProperty('accessToken', 'mock-token');
+      expect(result.user).toHaveProperty('tipo', UserType.PACIENTE);
+    });
+
+    it('deve lançar UnauthorizedException se a senha for inválida', async () => {
+      mockUserRepo.findOneBy.mockResolvedValue({ id: 'uuid-1', passwordHash: 'hashed' });
+      (bcrypt.compare as jest.Mock).mockResolvedValue(false);
+
+      await expect(
+        service.login({ email: 'joao@email.com', password: 'errada' }),
+      ).rejects.toThrow(UnauthorizedException);
+    });
+
+    it('deve lançar UnauthorizedException se o usuário não existir', async () => {
+      mockUserRepo.findOneBy.mockResolvedValue(null);
+
+      await expect(
+        service.login({ email: 'naoexiste@email.com', password: 'senha123' }),
+      ).rejects.toThrow(UnauthorizedException);
     });
   });
 });

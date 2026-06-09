@@ -10,6 +10,9 @@ import {
 } from '@nestjs/common';
 import type { Request } from 'express';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
+import { RolesGuard } from '../auth/roles.guard';
+import { Roles } from '../auth/roles.decorator'; 
+import { UserType } from '../entities/user.entity';
 import { CreatePacienteDto } from './dto/create-paciente.dto';
 import { CreateMedicoDto } from './dto/create-medico.dto';
 import { LoginUserDto } from './dto/login-user.dto';
@@ -43,4 +46,18 @@ export class UsersController {
   me(@Req() req: Request) {
     return req.user;
   }
+  @Get('medico/area')
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(UserType.MEDICO)
+  areaMedico(@Req() req: Request) {
+    return { mensagem: 'Área restrita a médicos', user: req.user };
+     }
+
+  @Get('paciente/area')
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(UserType.PACIENTE)
+  areaPaciente(@Req() req: Request) {
+    return { mensagem: 'Área restrita a pacientes', user: req.user };
+  }
+
 }
