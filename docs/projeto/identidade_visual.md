@@ -1,9 +1,9 @@
-# Identidade Visual do Site
+# Identidade Visual - HealthTech
 
 ## 1. Visão Geral do Projeto
 
 - Propósito do site: **\_\_**
-- Público-alvo: **\_\_**
+- Público-alvo: **Médicos e pacientes**
 - Estilo desejado: **\_\_**
 - Tom de voz: **\_\_**
 
@@ -11,25 +11,36 @@
 
 - Versões do logo:
   <div style="text-align:center; margin-bottom:1rem;">
-    <img src="../assets/logo/logo-healthtech-vetor.svg" alt="Logo principal" width="260" />
+    <figure style="display:inline-block; margin:0;">
+      <img src="../assets/logo/logo-healthtech-vetor.svg" alt="Logo principal" width="260" />
+      <figcaption style="text-align:center; font-size:0.9rem;">Principal</figcaption>
+    </figure>
   </div>
   <div style="display:flex; justify-content:center; gap:1rem; flex-wrap:wrap;">
-    <img src="../assets/logo/logo-healthtech-vetor-branco.svg" alt="Logo branco" width="120" />
-    <img src="../assets/logo/logo-healthtech-vetor-todo-branco.svg" alt="Logo todo branco" width="120" />
-    <img src="../assets/logo/logo-healthtech-vetor-todo-ciano.svg" alt="Logo ciano" width="120" />
-  </div>
-  <div style="text-align:center; margin-bottom:1rem;">
-  Favico
-    <img src="../assets/logo/logo-healthtech-vetor-baloes.svg" alt="Logo principal" width="120" />
-  </div>
+    <figure style="display:inline-block; text-align:center; margin:0;">
+      <img src="../assets/logo/logo-healthtech-vetor-branco.svg" alt="Logo branco" width="120" />
+      <figcaption style="font-size:0.85rem;">Versão branco</figcaption>
+    </figure>
+    <figure style="display:inline-block; text-align:center; margin:0;">
+      <img src="../assets/logo/logo-healthtech-vetor-todo-branco.svg" alt="Logo todo branco" width="120" />
+      <figcaption style="font-size:0.85rem;">Versão todo branco</figcaption>
+    </figure>
+    <figure style="display:inline-block; text-align:center; margin:0;">
+      <img src="../assets/logo/logo-healthtech-vetor-todo-ciano.svg" alt="Logo ciano" width="120" />
+      <figcaption style="font-size:0.85rem;">Versão ciano</figcaption>
+    </figure>
+    <figure style="display:inline-block; margin:0;">
+      <img src="../assets/logo/logo-healthtech-vetor-baloes.svg" alt="Logo principal" width="120" />
+      <figcaption style="text-align:center; font-size:0.9rem;">Ícone (balões)</figcaption>
+    </figure>
 
-- Descrição do logo: **__**
-- Conceito e significado: **__**
-- Versão principal: **__**
-- Versão secundária / ícone: **__**
-- Versão horizontal: **__**
-- Versão vertical: **__**
-- Versão monocromática: **__**
+- Descrição do logo: **Uma pessoa feliz segurando balões que o fazem voar.**
+- Conceito e significado: 
+    - A Silhueta Humana: Representa o indivíduo em movimento e celebração. A postura de voo transmite vitalidade, energia e autonomia. A cor azul traz uma base de confiança e segurança, essenciais para o setor de saúde.
+    - Os Balões: Simbolizam o fator de elevação. Na metáfora da marca, eles são a saúde e a tecnologia que "levantam" a pessoa, permitindo que ela escape de limitações.
+    - As Cores Vibrantes: Os tons coloridos (verde, azul, amarelo, laranja e rosa) mostram que a saúde é multifacetada e que o resultado de se cuidar é uma vida alegre, leve e cheia de cor.
+    - A saúde não é apenas a ausência de doença, mas o combustível que nos dá a liberdade para voar alto e viver sem barreiras.
+
 - Usos recomendados: **__**
 - Espaçamento mínimo ao redor do logo: **__**
 
@@ -59,15 +70,9 @@
 
 ## 5. Tipografia
 
-- Fonte principal (títulos): **Montserrat**
-- Fonte secundária (corpo de texto): **Montserrat**
-- Fonte alternativa (botões/legendas): **Montserrat**
-- Hierarquia tipográfica:
-  - H1: **3rem (48px)**
-  - H2: **2.25rem (36px)**
-  - H3: **1.75rem (28px)**
-  - Corpo: **1rem (16px)**
-  - Legenda: **0.875rem (14px)**
+- Fonte principal (títulos): **Inter** (Pesos: 700 Bold / 600 Semi-Bold)
+- Fonte secundária (corpo de texto): **Inter** (Peso: 400 Regular) — Garante melhor legibilidade em telas.
+- Fonte alternativa (botões/legendas): **Inter** (Peso: 500 Medium / 600 Semi-Bold)
 
 ## 6. Tamanhos e Espaçamentos
 
@@ -84,11 +89,6 @@
 
 ## 7. Aplicações no Site
 
-- Homepage: **\_\_**
-- Página de contato: **\_\_**
-- Página de serviços/produtos: **\_\_**
-- Formulários: **\_\_**
-- Rodapé: **\_\_**
 
 ## 8. Observações Finais
 
