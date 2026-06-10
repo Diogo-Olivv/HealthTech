@@ -134,6 +134,11 @@ texto: text-align, font-size, color, font-weight
   background-color: var(--color-secondary-600);
 }
 
+
+.error {
+  color: var(--color-error-500);
+}
+
 .footer {
   font-size: var(--text-sm);
   color: var(--color-gray-700);
