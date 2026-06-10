@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 
 /* ============================================================
    HEALTHTECH — CSS GLOBAL
@@ -49,7 +49,7 @@
   --color-warning-600: #D97706;
 
   /* --- Tipografia --- */
-  --font-main: 'DM Sans', system-ui, -apple-system, sans-serif;
+  --font-main: Inter, system-ui, -apple-system, sans-serif;
 
   --text-xs:   0.75rem;   /* 12px */
   --text-sm:   0.875rem;  /* 14px */
