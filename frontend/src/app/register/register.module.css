@@ -73,20 +73,22 @@ texto: text-align, font-size, color, font-weight
 
 }
 
-.buttonChoose {
+.radioChoose {
   width: 100%;
   padding: .5rem;
-  outline: none;
-  border-radius: var(--radius-lg);
   background-color: inherit;
+  
   color: var(--color-gray-700);
   font-weight: var(--font-weight-medium);
+  font-size: var(--text-base);
 
   border: 0px;
+  border-radius: var(--radius-lg);
+  outline: none;
 
 }
 
-.buttonChoose:focus {
+.radioChoose:focus {
   background-color: var(--color-white);
   box-shadow: var(--shadow-md);
   color: var(--color-secondary-500);

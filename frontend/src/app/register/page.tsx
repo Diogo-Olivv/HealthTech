@@ -51,9 +51,28 @@ export default function RegisterPage() {
         <form onSubmit={handleSubmit} className={styles.form} noValidate>
           
           <div className={styles.chooseTypePerson}>
-            <button className={styles.buttonChoose}>Paciente</button>
-            <button className={styles.buttonChoose}>Médico</button>
+            <label className={styles.radioChoose}>
+              <input 
+                type="radio" 
+                name="typePerson" 
+                value="paciente" 
+                className={styles.radioInput} 
+                defaultChecked
+              />
+              Paciente
+            </label>
+
+            <label className={styles.radioChoose}>
+              <input 
+                type="radio" 
+                name="typePerson" 
+                value="medico" 
+                className={styles.radioInput} 
+              />
+              Médico
+            </label>
           </div>
+                    
           
           <label className={styles.label}>
             Nome completo
@@ -63,7 +82,7 @@ export default function RegisterPage() {
               name="name"
               value={form.name}
               onChange={handleChange}
-              placeholder="Nome e sobrenome"
+              placeholder="Nome e Sobrenome"
               required
             />
           </label>
@@ -78,6 +97,33 @@ export default function RegisterPage() {
               onChange={handleChange}
               placeholder="seu@email.com"
               required
+            />
+          </label>
+
+          <label className={styles.label}>
+            CPF
+            <input
+              className={styles.input}
+              type="text"                
+              inputMode="numeric"        // Abre o teclado numérico em celulares
+              name="cpf"                 
+              value={form.cpf}           
+              maxLength={11}             // Apenas os 11 dígitos do CPF
+              onChange={handleChange}
+              placeholder="00000000000"  // Placeholder sem formatação
+              required
+            />
+          </label>
+
+          <label className={styles.label}>
+            Data de Nascimento
+            <input
+                className={styles.input}
+                type="date"                // 1. Mudado para "date" para abrir o calendário nativo
+                name="birthDate"           // 2. Nome do campo atualizado (ex: birthDate ou dataNascimento)
+                value={form.birthDate}     // 3. Vinculado à propriedade correta do seu estado 'form'
+                onChange={handleChange}
+                required
             />
           </label>
 
