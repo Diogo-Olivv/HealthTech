@@ -103,7 +103,7 @@ export default function RegisterPage() {
           <label className={styles.label}>
             CPF
             <input
-              className={styles.input}
+              className={styles.input}   // Falta limitar que seja apenas digitado números 
               type="text"                
               inputMode="numeric"        // Abre o teclado numérico em celulares
               name="cpf"                 
