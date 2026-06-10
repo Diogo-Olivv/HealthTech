@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { registerPaciente } from "@/services/users.service";
+import { isValidCPF, onlyDigits } from "@/utils/cpf";
 import styles from "../register.module.css";
 
 type FormState = {
@@ -32,7 +33,10 @@ export default function RegisterPacientePage() {
   const [errorMsg, setErrorMsg] = useState("");
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
-    setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+    const { name, value } = e.target;
+    // CPF só aceita dígitos
+    const nextValue = name === "cpf" ? onlyDigits(value) : value;
+    setForm((prev) => ({ ...prev, [name]: nextValue }));
   }
 
   async function handleSubmit(e: React.FormEvent) {
@@ -41,6 +45,12 @@ export default function RegisterPacientePage() {
 
     if (form.password !== form.confirmPassword) {
       setErrorMsg("As senhas não coincidem.");
+      setStatus("error");
+      return;
+    }
+
+    if (!isValidCPF(form.cpf)) {
+      setErrorMsg("CPF inválido.");
       setStatus("error");
       return;
     }
