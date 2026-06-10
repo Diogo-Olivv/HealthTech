@@ -42,7 +42,7 @@ texto: text-align, font-size, color, font-weight
   margin-bottom: 1rem;
 
   font-size: var(--text-sm);
-  color: var(--color-gray-700);  
+  color: var(--color-gray-700);
 }
 
 .textHealth {
@@ -60,6 +60,36 @@ texto: text-align, font-size, color, font-weight
   flex-direction: column;
   gap: 1rem;
   margin-bottom: 1rem;
+}
+
+.chooseTypePerson {
+  display: flex;
+  flex-direction: row;
+  padding: .1rem;
+  background-color: var(--color-gray-100);
+  gap: 1rem;
+
+  border-radius: var(--radius-lg);
+
+}
+
+.buttonChoose {
+  width: 100%;
+  padding: .5rem;
+  outline: none;
+  border-radius: var(--radius-lg);
+  background-color: inherit;
+  color: var(--color-gray-700);
+  font-weight: var(--font-weight-medium);
+
+  border: 0px;
+
+}
+
+.buttonChoose:focus {
+  background-color: var(--color-white);
+  box-shadow: var(--shadow-md);
+  color: var(--color-secondary-500);
 }
 
 .label {

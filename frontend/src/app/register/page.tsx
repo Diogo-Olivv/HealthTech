@@ -49,6 +49,12 @@ export default function RegisterPage() {
         )}
 
         <form onSubmit={handleSubmit} className={styles.form} noValidate>
+          
+          <div className={styles.chooseTypePerson}>
+            <button className={styles.buttonChoose}>Paciente</button>
+            <button className={styles.buttonChoose}>Médico</button>
+          </div>
+          
           <label className={styles.label}>
             Nome completo
             <input
