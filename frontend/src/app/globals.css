@@ -119,11 +119,15 @@ html {
 
 body {
   font-family: var(--font-main);
+  
   font-size: var(--text-base);
+
   font-weight: var(--font-weight-regular);
   line-height: var(--line-height-normal);
+
   color: var(--color-gray-900);
-  background-color: var(--color-gray-200);
+  background-color: var(--color-primary-50);
+  
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   display: flex;
@@ -162,65 +166,11 @@ select {
 }
 
 
-div {
-  padding: 40px;
-  max-width: 400px;
-  margin: auto;
-  background-color: var(--color-white);
-  border-radius: var(--radius-xl);
-  text-align: center;
-  box-shadow: var(--shadow-md);
-}
 
-form {
-  text-align: left;
-}
 
-label {
-  display: block;
-  font-size: var(--text-base);
-  font-weight: var(--font-weight-regular);
-  color: var(--color-gray-900);
-}
 
-input {
-  width: 100%;
-  margin-top: .5rem;
-  padding: var(--text-sm);
-  border-radius: var(--radius-lg);
-  border: 1px solid var(--color-gray-200);
-  font-size: var(--text-base);
-  background-color: var(--color-gray-100);
-  outline: none;
-}
 
-input:focus {
-  border: 1px solid var(--color-secondary-500);
-  background-color: var(--color-white);
-}
 
-button {
-  cursor: pointer;
-  font-family: inherit;
-  border: none;
-  background: none;
-  margin-top: 1rem;
-  margin-bottom: 1rem;
-  width: 100%;
-  background-color: var(--color-secondary-500);
-  color: var(--color-white);
-  font-weight: var(--font-weight-medium);
-  font-size: var(--text-base);
-  border-radius: var(--radius-lg);
-  border: none;
-  padding: var(--text-sm);
-  transition: background-color 0.3s;
-}
-
-button:hover {
-  background-color: var(--color-secondary-600);
-
-}
 
 img {
   display: block;

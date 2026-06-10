@@ -41,8 +41,11 @@ export default function LoginPage() {
       <div className={styles.card}>
         
         <img src="/logo-healthtech-vetor.svg" alt="Logo HealthTech" className={styles.logo} />
-        <h1 className={styles.title}>Bem-vindo</h1>
-        <p>Acesse sua conta para continuar</p>
+        <h1 className={styles.title}>Bem-vindo ao
+          <span className={styles.textHealth}> Health</span>
+          <span className={styles.textTech}>Tech</span>
+        </h1>
+        <p className={styles.subtitle}>Acesse sua conta para continuar</p>
         
         
         <form onSubmit={handleSubmit} className={styles.form} noValidate>
