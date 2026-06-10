@@ -38,8 +38,9 @@ export default function RegisterPage() {
     <main className={styles.page}>
       <div className={styles.card}>
 
-        <img src="/logo-healthtech-vetor.svg" alt="Logo HealthTech" className={styles.logo} />
-        <h1 className={styles.title}>Crie sua conta</h1>
+        <a href="../">
+          <img src="/logo-healthtech-vetor.svg" alt="Logo HealthTech" className={styles.logo} />
+        </a>        <h1 className={styles.title}>Crie sua conta</h1>
         <p className={styles.subtitle}>Junte-se à plataforma 
           <span className={styles.textHealth}> HealthTech</span>
           </p>
