@@ -37,15 +37,17 @@ export default function RegisterPage() {
   return (
     <main className={styles.page}>
       <div className={styles.card}>
-        <h1 className={styles.title}>Criar conta</h1>
 
+        <img src="/logo-healthtech-vetor.svg" alt="Logo HealthTech" className={styles.logo} />
+        <h1 className={styles.title}>Crie sua conta</h1>
+        <p>Junte-se à plataforma HealthTech</p>
         {status === 'success' && (
           <p className={styles.success}>Cadastro realizado com sucesso!</p>
         )}
 
         <form onSubmit={handleSubmit} className={styles.form} noValidate>
           <label className={styles.label}>
-            Nome
+            Nome completo
             <input
               className={styles.input}
               type="text"
@@ -64,6 +66,7 @@ export default function RegisterPage() {
               name="email"
               value={form.email}
               onChange={handleChange}
+              placeholder="seu@email.com"
               required
             />
           </label>
@@ -77,6 +80,7 @@ export default function RegisterPage() {
               value={form.password}
               onChange={handleChange}
               minLength={8}
+              placeholder="********"
               required
             />
           </label>
@@ -84,12 +88,12 @@ export default function RegisterPage() {
           {status === 'error' && <p className={styles.error}>{errorMsg}</p>}
 
           <button className={styles.button} type="submit" disabled={status === 'loading'}>
-            {status === 'loading' ? 'Cadastrando...' : 'Cadastrar'}
+            {status === 'loading' ? 'Cadastrando...' : 'Criar conta'}
           </button>
         </form>
 
         <p className={styles.footer}>
-          Já tem conta? <Link href="/login">Entrar</Link>
+          Já tem uma conta? <Link href="/login">Fazer login</Link>
         </p>
       </div>
     </main>
