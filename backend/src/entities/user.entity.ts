@@ -28,7 +28,7 @@ export class User {
   @Column()
   name!: string;
 
-  @Column({ type: 'enum', enum: UserType })
+  @Column({ type: 'enum', enum: UserType, default: UserType.PACIENTE })
   tipo!: UserType;
 
   @CreateDateColumn()
