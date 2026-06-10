@@ -39,8 +39,17 @@ export default function LoginPage() {
   return (
     <main className={styles.page}>
       <div className={styles.card}>
-        <h1 className={styles.title}>Entrar</h1>
-
+        
+        <a href="../">
+          <img src="/logo-healthtech-vetor.svg" alt="Logo HealthTech" className={styles.logo} />
+        </a>
+        <h1 className={styles.title}>Bem-vindo ao
+          <span className={styles.textHealth}> Health</span>
+          <span className={styles.textTech}>Tech</span>
+        </h1>
+        <p className={styles.subtitle}>Acesse sua conta para continuar</p>
+        
+        
         <form onSubmit={handleSubmit} className={styles.form} noValidate>
           <label className={styles.label}>
             E-mail
@@ -50,6 +59,7 @@ export default function LoginPage() {
               name="email"
               value={form.email}
               onChange={handleChange}
+              placeholder="seu@email.com"
               required
             />
           </label>
@@ -63,6 +73,7 @@ export default function LoginPage() {
               value={form.password}
               onChange={handleChange}
               minLength={8}
+              placeholder="********"
               required
             />
           </label>
@@ -75,8 +86,9 @@ export default function LoginPage() {
         </form>
 
         <p className={styles.footer}>
-          Não tem conta? <Link href="/register">Cadastre-se</Link>
+          Ainda não tem conta? <Link href="/register">Cadastre-se</Link>
         </p>
+
       </div>
     </main>
   );

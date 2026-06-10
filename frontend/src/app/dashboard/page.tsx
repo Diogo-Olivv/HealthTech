@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import type { UserProfile } from '@/dto/users.dto';
+import type { PublicUser } from '@/dto/public-user';
 import { clearToken, getProfile, getToken } from '@/services/users.service';
 import styles from './dashboard.module.css';
 
@@ -10,7 +10,7 @@ type Status = 'loading' | 'ready';
 
 export default function DashboardPage() {
   const router = useRouter();
-  const [user, setUser] = useState<UserProfile | null>(null);
+  const [user, setUser] = useState<PublicUser | null>(null);
   const [status, setStatus] = useState<Status>('loading');
 
   useEffect(() => {
