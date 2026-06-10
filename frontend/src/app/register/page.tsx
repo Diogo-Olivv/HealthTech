@@ -40,7 +40,9 @@ export default function RegisterPage() {
 
         <img src="/logo-healthtech-vetor.svg" alt="Logo HealthTech" className={styles.logo} />
         <h1 className={styles.title}>Crie sua conta</h1>
-        <p>Junte-se à plataforma HealthTech</p>
+        <p className={styles.subtitle}>Junte-se à plataforma 
+          <span className={styles.textHealth}> HealthTech</span>
+          </p>
         {status === 'success' && (
           <p className={styles.success}>Cadastro realizado com sucesso!</p>
         )}
@@ -54,6 +56,7 @@ export default function RegisterPage() {
               name="name"
               value={form.name}
               onChange={handleChange}
+              placeholder="Nome e sobrenome"
               required
             />
           </label>

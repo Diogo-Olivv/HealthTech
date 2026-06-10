@@ -12,6 +12,9 @@ border: border-radius, box-shadow, border
 texto: text-align, font-size, color, font-weight
 */
 
+.page {
+  min-width: 40%;
+}
 
 .card {
   /* margin: auto; */
@@ -21,14 +24,15 @@ texto: text-align, font-size, color, font-weight
   background-color: var(--color-white);
 
   border-radius: var(--radius-xl);
-  box-shadow: var(--shadow-md);
+  box-shadow: var(--shadow-lg);
 
   text-align: center;
 }
 
 .title {
+  margin-bottom: .5rem;
   font-size: var(--text-2xl);
-  margin-bottom: 1rem;
+  color: var(--color-primary-600);
 }
 
 .textHealth {
@@ -89,7 +93,7 @@ texto: text-align, font-size, color, font-weight
   outline: none;
 
   font-weight: var(--font-weight-medium);
-  font-size: var(--text-lg);
+  font-size: var(--text-base);
   color: var(--color-white);
 }
 
@@ -99,4 +103,5 @@ texto: text-align, font-size, color, font-weight
 
 .footer {
   font-size: var(--text-sm);
+  color: var(--color-gray-700);
 }
