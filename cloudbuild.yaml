@@ -111,4 +111,4 @@ images:
   - $_REGION-docker.pkg.dev/$PROJECT_ID/$_AR_REPO/frontend:$BUILD_ID
 
 options:
-  logging: GCS_ONLY
+  logging: CLOUD_LOGGING_ONLY
