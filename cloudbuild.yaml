@@ -47,7 +47,7 @@ steps:
       - -t
       - $_REGION-docker.pkg.dev/$PROJECT_ID/$_AR_REPO/frontend:latest
       - --build-arg
-      - NEXT_PUBLIC_API_URL=$_BACKEND_URL/api
+      - NEXT_PUBLIC_API_URL=$_BACKEND_URL
       - ./frontend
 
   # Push em paralelo, cada um aguarda apenas seu respectivo build
