@@ -1,95 +1,34 @@
-'use client';
-
-import { useState } from 'react';
-import Link from 'next/link';
-import { registerUser } from '@/services/users.service';
-import styles from './register.module.css';
-
-type FormState = { name: string; email: string; password: string };
-type Status = 'idle' | 'loading' | 'success' | 'error';
-
-const INITIAL_FORM: FormState = { name: '', email: '', password: '' };
+import Link from "next/link";
+import styles from "./register.module.css";
 
 export default function RegisterPage() {
-  const [form, setForm] = useState<FormState>(INITIAL_FORM);
-  const [status, setStatus] = useState<Status>('idle');
-  const [errorMsg, setErrorMsg] = useState('');
-
-  function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
-    setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-  }
-
-  async function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
-    setStatus('loading');
-    setErrorMsg('');
-
-    try {
-      await registerUser(form);
-      setStatus('success');
-      setForm(INITIAL_FORM);
-    } catch (err) {
-      setErrorMsg(err instanceof Error ? err.message : 'Erro ao cadastrar. Tente novamente.');
-      setStatus('error');
-    }
-  }
-
   return (
     <main className={styles.page}>
       <div className={styles.card}>
-        <h1 className={styles.title}>Criar conta</h1>
+        <a href="../">
+          <img
+            src="/logo-healthtech-vetor.svg"
+            alt="Logo HealthTech"
+            className={styles.logo}
+          />
+        </a>
+        <h1 className={styles.title}>Crie sua conta</h1>
+        <p className={styles.subtitle}>
+          Junte-se à plataforma
+          <span className={styles.textHealth}> HealthTech</span>
+        </p>
 
-        {status === 'success' && (
-          <p className={styles.success}>Cadastro realizado com sucesso!</p>
-        )}
-
-        <form onSubmit={handleSubmit} className={styles.form} noValidate>
-          <label className={styles.label}>
-            Nome
-            <input
-              className={styles.input}
-              type="text"
-              name="name"
-              value={form.name}
-              onChange={handleChange}
-              required
-            />
-          </label>
-
-          <label className={styles.label}>
-            E-mail
-            <input
-              className={styles.input}
-              type="email"
-              name="email"
-              value={form.email}
-              onChange={handleChange}
-              required
-            />
-          </label>
-
-          <label className={styles.label}>
-            Senha
-            <input
-              className={styles.input}
-              type="password"
-              name="password"
-              value={form.password}
-              onChange={handleChange}
-              minLength={8}
-              required
-            />
-          </label>
-
-          {status === 'error' && <p className={styles.error}>{errorMsg}</p>}
-
-          <button className={styles.button} type="submit" disabled={status === 'loading'}>
-            {status === 'loading' ? 'Cadastrando...' : 'Cadastrar'}
-          </button>
-        </form>
+        <div className={styles.registerOptions}>
+          <Link href="/register/paciente" className={styles.optionCard}>
+            Sou Paciente
+          </Link>
+          <Link href="/register/medico" className={styles.optionCard}>
+            Sou Médico
+          </Link>
+        </div>
 
         <p className={styles.footer}>
-          Já tem conta? <Link href="/login">Entrar</Link>
+          Já tem uma conta? <Link href="/login">Fazer login</Link>
         </p>
       </div>
     </main>

@@ -1,69 +1,93 @@
+
+
+/* Ordem de estilo:
+layout:     display, flex-direction
+width:      width
+margin:     margin, margin-bottom
+padding:    padding
+background: background-color
+display:    display
+
+border: border-radius, box-shadow, border
+texto: text-align, font-size, color, font-weight
+*/
+
+
 .page {
-  min-height: 100vh;
+  /* min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #f5f5f5;
   padding: 1rem;
+  min-width: 40%; */
+
 }
 
+
 .card {
-  background: #fff;
-  width: 100%;
-  max-width: 400px;
-  border-radius: 12px;
-  padding: 2.5rem 2rem;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  /* margin: auto; */
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-white);
+
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-lg);
+
   text-align: center;
 }
 
+
+
 .title {
-  color: #000000;
-  font-size: 2rem;
-  font-weight: 700;
-  margin-bottom: 0.75rem;
+  margin-bottom: .5rem;
+
+  font-size: var(--text-2xl);
+  color: var(--color-primary-600);
 }
 
 .subtitle {
-  color: #555;
-  font-size: 0.95rem;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
+
+  font-size: var(--text-sm);
+  color: var(--color-gray-700);  
+}
+
+.textHealth {
+  color: var(--color-primary-600);
+  font-weight: var(--font-weight-medium);
+}
+
+.textTech {
+  color: var(--color-secondary-500);
+  font-weight: var(--font-weight-regular);
 }
 
 .actions {
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: .2rem;
 }
 
-.primary,
-.secondary {
-  display: block;
+.button {
   width: 100%;
-  border-radius: 8px;
-  padding: 0.7rem;
-  font-size: 1rem;
-  font-weight: 600;
-  text-decoration: none;
-  cursor: pointer;
+  padding: .5rem;
+  background-color: var(--color-secondary-500);
+
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-gray-100);
+  outline: none;
+
+  font-weight: var(--font-weight-medium);
+  font-size: var(--text-base);
+  color: var(--color-white);
 }
 
-.primary {
-  background: #2563eb;
-  color: #fff;
-  border: 1px solid #2563eb;
+.button:hover {
+  background-color: var(--color-secondary-600);
 }
 
-.primary:hover {
-  background: #1d4ed8;
-}
-
-.secondary {
-  background: #fff;
-  color: #2563eb;
-  border: 1px solid #2563eb;
-}
-
-.secondary:hover {
-  background: #eff6ff;
+.footer {
+  font-size: var(--text-sm);
+  color: var(--color-gray-700);
 }
