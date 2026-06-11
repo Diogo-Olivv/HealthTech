@@ -4,8 +4,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './entities/user.entity';
 import { Paciente } from './entities/paciente.entity';
 import { Medico } from './entities/medico.entity';
+import { MedicoPaciente } from './entities/MedicoPaciente.entity';
 import { UsersModule } from './users/users.module';
 import { HealthModule } from './health/health.module';
+import { MedicoPacienteModule } from './medico-paciente/medico-paciente.module';
 
 @Module({
   imports: [
@@ -24,7 +26,7 @@ import { HealthModule } from './health/health.module';
           username: config.get('DB_USER', 'postgres'),
           password: config.get('DB_PASSWORD', 'postgres'),
           database: config.get('DB_NAME', 'healthtech'),
-          entities: [User, Paciente, Medico],
+          entities: [User, Paciente, Medico, MedicoPaciente],
           synchronize: config.get('NODE_ENV') !== 'production' || config.get('DB_SYNC') === 'true',
           logging: config.get('NODE_ENV') !== 'production',
         };
@@ -32,6 +34,7 @@ import { HealthModule } from './health/health.module';
     }),
     UsersModule,
     HealthModule,
+    MedicoPacienteModule,
   ],
 })
 export class AppModule {}
