@@ -4,7 +4,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './entities/user.entity';
 import { Paciente } from './entities/paciente.entity';
 import { Medico } from './entities/medico.entity';
-import { MedicoPaciente } from './entities/MedicoPaciente.entity';
+import { MedicoPaciente } from './entities/medico-paciente.entity';
 import { UsersModule } from './users/users.module';
 import { HealthModule } from './health/health.module';
 import { MedicoPacienteModule } from './medico-paciente/medico-paciente.module';

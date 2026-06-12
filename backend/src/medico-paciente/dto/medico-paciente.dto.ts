@@ -1,6 +1,6 @@
 import { IsUUID } from 'class-validator';
 
-export class VincularMedicoPacienteDto {
+export class MedicoPacienteDto {
   @IsUUID()
   pacienteId!: string;
 }
