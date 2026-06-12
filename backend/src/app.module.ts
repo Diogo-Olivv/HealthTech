@@ -4,8 +4,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './entities/user.entity';
 import { Paciente } from './entities/paciente.entity';
 import { Medico } from './entities/medico.entity';
+import { Arquivo } from './entities/arquivo.entity';
 import { UsersModule } from './users/users.module';
 import { HealthModule } from './health/health.module';
+import { ArquivosModule } from './arquivos/arquivos.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 
@@ -29,7 +31,7 @@ import { AppService } from './app.service';
           username: config.get('DB_USER', 'postgres'),
           password: config.get('DB_PASSWORD', 'postgres'),
           database: config.get('DB_NAME', 'healthtech'),
-          entities: [User, Paciente, Medico],
+          entities: [User, Paciente, Medico, Arquivo],
           synchronize:
             config.get('NODE_ENV') !== 'production' ||
             config.get('DB_SYNC') === 'true',
@@ -39,6 +41,7 @@ import { AppService } from './app.service';
     }),
     UsersModule,
     HealthModule,
+    ArquivosModule,
   ],
   controllers: [AppController],
   providers: [AppService],
