@@ -8,16 +8,16 @@ substitutions:
   # BOOTSTRAP: na primeira execução deixe _BACKEND_URL vazio e rode apenas o
   # deploy do backend. Copie a URL gerada, preencha aqui (ou passe via
   # --substitutions) e rode o pipeline completo.
-  _BACKEND_URL: ''          # Ex: https://healthtech-backend-xxxx-uc.a.run.app
-  _CLOUDSQL_CONNECTION: 'health-tech-ai-lab:southamerica-east1:health-tech-db'
+  _BACKEND_URL: "https://healthtech-backend-515815792390.southamerica-east1.run.app"
+  _CLOUDSQL_CONNECTION: "health-tech-ai-lab:southamerica-east1:health-tech-db"
   # DB_SYNC=true apenas no primeiro deploy para criar as tabelas. Remova depois.
-  _DB_SYNC: 'false'
+  _DB_SYNC: "false"
 
 steps:
   # Autentica Docker com Artifact Registry antes de qualquer push
   - name: gcr.io/google.com/cloudsdktool/cloud-sdk
     id: auth-docker
-    waitFor: ['-']
+    waitFor: ["-"]
     entrypoint: gcloud
     args:
       - auth
@@ -54,12 +54,14 @@ steps:
   - name: gcr.io/cloud-builders/docker
     id: push-backend
     waitFor: [build-backend]
-    args: [push, --all-tags, $_REGION-docker.pkg.dev/$PROJECT_ID/$_AR_REPO/backend]
+    args:
+      [push, --all-tags, $_REGION-docker.pkg.dev/$PROJECT_ID/$_AR_REPO/backend]
 
   - name: gcr.io/cloud-builders/docker
     id: push-frontend
     waitFor: [build-frontend]
-    args: [push, --all-tags, $_REGION-docker.pkg.dev/$PROJECT_ID/$_AR_REPO/frontend]
+    args:
+      [push, --all-tags, $_REGION-docker.pkg.dev/$PROJECT_ID/$_AR_REPO/frontend]
 
   # Deploy backend (aguarda push do backend)
   - name: gcr.io/google.com/cloudsdktool/cloud-sdk
