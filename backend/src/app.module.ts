@@ -8,6 +8,10 @@ import { Arquivo } from './entities/arquivo.entity';
 import { UsersModule } from './users/users.module';
 import { HealthModule } from './health/health.module';
 import { ArquivosModule } from './arquivos/arquivos.module';
+import { MedicoPaciente } from './entities/medico-paciente.entity';
+import { UsersModule } from './users/users.module';
+import { HealthModule } from './health/health.module';
+import { MedicoPacienteModule } from './medico-paciente/medico-paciente.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 
@@ -31,10 +35,8 @@ import { AppService } from './app.service';
           username: config.get('DB_USER', 'postgres'),
           password: config.get('DB_PASSWORD', 'postgres'),
           database: config.get('DB_NAME', 'healthtech'),
-          entities: [User, Paciente, Medico, Arquivo],
-          synchronize:
-            config.get('NODE_ENV') !== 'production' ||
-            config.get('DB_SYNC') === 'true',
+          entities: [User, Paciente, Medico, MedicoPaciente, Arquivo],
+          synchronize: config.get('NODE_ENV') !== 'production' || config.get('DB_SYNC') === 'true',
           logging: config.get('NODE_ENV') !== 'production',
         };
       },
@@ -42,6 +44,7 @@ import { AppService } from './app.service';
     UsersModule,
     HealthModule,
     ArquivosModule,
+    MedicoPacienteModule,
   ],
   controllers: [AppController],
   providers: [AppService],
