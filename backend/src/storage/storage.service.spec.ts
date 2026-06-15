@@ -7,30 +7,49 @@ const mockSave = jest.fn();
 const mockDownload = jest.fn();
 const mockGcsDelete = jest.fn();
 const mockExists = jest.fn();
-const mockFile = jest.fn(() => ({ save: mockSave, download: mockDownload, delete: mockGcsDelete }));
+const mockGetSignedUrl = jest.fn();
+const mockFile = jest.fn(() => ({
+  save: mockSave,
+  download: mockDownload,
+  delete: mockGcsDelete,
+  getSignedUrl: mockGetSignedUrl,
+}));
 const mockBucket = jest.fn(() => ({ file: mockFile, exists: mockExists }));
 
 jest.mock('@google-cloud/storage', () => ({
   Storage: jest.fn().mockImplementation(() => ({ bucket: mockBucket })),
 }));
 
-const makeService = async (bucketName = 'test-bucket'): Promise<StorageService> => {
+const makeService = async (
+  bucketName = 'test-bucket',
+): Promise<StorageService> => {
   const module: TestingModule = await Test.createTestingModule({
     providers: [
       StorageService,
       {
         provide: ConfigService,
         useValue: {
-          get: (key: string, def = '') => (key === 'GCS_BUCKET_NAME' ? bucketName : def),
+          get: (key: string, def = '') =>
+            key === 'GCS_BUCKET_NAME' ? bucketName : def,
         },
       },
     ],
   }).compile();
-  return module.get<StorageService>(StorageService);
+  const service = module.get<StorageService>(StorageService);
+  service.onModuleInit();
+  return service;
 };
 
 describe('StorageService', () => {
   beforeEach(() => jest.clearAllMocks());
+
+  describe('onModuleInit()', () => {
+    it('deve lançar erro no boot se GCS_BUCKET_NAME não estiver configurado', async () => {
+      await expect(makeService('')).rejects.toThrow(
+        'GCS_BUCKET_NAME não configurado',
+      );
+    });
+  });
 
   describe('generateUniqueName()', () => {
     it('deve gerar nomes únicos para cada chamada', async () => {
@@ -49,42 +68,32 @@ describe('StorageService', () => {
     it('deve lidar com arquivo sem extensão', async () => {
       const service = await makeService();
       const nome = service.generateUniqueName('arquivo');
-      expect(nome).toMatch(/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/);
+      expect(nome).toMatch(
+        /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/,
+      );
     });
   });
 
   describe('upload()', () => {
-    it('deve salvar o buffer no GCS e retornar a URL pública', async () => {
+    it('deve salvar o buffer no GCS com o contentType informado', async () => {
       const service = await makeService();
       mockSave.mockResolvedValue(undefined);
 
-      const url = await service.upload(Buffer.from('dados'), 'uuid-123.jpg', 'image/jpeg');
+      await service.upload(Buffer.from('dados'), 'uuid-123.jpg', 'image/jpeg');
 
       expect(mockFile).toHaveBeenCalledWith('uuid-123.jpg');
-      expect(mockSave).toHaveBeenCalledWith(Buffer.from('dados'), { contentType: 'image/jpeg' });
-      expect(url).toBe('https://storage.googleapis.com/test-bucket/uuid-123.jpg');
-    });
-
-    it('deve usar application/octet-stream como contentType padrão', async () => {
-      const service = await makeService();
-      mockSave.mockResolvedValue(undefined);
-
-      await service.upload(Buffer.from('x'), 'arquivo.bin');
-
-      expect(mockSave).toHaveBeenCalledWith(expect.any(Buffer), { contentType: 'application/octet-stream' });
+      expect(mockSave).toHaveBeenCalledWith(Buffer.from('dados'), {
+        contentType: 'image/jpeg',
+      });
     });
 
     it('deve lançar InternalServerErrorException em falha de comunicação com GCS', async () => {
       const service = await makeService();
       mockSave.mockRejectedValue(new Error('network error'));
 
-      await expect(service.upload(Buffer.from('x'), 'file.jpg')).rejects.toThrow(InternalServerErrorException);
-    });
-
-    it('deve lançar InternalServerErrorException se bucket não estiver configurado', async () => {
-      const service = await makeService('');
-
-      await expect(service.upload(Buffer.from('x'), 'file.jpg')).rejects.toThrow(InternalServerErrorException);
+      await expect(
+        service.upload(Buffer.from('x'), 'file.jpg', 'image/jpeg'),
+      ).rejects.toThrow(InternalServerErrorException);
     });
   });
 
@@ -104,13 +113,9 @@ describe('StorageService', () => {
       const service = await makeService();
       mockDownload.mockRejectedValue(new Error('arquivo não encontrado'));
 
-      await expect(service.download('uuid-123.jpg')).rejects.toThrow(InternalServerErrorException);
-    });
-
-    it('deve lançar InternalServerErrorException se bucket não estiver configurado', async () => {
-      const service = await makeService('');
-
-      await expect(service.download('file.jpg')).rejects.toThrow(InternalServerErrorException);
+      await expect(service.download('uuid-123.jpg')).rejects.toThrow(
+        InternalServerErrorException,
+      );
     });
   });
 
@@ -129,22 +134,61 @@ describe('StorageService', () => {
       const service = await makeService();
       mockGcsDelete.mockRejectedValue(new Error('permission denied'));
 
-      await expect(service.delete('uuid-123.jpg')).rejects.toThrow(InternalServerErrorException);
+      await expect(service.delete('uuid-123.jpg')).rejects.toThrow(
+        InternalServerErrorException,
+      );
+    });
+  });
+
+  describe('getSignedUrl()', () => {
+    it('deve gerar URL assinada com TTL padrão de 900s', async () => {
+      const service = await makeService();
+      const fakeUrl = 'https://signed.example/uuid-123.jpg?sig=abc';
+      mockGetSignedUrl.mockResolvedValue([fakeUrl]);
+      const before = Date.now();
+
+      const url = await service.getSignedUrl('uuid-123.jpg');
+
+      expect(mockFile).toHaveBeenCalledWith('uuid-123.jpg');
+      const args = mockGetSignedUrl.mock.calls[0][0];
+      expect(args.action).toBe('read');
+      expect(args.expires).toBeGreaterThanOrEqual(before + 900 * 1000);
+      expect(args.expires).toBeLessThanOrEqual(Date.now() + 900 * 1000 + 50);
+      expect(url).toBe(fakeUrl);
     });
 
-    it('deve lançar InternalServerErrorException se bucket não estiver configurado', async () => {
-      const service = await makeService('');
+    it('deve respeitar TTL customizado', async () => {
+      const service = await makeService();
+      mockGetSignedUrl.mockResolvedValue(['url']);
+      const before = Date.now();
 
-      await expect(service.delete('file.jpg')).rejects.toThrow(InternalServerErrorException);
+      await service.getSignedUrl('x.jpg', 60);
+
+      const args = mockGetSignedUrl.mock.calls[0][0];
+      expect(args.expires).toBeGreaterThanOrEqual(before + 60 * 1000);
+      expect(args.expires).toBeLessThanOrEqual(Date.now() + 60 * 1000 + 50);
+    });
+
+    it('deve lançar InternalServerErrorException em falha do GCS', async () => {
+      const service = await makeService();
+      mockGetSignedUrl.mockRejectedValue(new Error('iam denied'));
+
+      await expect(service.getSignedUrl('x.jpg')).rejects.toThrow(
+        InternalServerErrorException,
+      );
+    });
+  });
+
+  describe('getPublicUrl()', () => {
+    it('deve montar a URL pública canônica do GCS', async () => {
+      const service = await makeService();
+      expect(service.getPublicUrl('uuid-123.jpg')).toBe(
+        'https://storage.googleapis.com/test-bucket/uuid-123.jpg',
+      );
     });
   });
 
   describe('isConnected()', () => {
-    it('deve retornar false se GCS_BUCKET_NAME não estiver configurado', async () => {
-      const service = await makeService('');
-      expect(await service.isConnected()).toBe(false);
-    });
-
     it('deve retornar true se o bucket existir no GCS', async () => {
       const service = await makeService();
       mockExists.mockResolvedValue([true]);
