@@ -29,10 +29,6 @@ const DEZ_MB = 10 * 1024 * 1024; // 10 MB em bytes
 export class ArquivosController {
   constructor(private readonly arquivosService: ArquivosService) {}
 
-  /**
-   * POST /arquivos/upload
-   * Apenas médicos autenticados e vinculados ao paciente informado podem enviar arquivos.
-   */
   @Post('upload')
   @HttpCode(HttpStatus.CREATED)
   @Roles(UserType.MEDICO)

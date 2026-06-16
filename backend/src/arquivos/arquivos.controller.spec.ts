@@ -14,10 +14,6 @@ import { UserType } from '../entities/user.entity';
 import { Arquivo } from '../entities/arquivo.entity';
 import { ArquivoResponseDto } from './dto/arquivo-response.dto';
 
-// ---------------------------------------------------------------------------
-// Fábricas auxiliares
-// ---------------------------------------------------------------------------
-
 const makeMulterFile = (overrides: Partial<Express.Multer.File> = {}): Express.Multer.File =>
   ({
     fieldname: 'arquivo',
@@ -49,10 +45,6 @@ const makeMedicoRequest = (id = 'uuid-medico-1') => ({
   user: { id, tipo: UserType.MEDICO },
 });
 
-// ---------------------------------------------------------------------------
-// Testes do ArquivosController
-// ---------------------------------------------------------------------------
-
 describe('ArquivosController', () => {
   let controller: ArquivosController;
   let arquivosService: jest.Mocked<ArquivosService>;
@@ -60,17 +52,9 @@ describe('ArquivosController', () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [ArquivosController],
-      providers: [
-        {
-          provide: ArquivosService,
-          useValue: {
-            uploadArquivo: jest.fn(),
-          },
-        },
-      ],
+      providers: [{ provide: ArquivosService, useValue: { uploadArquivo: jest.fn() } }],
     })
-      // Desabilitar os guards para isolar a lógica do controller nos testes unitários.
-      // A validação dos guards é coberta nos testes E2E.
+      // Guards desabilitados para isolar o controller; a lógica de autorização é coberta nos E2E.
       .overrideGuard(JwtAuthGuard)
       .useValue({ canActivate: () => true })
       .overrideGuard(RolesGuard)
@@ -92,31 +76,20 @@ describe('ArquivosController', () => {
 
       const resultado = await controller.upload(req as any, file, pacienteId);
 
-      expect(arquivosService.uploadArquivo).toHaveBeenCalledWith(
-        file,
-        pacienteId,
-        req.user.id,
-      );
+      expect(arquivosService.uploadArquivo).toHaveBeenCalledWith(file, pacienteId, req.user.id);
       expect(resultado).toEqual(esperado);
       expect(resultado).not.toHaveProperty('caminhoStorage');
     });
 
     it('deve propagar exceção lançada pelo service', async () => {
-      const file = makeMulterFile();
-      const req = makeMedicoRequest();
-
       arquivosService.uploadArquivo.mockRejectedValue(new Error('Erro inesperado'));
 
-      await expect(controller.upload(req as any, file, 'uuid-paciente-1')).rejects.toThrow(
-        'Erro inesperado',
-      );
+      await expect(
+        controller.upload(makeMedicoRequest() as any, makeMulterFile(), 'uuid-paciente-1'),
+      ).rejects.toThrow('Erro inesperado');
     });
   });
 });
-
-// ---------------------------------------------------------------------------
-// Testes unitários do ParseFilePipe (validação de tamanho e tipo)
-// ---------------------------------------------------------------------------
 
 describe('ParseFilePipe — validação de arquivo', () => {
   const DEZ_MB = 10 * 1024 * 1024;

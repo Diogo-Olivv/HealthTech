@@ -1,14 +1,3 @@
-/**
- * E2E Tests — POST /arquivos/upload
- *
- * Estratégia de isolamento:
- *  - O StorageService é mockado para evitar chamadas reais ao GCS.
- *  - Os guards JwtAuthGuard e RolesGuard são substituídos por implementações
- *    controladas que injetam o usuário correto conforme o cenário de teste.
- *  - O banco de dados (TypeORM) é mockado via repositórios em memória para
- *    não exigir conexão real ao PostgreSQL.
- */
-
 import { Test, TestingModule } from '@nestjs/testing';
 import {
   INestApplication,
@@ -29,27 +18,18 @@ import { UserType } from '../src/entities/user.entity';
 import { Reflector } from '@nestjs/core';
 import { ROLES_KEY } from '../src/auth/roles.decorator';
 
-// ---------------------------------------------------------------------------
-// Dados fixos dos atores dos testes
-// ---------------------------------------------------------------------------
 const MEDICO_ID = 'e2e-medico-uuid';
 const PACIENTE_ID = 'e2e-paciente-uuid';
 const MEDICO_SEM_VINCULO_ID = 'e2e-medico-sem-vinculo-uuid';
 
-// ---------------------------------------------------------------------------
-// Factories de guards controlados
-// ---------------------------------------------------------------------------
-
-/** Guard que simula um médico vinculado autenticado via JWT */
 const makeJwtGuardAsUser = (id: string, tipo: UserType): CanActivate => ({
   canActivate: (ctx: ExecutionContext) => {
-    const req = ctx.switchToHttp().getRequest();
-    req.user = { id, tipo };
+    ctx.switchToHttp().getRequest().user = { id, tipo };
     return true;
   },
 });
 
-/** RolesGuard real, mas usando o Reflector injetado */
+// O RolesGuard usa o Reflector real para que @Roles() seja genuinamente avaliado nos testes.
 const makeRolesGuard = (reflector: Reflector): CanActivate => ({
   canActivate: (ctx: ExecutionContext) => {
     const rolesExigidas = reflector.getAllAndOverride<UserType[]>(ROLES_KEY, [
@@ -65,30 +45,19 @@ const makeRolesGuard = (reflector: Reflector): CanActivate => ({
   },
 });
 
-// ---------------------------------------------------------------------------
-// Repositórios em memória
-// ---------------------------------------------------------------------------
 const mockArquivosRepo = {
   create: jest.fn((dto: Partial<Arquivo>) => ({ ...dto, id: 'arquivo-criado-uuid' }) as Arquivo),
   save: jest.fn(async (entity: Arquivo) => entity),
 };
 
-const mockMedicoPacienteRepo = {
-  findOne: jest.fn(),
-};
+const mockMedicoPacienteRepo = { findOne: jest.fn() };
 
-// ---------------------------------------------------------------------------
-// Mock do StorageService
-// ---------------------------------------------------------------------------
 const mockStorageService = {
   generateUniqueName: jest.fn((originalName: string) => `gerado-${originalName}`),
   upload: jest.fn().mockResolvedValue(undefined),
   getPublicUrl: jest.fn((nomeUnico: string) => `https://storage.googleapis.com/bucket/${nomeUnico}`),
 };
 
-// ---------------------------------------------------------------------------
-// Helper para criar a app com um usuário específico simulado
-// ---------------------------------------------------------------------------
 async function buildApp(userId: string, userTipo: UserType): Promise<INestApplication> {
   const moduleFixture: TestingModule = await Test.createTestingModule({
     imports: [ArquivosModule],
@@ -116,26 +85,16 @@ async function buildApp(userId: string, userTipo: UserType): Promise<INestApplic
   return app;
 }
 
-// ---------------------------------------------------------------------------
-// Suíte de testes E2E — /arquivos/upload
-// ---------------------------------------------------------------------------
 describe('POST /arquivos/upload (E2E)', () => {
-  beforeEach(() => {
-    jest.clearAllMocks();
-  });
+  beforeEach(() => jest.clearAllMocks());
 
-  // --- Cenário 1: Upload bem-sucedido por médico vinculado ---
   describe('Médico vinculado ao paciente', () => {
     let app: INestApplication;
 
-    beforeAll(async () => {
-      app = await buildApp(MEDICO_ID, UserType.MEDICO);
-    });
-
+    beforeAll(async () => { app = await buildApp(MEDICO_ID, UserType.MEDICO); });
     afterAll(() => app.close());
 
     it('deve retornar 201 com os dados públicos do arquivo (sem caminhoStorage)', async () => {
-      // Vínculo existe
       mockMedicoPacienteRepo.findOne.mockResolvedValue({ medicoId: MEDICO_ID, pacienteId: PACIENTE_ID });
 
       const res = await request(app.getHttpServer())
@@ -153,48 +112,34 @@ describe('POST /arquivos/upload (E2E)', () => {
       expect(res.body).toHaveProperty('tamanho');
       expect(res.body).toHaveProperty('pacienteId', PACIENTE_ID);
       expect(res.body).not.toHaveProperty('caminhoStorage');
-
       expect(mockStorageService.upload).toHaveBeenCalledTimes(1);
     });
   });
 
-  // --- Cenário 2: Bloqueio por paciente (403) ---
   describe('Usuário do tipo PACIENTE tenta fazer upload', () => {
     let app: INestApplication;
 
-    beforeAll(async () => {
-      app = await buildApp(PACIENTE_ID, UserType.PACIENTE);
-    });
-
+    beforeAll(async () => { app = await buildApp(PACIENTE_ID, UserType.PACIENTE); });
     afterAll(() => app.close());
 
-    it('deve retornar 403 ao tentar acessar o endpoint como PACIENTE', async () => {
+    it('deve retornar 403', async () => {
       await request(app.getHttpServer())
         .post('/arquivos/upload')
         .field('pacienteId', PACIENTE_ID)
-        .attach('arquivo', Buffer.from('fake'), {
-          filename: 'exame.pdf',
-          contentType: 'application/pdf',
-        })
+        .attach('arquivo', Buffer.from('fake'), { filename: 'exame.pdf', contentType: 'application/pdf' })
         .expect(403);
 
-      // StorageService não deve ter sido chamado
       expect(mockStorageService.upload).not.toHaveBeenCalled();
     });
   });
 
-  // --- Cenário 3: Bloqueio por médico sem vínculo (403) ---
   describe('Médico SEM vínculo com o paciente', () => {
     let app: INestApplication;
 
-    beforeAll(async () => {
-      app = await buildApp(MEDICO_SEM_VINCULO_ID, UserType.MEDICO);
-    });
-
+    beforeAll(async () => { app = await buildApp(MEDICO_SEM_VINCULO_ID, UserType.MEDICO); });
     afterAll(() => app.close());
 
-    it('deve retornar 403 quando médico não tem vínculo com o paciente', async () => {
-      // Sem vínculo
+    it('deve retornar 403', async () => {
       mockMedicoPacienteRepo.findOne.mockResolvedValue(null);
 
       await request(app.getHttpServer())
