@@ -2829,13 +2829,15 @@
 <p>Esta página documenta os padrões e diretrizes de identidade visual do projeto <strong>HealthTech</strong>, projetados para criar uma interface consistente, profissional e moderna.</p>
 <hr />
 <h2 id="1-tema-estilo">1. Tema &amp; Estilo</h2>
-<p>!!! info "Diretriz Geral"
-    O design da plataforma HealthTech deve evocar um ambiente médico clínico, estéril, altamente profissional e tecnológico, mas ao mesmo tempo acolhedor e humanizado. A interface deve priorizar a clareza, a precisão e a acessibilidade.</p>
+<blockquote>
+<p><strong>Diretriz Geral</strong></p>
+<p>O design da plataforma HealthTech deve evocar um ambiente médico clínico, estéril, altamente profissional e tecnológico, mas ao mesmo tempo acolhedor e humanizado. A interface deve priorizar a clareza, a precisão e a acessibilidade.</p>
 <ul>
 <li><strong>Minimalista e Robusto:</strong> Sem elementos puramente decorativos ou desnecessários. Toda interface serve à funcionalidade e à legibilidade.</li>
 <li><strong>Alto Contraste:</strong> Relação estrita de contraste para garantir que pacientes e médicos possam ler as informações sem fadiga ocular.</li>
 <li><strong>Visual Clean:</strong> Espaço em branco generoso (grid bem espaçado) para permitir que a informação "respire".</li>
 </ul>
+</blockquote>
 <hr />
 <h2 id="2-paleta-de-cores">2. Paleta de Cores</h2>
 <p>A paleta de cores foi selecionada para balancear a autoridade da área clínica com a inovação da tecnologia em saúde.</p>
@@ -2914,15 +2916,22 @@
 <li><strong>Família de Fonte:</strong> <code>Inter</code> (Google Fonts)</li>
 <li><strong>Carregamento Recomendado:</strong>
   <code>html
-  &lt;link rel="preconnect" href="https://fonts.googleapis.com"&gt;
-  &lt;link rel="preconnect" href="https://fonts.gstatic.com" crossorigin&gt;
-  &lt;link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"&gt;</code></li>
+  &lt;link rel="preconnect" href="https://fonts.googleapis.com" /&gt;
+  &lt;link rel="preconnect" href="https://fonts.gstatic.com" crossorigin /&gt;
+  &lt;link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap"
+    rel="stylesheet"
+  /&gt;</code></li>
 </ul>
 <h3 id="pesos-de-fonte-definidos">Pesos de Fonte Definidos</h3>
-<p>!!! quote "Diretriz de Pesos"
-    * <strong>Títulos (H1 / H2):</strong> <code>Bold (700)</code> ou <code>Semi-Bold (600)</code> — Garante impacto e hierarquia clara.
-    * <strong>Subtítulos:</strong> <code>Medium (500)</code> — Para rotular seções e destaques secundários.
-    * <strong>Corpo de Texto &amp; Inputs:</strong> <code>Regular (400)</code> — Otimizado para leitura contínua e inserção de dados.</p>
+<blockquote>
+<p><strong>Diretriz de Pesos</strong></p>
+<ul>
+<li><strong>Títulos (H1 / H2):</strong> <code>Bold (700)</code> ou <code>Semi-Bold (600)</code> — Garante impacto e hierarquia clara.</li>
+<li><strong>Subtítulos:</strong> <code>Medium (500)</code> — Para rotular seções e destaques secundários.</li>
+<li><strong>Corpo de Texto &amp; Inputs:</strong> <code>Regular (400)</code> — Otimizado para leitura contínua e inserção de dados.</li>
+</ul>
+</blockquote>
 <h3 id="escala-de-tamanhos-recomendada">Escala de Tamanhos Recomendada</h3>
 <ul>
 <li><strong>Título Principal (H1):</strong> <code>3rem</code> (48px) — Altura de linha: <code>1.2</code></li>
@@ -2935,20 +2944,38 @@
 <h2 id="4-conceito-do-logo">4. Conceito do Logo</h2>
 <p>A marca visual do HealthTech foi repensada para conectar de forma simples os dois pilares da plataforma: a <strong>prática médica/clínica</strong> e a <strong>inovação tecnológica em nuvem</strong>.</p>
 <h3 id="composicao-do-logo">Composição do Logo</h3>
-<pre><code>
-  +--------+
-  |  [+]   |   Health Tech
-  |  /\/\  |   (Bold) (Regular)
-  +--------+
-</code></pre>
+<!-- Ícone SVG (usar sempre vetorial para escalabilidade) -->
+<figure style="display:flex;flex-direction:column;align-items:center;gap:0.5rem;margin:1rem 0;">
+    <!-- Coloque o arquivo do ícone SVG em: docs/assets/logo/icon.svg -->
+    <!-- Uso recomendado (img): preserva cache e acessibilidade -->
+    <img src="../assets/logo/icon.svg" alt="Ícone HealthTech (SVG)" style="width:96px;height:auto;" />
+    <figcaption style="color:#595959;font-size:0.95rem;">Ícone SVG da marca</figcaption>
+  </figure>
+
+<!-- Versões completas do logotipo -->
+<figure style="display:flex;flex-direction:column;align-items:center;gap:0.5rem;margin:1rem 0;">
+    <img src="../assets/logo/logo-fundo-azul.png" alt="Logotipo HealthTech sobre fundo azul" style="max-width:360px;width:100%;height:auto;" />
+    <figcaption style="color:#595959;font-size:0.95rem;">Logotipo HealthTech sobre fundo azul</figcaption>
+  </figure>
+
+<figure style="display:flex;flex-direction:column;align-items:center;gap:0.5rem;margin:1rem 0;">
+    <img src="../assets/logo/logo-fundo-branco.png" alt="Logotipo HealthTech sobre fundo branco" style="max-width:360px;width:100%;height:auto;" />
+    <figcaption style="color:#595959;font-size:0.95rem;">Logotipo HealthTech sobre fundo branco</figcaption>
+  </figure>
+
+<!-- Exemplo de embed inline (quando precisar controlar cores via CSS): -->
+<!-- <div class="logo-inline">(incluir o conteúdo de docs/assets/logo/icon.svg aqui)</div> -->
+
 <ul>
 <li><strong>Parte Textual:</strong>
   A palavra <strong>"Health"</strong> deve ser estilizada em <strong>Negrito (Bold 700)</strong> e a palavra <strong>"Tech"</strong> em <strong>Regular (400)</strong>, ambas usando a tipografia <em>Inter</em>. Isso cria uma diferenciação sutil e elegante.</li>
 <li><strong>Parte do Ícone:</strong>
   Localizado sempre à <strong>esquerda</strong> da parte textual. O ícone consiste em um documento de exame médico (folha de papel) limpo com cantos arredondados. As linhas internas horizontais de texto do documento transitam sutilmente para uma onda de pulso cardíaco eletrônico (onda de dados). Um ícone de nuvem/upload extremamente sutil e pequeno fica localizado em um dos cantos do documento.</li>
 </ul>
-<p>!!! tip "Disponibilidade de Assets"
-    Os arquivos vetoriais originais e suas variações históricas estão organizados na pasta <code>docs/assets/logo/</code>. Para novos desenvolvimentos, a nova estrutura de ícone deve ser adaptada mantendo a sobriedade e o alinhamento com a paleta de cores.</p>
+<blockquote>
+<p><strong>Disponibilidade de Assets</strong></p>
+<p>Os arquivos vetoriais originais e suas variações históricas estão organizados na pasta <code>docs/assets/logo/</code>. Para novos desenvolvimentos, a nova estrutura de ícone deve ser adaptada mantendo a sobriedade e o alinhamento com a paleta de cores.</p>
+</blockquote>
 <hr />
 <h2 id="5-diretrizes-de-imagens">5. Diretrizes de Imagens</h2>
 <p>Para apoiar a proposta de um ambiente clínico moderno e acolhedor, as imagens e gráficos devem seguir regras rígidas de curadoria.</p>
@@ -2988,7 +3015,7 @@
   --text-primary: #1a1a1a;
   --text-secondary: #595959;
 
-  --font-family: 'Inter', sans-serif;
+  --font-family: &quot;Inter&quot;, sans-serif;
 
   --spacing-container: 1.5rem;
   --spacing-section: 3rem;
