@@ -1,97 +1,161 @@
-# Identidade Visual - HealthTech
+# Identidade Visual — HealthTech
 
-## 1. Visão Geral do Projeto
+Esta página documenta os padrões e diretrizes de identidade visual do projeto **HealthTech**, projetados para criar uma interface consistente, profissional e moderna.
 
-- Propósito do site: **\_\_**
-- Público-alvo: **Médicos e pacientes**
-- Estilo desejado: **\_\_**
-- Tom de voz: **\_\_**
+---
 
-## 2. Logo
+## 1. Tema & Estilo
 
-- Versões do logo:
-  <div style="text-align:center; margin-bottom:1rem;">
-    <figure style="display:inline-block; margin:0;">
-      <img src="../assets/logo/logo-healthtech-vetor.svg" alt="Logo principal" width="260" />
-      <figcaption style="text-align:center; font-size:0.9rem;">Principal</figcaption>
-    </figure>
+!!! info "Diretriz Geral"
+    O design da plataforma HealthTech deve evocar um ambiente médico clínico, estéril, altamente profissional e tecnológico, mas ao mesmo tempo acolhedor e humanizado. A interface deve priorizar a clareza, a precisão e a acessibilidade.
+
+- **Minimalista e Robusto:** Sem elementos puramente decorativos ou desnecessários. Toda interface serve à funcionalidade e à legibilidade.
+- **Alto Contraste:** Relação estrita de contraste para garantir que pacientes e médicos possam ler as informações sem fadiga ocular.
+- **Visual Clean:** Espaço em branco generoso (grid bem espaçado) para permitir que a informação "respire".
+
+---
+
+## 2. Paleta de Cores
+
+A paleta de cores foi selecionada para balancear a autoridade da área clínica com a inovação da tecnologia em saúde.
+
+### Cores Principais
+
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; margin: 1.5rem 0;">
+  <!-- Primary -->
+  <div style="background-color: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 1.25rem; box-shadow: 0 1px 3px rgba(0,0,0,0.05); text-align: left;">
+    <div style="background-color: #1e4969; height: 80px; border-radius: 6px; margin-bottom: 0.75rem; border: 1px solid rgba(0,0,0,0.05);"></div>
+    <strong style="color: #1a1a1a; font-size: 1rem;">Primária (Ações & Branding)</strong>
+    <div style="font-family: monospace; font-size: 0.9rem; color: #1e4969; margin: 0.25rem 0;">#1e4969</div>
+    <div style="font-size: 0.85rem; color: #595959; line-height: 1.3;">Deep Clinical Blue. Representa autoridade, segurança e confiança. Utilizada em ações principais, cabeçalhos e branding.</div>
   </div>
-  <div style="display:flex; justify-content:center; gap:1rem; flex-wrap:wrap;">
-    <figure style="display:inline-block; text-align:center; margin:0;">
-      <img src="../assets/logo/logo-healthtech-vetor-branco.svg" alt="Logo branco" width="120" />
-      <figcaption style="font-size:0.85rem;">Versão branco</figcaption>
-    </figure>
-    <figure style="display:inline-block; text-align:center; margin:0;">
-      <img src="../assets/logo/logo-healthtech-vetor-todo-branco.svg" alt="Logo todo branco" width="120" />
-      <figcaption style="font-size:0.85rem;">Versão todo branco</figcaption>
-    </figure>
-    <figure style="display:inline-block; text-align:center; margin:0;">
-      <img src="../assets/logo/logo-healthtech-vetor-todo-ciano.svg" alt="Logo ciano" width="120" />
-      <figcaption style="font-size:0.85rem;">Versão ciano</figcaption>
-    </figure>
-    <figure style="display:inline-block; margin:0;">
-      <img src="../assets/logo/logo-healthtech-vetor-baloes.svg" alt="Logo principal" width="120" />
-      <figcaption style="text-align:center; font-size:0.9rem;">Ícone (balões)</figcaption>
-    </figure>
+  <!-- Secondary -->
+  <div style="background-color: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 1.25rem; box-shadow: 0 1px 3px rgba(0,0,0,0.05); text-align: left;">
+    <div style="background-color: #368ca0; height: 80px; border-radius: 6px; margin-bottom: 0.75rem; border: 1px solid rgba(0,0,0,0.05);"></div>
+    <strong style="color: #1a1a1a; font-size: 1rem;">Secundária (Estados Ativos & Badges)</strong>
+    <div style="font-family: monospace; font-size: 0.9rem; color: #368ca0; margin: 0.25rem 0;">#368ca0</div>
+    <div style="font-size: 0.85rem; color: #595959; line-height: 1.3;">Ocean Blue. Representa tecnologia moderna e vitalidade. Utilizada para estados ativos, badges, links e detalhes técnicos.</div>
+  </div>
+  <!-- Background Canvas -->
+  <div style="background-color: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 1.25rem; box-shadow: 0 1px 3px rgba(0,0,0,0.05); text-align: left;">
+    <div style="background-color: #f8fafc; height: 80px; border-radius: 6px; margin-bottom: 0.75rem; border: 1px solid #cbd5e1;"></div>
+    <strong style="color: #1a1a1a; font-size: 1rem;">Fundo / Canvas</strong>
+    <div style="font-family: monospace; font-size: 0.9rem; color: #64748b; margin: 0.25rem 0;">#f8fafc | #ffffff</div>
+    <div style="font-size: 0.85rem; color: #595959; line-height: 1.3;">Slate 50 (tela de fundo confortável) e Branco Puro (#ffffff) para cartões, seções e contêineres de conteúdo.</div>
+  </div>
+</div>
 
-- Descrição do logo: **Uma pessoa feliz segurando balões que o fazem voar.**
-- Conceito e significado: 
-    - A Silhueta Humana: Representa o indivíduo em movimento e celebração. A postura de voo transmite vitalidade, energia e autonomia. A cor azul traz uma base de confiança e segurança, essenciais para o setor de saúde.
-    - Os Balões: Simbolizam o fator de elevação. Na metáfora da marca, eles são a saúde e a tecnologia que "levantam" a pessoa, permitindo que ela escape de limitações.
-    - As Cores Vibrantes: Os tons coloridos (verde, azul, amarelo, laranja e rosa) mostram que a saúde é multifacetada e que o resultado de se cuidar é uma vida alegre, leve e cheia de cor.
-    - A saúde não é apenas a ausência de doença, mas o combustível que nos dá a liberdade para voar alto e viver sem barreiras.
+### Cores de Texto e Apoio
 
-- Usos recomendados: **__**
-- Espaçamento mínimo ao redor do logo: **__**
+| Categoria | Cor / Hex | Visual | Função / Aplicação |
+| :--- | :--- | :---: | :--- |
+| **Texto Primário** | `#1a1a1a` (Dark Slate) | <span style="display:inline-block;width:2em;height:1.2em;background:#1a1a1a;border:1px solid #ccc;border-radius:4px;vertical-align:middle;"></span> | Títulos, parágrafos importantes e inputs (alta legibilidade). |
+| **Texto Secundário** | `#595959` (Medium Gray) | <span style="display:inline-block;width:2em;height:1.2em;background:#595959;border:1px solid #ccc;border-radius:4px;vertical-align:middle;"></span> | Metadados, descrições secundárias, timestamps e legendas. |
+| **Sucesso** | `#70C1A3` (Emerald Light) | <span style="display:inline-block;width:2em;height:1.2em;background:#70C1A3;border:1px solid #ccc;border-radius:4px;vertical-align:middle;"></span> | Estados de sucesso, confirmações e feedbacks positivos. |
+| **Alerta** | `#f2b138` (Amber) | <span style="display:inline-block;width:2em;height:1.2em;background:#f2b138;border:1px solid #ccc;border-radius:4px;vertical-align:middle;"></span> | Avisos, pendências e chamadas de atenção moderadas. |
+| **Erro** | `#e14c4c` (Coral Red) | <span style="display:inline-block;width:2em;height:1.2em;background:#e14c4c;border:1px solid #ccc;border-radius:4px;vertical-align:middle;"></span> | Estados críticos, validações incorretas e erros do sistema. |
 
-## 3. Imagens
+---
 
-- Estilo visual das imagens: **\_\_**
-- Tipos de imagens a utilizar (fotos, ilustrações, ícones): **\_\_**
-- Tratamento de imagens (filtros, saturação, contraste): **\_\_**
-- Exemplo de imagens permitidas: **\_\_**
-- Imagens a evitar: **\_\_**
+## 3. Tipografia
 
-## 4. Cores
+A tipografia do sistema utiliza uma única família de fontes para manter a consistência e otimizar o carregamento.
 
+- **Família de Fonte:** `Inter` (Google Fonts)
+- **Carregamento Recomendado:**
+  ```html
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  ```
 
-| Categoria | Cor / Hex | Preview | Função Principal |
-| --- | --- | --- | --- |
-| Principal | #1e4969 | <span style="display:inline-block;width:1.5em;height:1em;background:#1e4969;border:1px solid #ccc;border-radius:2px;vertical-align:middle;"></span> | Logos, cabeçalhos, botões institucionais e autoridade. |
-| Secundária | #368ca0 | <span style="display:inline-block;width:1.5em;height:1em;background:#368ca0;border:1px solid #ccc;border-radius:2px;vertical-align:middle;"></span> | Elementos tech, links, sublinhados e destaques frios. |
-| Fundo Principal | #FFFFFF | <span style="display:inline-block;width:1.5em;height:1em;background:#FFFFFF;border:1px solid #ccc;border-radius:2px;vertical-align:middle;"></span> | Áreas de leitura e fundo geral. |
-| Fundo Alternativo | #F4F7F9 (Sugerido) | <span style="display:inline-block;width:1.5em;height:1em;background:#F4F7F9;border:1px solid #ccc;border-radius:2px;vertical-align:middle;"></span> | Fundo de seções, cards e separadores. |
-| Texto Escuro | #1A1A1A | <span style="display:inline-block;width:1.5em;height:1em;background:#1A1A1A;border:1px solid #ccc;border-radius:2px;vertical-align:middle;"></span> | Títulos e textos longos (alta legibilidade). |
-| Texto Claro | #595959 | <span style="display:inline-block;width:1.5em;height:1em;background:#595959;border:1px solid #ccc;border-radius:2px;vertical-align:middle;"></span> | Legendas, placeholders e textos de apoio. |
-| Sucesso | #70C1A3 | <span style="display:inline-block;width:1.5em;height:1em;background:#70C1A3;border:1px solid #ccc;border-radius:2px;vertical-align:middle;"></span> | Botões de sucesso, mensagens de confirmação e estados positivos. |
-| Alerta | #f2b138 | <span style="display:inline-block;width:1.5em;height:1em;background:#f2b138;border:1px solid #ccc;border-radius:2px;vertical-align:middle;"></span> | Avisos moderados, banners de atenção e alertas informativos. |
-| Erro | #e14c4c | <span style="display:inline-block;width:1.5em;height:1em;background:#e14c4c;border:1px solid #ccc;border-radius:2px;vertical-align:middle;"></span> | Erros, mensagens de falha e estados críticos. |
+### Pesos de Fonte Definidos
 
+!!! quote "Diretriz de Pesos"
+    * **Títulos (H1 / H2):** `Bold (700)` ou `Semi-Bold (600)` — Garante impacto e hierarquia clara.
+    * **Subtítulos:** `Medium (500)` — Para rotular seções e destaques secundários.
+    * **Corpo de Texto & Inputs:** `Regular (400)` — Otimizado para leitura contínua e inserção de dados.
 
-## 5. Tipografia
+### Escala de Tamanhos Recomendada
 
-- Fonte principal (títulos): **Inter** (Pesos: 700 Bold / 600 Semi-Bold)
-- Fonte secundária (corpo de texto): **Inter** (Peso: 400 Regular) — Garante melhor legibilidade em telas.
-- Fonte alternativa (botões/legendas): **Inter** (Peso: 500 Medium / 600 Semi-Bold)
+* **Título Principal (H1):** `3rem` (48px) — Altura de linha: `1.2`
+* **Título de Seção (H2):** `2.25rem` (36px) — Altura de linha: `1.3`
+* **Subtítulos (H3):** `1.75rem` (28px) — Altura de linha: `1.4`
+* **Corpo do Texto:** `1rem` (16px) — Altura de linha padrão: `1.5`
+* **Textos de Apoio / Legendas:** `0.875rem` (14px) — Altura de linha: `1.4`
 
-## 6. Tamanhos e Espaçamentos
+---
 
-- Tamanho dos títulos:
-  - H1: **3rem (48px)**
-  - H2: **2.25rem (36px)**
-  - H3: **1.75rem (28px)**
-- Tamanho do corpo de texto: **1rem (16px)**
-- Altura de linha padrão: **1.5**
-- Espaçamento entre seções: **3rem**
-- Margens e padding principais: **1.5rem**
-- Tamanho de botões: **1rem a 1.125rem (16-18px)**
-- Tamanho de ícones: **24px a 32px**
+## 4. Conceito do Logo
 
-## 7. Aplicações no Site
+A marca visual do HealthTech foi repensada para conectar de forma simples os dois pilares da plataforma: a **prática médica/clínica** e a **inovação tecnológica em nuvem**.
 
+### Composição do Logo
 
-## 8. Observações Finais
+```
 
-- Regras de uso da identidade visual: **\_\_**
-- Elementos a evitar: **\_\_**
-- Referências de inspiração: **\_\_**
+  +--------+
+  |  [+]   |   Health Tech
+  |  /\/\  |   (Bold) (Regular)
+  +--------+
+```
+
+* **Parte Textual:**
+  A palavra **"Health"** deve ser estilizada em **Negrito (Bold 700)** e a palavra **"Tech"** em **Regular (400)**, ambas usando a tipografia *Inter*. Isso cria uma diferenciação sutil e elegante.
+* **Parte do Ícone:**
+  Localizado sempre à **esquerda** da parte textual. O ícone consiste em um documento de exame médico (folha de papel) limpo com cantos arredondados. As linhas internas horizontais de texto do documento transitam sutilmente para uma onda de pulso cardíaco eletrônico (onda de dados). Um ícone de nuvem/upload extremamente sutil e pequeno fica localizado em um dos cantos do documento.
+
+!!! tip "Disponibilidade de Assets"
+    Os arquivos vetoriais originais e suas variações históricas estão organizados na pasta `docs/assets/logo/`. Para novos desenvolvimentos, a nova estrutura de ícone deve ser adaptada mantendo a sobriedade e o alinhamento com a paleta de cores.
+
+---
+
+## 5. Diretrizes de Imagens
+
+Para apoiar a proposta de um ambiente clínico moderno e acolhedor, as imagens e gráficos devem seguir regras rígidas de curadoria.
+
+### Tipos Permitidos
+* **Fotografia Profissional:** Profissionais de saúde reais em ambientes bem iluminados, transmitindo empatia, foco e precisão.
+* **Ícones Lineares (Outline):** Ícones minimalistas com linhas de `2px`, utilizando cores da paleta principal.
+* **Ilustrações Tecnológicas:** Vetores simples com poucos gradientes, focando na clareza da mensagem.
+
+### Tratamento Visual
+* **Filtros e Cores:** Cores naturais e realistas. Tons ligeiramente frios e neutros são bem-vindos para reforçar a atmosfera clínica.
+* **Contraste:** Excelente nitidez e brilho para evitar sombras pesadas ou atmosferas sombrias.
+
+### O que evitar
+* ❌ Fotos clichês de banco de imagens (ex: médicos com sorrisos artificiais olhando diretamente para a câmera de forma exagerada).
+* ❌ Gráficos ou ilustrações muito infantis ou caricatos.
+* ❌ Ambientes escuros, equipamentos médicos desatualizados ou desorganizados.
+
+---
+
+## 6. Layout e Espaçamentos
+
+A plataforma adota um sistema de grid fluido com as seguintes especificações para manter a consistência estrutural:
+
+- **Espaçamento entre Seções:** `3rem` (48px)
+- **Margens e Paddings de Contêineres:** `1.5rem` (24px)
+- **Tamanho padrão de Ícones:** `24px` a `32px`
+- **Arredondamento de Cantos (Border Radius):** `8px` para cartões (cards) e botões principais; `12px` para grandes contêineres e modais.
+- **Botões:** Tamanho de texto de `1rem` a `1.125rem` (16-18px) com padding interno balanceado (ex: `12px 24px`).
+
+```css
+/* Exemplo de aplicação prática das variáveis no CSS do projeto */
+:root {
+  --primary-color: #1e4969;
+  --secondary-color: #368ca0;
+  --background-canvas: #f8fafc;
+  --background-card: #ffffff;
+  --text-primary: #1a1a1a;
+  --text-secondary: #595959;
+  
+  --font-family: 'Inter', sans-serif;
+  
+  --spacing-container: 1.5rem;
+  --spacing-section: 3rem;
+  --border-radius-sm: 4px;
+  --border-radius-md: 8px;
+  --border-radius-lg: 12px;
+}
+```
