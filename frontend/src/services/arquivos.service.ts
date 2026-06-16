@@ -9,7 +9,10 @@ export async function getArquivosPaciente(): Promise<ArquivoDto[]> {
   if (!token) throw new Error('Usuário não autenticado.');
 
   const res = await fetch(`${API_URL}/arquivos/paciente`, {
-    headers: { Authorization: `Bearer ${token}` },
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
   });
 
   if (!res.ok) {
@@ -25,7 +28,10 @@ export async function getArquivosMedico(): Promise<ArquivoDto[]> {
   if (!token) throw new Error('Usuário não autenticado.');
 
   const res = await fetch(`${API_URL}/arquivos/medico`, {
-    headers: { Authorization: `Bearer ${token}` },
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
   });
 
   if (!res.ok) {

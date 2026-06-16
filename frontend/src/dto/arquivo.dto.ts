@@ -3,5 +3,5 @@ export type ArquivoDto = {
   nome: string;
   tipo: string;
   dataUpload: string;
-  enviadoPor: string;
+  medicoId: string;
 };
