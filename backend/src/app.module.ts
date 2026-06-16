@@ -9,8 +9,6 @@ import { UsersModule } from './users/users.module';
 import { HealthModule } from './health/health.module';
 import { ArquivosModule } from './arquivos/arquivos.module';
 import { MedicoPaciente } from './entities/medico-paciente.entity';
-import { UsersModule } from './users/users.module';
-import { HealthModule } from './health/health.module';
 import { MedicoPacienteModule } from './medico-paciente/medico-paciente.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -29,9 +27,9 @@ import { AppService } from './app.service';
           ...(instanceName
             ? { host: `/cloudsql/${instanceName}` }
             : {
-                host: config.get('DB_HOST', 'localhost'),
-                port: config.get<number>('DB_PORT', 5432),
-              }),
+              host: config.get('DB_HOST', 'localhost'),
+              port: config.get<number>('DB_PORT', 5432),
+            }),
           username: config.get('DB_USER', 'postgres'),
           password: config.get('DB_PASSWORD', 'postgres'),
           database: config.get('DB_NAME', 'healthtech'),
@@ -49,4 +47,4 @@ import { AppService } from './app.service';
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule { }
