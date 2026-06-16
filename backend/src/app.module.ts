@@ -9,8 +9,6 @@ import { UsersModule } from './users/users.module';
 import { HealthModule } from './health/health.module';
 import { ArquivosModule } from './arquivos/arquivos.module';
 import { MedicoPaciente } from './entities/medico-paciente.entity';
-import { UsersModule } from './users/users.module';
-import { HealthModule } from './health/health.module';
 import { MedicoPacienteModule } from './medico-paciente/medico-paciente.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
