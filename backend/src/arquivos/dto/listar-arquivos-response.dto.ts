@@ -1,4 +1,3 @@
-
 export interface ListarArquivosResponseDto {
   id: string;
   nomeOriginal: string;
@@ -6,5 +5,7 @@ export interface ListarArquivosResponseDto {
   tamanho: number;
   dataUpload: Date;
   pacienteId: string;
+  pacienteNome: string;
   medicoUploadId: string;
+  medicoNome: string;
 }

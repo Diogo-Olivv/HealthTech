@@ -1,7 +1,11 @@
 export type ArquivoDto = {
   id: string;
-  nome: string;
+  nomeOriginal: string;
   tipo: string;
+  tamanho: number;
   dataUpload: string;
-  medicoId: string;
+  pacienteId: string;
+  pacienteNome: string;
+  medicoUploadId: string;
+  medicoNome: string;
 };

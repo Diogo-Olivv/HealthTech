@@ -1,21 +1,18 @@
 import { Arquivo } from '../../entities/arquivo.entity';
 
 /**
- * Forma pública de um Arquivo — campo caminhoStorage OMITIDO intencionalmente.
- * Este tipo é a única representação que deve trafegar para o front-end.
+ * Forma pública de um Arquivo. Campos sensíveis (caminhoStorage, nomeUnico)
+ * são intencionalmente omitidos — nunca devem trafegar para o front-end.
  */
-export type ArquivoResponseDto = Omit<Arquivo, 'caminhoStorage'>;
+export type ArquivoResponseDto = Omit<Arquivo, 'caminhoStorage' | 'nomeUnico'>;
 
-/**
- * Mapeia a entidade Arquivo para ArquivoResponseDto, garantindo que o campo
- * sensível 'caminhoStorage' nunca seja incluído na resposta.
- */
 export function toArquivoResponse(arquivo: Arquivo): ArquivoResponseDto {
   const {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    caminhoStorage: _omitted,
+    caminhoStorage: _caminho,
+    nomeUnico: _nomeUnico,
     ...publicData
   } = arquivo;
-
+  void _caminho;
+  void _nomeUnico;
   return publicData;
 }

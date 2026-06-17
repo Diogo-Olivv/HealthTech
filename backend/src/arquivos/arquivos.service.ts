@@ -4,18 +4,30 @@ import { Repository } from 'typeorm';
 import { Arquivo } from '../entities/arquivo.entity';
 import { MedicoPaciente } from '../entities/medico-paciente.entity';
 import { StorageService } from '../storage/storage.service';
-import { ArquivoResponseDto, toArquivoResponse } from './dto/arquivo-response.dto';
+import {
+  ArquivoResponseDto,
+  toArquivoResponse,
+} from './dto/arquivo-response.dto';
 import { ListarArquivosResponseDto } from './dto/listar-arquivos-response.dto';
 
-const CAMPOS_PUBLICOS = {
-  id: true,
-  nomeOriginal: true,
-  tipo: true,
-  tamanho: true,
-  dataUpload: true,
-  pacienteId: true,
-  medicoUploadId: true,
+const LISTAGEM_RELATIONS = {
+  paciente: { user: true },
+  medicoUpload: { user: true },
 } as const;
+
+function toListagemDto(arquivo: Arquivo): ListarArquivosResponseDto {
+  return {
+    id: arquivo.id,
+    nomeOriginal: arquivo.nomeOriginal,
+    tipo: arquivo.tipo,
+    tamanho: arquivo.tamanho,
+    dataUpload: arquivo.dataUpload,
+    pacienteId: arquivo.pacienteId,
+    pacienteNome: arquivo.paciente?.user?.name ?? '',
+    medicoUploadId: arquivo.medicoUploadId,
+    medicoNome: arquivo.medicoUpload?.user?.name ?? '',
+  };
+}
 
 @Injectable()
 export class ArquivosService {
@@ -31,36 +43,36 @@ export class ArquivosService {
     return toArquivoResponse(arquivo);
   }
 
-
-  async listarParaPaciente(pacienteId: string): Promise<ListarArquivosResponseDto[]> {
+  async listarParaPaciente(
+    pacienteId: string,
+  ): Promise<ListarArquivosResponseDto[]> {
     const arquivos = await this.arquivosRepository.find({
-      select: CAMPOS_PUBLICOS,
       where: { pacienteId },
+      relations: LISTAGEM_RELATIONS,
       order: { dataUpload: 'DESC' },
     });
-    return arquivos.map(toArquivoResponse) as ListarArquivosResponseDto[];
+    return arquivos.map(toListagemDto);
   }
 
-  
-  async listarParaMedico(medicoId: string): Promise<ListarArquivosResponseDto[]> {
+  async listarParaMedico(
+    medicoId: string,
+  ): Promise<ListarArquivosResponseDto[]> {
     const vinculos = await this.medicoPacienteRepository.find({
       select: { pacienteId: true },
       where: { medicoId },
     });
 
     const pacienteIds = vinculos.map((v) => v.pacienteId);
-
-
-    if (!pacienteIds.length) {
-      return [];
-    }
+    if (!pacienteIds.length) return [];
 
     const arquivos = await this.arquivosRepository.find({
-      select: CAMPOS_PUBLICOS,
       where: pacienteIds.map((pacienteId) => ({ pacienteId })),
+      relations: LISTAGEM_RELATIONS,
       order: { dataUpload: 'DESC' },
     });
-    return arquivos.map(toArquivoResponse) as ListarArquivosResponseDto[];
+    return arquivos.map(toListagemDto);
+  }
+
   async uploadArquivo(
     file: Express.Multer.File,
     pacienteId: string,
@@ -71,7 +83,9 @@ export class ArquivosService {
     });
 
     if (!vinculo) {
-      throw new ForbiddenException('Médico não possui vínculo com o paciente informado');
+      throw new ForbiddenException(
+        'Médico não possui vínculo com o paciente informado',
+      );
     }
 
     const nomeUnico = this.storageService.generateUniqueName(file.originalname);

@@ -14,9 +14,9 @@ const makeArquivoEntity = (overrides: Partial<Arquivo> = {}): Arquivo => ({
   caminhoStorage: 'https://storage.googleapis.com/bucket/uuid-gerado-exame_sangue.pdf',
   dataUpload: new Date('2026-06-12T00:00:00Z'),
   pacienteId: 'uuid-paciente-1',
-  paciente: {} as any,
+  paciente: { user: { name: 'Paciente Teste' } } as any,
   medicoUploadId: 'uuid-medico-1',
-  medicoUpload: {} as any,
+  medicoUpload: { user: { name: 'Dr. Teste' } } as any,
   ...overrides,
 });
 
@@ -63,12 +63,16 @@ describe('ArquivosService — segurança do caminhoStorage', () => {
       expect(result).toMatchObject({
         id: 'uuid-arquivo-1',
         nomeOriginal: 'exame_sangue.pdf',
-        nomeUnico: 'uuid-gerado-exame_sangue.pdf',
         tipo: 'application/pdf',
         tamanho: 204800,
         pacienteId: 'uuid-paciente-1',
         medicoUploadId: 'uuid-medico-1',
       });
+    });
+
+    it('deve omitir o campo nomeUnico (nome no bucket — sensível)', () => {
+      const result = service.toPublicArquivo(makeArquivoEntity());
+      expect(result).not.toHaveProperty('nomeUnico');
     });
   });
 });
@@ -204,6 +208,8 @@ describe('ArquivosService — listarParaPaciente()', () => {
     );
     expect(result).toHaveLength(1);
     expect(result[0].pacienteId).toBe('uuid-paciente-1');
+    expect(result[0].pacienteNome).toBe('Paciente Teste');
+    expect(result[0].medicoNome).toBe('Dr. Teste');
   });
 
   it('deve retornar array vazio quando o paciente não possui arquivos', async () => {
