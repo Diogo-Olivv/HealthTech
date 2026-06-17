@@ -38,10 +38,13 @@ export default function LoginPage() {
 
   return (
     <main className={styles.page}>
+      <div className='styles.'>
+        
+      </div>
       <div className={styles.card}>
         
         <a href="../">
-          <img src="/logo-healthtech-vetor.svg" alt="Logo HealthTech" className={styles.logo} />
+          <img src="/Icon.svg" alt="Logo HealthTech" className={styles.logo} />
         </a>
         <h1 className={styles.title}>Bem-vindo ao
           <span className={styles.textHealth}> Health</span>

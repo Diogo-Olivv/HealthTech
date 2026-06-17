@@ -84,7 +84,7 @@ export default function RegisterPacientePage() {
         </Link>
 
         <img
-          src="/logo-healthtech-vetor.svg"
+          src="/Icon.svg"
           alt="Logo HealthTech"
           className={styles.logo}
         />

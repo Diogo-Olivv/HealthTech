@@ -21,7 +21,7 @@ texto: text-align, font-size, color, font-weight
   padding: 2rem;
   display: flex;
   flex-direction: column;
-  background-color: var(--color-white);
+  background-color: var(--color-background);
 
   border-radius: var(--radius-xl);
   box-shadow: var(--shadow-lg);
@@ -29,18 +29,22 @@ texto: text-align, font-size, color, font-weight
   text-align: center;
 }
 
+.logo {
+  width: 20%;
+}
+
 .title {
   margin-bottom: .5rem;
   font-size: var(--text-2xl);
-  color: var(--color-primary-600);
+  color: var(--color-primary);
 }
 
 .textHealth {
-  color: var(--color-primary-600);
+  color: var(--color-primary);
 }
 
 .textTech {
-  color: var(--color-secondary-500);
+  color: var(--color-secondary);
   font-weight: var(--font-weight-regular);
 }
 
@@ -48,7 +52,7 @@ texto: text-align, font-size, color, font-weight
   margin-bottom: 1rem;
 
   font-size: var(--text-sm);
-  color: var(--color-gray-700);  
+  color: var(--color-text-secondary);  
 }
 
 .form {
@@ -63,7 +67,7 @@ texto: text-align, font-size, color, font-weight
   display: block;
   font-size: var(--text-base);
   font-weight: var(--font-weight-regular);
-  color: var(--color-gray-900);
+  color: var(--color-text-primary);
 }
 
 .input {
@@ -103,5 +107,5 @@ texto: text-align, font-size, color, font-weight
 
 .footer {
   font-size: var(--text-sm);
-  color: var(--color-gray-700);
+  color: var(--color-text-secondary);
 }

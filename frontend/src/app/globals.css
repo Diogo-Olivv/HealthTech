@@ -137,7 +137,7 @@ body {
   line-height: var(--line-height-normal);
 
   color: var(--color-gray-900);
-  background-color: var(--color-gray-100);
+  background-color: var(--color-background);
   
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

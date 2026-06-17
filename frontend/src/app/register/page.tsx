@@ -7,7 +7,7 @@ export default function RegisterPage() {
       <div className={styles.card}>
         <a href="../">
           <img
-            src="/logo-healthtech-vetor.svg"
+            src="/Icon.svg"
             alt="Logo HealthTech"
             className={styles.logo}
           />

@@ -73,7 +73,7 @@ export default function RegisterMedicoPage() {
           ← Voltar
         </Link>
         <img
-          src="/logo-healthtech-vetor.svg"
+          src="/Icon.svg"
           alt="Logo HealthTech"
           className={styles.logo}
         />
