@@ -1,5 +1,5 @@
-// Espelha o enum UserType do backend; os valores devem bater com a coluna do banco
+// Espelha o enum UserType do backend; os valores devem bater com a coluna do banco.
 export enum UserType {
-  PACIENTE = "paciente",
-  MEDICO = "medico",
+  PACIENTE = "PACIENTE",
+  MEDICO = "MEDICO",
 }

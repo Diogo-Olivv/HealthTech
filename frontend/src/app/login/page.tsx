@@ -3,7 +3,8 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { loginUser, saveToken } from '@/services/users.service';
+import { getProfile, loginUser, saveToken } from '@/services/users.service';
+import { UserType } from '@/dto/user-type.enum';
 import styles from './login.module.css';
 
 type FormState = { email: string; password: string };
@@ -29,7 +30,12 @@ export default function LoginPage() {
     try {
       const { accessToken } = await loginUser(form);
       saveToken(accessToken);
-      router.push('/dashboard');
+      const profile = await getProfile(accessToken);
+      const destino =
+        profile.tipo === UserType.MEDICO
+          ? '/medico/arquivos'
+          : '/paciente/arquivos';
+      router.push(destino);
     } catch (err) {
       setErrorMsg(err instanceof Error ? err.message : 'Erro ao entrar. Tente novamente.');
       setStatus('error');
