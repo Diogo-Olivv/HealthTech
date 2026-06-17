@@ -5,6 +5,17 @@ import { Arquivo } from '../entities/arquivo.entity';
 import { MedicoPaciente } from '../entities/medico-paciente.entity';
 import { StorageService } from '../storage/storage.service';
 import { ArquivoResponseDto, toArquivoResponse } from './dto/arquivo-response.dto';
+import { ListarArquivosResponseDto } from './dto/listar-arquivos-response.dto';
+
+const CAMPOS_PUBLICOS = {
+  id: true,
+  nomeOriginal: true,
+  tipo: true,
+  tamanho: true,
+  dataUpload: true,
+  pacienteId: true,
+  medicoUploadId: true,
+} as const;
 
 @Injectable()
 export class ArquivosService {
@@ -20,6 +31,36 @@ export class ArquivosService {
     return toArquivoResponse(arquivo);
   }
 
+
+  async listarParaPaciente(pacienteId: string): Promise<ListarArquivosResponseDto[]> {
+    const arquivos = await this.arquivosRepository.find({
+      select: CAMPOS_PUBLICOS,
+      where: { pacienteId },
+      order: { dataUpload: 'DESC' },
+    });
+    return arquivos.map(toArquivoResponse) as ListarArquivosResponseDto[];
+  }
+
+  
+  async listarParaMedico(medicoId: string): Promise<ListarArquivosResponseDto[]> {
+    const vinculos = await this.medicoPacienteRepository.find({
+      select: { pacienteId: true },
+      where: { medicoId },
+    });
+
+    const pacienteIds = vinculos.map((v) => v.pacienteId);
+
+
+    if (!pacienteIds.length) {
+      return [];
+    }
+
+    const arquivos = await this.arquivosRepository.find({
+      select: CAMPOS_PUBLICOS,
+      where: pacienteIds.map((pacienteId) => ({ pacienteId })),
+      order: { dataUpload: 'DESC' },
+    });
+    return arquivos.map(toArquivoResponse) as ListarArquivosResponseDto[];
   async uploadArquivo(
     file: Express.Multer.File,
     pacienteId: string,
