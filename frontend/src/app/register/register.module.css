@@ -9,9 +9,54 @@ display:    display
 border: border-radius, box-shadow, border
 texto: text-align, font-size, color, font-weight
 */
-
 .page {
-  min-width: 40%;
+  flex: 1;
+  display: flex;
+  min-height: 100vh;
+}
+
+.containerLeft {
+  width: 50%;
+  padding: 2rem;
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  min-height: 100vh;
+  text-align: left;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.logoCompleta {
+  display: flex;
+  flex-direction: row;
+  margin: 0px;
+  margin-right: 1rem;
+  width: 30%;
+  font-size: var(--text-sm);
+  
+}
+
+.logoCompleta span {
+  font-weight: var(--font-weight-regular);
+}
+
+
+.containerLeft h2 {
+  margin-top: var(--spacing-16);
+  margin-bottom: 20px;
+  font-size: var(--text-3xl);
+}
+
+.containerRight {
+  width: 100%;
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.page {
+  min-width: 50%;
 }
 
 .card {
@@ -25,20 +70,25 @@ texto: text-align, font-size, color, font-weight
   box-shadow: var(--shadow-lg);
 
   text-align: center;
+  width: 100%;
+}
+
+.logo {
+  width: 20%;
 }
 
 .title {
   margin-bottom: 0.5rem;
 
   font-size: var(--text-2xl);
-  color: var(--color-primary-600);
+  color: var(--color-primary);
 }
 
 .subtitle {
   margin-bottom: 1rem;
 
   font-size: var(--text-sm);
-  color: var(--color-gray-700);
+  color: var(--color-text-secondary);
 }
 
 .textHealth {
@@ -47,7 +97,7 @@ texto: text-align, font-size, color, font-weight
 }
 
 .textTech {
-  color: var(--color-secondary-500);
+  color: var(--color-secondary);
 }
 
 .form {
@@ -62,7 +112,7 @@ texto: text-align, font-size, color, font-weight
   display: flex;
   flex-direction: row;
   padding: 0.1rem;
-  background-color: var(--color-gray-100);
+  background-color: var(--color-surface);
   gap: 1rem;
 
   border-radius: var(--radius-lg);
@@ -89,8 +139,8 @@ texto: text-align, font-size, color, font-weight
 }
 
 .optionCard {
-  padding: 1rem;
-  background-color: var(--color-gray-100);
+  padding: var(--spacing-2);
+  background-color: var(--color-background);
 
   border: 1px solid var(--color-gray-200);
   border-radius: var(--radius-lg);
@@ -98,6 +148,7 @@ texto: text-align, font-size, color, font-weight
   font-weight: var(--font-weight-medium);
   font-size: var(--text-base);
   color: var(--color-gray-900);
+
   text-align: center;
 }
 
@@ -127,40 +178,17 @@ texto: text-align, font-size, color, font-weight
   color: var(--color-secondary-600);
 }
 
-.radioChoose {
-  width: 100%;
-  padding: 0.5rem;
-  background-color: inherit;
-
-  /* color: var(--color-gray-700); */
-  font-weight: var(--font-weight-medium);
-  font-size: var(--text-base);
-  text-align: center;
-
-  border: 0px;
-  border-radius: var(--radius-lg);
-  outline: none;
-}
-
-.radioChoose:focus {
-}
-
-.radioInput {
-}
-
-.radioInput:focus {
-}
 
 .label {
   display: block;
   font-size: var(--text-base);
   font-weight: var(--font-weight-regular);
-  color: var(--color-gray-900);
+  color: var(--color-text-secondary);
 }
 
 .input {
   width: 100%;
-  padding: var(--text-sm);
+  padding: var(--spacing-3);
   background-color: var(--color-gray-100);
 
   border-radius: var(--radius-lg);
@@ -177,20 +205,20 @@ texto: text-align, font-size, color, font-weight
 
 .button {
   width: 100%;
-  padding: 0.9rem;
-  background-color: var(--color-secondary-500);
+  padding: var(--spacing-3);
+  background-color: var(--color-primary);
 
   border-radius: var(--radius-lg);
   border: 1px solid var(--color-gray-100);
   outline: none;
 
   font-weight: var(--font-weight-medium);
-  font-size: var(--text-lg);
+  font-size: var(--text-base);
   color: var(--color-white);
 }
 
 .button:hover {
-  background-color: var(--color-secondary-600);
+  background-color: var(--color-secondary);
 }
 
 /* Impede novo clique enquanto o cadastro está sendo enviado */

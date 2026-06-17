@@ -38,58 +38,64 @@ export default function LoginPage() {
 
   return (
     <main className={styles.page}>
-      <div className={styles.card}>
-        
-        <a href="../">
-          <img src="/logo-healthtech-vetor.svg" alt="Logo HealthTech" className={styles.logo} />
-        </a>
-        <h1 className={styles.title}>Bem-vindo ao
-          <span className={styles.textHealth}> Health</span>
-          <span className={styles.textTech}>Tech</span>
-        </h1>
-        <p className={styles.subtitle}>Acesse sua conta para continuar</p>
-        
-        
-        <form onSubmit={handleSubmit} className={styles.form} noValidate>
-          <label className={styles.label}>
-            E-mail
-            <input
-              className={styles.input}
-              type="email"
-              name="email"
-              value={form.email}
-              onChange={handleChange}
-              placeholder="seu@email.com"
-              required
-            />
-          </label>
+      
 
-          <label className={styles.label}>
-            Senha
-            <input
-              className={styles.input}
-              type="password"
-              name="password"
-              value={form.password}
-              onChange={handleChange}
-              minLength={8}
-              placeholder="********"
-              required
-            />
-          </label>
 
-          {status === 'error' && <p className={styles.error}>{errorMsg}</p>}
+      <div className={styles.containerRight}>
+          <div className={styles.card}>
+          
+          {/* <a href="../">
+            <img src="/Icon.svg" alt="Logo HealthTech" className={styles.logo} />
+          </a> */}
+          <h1 className={styles.title}>Bem-vindo ao
+            <span className={styles.textHealth}> Health</span>
+            <span className={styles.textTech}>Tech</span>
+          </h1>
+          <p className={styles.subtitle}>Acesse sua conta para continuar</p>
+          
+          
+          <form onSubmit={handleSubmit} className={styles.form} noValidate>
+            <label className={styles.label}>
+              E-mail
+              <input
+                className={styles.input}
+                type="email"
+                name="email"
+                value={form.email}
+                onChange={handleChange}
+                placeholder="seu@email.com"
+                required
+              />
+            </label>
 
-          <button className={styles.button} type="submit" disabled={status === 'loading'}>
-            {status === 'loading' ? 'Entrando...' : 'Entrar'}
-          </button>
-        </form>
+            <label className={styles.label}>
+              Senha
+              <input
+                className={styles.input}
+                type="password"
+                name="password"
+                value={form.password}
+                onChange={handleChange}
+                minLength={8}
+                placeholder="********"
+                required
+              />
+            </label>
 
-        <p className={styles.footer}>
-          Ainda não tem conta? <Link href="/register">Cadastre-se</Link>
-        </p>
+            {status === 'error' && <p className={styles.error}>{errorMsg}</p>}
 
+            <button className={styles.button} type="submit" disabled={status === 'loading'}>
+              {status === 'loading' ? 'Entrando...' : 'Entrar'}
+            </button>
+          </form>
+
+          <p className={styles.footer}>
+            Ainda não tem conta? <Link href="/register">Cadastre-se</Link>
+          </p>
+
+        </div>
       </div>
+      
     </main>
   );
 }
