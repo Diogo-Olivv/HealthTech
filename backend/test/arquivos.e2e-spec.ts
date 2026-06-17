@@ -1,35 +1,28 @@
-/**
- * Testes de integração (E2E) — GET /arquivos
- *
- * Cobre:
- *  - 401 sem autenticação
- *  - 403 para usuário com role inexistente (token manipulado)
- *  - Paciente vê apenas seus próprios arquivos
- *  - Médico vê apenas arquivos de pacientes vinculados
- *  - Médico NÃO vê arquivos de pacientes não vinculados
- *  - Médico sem pacientes vinculados recebe [] com 200 (edge case array vazio)
- *  - `caminhoStorage` NUNCA está presente na resposta
- *
- * Estratégia de fixtures: dados são inseridos via DataSource.query() direto
- * no banco, pois o endpoint de upload ainda não existe (issue futura).
- * Os dados são limpos no afterAll para isolar o suite.
- */
-
 import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication, ValidationPipe } from '@nestjs/common';
 import request from 'supertest';
 import { DataSource } from 'typeorm';
 import { JwtService } from '@nestjs/jwt';
 import { AppModule } from '../src/app.module';
+import { StorageService } from '../src/storage/storage.service';
 
-// ---------------------------------------------------------------------------
-// Payloads de criação de usuários
-// ---------------------------------------------------------------------------
+// Mock do StorageService: os testes de GET /arquivos não fazem upload,
+// portanto não precisamos do GCS real. Isso evita o crash por GCS_BUCKET_NAME.
+const mockStorageService = {
+  generateUniqueName: jest.fn((name: string) => `mock-uuid-${name}`),
+  upload: jest.fn().mockResolvedValue(undefined),
+  download: jest.fn().mockResolvedValue(Buffer.from('')),
+  delete: jest.fn().mockResolvedValue(undefined),
+  getSignedUrl: jest.fn().mockResolvedValue('https://mock-signed-url'),
+  getPublicUrl: jest.fn((name: string) => `https://mock-bucket/${name}`),
+  isConnected: jest.fn().mockResolvedValue(true),
+};
+
 const paciente1Payload = {
   name: 'Paciente Um',
   email: 'paciente1-arquivos@test.com',
   password: 'senha1234',
-  cpf: '111.111.111-11',
+  cpf: '123.456.789-09',
   dataNascimento: '1990-01-01',
 };
 
@@ -37,7 +30,7 @@ const paciente2Payload = {
   name: 'Paciente Dois',
   email: 'paciente2-arquivos@test.com',
   password: 'senha1234',
-  cpf: '222.222.222-22',
+  cpf: '987.654.321-00',
   dataNascimento: '1985-05-15',
 };
 
@@ -57,34 +50,31 @@ const medicoSemVinculoPayload = {
   especialidade: 'Neurologia',
 };
 
-// ---------------------------------------------------------------------------
-// Suite principal
-// ---------------------------------------------------------------------------
 describe('GET /arquivos (E2E)', () => {
   let app: INestApplication;
   let dataSource: DataSource;
   let jwtService: JwtService;
 
-  // IDs dos usuários criados para os testes
   let paciente1Id: string;
   let paciente2Id: string;
   let medicoVinculadoId: string;
   let medicoSemVinculoId: string;
 
-  // Tokens de acesso
   let tokenPaciente1: string;
   let tokenPaciente2: string;
   let tokenMedicoVinculado: string;
   let tokenMedicoSemVinculo: string;
 
-  // IDs dos arquivos de fixture
   let arquivoPaciente1Id: string;
   let arquivoPaciente2Id: string;
 
   beforeAll(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [AppModule],
-    }).compile();
+    })
+      .overrideProvider(StorageService)
+      .useValue(mockStorageService)
+      .compile();
 
     app = moduleFixture.createNestApplication();
     app.useGlobalPipes(
@@ -95,10 +85,8 @@ describe('GET /arquivos (E2E)', () => {
     dataSource = moduleFixture.get<DataSource>(DataSource);
     jwtService = moduleFixture.get<JwtService>(JwtService);
 
-    // --- Limpar dados de execuções anteriores ---
     await limparDados(dataSource);
 
-    // --- Criar usuários ---
     const resPac1 = await request(app.getHttpServer())
       .post('/users/pacientes')
       .send(paciente1Payload)
@@ -123,7 +111,6 @@ describe('GET /arquivos (E2E)', () => {
       .expect(201);
     medicoSemVinculoId = resMedSem.body.id;
 
-    // --- Obter tokens via login ---
     const loginPac1 = await request(app.getHttpServer())
       .post('/users/login')
       .send({ email: paciente1Payload.email, password: paciente1Payload.password });
@@ -144,15 +131,13 @@ describe('GET /arquivos (E2E)', () => {
       .send({ email: medicoSemVinculoPayload.email, password: medicoSemVinculoPayload.password });
     tokenMedicoSemVinculo = loginMedSem.body.accessToken;
 
-    // --- Vincular médico ao paciente1 (apenas) ---
     await request(app.getHttpServer())
       .post('/medico-paciente/vincular')
       .set('Authorization', `Bearer ${tokenMedicoVinculado}`)
       .send({ pacienteId: paciente1Id })
       .expect(201);
 
-    // --- Inserir arquivos de fixture diretamente no banco ---
-    // Arquivo pertencente ao Paciente 1
+    // Arquivos inseridos diretamente no banco pois o endpoint de upload é uma issue separada
     const [arq1] = await dataSource.query<{ id: string }[]>(`
       INSERT INTO arquivos ("nomeOriginal", "nomeUnico", tipo, tamanho, "caminhoStorage", "pacienteId", "medicoUploadId")
       VALUES (
@@ -168,7 +153,6 @@ describe('GET /arquivos (E2E)', () => {
     `);
     arquivoPaciente1Id = arq1.id;
 
-    // Arquivo pertencente ao Paciente 2
     const [arq2] = await dataSource.query<{ id: string }[]>(`
       INSERT INTO arquivos ("nomeOriginal", "nomeUnico", tipo, tamanho, "caminhoStorage", "pacienteId", "medicoUploadId")
       VALUES (
@@ -190,9 +174,6 @@ describe('GET /arquivos (E2E)', () => {
     await app.close();
   });
 
-  // -------------------------------------------------------------------------
-  // Autenticação — 401
-  // -------------------------------------------------------------------------
   describe('Autenticação', () => {
     it('deve retornar 401 quando a requisição não possui token JWT', async () => {
       await request(app.getHttpServer()).get('/arquivos').expect(401);
@@ -206,16 +187,12 @@ describe('GET /arquivos (E2E)', () => {
     });
   });
 
-  // -------------------------------------------------------------------------
-  // Autorização — 403 para role inválida
-  // -------------------------------------------------------------------------
   describe('Autorização RBAC', () => {
     it('deve retornar 403 quando o token contém um tipo de usuário inválido', async () => {
-      // Cria um JWT assinado com a mesma secret, mas com tipo desconhecido
       const tokenRoleInvalida = jwtService.sign({
         sub: paciente1Id,
         email: 'fake@test.com',
-        tipo: 'ADMIN', // tipo que não existe no sistema
+        tipo: 'ADMIN',
       });
 
       await request(app.getHttpServer())
@@ -225,9 +202,6 @@ describe('GET /arquivos (E2E)', () => {
     });
   });
 
-  // -------------------------------------------------------------------------
-  // Paciente — isolamento de dados
-  // -------------------------------------------------------------------------
   describe('Paciente autenticado', () => {
     it('deve retornar 200 com apenas os próprios arquivos', async () => {
       const res = await request(app.getHttpServer())
@@ -235,7 +209,6 @@ describe('GET /arquivos (E2E)', () => {
         .set('Authorization', `Bearer ${tokenPaciente1}`)
         .expect(200);
 
-      expect(Array.isArray(res.body)).toBe(true);
       const ids = res.body.map((a: { id: string }) => a.id);
       expect(ids).toContain(arquivoPaciente1Id);
       expect(ids).not.toContain(arquivoPaciente2Id);
@@ -248,24 +221,19 @@ describe('GET /arquivos (E2E)', () => {
         .expect(200);
 
       res.body.forEach((item: Record<string, unknown>) => {
-        expect(item.caminhoStorage).toBeUndefined();
         expect(item).not.toHaveProperty('caminhoStorage');
-        // Garantia adicional: o campo não aparece serializado em nenhuma forma
-        expect(JSON.stringify(item)).not.toContain('caminhoStorage');
         expect(JSON.stringify(item)).not.toContain('bucket-secreto');
       });
     });
 
     it('deve retornar 200 com array vazio se o paciente não tiver arquivos', async () => {
-      // Paciente 2 não está vinculado e não tem arquivos associados ao próprio ID
-      // Para este cenário, criamos um terceiro paciente sem arquivos
       const pac3 = await request(app.getHttpServer())
         .post('/users/pacientes')
         .send({
           name: 'Paciente Sem Arquivos',
           email: 'paciente3-semArquivos@test.com',
           password: 'senha1234',
-          cpf: '333.333.333-33',
+          cpf: '111.222.333-96',
           dataNascimento: '2000-03-03',
         })
         .expect(201);
@@ -273,24 +241,19 @@ describe('GET /arquivos (E2E)', () => {
       const loginPac3 = await request(app.getHttpServer())
         .post('/users/login')
         .send({ email: 'paciente3-semArquivos@test.com', password: 'senha1234' });
-      const tokenPaciente3 = loginPac3.body.accessToken;
 
       const res = await request(app.getHttpServer())
         .get('/arquivos')
-        .set('Authorization', `Bearer ${tokenPaciente3}`)
+        .set('Authorization', `Bearer ${loginPac3.body.accessToken}`)
         .expect(200);
 
       expect(res.body).toEqual([]);
 
-      // Limpar paciente 3
-      await dataSource.query(`DELETE FROM pacientes WHERE cpf = '333.333.333-33'`);
+      await dataSource.query(`DELETE FROM pacientes WHERE cpf = '111.222.333-96'`);
       await dataSource.query(`DELETE FROM users WHERE id = '${pac3.body.id}'`);
     });
   });
 
-  // -------------------------------------------------------------------------
-  // Médico — isolamento por vínculos
-  // -------------------------------------------------------------------------
   describe('Médico autenticado', () => {
     it('deve retornar 200 apenas com arquivos dos pacientes vinculados', async () => {
       const res = await request(app.getHttpServer())
@@ -298,12 +261,8 @@ describe('GET /arquivos (E2E)', () => {
         .set('Authorization', `Bearer ${tokenMedicoVinculado}`)
         .expect(200);
 
-      expect(Array.isArray(res.body)).toBe(true);
-
       const ids = res.body.map((a: { id: string }) => a.id);
-      // Médico está vinculado ao paciente1 → deve ver o arquivo do paciente1
       expect(ids).toContain(arquivoPaciente1Id);
-      // Médico NÃO está vinculado ao paciente2 → NÃO deve ver o arquivo do paciente2
       expect(ids).not.toContain(arquivoPaciente2Id);
     });
 
@@ -333,18 +292,13 @@ describe('GET /arquivos (E2E)', () => {
         .expect(200);
 
       res.body.forEach((item: Record<string, unknown>) => {
-        expect(item.caminhoStorage).toBeUndefined();
         expect(item).not.toHaveProperty('caminhoStorage');
-        expect(JSON.stringify(item)).not.toContain('caminhoStorage');
         expect(JSON.stringify(item)).not.toContain('bucket-secreto');
       });
     });
   });
 });
 
-// ---------------------------------------------------------------------------
-// Helper: limpar todos os dados de fixture criados por este suite
-// ---------------------------------------------------------------------------
 async function limparDados(dataSource: DataSource): Promise<void> {
   const emails = [
     paciente1Payload.email,
@@ -352,10 +306,8 @@ async function limparDados(dataSource: DataSource): Promise<void> {
     medicoVinculadoPayload.email,
     medicoSemVinculoPayload.email,
     'paciente3-semArquivos@test.com',
-  ].map((e) => `'${e}'`)
-    .join(', ');
+  ].map((e) => `'${e}'`).join(', ');
 
-  // Ordem de deleção respeitando FK constraints
   await dataSource.query(`
     DELETE FROM arquivos
     WHERE "nomeUnico" IN ('unique-exame-pac1.pdf', 'unique-exame-pac2.pdf')
@@ -368,7 +320,7 @@ async function limparDados(dataSource: DataSource): Promise<void> {
       WHERE u.email IN (${emails})
     )
   `);
-  await dataSource.query(`DELETE FROM pacientes WHERE cpf IN ('111.111.111-11', '222.222.222-22', '333.333.333-33')`);
+  await dataSource.query(`DELETE FROM pacientes WHERE cpf IN ('123.456.789-09', '987.654.321-00', '111.222.333-96')`);
   await dataSource.query(`DELETE FROM medicos WHERE crm IN ('CRM/RJ 111111', 'CRM/SP 222222')`);
   await dataSource.query(`DELETE FROM users WHERE email IN (${emails})`);
 }

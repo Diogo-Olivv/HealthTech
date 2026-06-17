@@ -32,11 +32,12 @@ export class ArquivosService {
 
 
   async listarParaPaciente(pacienteId: string): Promise<ListarArquivosResponseDto[]> {
-    return this.arquivosRepository.find({
+    const arquivos = await this.arquivosRepository.find({
       select: CAMPOS_PUBLICOS,
       where: { pacienteId },
       order: { dataUpload: 'DESC' },
-    }) as Promise<ListarArquivosResponseDto[]>;
+    });
+    return arquivos.map(toArquivoResponse) as ListarArquivosResponseDto[];
   }
 
   
@@ -53,10 +54,11 @@ export class ArquivosService {
       return [];
     }
 
-    return this.arquivosRepository.find({
+    const arquivos = await this.arquivosRepository.find({
       select: CAMPOS_PUBLICOS,
       where: pacienteIds.map((pacienteId) => ({ pacienteId })),
       order: { dataUpload: 'DESC' },
-    }) as Promise<ListarArquivosResponseDto[]>;
+    });
+    return arquivos.map(toArquivoResponse) as ListarArquivosResponseDto[];
   }
 }
