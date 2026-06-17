@@ -1,13 +1,13 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { getArquivosMedico } from "@/services/arquivos.service";
+import { getArquivos } from "@/services/arquivos.service";
 import type { ArquivoDto } from "@/dto/arquivo.dto";
-import styles from "./page.module.css";
-import LoadingState from "./_components/LoadingState";
-import EmptyState from "./_components/EmptyState";
-import ErrorState from "./_components/ErrorState";
-import FilesTable from "./_components/FilesTable";
+import LoadingState from "@/components/arquivos/LoadingState";
+import EmptyState from "@/components/arquivos/EmptyState";
+import ErrorState from "@/components/arquivos/ErrorState";
+import FilesTable from "@/components/arquivos/FilesTable";
+import styles from "@/components/arquivos/ArquivosPage.module.css";
 
 type Status = "loading" | "success" | "error" | "empty";
 
@@ -21,7 +21,7 @@ export default function MedicoArquivosPage() {
     async function fetchArquivos() {
       setStatus("loading");
       try {
-        const data = await getArquivosMedico();
+        const data = await getArquivos();
         if (cancelled) return;
         setArquivos(data);
         setStatus(data.length === 0 ? "empty" : "success");
@@ -35,14 +35,16 @@ export default function MedicoArquivosPage() {
     return () => { cancelled = true; };
   }, []);
 
-  // Renderização principal
   if (status === "loading") return <LoadingState />;
   if (status === "error") return <ErrorState msg={errorMsg} />;
-  if (status === "empty") return <EmptyState />;
+  if (status === "empty") {
+    return (
+      <EmptyState description="Quando documentos forem vinculados ao seu perfil, eles aparecerão aqui." />
+    );
+  }
 
-  // Sucesso com arquivos
   return (
-    <main className={styles.page}>
+    <main>
       <div className={styles.container}>
         <header className={styles.header}>
           <div className={styles.headerLeft}>
@@ -53,7 +55,7 @@ export default function MedicoArquivosPage() {
         </header>
 
         <div className={`${styles.card} ${styles.fadeIn}`}>
-          <FilesTable arquivos={arquivos} />
+          <FilesTable arquivos={arquivos} viewerRole="medico" />
         </div>
       </div>
     </main>

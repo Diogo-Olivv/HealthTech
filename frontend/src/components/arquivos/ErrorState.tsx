@@ -1,5 +1,5 @@
 import FeedbackMessage from '@/components/ui/FeedbackMessage';
-import styles from '../page.module.css';
+import styles from './ArquivosPage.module.css';
 
 interface Props {
   msg: string;

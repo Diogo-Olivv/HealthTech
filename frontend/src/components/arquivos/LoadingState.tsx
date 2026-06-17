@@ -1,4 +1,4 @@
-import styles from '../page.module.css';
+import styles from './ArquivosPage.module.css';
 
 export default function LoadingState() {
   return (
