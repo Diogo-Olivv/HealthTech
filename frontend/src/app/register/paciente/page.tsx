@@ -83,12 +83,6 @@ export default function RegisterPacientePage() {
           ← Voltar
         </Link>
 
-        <img
-          src="/logo-healthtech-vetor.svg"
-          alt="Logo HealthTech"
-          className={styles.logo}
-        />
-
         <h1 className={styles.title}>Cadastro de Paciente</h1>
 
         <p className={styles.subtitle}>
