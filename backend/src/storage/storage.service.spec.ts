@@ -36,7 +36,7 @@ const makeService = async (
     ],
   }).compile();
   const service = module.get<StorageService>(StorageService);
-  service.onModuleInit();
+  await service.onModuleInit();
   return service;
 };
 
