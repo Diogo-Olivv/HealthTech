@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Get,
   HttpCode,
   HttpStatus,
   MaxFileSizeValidator,
@@ -21,12 +22,9 @@ import { UserType } from '../entities/user.entity';
 import { ArquivosService } from './arquivos.service';
 import { ListarArquivosResponseDto } from './dto/listar-arquivos-response.dto';
 
-
 type AuthRequest = Request & {
   user: { id: string; tipo: UserType };
 };
-
-type AuthRequest = Request & { user: { id: string; tipo: UserType } };
 
 const DEZ_MB = 10 * 1024 * 1024; // 10 MB em bytes
 
@@ -36,7 +34,6 @@ export class ArquivosController {
   constructor(private readonly arquivosService: ArquivosService) {}
 
   @Get()
-  @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(UserType.PACIENTE, UserType.MEDICO)
   listar(@Req() req: AuthRequest): Promise<ListarArquivosResponseDto[]> {
     const { id, tipo } = req.user;
@@ -46,6 +43,8 @@ export class ArquivosController {
     }
 
     return this.arquivosService.listarParaPaciente(id);
+  }
+
   @Post('upload')
   @HttpCode(HttpStatus.CREATED)
   @Roles(UserType.MEDICO)
