@@ -7,46 +7,57 @@
 
 :root {
   /* --- Cores Primárias (Marca) --- */
-  --color-primary-50:  #E7EFF8;
-  --color-primary-100: #C8DAEB;
-  --color-primary-200: #A5C2DC;
-  --color-primary-500: #1E4969;
-  --color-primary-600: #193F5B;
-  --color-primary-700: #15354E;
-  --color-primary-900: #0F2536;
+  --color-primary:      #1E4969;
+  --color-primary-50:   #E7EFF8;
+  --color-primary-100:  #C8DAEB;
+  --color-primary-200:  #A5C2DC;
+  --color-primary-500:  #1E4969;
+  --color-primary-600:  #193F5B;
+  --color-primary-700:  #15354E;
+  --color-primary-900:  #0F2536;
 
   /* --- Cores Secundárias (Tech) --- */
+  --color-secondary:    #368CA0;
   --color-secondary-400: #76B4C4;
   --color-secondary-500: #368CA0;
   --color-secondary-600: #2C7182;
 
   /* --- Neutros --- */
-  --color-gray-50:  #FFFFFF;
-  --color-gray-100: #F4F7F9;
-  --color-gray-200: #E7EAEE;
-  --color-gray-300: #C9D2DA;
-  --color-gray-400: #95A5B0;
-  --color-gray-500: #69747B;
-  --color-gray-600: #515F67;
-  --color-gray-700: #595959;
-  --color-gray-800: #2F373D;
-  --color-gray-900: #1A1A1A;
-  --color-white:    #FFFFFF;
+  --color-background:   #F8FAFC;
+  --color-surface:      #FFFFFF;
+  --color-gray-50:      #FFFFFF;
+  --color-gray-100:     #F4F7F9;
+  --color-gray-200:     #E7EAEE;
+  --color-gray-300:     #C9D2DA;
+  --color-gray-400:     #95A5B0;
+  --color-gray-500:     #69747B;
+  --color-gray-600:     #515F67;
+  --color-gray-700:     #595959;
+  --color-gray-800:     #2F373D;
+  --color-gray-900:     #1A1A1A;
+  --color-white:        #FFFFFF;
+
+  /* --- Texto --- */
+  --color-text-primary:   #1A1A1A;
+  --color-text-secondary: #595959;
 
   /* --- Semânticas --- */
-  --color-success-50:  #E9F6EF;
-  --color-success-500: #70C1A3;
-  --color-success-600: #5EA98A;
-  --color-success-700: #4B8E74;
+  --color-success:      #70C1A3;
+  --color-success-50:   #E9F6EF;
+  --color-success-500:  #70C1A3;
+  --color-success-600:  #5EA98A;
+  --color-success-700:  #4B8E74;
 
-  --color-error-50:  #FDECEC;
-  --color-error-500: #E14C4C;
-  --color-error-600: #C24040;
-  --color-error-700: #9F3535;
+  --color-warning:      #F2B138;
+  --color-warning-50:   #FFF1D3;
+  --color-warning-500:  #F2B138;
+  --color-warning-600:  #D59B2F;
 
-  --color-warning-50:  #FFF1D3;
-  --color-warning-500: #F2B138;
-  --color-warning-600: #D59B2F;
+  --color-error:        #E14C4C;
+  --color-error-50:     #FDECEC;
+  --color-error-500:    #E14C4C;
+  --color-error-600:    #C24040;
+  --color-error-700:    #9F3535;
 
   /* --- Tipografia --- */
   --font-main: "Inter", system-ui, -apple-system, sans-serif;
@@ -64,7 +75,7 @@
   --font-weight-semibold: 600;
   --font-weight-bold:    700;
 
-  --line-height-tight:  1.25;
+  --line-height-tight:  125;
   --line-height-normal: 1.5;
   --line-height-relaxed: 1.625;
 

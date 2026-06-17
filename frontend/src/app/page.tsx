@@ -22,7 +22,7 @@ export default function Home() {
     // </main>
     <main className={styles.page}>
       <div className={styles.card}>
-        <img src="/logo-healthtech-vetor.svg" alt="Logo HealthTech" className={styles.logo} />
+        <img src="/Icon.svg" alt="Logo HealthTech" className={styles.logo} />
 
         <h1 className={styles.title}>
           Health
