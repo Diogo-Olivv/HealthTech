@@ -1,5 +1,4 @@
 
-
 /* Ordem de estilo:
 layout:     display, flex-direction
 width:      width
@@ -13,8 +12,50 @@ texto: text-align, font-size, color, font-weight
 */
 
 .page {
-  min-width: 40%;
+  min-width: 50%;
+  display: flex;
+  flex-direction: row;
+  min-width: 100vh;
 }
+
+.containerLeft {
+  /* width: 50%; */
+  padding: 2rem;
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  min-height: 100%;
+  text-align: left;
+  
+  height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.logoCompleta {
+  display: flex;
+  flex-direction: row;
+  margin: 0px;
+  margin-right: 1rem;
+  width: 30%;
+  font-size: var(--text-sm);  
+}
+
+.logoCompleta span {
+  font-weight: var(--font-weight-regular);
+}
+
+
+
+.containerRight {
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
 
 .card {
   /* margin: auto; */
@@ -27,7 +68,11 @@ texto: text-align, font-size, color, font-weight
   box-shadow: var(--shadow-lg);
 
   text-align: center;
+
+  align-items: center;
 }
+
+
 
 .logo {
   width: 20%;
@@ -90,7 +135,7 @@ texto: text-align, font-size, color, font-weight
 .button {
   width: 100%;
   padding: .5rem;
-  background-color: var(--color-secondary-500);
+  background-color: var(--color-primary);
 
   border-radius: var(--radius-lg);
   border: 1px solid var(--color-gray-100);
@@ -102,7 +147,7 @@ texto: text-align, font-size, color, font-weight
 }
 
 .button:hover {
-  background-color: var(--color-secondary-600);
+  background-color: var(--color-secondary);
 }
 
 .footer {
