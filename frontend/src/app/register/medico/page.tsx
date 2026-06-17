@@ -72,11 +72,6 @@ export default function RegisterMedicoPage() {
         <Link href="/register" className={styles.backLink}>
           ← Voltar
         </Link>
-        <img
-          src="/Icon.svg"
-          alt="Logo HealthTech"
-          className={styles.logo}
-        />
 
         <h1 className={styles.title}>Cadastro de Médico</h1>
         <p className={styles.subtitle}>

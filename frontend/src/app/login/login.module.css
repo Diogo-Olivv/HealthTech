@@ -117,7 +117,7 @@ texto: text-align, font-size, color, font-weight
 
 .input {
   width: 100%;
-  padding: var(--text-sm);
+  padding: var(--spacing-3);
   background-color: var(--color-gray-100);
 
   border-radius: var(--radius-lg);
@@ -134,7 +134,7 @@ texto: text-align, font-size, color, font-weight
 
 .button {
   width: 100%;
-  padding: .5rem;
+  padding: var(--spacing-3);
   background-color: var(--color-primary);
 
   border-radius: var(--radius-lg);
