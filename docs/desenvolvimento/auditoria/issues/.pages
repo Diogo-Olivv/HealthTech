@@ -1,0 +1,13 @@
+nav:
+  - Visão Geral: index.md
+  - "#34 - Entidade AuditLog": 01-criar-entidade-auditlog.md
+  - "#35 - AuditLogService": 02-implementar-auditlog-service.md
+  - "#36 - AuditInterceptor": 03-criar-audit-interceptor-decorator.md
+  - "#37 - Autenticacao": 04-auditoria-rotas-autenticacao.md
+  - "#38 - Arquivos": 05-auditoria-rotas-arquivos.md
+  - "#39 - Vinculo": 06-auditoria-rotas-vinculo.md
+  - "#40 - Role Admin": 07-criar-role-admin.md
+  - "#41 - Endpoint Admin": 08-endpoint-consulta-logs-admin.md
+  - "#42 - Tela Admin": 09-tela-consulta-logs-admin.md
+  - "#43 - Documentacao": 10-documentar-politica-auditoria.md
+  - "#44 - Retencao": 11-retencao-logs-cron.md

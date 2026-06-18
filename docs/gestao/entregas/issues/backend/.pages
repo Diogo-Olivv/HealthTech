@@ -1,0 +1,10 @@
+nav:
+  - "#8 - Modelagem de usuarios": 08-modelagem-paciente-medico.md
+  - "#9 - Cadastro de Paciente": 09-cadastro-paciente.md
+  - "#10 - Cadastro de Medico": 10-cadastro-medico.md
+  - "#19 - Tipo de usuario no login": 19-tipo-usuario-login.md
+  - "#26 - Entidade Arquivo": 26-entidade-arquivo.md
+  - "#27 - Service GCS": 27-service-gcs.md
+  - "#29 - Vinculo Medico-Paciente": 29-medico-paciente-vinculo.md
+  - "#28 - Upload de arquivos": 28-upload-arquivos.md
+  - "#32 - Listagem de arquivos": 32-listagem-arquivos.md

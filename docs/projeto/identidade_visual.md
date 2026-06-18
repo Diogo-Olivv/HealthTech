@@ -1,4 +1,4 @@
-# Identidade Visual — HealthTech
+# Identidade Visual
 
 Esta página documenta os padrões e diretrizes de identidade visual do projeto **HealthTech**, projetados para criar uma interface consistente, profissional e moderna.
 
@@ -77,17 +77,17 @@ A tipografia do sistema utiliza uma única família de fontes para manter a cons
 
 > **Diretriz de Pesos**
 >
-> - **Títulos (H1 / H2):** `Bold (700)` ou `Semi-Bold (600)` — Garante impacto e hierarquia clara.
-> - **Subtítulos:** `Medium (500)` — Para rotular seções e destaques secundários.
-> - **Corpo de Texto & Inputs:** `Regular (400)` — Otimizado para leitura contínua e inserção de dados.
+> - **Títulos (H1 / H2):** `Bold (700)` ou `Semi-Bold (600)`: garante impacto e hierarquia clara.
+> - **Subtítulos:** `Medium (500)`: para rotular seções e destaques secundários.
+> - **Corpo de Texto & Inputs:** `Regular (400)`: otimizado para leitura contínua e inserção de dados.
 
 ### Escala de Tamanhos Recomendada
 
-- **Título Principal (H1):** `3rem` (48px) — Altura de linha: `1.2`
-- **Título de Seção (H2):** `2.25rem` (36px) — Altura de linha: `1.3`
-- **Subtítulos (H3):** `1.75rem` (28px) — Altura de linha: `1.4`
-- **Corpo do Texto:** `1rem` (16px) — Altura de linha padrão: `1.5`
-- **Textos de Apoio / Legendas:** `0.875rem` (14px) — Altura de linha: `1.4`
+- **Título Principal (H1):** `3rem` (48px), altura de linha: `1.2`
+- **Título de Seção (H2):** `2.25rem` (36px), altura de linha: `1.3`
+- **Subtítulos (H3):** `1.75rem` (28px), altura de linha: `1.4`
+- **Corpo do Texto:** `1rem` (16px), altura de linha padrão: `1.5`
+- **Textos de Apoio / Legendas:** `0.875rem` (14px), altura de linha: `1.4`
 
 ---
 
@@ -101,18 +101,18 @@ A marca visual do HealthTech foi repensada para conectar de forma simples os doi
   <figure style="display:flex;flex-direction:column;align-items:center;gap:0.5rem;margin:1rem 0;">
     <!-- Coloque o arquivo do ícone SVG em: docs/assets/logo/icon.svg -->
     <!-- Uso recomendado (img): preserva cache e acessibilidade -->
-    <img src="../assets/logo/icon.svg" alt="Ícone HealthTech (SVG)" style="width:96px;height:auto;" />
+    <img src="/assets/logo/Icon.svg" alt="Ícone HealthTech (SVG)" style="width:96px;height:auto;" />
     <figcaption style="color:#595959;font-size:0.95rem;">Ícone SVG da marca</figcaption>
   </figure>
 
   <!-- Versões completas do logotipo -->
   <figure style="display:flex;flex-direction:column;align-items:center;gap:0.5rem;margin:1rem 0;">
-    <img src="../assets/logo/logo-fundo-azul.png" alt="Logotipo HealthTech sobre fundo azul" style="max-width:360px;width:100%;height:auto;" />
+    <img src="/assets/logo/logo-fundo-azul.png" alt="Logotipo HealthTech sobre fundo azul" style="max-width:360px;width:100%;height:auto;" />
     <figcaption style="color:#595959;font-size:0.95rem;">Logotipo HealthTech sobre fundo azul</figcaption>
   </figure>
   
   <figure style="display:flex;flex-direction:column;align-items:center;gap:0.5rem;margin:1rem 0;">
-    <img src="../assets/logo/logo-fundo-branco.png" alt="Logotipo HealthTech sobre fundo branco" style="max-width:360px;width:100%;height:auto;" />
+    <img src="/assets/logo/logo-fundo-branco.png" alt="Logotipo HealthTech sobre fundo branco" style="max-width:360px;width:100%;height:auto;" />
     <figcaption style="color:#595959;font-size:0.95rem;">Logotipo HealthTech sobre fundo branco</figcaption>
   </figure>
 

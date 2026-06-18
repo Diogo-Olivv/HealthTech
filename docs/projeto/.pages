@@ -1,6 +1,7 @@
 nav:
 
 - Tecnologias: tecnologias
-- Roadmap Técnico: roadmap
-- Setup Inicial do Projeto: setup.md
+- Identidade Visual: identidade_visual.md
+- Modelagem de Usuários: modelagem_usuarios.md
+- Diagrama de Classe: diagrama_classe.md
 - ...

@@ -183,7 +183,7 @@ test("usuário consegue se cadastrar", async ({ page }) => {
 
 ## Cobertura mínima esperada
 
-Definida no documento de [Padrões de Código](../../padroes/codigo.md):
+Definida no documento de [Padrões de Código](../../desenvolvimento/padroes/codigo.md):
 
 | Camada           | Tipo de teste obrigatório                 |
 | ---------------- | ----------------------------------------- |

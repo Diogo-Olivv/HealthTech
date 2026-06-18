@@ -1,0 +1,6 @@
+nav:
+  - Visão Geral: index.md
+  - Backend: backend
+  - Frontend: frontend
+  - Infraestrutura: infra
+  - Documentação: docs

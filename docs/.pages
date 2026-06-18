@@ -1,10 +1,7 @@
 nav:
 
-- Home: index.md
-- Arquitetura: arquitetura
+- Início: index.md
 - Projeto: projeto
-- Gestão do Projeto: gestao
-- Padrões de Trabalho: padroes
-- Cronograma: cronograma_fase2.md
-- Infraestrutura: infra
-- ...
+- Arquitetura: arquitetura
+- Desenvolvimento: desenvolvimento
+- Gestão: gestao

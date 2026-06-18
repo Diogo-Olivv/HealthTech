@@ -1,0 +1,8 @@
+nav:
+  - "#11 - Arquitetura MVP": 11-arquitetura-mvp.md
+  - "#12 - Provisionar GCP": 12-provisionar-gcp.md
+  - "#13 - Banco de dados": 13-banco-dados.md
+  - "#14 - GCS": 14-gcs.md
+  - "#15 - Segredos": 15-segredos.md
+  - "#16 - Deploy Cloud Run": 16-deploy-cloud-run.md
+  - "#17 - Auditoria e observabilidade": 17-auditoria-observabilidade.md

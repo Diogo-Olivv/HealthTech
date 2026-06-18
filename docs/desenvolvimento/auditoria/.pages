@@ -1,0 +1,5 @@
+nav:
+  - Visão Geral: index.md
+  - Plano Técnico: plano.md
+  - Histórias de Usuário: historias.md
+  - Issues: issues
