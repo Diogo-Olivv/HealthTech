@@ -9,28 +9,28 @@
       
       
       
-        <link rel="prev" href="../07-criar-role-admin/">
+        <link rel="prev" href="../frontend/">
       
       
-        <link rel="next" href="../09-tela-consulta-logs-admin/">
+        <link rel="next" href="../banco-de-dados/">
       
       
         
       
       
-      <link rel="icon" href="../../../../assets/logo/favicon.ico">
+      <link rel="icon" href="../../assets/logo/favicon.ico">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
     
     
       
-        <title>#41 - Endpoint Admin - HealthTech</title>
+        <title>Backend - HealthTech</title>
       
     
     
-      <link rel="stylesheet" href="../../../../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
       
         
-        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
       
       
 
@@ -49,9 +49,9 @@
       
     
     
-      <link rel="stylesheet" href="../../../../assets/stylesheets/extra.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/extra.css">
     
-    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -76,7 +76,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#issue-41-endpoint-de-consulta-de-logs-admin" class="md-skip">
+        <a href="#arquitetura-backend" class="md-skip">
           Skip to content
         </a>
       
@@ -90,9 +90,9 @@
 
 <header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../../../.." title="HealthTech" class="md-header__button md-logo" aria-label="HealthTech" data-md-component="logo">
+    <a href="../.." title="HealthTech" class="md-header__button md-logo" aria-label="HealthTech" data-md-component="logo">
       
-  <img src="../../../../assets/logo/Icon.svg" alt="logo">
+  <img src="../../assets/logo/Icon.svg" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -109,7 +109,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              #41 - Endpoint Admin
+              Backend
             
           </span>
         </div>
@@ -208,7 +208,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../../../.." class="md-tabs__link">
+      <a href="../.." class="md-tabs__link">
         
   
   
@@ -236,7 +236,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../../../projeto/tecnologias/" class="md-tabs__link">
+        <a href="../../projeto/tecnologias/" class="md-tabs__link">
           
   
   
@@ -257,11 +257,13 @@
   
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
-        <a href="../../../../arquitetura/" class="md-tabs__link">
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
           
   
   
@@ -279,8 +281,6 @@
   
   
   
-    
-  
   
     
     
@@ -288,13 +288,11 @@
   
   
   
-    
-  
   
     
     
-      <li class="md-tabs__item md-tabs__item--active">
-        <a href="../../../infra/cloud_sql/" class="md-tabs__link">
+      <li class="md-tabs__item">
+        <a href="../../desenvolvimento/infra/cloud_sql/" class="md-tabs__link">
           
   
   
@@ -319,7 +317,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../../../gestao/cronograma/" class="md-tabs__link">
+        <a href="../../gestao/cronograma/" class="md-tabs__link">
           
   
   
@@ -355,9 +353,9 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../../../.." title="HealthTech" class="md-nav__button md-logo" aria-label="HealthTech" data-md-component="logo">
+    <a href="../.." title="HealthTech" class="md-nav__button md-logo" aria-label="HealthTech" data-md-component="logo">
       
-  <img src="../../../../assets/logo/Icon.svg" alt="logo">
+  <img src="../../assets/logo/Icon.svg" alt="logo">
 
     </a>
     HealthTech
@@ -384,7 +382,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../.." class="md-nav__link">
+      <a href="../.." class="md-nav__link">
         
   
   
@@ -504,7 +502,7 @@
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../../projeto/tecnologias/" class="md-nav__link ">
+            <a href="../../projeto/tecnologias/" class="md-nav__link ">
               
   
   
@@ -548,7 +546,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../projeto/tecnologias/frontend/" class="md-nav__link">
+      <a href="../../projeto/tecnologias/frontend/" class="md-nav__link">
         
   
   
@@ -576,7 +574,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../projeto/tecnologias/backend/" class="md-nav__link">
+      <a href="../../projeto/tecnologias/backend/" class="md-nav__link">
         
   
   
@@ -604,7 +602,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../projeto/tecnologias/banco-de-dados/" class="md-nav__link">
+      <a href="../../projeto/tecnologias/banco-de-dados/" class="md-nav__link">
         
   
   
@@ -632,7 +630,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../projeto/tecnologias/autenticacao/" class="md-nav__link">
+      <a href="../../projeto/tecnologias/autenticacao/" class="md-nav__link">
         
   
   
@@ -660,7 +658,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../projeto/tecnologias/armazenamento/" class="md-nav__link">
+      <a href="../../projeto/tecnologias/armazenamento/" class="md-nav__link">
         
   
   
@@ -688,7 +686,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../projeto/tecnologias/testes/" class="md-nav__link">
+      <a href="../../projeto/tecnologias/testes/" class="md-nav__link">
         
   
   
@@ -724,7 +722,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../projeto/identidade_visual/" class="md-nav__link">
+      <a href="../../projeto/identidade_visual/" class="md-nav__link">
         
   
   
@@ -752,7 +750,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../projeto/modelagem_usuarios/" class="md-nav__link">
+      <a href="../../projeto/modelagem_usuarios/" class="md-nav__link">
         
   
   
@@ -780,7 +778,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../projeto/diagrama_classe/" class="md-nav__link">
+      <a href="../../projeto/diagrama_classe/" class="md-nav__link">
         
   
   
@@ -812,6 +810,8 @@
       
   
   
+    
+  
   
   
     
@@ -833,18 +833,21 @@
     
     
       
+        
+        
+      
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../../arquitetura/" class="md-nav__link ">
+            <a href="../" class="md-nav__link ">
               
   
   
@@ -862,13 +865,13 @@
             </a>
             
               
-              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="0">
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
             
@@ -888,7 +891,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../arquitetura/frontend/" class="md-nav__link">
+      <a href="../frontend/" class="md-nav__link">
         
   
   
@@ -913,10 +916,37 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../../../../arquitetura/backend/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Backend
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -932,6 +962,120 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#estrutura-de-modulos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Estrutura de Módulos
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rotas-da-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rotas da API
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Rotas da API">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#usuarios-users" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Usuários (/users)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#arquivos-arquivos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Arquivos (/arquivos)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vinculo-medico-paciente-medico-paciente" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Vínculo Médico-Paciente (/medico-paciente)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#guards-e-autenticacao" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Guards e Autenticação
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fluxo-de-requisicao" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fluxo de Requisição
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuracao-principal-maints" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configuração Principal (main.ts)
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -944,7 +1088,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../arquitetura/banco-de-dados/" class="md-nav__link">
+      <a href="../banco-de-dados/" class="md-nav__link">
         
   
   
@@ -972,7 +1116,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../arquitetura/infra/" class="md-nav__link">
+      <a href="../infra/" class="md-nav__link">
         
   
   
@@ -1004,10 +1148,8 @@
       
   
   
-    
   
   
-  
     
     
       
@@ -1025,20 +1167,17 @@
     
     
       
-        
-        
-      
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
         
           
-          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
             
   
   
@@ -1056,7 +1195,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_4">
             <span class="md-nav__icon md-icon"></span>
             
@@ -1134,7 +1273,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../infra/cloud_sql/" class="md-nav__link">
+      <a href="../../desenvolvimento/infra/cloud_sql/" class="md-nav__link">
         
   
   
@@ -1162,7 +1301,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../infra/contas_de_servico/" class="md-nav__link">
+      <a href="../../desenvolvimento/infra/contas_de_servico/" class="md-nav__link">
         
   
   
@@ -1190,7 +1329,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../infra/gcs/" class="md-nav__link">
+      <a href="../../desenvolvimento/infra/gcs/" class="md-nav__link">
         
   
   
@@ -1218,7 +1357,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../infra/secrets/" class="md-nav__link">
+      <a href="../../desenvolvimento/infra/secrets/" class="md-nav__link">
         
   
   
@@ -1251,8 +1390,6 @@
                 
   
   
-    
-  
   
   
     
@@ -1275,15 +1412,15 @@
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" >
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../" class="md-nav__link ">
+            <a href="../../desenvolvimento/auditoria/" class="md-nav__link ">
               
   
   
@@ -1307,7 +1444,7 @@
             
           </div>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_4_2">
             <span class="md-nav__icon md-icon"></span>
             
@@ -1327,7 +1464,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../plano/" class="md-nav__link">
+      <a href="../../desenvolvimento/auditoria/plano/" class="md-nav__link">
         
   
   
@@ -1355,7 +1492,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../historias/" class="md-nav__link">
+      <a href="../../desenvolvimento/auditoria/historias/" class="md-nav__link">
         
   
   
@@ -1380,8 +1517,6 @@
                 
   
   
-    
-  
   
   
     
@@ -1420,15 +1555,15 @@
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2_4" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2_4" >
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../" class="md-nav__link ">
+            <a href="../../desenvolvimento/auditoria/issues/" class="md-nav__link ">
               
   
   
@@ -1452,7 +1587,7 @@
             
           </div>
         
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_2_4_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_2_4_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_4_2_4">
             <span class="md-nav__icon md-icon"></span>
             
@@ -1472,7 +1607,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../01-criar-entidade-auditlog/" class="md-nav__link">
+      <a href="../../desenvolvimento/auditoria/issues/01-criar-entidade-auditlog/" class="md-nav__link">
         
   
   
@@ -1500,7 +1635,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../02-implementar-auditlog-service/" class="md-nav__link">
+      <a href="../../desenvolvimento/auditoria/issues/02-implementar-auditlog-service/" class="md-nav__link">
         
   
   
@@ -1528,7 +1663,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../03-criar-audit-interceptor-decorator/" class="md-nav__link">
+      <a href="../../desenvolvimento/auditoria/issues/03-criar-audit-interceptor-decorator/" class="md-nav__link">
         
   
   
@@ -1556,7 +1691,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../04-auditoria-rotas-autenticacao/" class="md-nav__link">
+      <a href="../../desenvolvimento/auditoria/issues/04-auditoria-rotas-autenticacao/" class="md-nav__link">
         
   
   
@@ -1584,7 +1719,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../05-auditoria-rotas-arquivos/" class="md-nav__link">
+      <a href="../../desenvolvimento/auditoria/issues/05-auditoria-rotas-arquivos/" class="md-nav__link">
         
   
   
@@ -1612,7 +1747,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../06-auditoria-rotas-vinculo/" class="md-nav__link">
+      <a href="../../desenvolvimento/auditoria/issues/06-auditoria-rotas-vinculo/" class="md-nav__link">
         
   
   
@@ -1640,7 +1775,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../07-criar-role-admin/" class="md-nav__link">
+      <a href="../../desenvolvimento/auditoria/issues/07-criar-role-admin/" class="md-nav__link">
         
   
   
@@ -1665,37 +1800,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    #41 - Endpoint Admin
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../desenvolvimento/auditoria/issues/08-endpoint-consulta-logs-admin/" class="md-nav__link">
         
   
   
@@ -1711,70 +1819,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#tipo" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Tipo
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#equipe-responsavel" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Equipe responsável
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#labels-sugeridas" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Labels sugeridas
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#dependencias" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Dependências
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -1787,7 +1831,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../09-tela-consulta-logs-admin/" class="md-nav__link">
+      <a href="../../desenvolvimento/auditoria/issues/09-tela-consulta-logs-admin/" class="md-nav__link">
         
   
   
@@ -1815,7 +1859,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../10-documentar-politica-auditoria/" class="md-nav__link">
+      <a href="../../desenvolvimento/auditoria/issues/10-documentar-politica-auditoria/" class="md-nav__link">
         
   
   
@@ -1843,7 +1887,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../11-retencao-logs-cron/" class="md-nav__link">
+      <a href="../../desenvolvimento/auditoria/issues/11-retencao-logs-cron/" class="md-nav__link">
         
   
   
@@ -1947,7 +1991,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../padroes/codigo/" class="md-nav__link">
+      <a href="../../desenvolvimento/padroes/codigo/" class="md-nav__link">
         
   
   
@@ -1975,7 +2019,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../padroes/git/" class="md-nav__link">
+      <a href="../../desenvolvimento/padroes/git/" class="md-nav__link">
         
   
   
@@ -2003,7 +2047,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../padroes/review/" class="md-nav__link">
+      <a href="../../desenvolvimento/padroes/review/" class="md-nav__link">
         
   
   
@@ -2031,7 +2075,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../padroes/template_PR/" class="md-nav__link">
+      <a href="../../desenvolvimento/padroes/template_PR/" class="md-nav__link">
         
   
   
@@ -2067,7 +2111,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../setup/" class="md-nav__link">
+      <a href="../../desenvolvimento/setup/" class="md-nav__link">
         
   
   
@@ -2126,7 +2170,7 @@
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../roadmap/" class="md-nav__link ">
+            <a href="../../desenvolvimento/roadmap/" class="md-nav__link ">
               
   
   
@@ -2170,7 +2214,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../roadmap/frontend/" class="md-nav__link">
+      <a href="../../desenvolvimento/roadmap/frontend/" class="md-nav__link">
         
   
   
@@ -2198,7 +2242,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../roadmap/backend/" class="md-nav__link">
+      <a href="../../desenvolvimento/roadmap/backend/" class="md-nav__link">
         
   
   
@@ -2226,7 +2270,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../roadmap/banco-de-dados/" class="md-nav__link">
+      <a href="../../desenvolvimento/roadmap/banco-de-dados/" class="md-nav__link">
         
   
   
@@ -2254,7 +2298,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../roadmap/devops/" class="md-nav__link">
+      <a href="../../desenvolvimento/roadmap/devops/" class="md-nav__link">
         
   
   
@@ -2282,7 +2326,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../roadmap/testes/" class="md-nav__link">
+      <a href="../../desenvolvimento/roadmap/testes/" class="md-nav__link">
         
   
   
@@ -2387,7 +2431,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../gestao/cronograma/" class="md-nav__link">
+      <a href="../../gestao/cronograma/" class="md-nav__link">
         
   
   
@@ -2483,7 +2527,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../gestao/atas_reuniao/template_ata/" class="md-nav__link">
+      <a href="../../gestao/atas_reuniao/template_ata/" class="md-nav__link">
         
   
   
@@ -2511,7 +2555,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../gestao/atas_reuniao/2026-06-17/" class="md-nav__link">
+      <a href="../../gestao/atas_reuniao/2026-06-17/" class="md-nav__link">
         
   
   
@@ -2539,7 +2583,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../gestao/atas_reuniao/2026-06-10/" class="md-nav__link">
+      <a href="../../gestao/atas_reuniao/2026-06-10/" class="md-nav__link">
         
   
   
@@ -2567,7 +2611,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../gestao/atas_reuniao/2026-06-08/" class="md-nav__link">
+      <a href="../../gestao/atas_reuniao/2026-06-08/" class="md-nav__link">
         
   
   
@@ -2595,7 +2639,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../gestao/atas_reuniao/2026-06-03/" class="md-nav__link">
+      <a href="../../gestao/atas_reuniao/2026-06-03/" class="md-nav__link">
         
   
   
@@ -2623,7 +2667,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../gestao/atas_reuniao/2026-06-01/" class="md-nav__link">
+      <a href="../../gestao/atas_reuniao/2026-06-01/" class="md-nav__link">
         
   
   
@@ -2651,7 +2695,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../gestao/atas_reuniao/2026-05-27/" class="md-nav__link">
+      <a href="../../gestao/atas_reuniao/2026-05-27/" class="md-nav__link">
         
   
   
@@ -2679,7 +2723,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../gestao/atas_reuniao/%202026-05-25/" class="md-nav__link">
+      <a href="../../gestao/atas_reuniao/%202026-05-25/" class="md-nav__link">
         
   
   
@@ -2804,7 +2848,7 @@
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../../gestao/entregas/entrega_semanal/" class="md-nav__link ">
+            <a href="../../gestao/entregas/entrega_semanal/" class="md-nav__link ">
               
   
   
@@ -2848,7 +2892,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../gestao/entregas/entrega_semanal/entrega_template/" class="md-nav__link">
+      <a href="../../gestao/entregas/entrega_semanal/entrega_template/" class="md-nav__link">
         
   
   
@@ -2876,7 +2920,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../gestao/entregas/entrega_semanal/semana-07/" class="md-nav__link">
+      <a href="../../gestao/entregas/entrega_semanal/semana-07/" class="md-nav__link">
         
   
   
@@ -2904,7 +2948,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../gestao/entregas/entrega_semanal/semana-08/" class="md-nav__link">
+      <a href="../../gestao/entregas/entrega_semanal/semana-08/" class="md-nav__link">
         
   
   
@@ -2932,7 +2976,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../gestao/entregas/entrega_semanal/semana-09/" class="md-nav__link">
+      <a href="../../gestao/entregas/entrega_semanal/semana-09/" class="md-nav__link">
         
   
   
@@ -2960,7 +3004,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../gestao/entregas/entrega_semanal/semana-10/" class="md-nav__link">
+      <a href="../../gestao/entregas/entrega_semanal/semana-10/" class="md-nav__link">
         
   
   
@@ -2988,7 +3032,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../gestao/entregas/entrega_semanal/semana-11/" class="md-nav__link">
+      <a href="../../gestao/entregas/entrega_semanal/semana-11/" class="md-nav__link">
         
   
   
@@ -3053,7 +3097,7 @@
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../../gestao/entregas/issues/" class="md-nav__link ">
+            <a href="../../gestao/entregas/issues/" class="md-nav__link ">
               
   
   
@@ -3167,7 +3211,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../gestao/entregas/issues/backend/08-modelagem-paciente-medico/" class="md-nav__link">
+      <a href="../../gestao/entregas/issues/backend/08-modelagem-paciente-medico/" class="md-nav__link">
         
   
   
@@ -3195,7 +3239,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../gestao/entregas/issues/backend/09-cadastro-paciente/" class="md-nav__link">
+      <a href="../../gestao/entregas/issues/backend/09-cadastro-paciente/" class="md-nav__link">
         
   
   
@@ -3223,7 +3267,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../gestao/entregas/issues/backend/10-cadastro-medico/" class="md-nav__link">
+      <a href="../../gestao/entregas/issues/backend/10-cadastro-medico/" class="md-nav__link">
         
   
   
@@ -3251,7 +3295,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../gestao/entregas/issues/backend/19-tipo-usuario-login/" class="md-nav__link">
+      <a href="../../gestao/entregas/issues/backend/19-tipo-usuario-login/" class="md-nav__link">
         
   
   
@@ -3279,7 +3323,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../gestao/entregas/issues/backend/26-entidade-arquivo/" class="md-nav__link">
+      <a href="../../gestao/entregas/issues/backend/26-entidade-arquivo/" class="md-nav__link">
         
   
   
@@ -3307,7 +3351,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../gestao/entregas/issues/backend/27-service-gcs/" class="md-nav__link">
+      <a href="../../gestao/entregas/issues/backend/27-service-gcs/" class="md-nav__link">
         
   
   
@@ -3335,7 +3379,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../gestao/entregas/issues/backend/29-medico-paciente-vinculo/" class="md-nav__link">
+      <a href="../../gestao/entregas/issues/backend/29-medico-paciente-vinculo/" class="md-nav__link">
         
   
   
@@ -3363,7 +3407,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../gestao/entregas/issues/backend/28-upload-arquivos/" class="md-nav__link">
+      <a href="../../gestao/entregas/issues/backend/28-upload-arquivos/" class="md-nav__link">
         
   
   
@@ -3391,7 +3435,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../gestao/entregas/issues/backend/32-listagem-arquivos/" class="md-nav__link">
+      <a href="../../gestao/entregas/issues/backend/32-listagem-arquivos/" class="md-nav__link">
         
   
   
@@ -3491,7 +3535,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../gestao/entregas/issues/frontend/05-cadastro-paciente/" class="md-nav__link">
+      <a href="../../gestao/entregas/issues/frontend/05-cadastro-paciente/" class="md-nav__link">
         
   
   
@@ -3519,7 +3563,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../gestao/entregas/issues/frontend/06-cadastro-medico/" class="md-nav__link">
+      <a href="../../gestao/entregas/issues/frontend/06-cadastro-medico/" class="md-nav__link">
         
   
   
@@ -3547,7 +3591,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../gestao/entregas/issues/frontend/07-redirect-tipo-usuario/" class="md-nav__link">
+      <a href="../../gestao/entregas/issues/frontend/07-redirect-tipo-usuario/" class="md-nav__link">
         
   
   
@@ -3575,7 +3619,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../gestao/entregas/issues/frontend/18-refatoracao-visual/" class="md-nav__link">
+      <a href="../../gestao/entregas/issues/frontend/18-refatoracao-visual/" class="md-nav__link">
         
   
   
@@ -3603,7 +3647,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../gestao/entregas/issues/frontend/30-upload-arquivos/" class="md-nav__link">
+      <a href="../../gestao/entregas/issues/frontend/30-upload-arquivos/" class="md-nav__link">
         
   
   
@@ -3631,7 +3675,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../gestao/entregas/issues/frontend/33-listagem-arquivos/" class="md-nav__link">
+      <a href="../../gestao/entregas/issues/frontend/33-listagem-arquivos/" class="md-nav__link">
         
   
   
@@ -3733,7 +3777,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../gestao/entregas/issues/infra/11-arquitetura-mvp/" class="md-nav__link">
+      <a href="../../gestao/entregas/issues/infra/11-arquitetura-mvp/" class="md-nav__link">
         
   
   
@@ -3761,7 +3805,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../gestao/entregas/issues/infra/12-provisionar-gcp/" class="md-nav__link">
+      <a href="../../gestao/entregas/issues/infra/12-provisionar-gcp/" class="md-nav__link">
         
   
   
@@ -3789,7 +3833,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../gestao/entregas/issues/infra/13-banco-dados/" class="md-nav__link">
+      <a href="../../gestao/entregas/issues/infra/13-banco-dados/" class="md-nav__link">
         
   
   
@@ -3817,7 +3861,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../gestao/entregas/issues/infra/14-gcs/" class="md-nav__link">
+      <a href="../../gestao/entregas/issues/infra/14-gcs/" class="md-nav__link">
         
   
   
@@ -3845,7 +3889,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../gestao/entregas/issues/infra/15-segredos/" class="md-nav__link">
+      <a href="../../gestao/entregas/issues/infra/15-segredos/" class="md-nav__link">
         
   
   
@@ -3873,7 +3917,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../gestao/entregas/issues/infra/16-deploy-cloud-run/" class="md-nav__link">
+      <a href="../../gestao/entregas/issues/infra/16-deploy-cloud-run/" class="md-nav__link">
         
   
   
@@ -3901,7 +3945,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../gestao/entregas/issues/infra/17-auditoria-observabilidade/" class="md-nav__link">
+      <a href="../../gestao/entregas/issues/infra/17-auditoria-observabilidade/" class="md-nav__link">
         
   
   
@@ -3991,7 +4035,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../gestao/entregas/issues/docs/politica-auditoria/" class="md-nav__link">
+      <a href="../../gestao/entregas/issues/docs/politica-auditoria/" class="md-nav__link">
         
   
   
@@ -4043,7 +4087,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../gestao/metodologia/" class="md-nav__link">
+      <a href="../../gestao/metodologia/" class="md-nav__link">
         
   
   
@@ -4071,7 +4115,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../gestao/regras/" class="md-nav__link">
+      <a href="../../gestao/regras/" class="md-nav__link">
         
   
   
@@ -4126,10 +4170,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#tipo" class="md-nav__link">
+  <a href="#estrutura-de-modulos" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Tipo
+        Estrutura de Módulos
       
     </span>
   </a>
@@ -4137,10 +4181,60 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#equipe-responsavel" class="md-nav__link">
+  <a href="#rotas-da-api" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Equipe responsável
+        Rotas da API
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Rotas da API">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#usuarios-users" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Usuários (/users)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#arquivos-arquivos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Arquivos (/arquivos)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vinculo-medico-paciente-medico-paciente" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Vínculo Médico-Paciente (/medico-paciente)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#guards-e-autenticacao" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Guards e Autenticação
       
     </span>
   </a>
@@ -4148,10 +4242,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#labels-sugeridas" class="md-nav__link">
+  <a href="#fluxo-de-requisicao" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Labels sugeridas
+        Fluxo de Requisição
       
     </span>
   </a>
@@ -4159,10 +4253,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#dependencias" class="md-nav__link">
+  <a href="#configuracao-principal-maints" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Dependências
+        Configuração Principal (main.ts)
       
     </span>
   </a>
@@ -4189,60 +4283,178 @@
   
 
 
-<h1 id="issue-41-endpoint-de-consulta-de-logs-admin">Issue #41: Endpoint de consulta de logs (admin)</h1>
-<h2 id="tipo">Tipo</h2>
-<p>Backend</p>
-<h2 id="equipe-responsavel">Equipe responsável</h2>
-<p>Backend</p>
-<h2 id="labels-sugeridas">Labels sugeridas</h2>
-<p><code>auditoria</code>, <code>backend</code>, <code>lgpd</code></p>
-<h2 id="dependencias">Dependências</h2>
+<h1 id="arquitetura-backend">Arquitetura Backend</h1>
+<h2 id="estrutura-de-modulos">Estrutura de Módulos</h2>
+<pre><code>backend/src/
+├── app.module.ts              → módulo raiz (registra tudo)
+├── main.ts                    → bootstrap (porta 3001, CORS, ValidationPipe)
+├── auth/
+│   ├── jwt.strategy.ts        → extrai payload do token JWT
+│   ├── jwt-auth.guard.ts      → protege rotas que exigem login
+│   └── roles.guard.ts         → protege rotas por tipo de usuário
+├── users/
+│   ├── users.module.ts
+│   ├── users.controller.ts    → rotas de cadastro e login
+│   └── users.service.ts
+├── arquivos/
+│   ├── arquivos.module.ts
+│   ├── arquivos.controller.ts → rotas de upload e listagem
+│   └── arquivos.service.ts
+├── medico-paciente/
+│   ├── medico-paciente.module.ts
+│   ├── medico-paciente.controller.ts → rotas de vínculo
+│   └── medico-paciente.service.ts
+└── entities/
+    ├── user.entity.ts
+    ├── arquivo.entity.ts
+    └── medico-paciente.entity.ts
+</code></pre>
+<hr />
+<h2 id="rotas-da-api">Rotas da API</h2>
+<h3 id="usuarios-users">Usuários (<code>/users</code>)</h3>
+<table>
+<thead>
+<tr>
+<th>Método</th>
+<th>Rota</th>
+<th>Guard</th>
+<th>Descrição</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>POST</td>
+<td><code>/users/pacientes</code></td>
+<td>—</td>
+<td>Cadastro de paciente</td>
+</tr>
+<tr>
+<td>POST</td>
+<td><code>/users/medicos</code></td>
+<td>—</td>
+<td>Cadastro de médico</td>
+</tr>
+<tr>
+<td>POST</td>
+<td><code>/users/login</code></td>
+<td>—</td>
+<td>Login (retorna JWT)</td>
+</tr>
+<tr>
+<td>GET</td>
+<td><code>/users/me</code></td>
+<td>JWT</td>
+<td>Dados do usuário autenticado</td>
+</tr>
+<tr>
+<td>GET</td>
+<td><code>/users/paciente/area</code></td>
+<td>JWT + PACIENTE</td>
+<td>Área restrita ao paciente</td>
+</tr>
+<tr>
+<td>GET</td>
+<td><code>/users/medico/area</code></td>
+<td>JWT + MEDICO</td>
+<td>Área restrita ao médico</td>
+</tr>
+</tbody>
+</table>
+<h3 id="arquivos-arquivos">Arquivos (<code>/arquivos</code>)</h3>
+<table>
+<thead>
+<tr>
+<th>Método</th>
+<th>Rota</th>
+<th>Guard</th>
+<th>Descrição</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GET</td>
+<td><code>/arquivos</code></td>
+<td>JWT</td>
+<td>Lista arquivos do usuário autenticado</td>
+</tr>
+<tr>
+<td>POST</td>
+<td><code>/arquivos/upload</code></td>
+<td>JWT + MEDICO</td>
+<td>Upload de arquivo para um paciente</td>
+</tr>
+</tbody>
+</table>
+<h3 id="vinculo-medico-paciente-medico-paciente">Vínculo Médico-Paciente (<code>/medico-paciente</code>)</h3>
+<table>
+<thead>
+<tr>
+<th>Método</th>
+<th>Rota</th>
+<th>Guard</th>
+<th>Descrição</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>POST</td>
+<td><code>/medico-paciente/vincular</code></td>
+<td>JWT + MEDICO</td>
+<td>Cria vínculo médico → paciente</td>
+</tr>
+<tr>
+<td>DELETE</td>
+<td><code>/medico-paciente/desvincular</code></td>
+<td>JWT + MEDICO</td>
+<td>Remove vínculo</td>
+</tr>
+<tr>
+<td>GET</td>
+<td><code>/medico-paciente/meus-pacientes</code></td>
+<td>JWT + MEDICO</td>
+<td>Lista pacientes do médico</td>
+</tr>
+<tr>
+<td>GET</td>
+<td><code>/medico-paciente/meus-medicos</code></td>
+<td>JWT + PACIENTE</td>
+<td>Lista médicos do paciente</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="guards-e-autenticacao">Guards e Autenticação</h2>
+<p>O NestJS usa dois guards em cadeia para proteger as rotas:</p>
+<p><strong>1. <code>JwtAuthGuard</code></strong> — verifica se o token JWT é válido e injeta o usuário no request.</p>
+<p><strong>2. <code>RolesGuard</code></strong> — verifica se o tipo do usuário (<code>PACIENTE</code> ou <code>MEDICO</code>) tem permissão para aquela rota, usando o decorator <code>@Roles()</code>.</p>
+<pre><code class="language-typescript">@Get('medico/area')
+@UseGuards(JwtAuthGuard, RolesGuard)
+@Roles(UserType.MEDICO)
+medicoArea(@Request() req) {
+  return req.user;
+}
+</code></pre>
+<p>O tipo do usuário é incluído no payload do JWT no momento do login e não precisa de consulta extra ao banco em cada requisição.</p>
+<hr />
+<h2 id="fluxo-de-requisicao">Fluxo de Requisição</h2>
+<pre><code>HTTP Request
+  → ValidationPipe (valida DTO automaticamente)
+  → JwtAuthGuard (verifica token)
+  → RolesGuard (verifica tipo do usuário)
+  → Controller (delega ao Service)
+  → Service (regras de negócio)
+  → TypeORM Repository (persiste/consulta)
+  → HTTP Response
+</code></pre>
+<hr />
+<h2 id="configuracao-principal-maints">Configuração Principal (<code>main.ts</code>)</h2>
+<pre><code class="language-typescript">app.enableCors({ origin: process.env.FRONTEND_URL });
+app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
+await app.listen(3001);
+</code></pre>
 <ul>
-<li>
-<h1 id="34">34</h1>
-</li>
-<li>
-<h1 id="35">35</h1>
-</li>
-<li>
-<h1 id="40">40</h1>
-</li>
-</ul>
-<h2 id="descricao">Descrição</h2>
-<p>Como administrador do sistema, quero consultar os logs de auditoria com
-filtros e paginação, para investigar incidentes e atender requisições do
-DPO em prazos exigidos pela LGPD.</p>
-<h2 id="tarefas">Tarefas</h2>
-<ul>
-<li>[ ] Criar <code>backend/src/audit/audit.controller.ts</code> com
-      <code>GET /audit/logs</code>, protegida por <code>@UseGuards(JwtAuthGuard, RolesGuard)</code>
-      e <code>@Roles(UserType.ADMIN)</code>.</li>
-<li>[ ] Aceitar query params: <code>userId</code>, <code>tipoEvento</code>, <code>dataInicio</code>, <code>dataFim</code>,
-      <code>page</code> (default 1), <code>limit</code> (default 50, máximo 200).</li>
-<li>[ ] Validar query via DTO com <code>class-validator</code>.</li>
-<li>[ ] Implementar <code>AuditLogService.listar(filtros, paginacao)</code> retornando
-      <code>{ items, total, page, limit }</code>.</li>
-<li>[ ] Ordenação fixa: <code>timestamp DESC</code>.</li>
-<li>[ ] Não auditar a própria rota de consulta para evitar ruído.</li>
-</ul>
-<h2 id="criterios-de-aceitacao">Critérios de Aceitação</h2>
-<ul>
-<li>Usuário não-admin recebe <code>403</code>.</li>
-<li>Sem filtros, retorna a página mais recente.</li>
-<li>Filtros por <code>dataInicio</code> e <code>dataFim</code> aceitam ISO 8601 e validam ordem.</li>
-<li><code>limit</code> acima do máximo é truncado.</li>
-</ul>
-<h2 id="criterios-de-teste">Critérios de Teste</h2>
-<ul>
-<li>Jest unitário: validar a query do TypeORM montada a partir dos filtros.</li>
-<li>Supertest integração: três cenários (acesso negado para médico, listagem
-  para admin sem filtros, listagem para admin com filtro por <code>tipoEvento</code>).</li>
-</ul>
-<h2 id="referencias">Referências</h2>
-<ul>
-<li><code>docs/projeto/auditoria_plano.md</code></li>
-<li><code>backend/src/auth/jwt-auth.guard.ts</code></li>
-<li><code>backend/src/auth/roles.guard.ts</code></li>
+<li><code>whitelist: true</code> remove campos não declarados no DTO, prevenindo injeção de campos extras.</li>
+<li>CORS configurado via variável de ambiente para aceitar apenas o frontend em produção.</li>
 </ul>
 
 
@@ -4293,10 +4505,10 @@ DPO em prazos exigidos pela LGPD.</p>
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../../../..", "features": ["navigation.tabs", "navigation.indexes", "search.suggest"], "search": "../../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.indexes", "search.suggest"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
     
   </body>
