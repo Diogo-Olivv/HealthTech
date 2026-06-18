@@ -1,8 +1,17 @@
-site_name: AILAB - HealthTech
+site_name: HealthTech
 repo_url: https://github.com/Diogo-Olivv/HealthTech.git
 
 theme:
   name: material
+  logo: assets/logo/Icon.svg
+  favicon: assets/logo/favicon.ico
+  font:
+    text: Inter
+    code: Roboto Mono
+  palette:
+    - scheme: default
+      primary: custom
+      accent: custom
   features:
     - navigation.tabs
     - navigation.indexes
