@@ -1,5 +1,6 @@
-# Banco de dados para desenvolvimento local.
-# Em produção, use Google Cloud SQL — configure INSTANCE_CONNECTION_NAME no Cloud Run.
+# Ambiente de desenvolvimento completo.
+# Sobe banco, backend e frontend com: docker compose up --build
+# Para produção, use cloudbuild.yaml (Google Cloud Build).
 services:
   postgres:
     image: postgres:16-alpine
@@ -12,13 +13,53 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
       - ./db/init:/docker-entrypoint-initdb.d
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
 
   adminer:
     image: adminer
     ports:
       - '8080:8080'
     depends_on:
-      - postgres
+      postgres:
+        condition: service_healthy
+
+  backend:
+    build: ./backend
+    ports:
+      - '3001:3001'
+    environment:
+      PORT: "3001"
+      NODE_ENV: development
+      FRONTEND_URL: http://localhost:3000
+      JWT_SECRET: dev-secret-change-me
+      JWT_EXPIRES_IN: 1d
+      DB_HOST: postgres
+      DB_PORT: "5432"
+      DB_USER: postgres
+      DB_PASSWORD: postgres
+      DB_NAME: healthtech
+      STORAGE_DRIVER: local
+      LOCAL_STORAGE_DIR: uploads
+    volumes:
+      - uploads_data:/app/uploads
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  frontend:
+    build:
+      context: ./frontend
+      args:
+        NEXT_PUBLIC_API_URL: http://localhost:3001
+    ports:
+      - '3000:3000'
+    depends_on:
+      - backend
 
 volumes:
   postgres_data:
+  uploads_data:
