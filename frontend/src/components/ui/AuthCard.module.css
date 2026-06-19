@@ -1,0 +1,17 @@
+.wrapper {
+  width: 100%;
+  max-width: 420px;
+}
+
+.card {
+  width: 100%;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-white);
+
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-lg);
+
+  text-align: center;
+}

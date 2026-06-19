@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { registerPaciente } from "@/services/users.service";
 import { isValidCPF, onlyDigits } from "@/utils/cpf";
+import AuthCard from "@/components/ui/AuthCard";
 import styles from "../register.module.css";
 
 type FormState = {
@@ -77,8 +78,7 @@ export default function RegisterPacientePage() {
   }
 
   return (
-    <main className={styles.page}>
-      <div className={styles.card}>
+    <AuthCard>
         <Link href="/register" className={styles.backLink}>
           ← Voltar
         </Link>
@@ -187,7 +187,6 @@ export default function RegisterPacientePage() {
         <p className={styles.footer}>
           Já tem uma conta? <Link href="/login">Fazer login</Link>
         </p>
-      </div>
-    </main>
+    </AuthCard>
   );
 }

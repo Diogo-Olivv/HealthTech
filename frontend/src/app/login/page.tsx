@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { getProfile, loginUser, saveToken } from '@/services/users.service';
 import { UserType } from '@/dto/user-type.enum';
+import AuthCard from '@/components/ui/AuthCard';
 import styles from './login.module.css';
 
 type FormState = { email: string; password: string };
@@ -43,23 +44,13 @@ export default function LoginPage() {
   }
 
   return (
-    <main className={styles.page}>
-      
-
-
-      <div className={styles.containerRight}>
-          <div className={styles.card}>
-          
-          {/* <a href="../">
-            <img src="/Icon.svg" alt="Logo HealthTech" className={styles.logo} />
-          </a> */}
+      <AuthCard>
           <h1 className={styles.title}>Bem-vindo ao
             <span className={styles.textHealth}> Health</span>
             <span className={styles.textTech}>Tech</span>
           </h1>
           <p className={styles.subtitle}>Acesse sua conta para continuar</p>
-          
-          
+
           <form onSubmit={handleSubmit} className={styles.form} noValidate>
             <label className={styles.label}>
               E-mail
@@ -98,10 +89,6 @@ export default function LoginPage() {
           <p className={styles.footer}>
             Ainda não tem conta? <Link href="/register">Cadastre-se</Link>
           </p>
-
-        </div>
-      </div>
-      
-    </main>
+      </AuthCard>
   );
 }
