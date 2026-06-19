@@ -3,7 +3,9 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { loginUser, saveToken } from '@/services/users.service';
+import { getProfile, loginUser, saveToken } from '@/services/users.service';
+import { UserType } from '@/dto/user-type.enum';
+import AuthCard from '@/components/ui/AuthCard';
 import styles from './login.module.css';
 
 type FormState = { email: string; password: string };
@@ -29,7 +31,12 @@ export default function LoginPage() {
     try {
       const { accessToken } = await loginUser(form);
       saveToken(accessToken);
-      router.push('/dashboard');
+      const profile = await getProfile(accessToken);
+      const destino =
+        profile.tipo === UserType.MEDICO
+          ? '/medico/arquivos'
+          : '/paciente/arquivos';
+      router.push(destino);
     } catch (err) {
       setErrorMsg(err instanceof Error ? err.message : 'Erro ao entrar. Tente novamente.');
       setStatus('error');
@@ -37,59 +44,51 @@ export default function LoginPage() {
   }
 
   return (
-    <main className={styles.page}>
-      <div className={styles.card}>
-        
-        <a href="../">
-          <img src="/logo-healthtech-vetor.svg" alt="Logo HealthTech" className={styles.logo} />
-        </a>
-        <h1 className={styles.title}>Bem-vindo ao
-          <span className={styles.textHealth}> Health</span>
-          <span className={styles.textTech}>Tech</span>
-        </h1>
-        <p className={styles.subtitle}>Acesse sua conta para continuar</p>
-        
-        
-        <form onSubmit={handleSubmit} className={styles.form} noValidate>
-          <label className={styles.label}>
-            E-mail
-            <input
-              className={styles.input}
-              type="email"
-              name="email"
-              value={form.email}
-              onChange={handleChange}
-              placeholder="seu@email.com"
-              required
-            />
-          </label>
+      <AuthCard>
+          <h1 className={styles.title}>Bem-vindo ao
+            <span className={styles.textHealth}> Health</span>
+            <span className={styles.textTech}>Tech</span>
+          </h1>
+          <p className={styles.subtitle}>Acesse sua conta para continuar</p>
 
-          <label className={styles.label}>
-            Senha
-            <input
-              className={styles.input}
-              type="password"
-              name="password"
-              value={form.password}
-              onChange={handleChange}
-              minLength={8}
-              placeholder="********"
-              required
-            />
-          </label>
+          <form onSubmit={handleSubmit} className={styles.form} noValidate>
+            <label className={styles.label}>
+              E-mail
+              <input
+                className={styles.input}
+                type="email"
+                name="email"
+                value={form.email}
+                onChange={handleChange}
+                placeholder="seu@email.com"
+                required
+              />
+            </label>
 
-          {status === 'error' && <p className={styles.error}>{errorMsg}</p>}
+            <label className={styles.label}>
+              Senha
+              <input
+                className={styles.input}
+                type="password"
+                name="password"
+                value={form.password}
+                onChange={handleChange}
+                minLength={8}
+                placeholder="********"
+                required
+              />
+            </label>
 
-          <button className={styles.button} type="submit" disabled={status === 'loading'}>
-            {status === 'loading' ? 'Entrando...' : 'Entrar'}
-          </button>
-        </form>
+            {status === 'error' && <p className={styles.error}>{errorMsg}</p>}
 
-        <p className={styles.footer}>
-          Ainda não tem conta? <Link href="/register">Cadastre-se</Link>
-        </p>
+            <button className={styles.button} type="submit" disabled={status === 'loading'}>
+              {status === 'loading' ? 'Entrando...' : 'Entrar'}
+            </button>
+          </form>
 
-      </div>
-    </main>
+          <p className={styles.footer}>
+            Ainda não tem conta? <Link href="/register">Cadastre-se</Link>
+          </p>
+      </AuthCard>
   );
 }

@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { registerMedico } from "@/services/users.service";
+import AuthCard from "@/components/ui/AuthCard";
 import styles from "../register.module.css";
 
 type FormState = {
@@ -67,16 +68,10 @@ export default function RegisterMedicoPage() {
   }
 
   return (
-    <main className={styles.page}>
-      <div className={styles.card}>
+    <AuthCard>
         <Link href="/register" className={styles.backLink}>
           ← Voltar
         </Link>
-        <img
-          src="/logo-healthtech-vetor.svg"
-          alt="Logo HealthTech"
-          className={styles.logo}
-        />
 
         <h1 className={styles.title}>Cadastro de Médico</h1>
         <p className={styles.subtitle}>
@@ -179,7 +174,6 @@ export default function RegisterMedicoPage() {
         <p className={styles.footer}>
           Já tem uma conta? <Link href="/login">Fazer login</Link>
         </p>
-      </div>
-    </main>
+    </AuthCard>
   );
 }
