@@ -2944,10 +2944,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#documentacao" class="md-nav__link">
+  <a href="#infraestrutura" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Documentação
+        Infraestrutura
       
     </span>
   </a>
@@ -2964,6 +2964,28 @@
     <span class="md-ellipsis">
       
         Participação por Integrante
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bloqueios-e-riscos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bloqueios e Riscos
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pendencias-para-a-proxima-semana" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pendências para a Próxima Semana
       
     </span>
   </a>
@@ -3962,69 +3984,15 @@
   
   
   
-    
-    
-      
-        
-      
-    
-    
-    
-      
-      
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_3_2_5" >
-        
-          
-          <label class="md-nav__link" for="__nav_5_3_2_5" id="__nav_5_3_2_5_label" tabindex="0">
-            
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Documentação
-  
-
-    
-  </span>
-  
-  
-
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_5_3_2_5_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_5_3_2_5">
-            <span class="md-nav__icon md-icon"></span>
-            
-  
-    Documentação
-  
-
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-  
     <li class="md-nav__item">
-      <a href="../../issues/docs/politica-auditoria/" class="md-nav__link">
+      <a href="../../../../docs" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    #43 - Politica de auditoria
+    Documentação
   
 
     
@@ -4033,14 +4001,6 @@
   
 
       </a>
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
-      
     </li>
   
 
@@ -4197,10 +4157,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#documentacao" class="md-nav__link">
+  <a href="#infraestrutura" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Documentação
+        Infraestrutura
       
     </span>
   </a>
@@ -4217,6 +4177,28 @@
     <span class="md-ellipsis">
       
         Participação por Integrante
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bloqueios-e-riscos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bloqueios e Riscos
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pendencias-para-a-proxima-semana" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pendências para a Próxima Semana
       
     </span>
   </a>
@@ -4245,75 +4227,283 @@
 
 <h1 id="semana-09">Semana 09</h1>
 <blockquote>
-<p><strong>Status:</strong> Concluída
-<strong>Período:</strong> 02/06/2026 - 08/06/2026
-<strong>Semana do ciclo:</strong> 09 / 14
-<strong>Fase atual:</strong> Fase 2 - Desenvolvimento</p>
+<p><strong>Status:</strong> Concluída<br />
+<strong>Período:</strong> 02/06/2026 - 08/06/2026<br />
+<strong>Semana do ciclo:</strong> 09 / 14<br />
+<strong>Fase atual:</strong> Fase 2 - Desenvolvimento<br />
+<strong>Responsável pelo preenchimento:</strong> Diogo</p>
 </blockquote>
 <hr />
 <h2 id="objetivo-da-semana">Objetivo da Semana</h2>
-<p>Implementar autenticação com JWT e tipo de usuário no token. Iniciar as telas de cadastro e login no frontend.</p>
+<p>Mergear e refinar o módulo de usuários, implementar tipo de usuário no JWT com guards de rota, iniciar as telas de cadastro no frontend e fazer o deploy inicial no Cloud Run.</p>
 <hr />
 <h2 id="entregas-realizadas">Entregas Realizadas</h2>
 <h3 id="backend">Backend</h3>
 <ul>
-<li>Tipo de usuário no login e guards de rota (#19)</li>
-<li>Deploy inicial no Cloud Run (#16)</li>
+<li>Implementação completa de cadastro e login de Paciente e Médico, com rotas separadas por tipo e DTOs específicos (#9, #10).</li>
+<li>Refatoração do módulo de usuários: separação de <code>CreatePacienteDto</code> e <code>CreateMedicoDto</code>, extração de <code>PublicUser</code>, remoção de validações duplicadas (#19).</li>
+<li>Testes unitários e E2E do módulo de usuários adicionados.</li>
+<li>Configuração do ambiente e timeout para testes E2E (Jest + Supertest).</li>
 </ul>
-<p><strong>Issue(s):</strong> #16, #19</p>
+<p><strong>Commits relacionados:</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Hash</th>
+<th style="text-align: left;">Data</th>
+<th style="text-align: left;">Autor</th>
+<th style="text-align: left;">Descrição</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>e7f8199</code></td>
+<td style="text-align: left;">03/06</td>
+<td style="text-align: left;">martinnho</td>
+<td style="text-align: left;">chore(test): configurar ambiente e timeout para testes e2e</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>280a368</code></td>
+<td style="text-align: left;">03/06</td>
+<td style="text-align: left;">martinnho</td>
+<td style="text-align: left;">feat(users): implementar cadastro e login de pacientes e medicos</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>0925283</code></td>
+<td style="text-align: left;">04/06</td>
+<td style="text-align: left;">martinnho</td>
+<td style="text-align: left;">test(users): adicionar testes unitarios, e2e e ajustar tipagens do jest</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>a9f0bf5</code></td>
+<td style="text-align: left;">04/06</td>
+<td style="text-align: left;">martinnho</td>
+<td style="text-align: left;">chore: remover tsconfig.spec.json vazio</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>8fc967d</code></td>
+<td style="text-align: left;">07/06</td>
+<td style="text-align: left;">martinnho</td>
+<td style="text-align: left;">refactor(dto): reduzir CreateUserDto aos campos comuns</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>a70a3c8</code></td>
+<td style="text-align: left;">07/06</td>
+<td style="text-align: left;">martinnho</td>
+<td style="text-align: left;">refactor(dto): criar CreatePacienteDto e CreateMedicoDto com extends</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>7248d1b</code></td>
+<td style="text-align: left;">07/06</td>
+<td style="text-align: left;">martinnho</td>
+<td style="text-align: left;">refactor(users): separar rotas de cadastro por tipo</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>965a9ae</code></td>
+<td style="text-align: left;">07/06</td>
+<td style="text-align: left;">martinnho</td>
+<td style="text-align: left;">refactor(users): remover validacao duplicada e dividir create no service</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>ef18255</code></td>
+<td style="text-align: left;">07/06</td>
+<td style="text-align: left;">martinnho</td>
+<td style="text-align: left;">refactor(users): extrair PublicUser e toPublicUser</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>26c9d7c</code></td>
+<td style="text-align: left;">07/06</td>
+<td style="text-align: left;">martinnho</td>
+<td style="text-align: left;">test(users): ajustar testes para as novas rotas e DTOs</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Branch:</strong> <code>feat/usuarios</code>
+<strong>PRs:</strong> #31 (feat/usuarios)
+<strong>Issue(s):</strong> #9, #10, #19</p>
 <hr />
 <h3 id="frontend">Frontend</h3>
 <ul>
-<li>Tela de cadastro de Paciente (#5)</li>
-<li>Tela de cadastro de Médico (#6)</li>
-<li>Redirecionamento por tipo de usuário após login (#7)</li>
+<li>Identidade visual inicial: componentes UI base e testes do componente <code>Button</code> (#18 parcial).</li>
+<li>Logos vetorizadas e favicon adicionados ao projeto.</li>
 </ul>
-<p><strong>Issue(s):</strong> #5, #6, #7</p>
+<p><strong>Commits relacionados:</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Hash</th>
+<th style="text-align: left;">Data</th>
+<th style="text-align: left;">Autor</th>
+<th style="text-align: left;">Descrição</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>70f4c4c</code></td>
+<td style="text-align: left;">07/06</td>
+<td style="text-align: left;">Gabriel Robson</td>
+<td style="text-align: left;">feat: identidade visual, componentes UI e testes do Button</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Issue(s):</strong> #5, #6, #7 (iniciadas)</p>
 <hr />
-<h3 id="documentacao">Documentação</h3>
+<h3 id="infraestrutura">Infraestrutura</h3>
 <ul>
-<li>Ata de reunião 03/06 e 08/06</li>
+<li>Configuração inicial do Google Cloud Run e integração com Cloud SQL (#16).</li>
+<li>Adição de containers para integração com Google Cloud Storage.</li>
 </ul>
+<p><strong>Commits relacionados:</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Hash</th>
+<th style="text-align: left;">Data</th>
+<th style="text-align: left;">Autor</th>
+<th style="text-align: left;">Descrição</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>d161209</code></td>
+<td style="text-align: left;">08/06</td>
+<td style="text-align: left;">Hugo Rosa</td>
+<td style="text-align: left;">feat(infra): adiciona containers para upload google cloud</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>090ef81</code></td>
+<td style="text-align: left;">08/06</td>
+<td style="text-align: left;">Diogo</td>
+<td style="text-align: left;">Configuração Inicial do Google Cloud</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>1b9a04a</code></td>
+<td style="text-align: left;">08/06</td>
+<td style="text-align: left;">Diogo</td>
+<td style="text-align: left;">PR de configuração da infraestrutura inicial</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Issue(s):</strong> #16</p>
 <hr />
 <h2 id="participacao-por-integrante">Participação por Integrante</h2>
 <table>
 <thead>
 <tr>
 <th style="text-align: left;">Integrante</th>
+<th style="text-align: center;">Commits</th>
 <th style="text-align: left;">Issues principais</th>
 <th style="text-align: left;">Status</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align: left;">Hugo</td>
-<td style="text-align: left;">#16</td>
+<td style="text-align: left;">Diogo</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: left;">#16 (infra GCP)</td>
 <td style="text-align: left;">Concluída</td>
 </tr>
 <tr>
-<td style="text-align: left;">Luíza</td>
-<td style="text-align: left;">#19</td>
+<td style="text-align: left;">Hugo</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: left;">#16 (GCS containers)</td>
 <td style="text-align: left;">Concluída</td>
 </tr>
 <tr>
 <td style="text-align: left;">Martin</td>
-<td style="text-align: left;">#19</td>
+<td style="text-align: center;">10</td>
+<td style="text-align: left;">#9, #10, #19</td>
+<td style="text-align: left;">Concluída</td>
+</tr>
+<tr>
+<td style="text-align: left;">Luíza</td>
+<td style="text-align: center;">-</td>
+<td style="text-align: left;">#19 (continuação)</td>
 <td style="text-align: left;">Concluída</td>
 </tr>
 <tr>
 <td style="text-align: left;">Lucas</td>
-<td style="text-align: left;">#5, #6, #7</td>
-<td style="text-align: left;">Concluída</td>
+<td style="text-align: center;">-</td>
+<td style="text-align: left;">#5, #6, #7 (iniciadas)</td>
+<td style="text-align: left;">Em andamento</td>
 </tr>
 <tr>
 <td style="text-align: left;">Gabriel</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: left;">#18 (componentes UI)</td>
+<td style="text-align: left;">Concluída</td>
 </tr>
 </tbody>
 </table>
 <hr />
-<p><em>Documento a ser complementado pelo responsável da semana.</em></p>
+<h2 id="bloqueios-e-riscos">Bloqueios e Riscos</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Bloqueio / Risco</th>
+<th style="text-align: left;">Impacto</th>
+<th style="text-align: left;">Responsável</th>
+<th style="text-align: left;">Prazo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Telas de cadastro frontend (#5, #6, #7) não finalizadas</td>
+<td style="text-align: left;">Bloqueia fluxo completo de cadastro</td>
+<td style="text-align: left;">Lucas</td>
+<td style="text-align: left;">Semana 10</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="pendencias-para-a-proxima-semana">Pendências para a Próxima Semana</h2>
+<blockquote>
+<p>Semana 10 / 14 — Foco: identidade visual, entidade Arquivo, integração GCS e vínculo médico-paciente.</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Tarefa</th>
+<th style="text-align: left;">Responsável</th>
+<th style="text-align: left;">Issue</th>
+<th style="text-align: left;">Prioridade</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Tipo de usuário no JWT e guards de rota</td>
+<td style="text-align: left;">Luíza</td>
+<td style="text-align: left;">#19</td>
+<td style="text-align: left;">Alta</td>
+</tr>
+<tr>
+<td style="text-align: left;">Refatoração visual das páginas de cadastro/login</td>
+<td style="text-align: left;">Lucas, Gabriel</td>
+<td style="text-align: left;">#18</td>
+<td style="text-align: left;">Alta</td>
+</tr>
+<tr>
+<td style="text-align: left;">Entidade Arquivo e migration</td>
+<td style="text-align: left;">Martin, Luíza</td>
+<td style="text-align: left;">#26</td>
+<td style="text-align: left;">Alta</td>
+</tr>
+<tr>
+<td style="text-align: left;">Service de integração com GCS</td>
+<td style="text-align: left;">Hugo</td>
+<td style="text-align: left;">#27</td>
+<td style="text-align: left;">Alta</td>
+</tr>
+<tr>
+<td style="text-align: left;">Tabela MedicoPaciente e vínculo</td>
+<td style="text-align: left;">Hugo, Martin</td>
+<td style="text-align: left;">#29</td>
+<td style="text-align: left;">Alta</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<p><em>Documento preenchido por: Diogo</em></p>
 
 
 

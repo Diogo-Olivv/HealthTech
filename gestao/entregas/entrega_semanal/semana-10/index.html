@@ -2988,10 +2988,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#indicadores-da-semana" class="md-nav__link">
+  <a href="#participacao-por-integrante" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Indicadores da Semana
+        Participação por Integrante
       
     </span>
   </a>
@@ -2999,10 +2999,21 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#participacao-por-integrante" class="md-nav__link">
+  <a href="#bloqueios-e-riscos" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Participação por Integrante
+        Bloqueios e Riscos
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pendencias-para-a-proxima-semana" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pendências para a Próxima Semana
       
     </span>
   </a>
@@ -3973,69 +3984,15 @@
   
   
   
-    
-    
-      
-        
-      
-    
-    
-    
-      
-      
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_3_2_5" >
-        
-          
-          <label class="md-nav__link" for="__nav_5_3_2_5" id="__nav_5_3_2_5_label" tabindex="0">
-            
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Documentação
-  
-
-    
-  </span>
-  
-  
-
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_5_3_2_5_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_5_3_2_5">
-            <span class="md-nav__icon md-icon"></span>
-            
-  
-    Documentação
-  
-
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-  
     <li class="md-nav__item">
-      <a href="../../issues/docs/politica-auditoria/" class="md-nav__link">
+      <a href="../../../../docs" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    #43 - Politica de auditoria
+    Documentação
   
 
     
@@ -4044,14 +4001,6 @@
   
 
       </a>
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
-      
     </li>
   
 
@@ -4224,10 +4173,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#indicadores-da-semana" class="md-nav__link">
+  <a href="#participacao-por-integrante" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Indicadores da Semana
+        Participação por Integrante
       
     </span>
   </a>
@@ -4235,10 +4184,21 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#participacao-por-integrante" class="md-nav__link">
+  <a href="#bloqueios-e-riscos" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Participação por Integrante
+        Bloqueios e Riscos
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pendencias-para-a-proxima-semana" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pendências para a Próxima Semana
       
     </span>
   </a>
@@ -4267,103 +4227,423 @@
 
 <h1 id="semana-10">Semana 10</h1>
 <blockquote>
-<p><strong>Status:</strong> Concluída
-<strong>Período:</strong> 09/06/2026 - 15/06/2026
-<strong>Semana do ciclo:</strong> 10 / 14
-<strong>Fase atual:</strong> Fase 2 - Desenvolvimento</p>
+<p><strong>Status:</strong> Concluída<br />
+<strong>Período:</strong> 09/06/2026 - 15/06/2026<br />
+<strong>Semana do ciclo:</strong> 10 / 14<br />
+<strong>Fase atual:</strong> Fase 2 - Desenvolvimento<br />
+<strong>Responsável pelo preenchimento:</strong> Diogo</p>
 </blockquote>
 <hr />
 <h2 id="objetivo-da-semana">Objetivo da Semana</h2>
-<p>Implementar o gerenciamento de arquivos: entidade, integração com GCS, vínculo médico-paciente e identidade visual do frontend.</p>
+<p>Implementar a camada de gerenciamento de arquivos: entidade, integração com GCS, vínculo médico-paciente. Finalizar identidade visual do frontend e integrar frontend com o backend de usuários.</p>
 <hr />
 <h2 id="entregas-realizadas">Entregas Realizadas</h2>
 <h3 id="backend">Backend</h3>
 <ul>
-<li>Entidade Arquivo e migration (#26)</li>
-<li>Service de integração com o Google Cloud Storage (#27)</li>
-<li>Tabela MedicoPaciente e funcionalidade de vínculo (#29)</li>
+<li>Tipo de usuário identificado no login e incluído no payload JWT; guards de rota por tipo implementados e testados via Supertest (#19).</li>
+<li>Entidade <code>Arquivo</code> criada com TypeORM, sincronizada com o banco, DTO de resposta seguro (omite <code>caminhoStorage</code>) e testes de segurança (#26).</li>
+<li><code>StorageService</code>: geração de nome único (UUID), integração com GCS (#27).</li>
+<li>Módulo <code>MedicoPaciente</code> completo: entity, DTO, controller, service com os 4 endpoints de vínculo e testes unitários (#29).</li>
+<li>Correções de configuração: remoção do prefixo global <code>/api</code>, ajustes no <code>cloudbuild.yaml</code>, URLs de frontend e backend.</li>
 </ul>
-<p><strong>Issue(s):</strong> #26, #27, #29</p>
-<hr />
-<h3 id="frontend">Frontend</h3>
-<ul>
-<li>Refatoração visual das páginas de Cadastro e Login (#18)</li>
-</ul>
-<p><strong>Issue(s):</strong> #18</p>
-<hr />
-<h3 id="documentacao">Documentação</h3>
-<ul>
-<li>Ata de reunião 10/06</li>
-<li>Diagrama de classes atualizado com entidade Arquivo e AuditLog</li>
-</ul>
-<hr />
-<h2 id="indicadores-da-semana">Indicadores da Semana</h2>
+<p><strong>Commits relacionados:</strong></p>
 <table>
 <thead>
 <tr>
-<th style="text-align: left;">Item</th>
-<th style="text-align: center;">Status</th>
+<th style="text-align: left;">Hash</th>
+<th style="text-align: left;">Data</th>
+<th style="text-align: left;">Autor</th>
+<th style="text-align: left;">Descrição</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align: left;">Todos cumpriram as 4h presenciais</td>
-<td style="text-align: center;">-</td>
+<td style="text-align: left;"><code>29b275f</code></td>
+<td style="text-align: left;">09/06</td>
+<td style="text-align: left;">Luiza Carvalho</td>
+<td style="text-align: left;">feat(auth): identificar tipo de usuário no login</td>
 </tr>
 <tr>
-<td style="text-align: left;">Todos realizaram commits rastreados a uma issue</td>
-<td style="text-align: center;">-</td>
+<td style="text-align: left;"><code>9c6a4b1</code></td>
+<td style="text-align: left;">09/06</td>
+<td style="text-align: left;">Luiza Carvalho</td>
+<td style="text-align: left;">feat(auth): adiciona teste de integração (Supertest)</td>
 </tr>
 <tr>
-<td style="text-align: left;">PR(s) aberto(s), sem conflito e com descrição</td>
-<td style="text-align: center;">-</td>
+<td style="text-align: left;"><code>88aba8b</code></td>
+<td style="text-align: left;">12/06</td>
+<td style="text-align: left;">martinnho</td>
+<td style="text-align: left;">feat(arquivos): cria entidade Arquivo e sincroniza com TypeORM</td>
 </tr>
 <tr>
-<td style="text-align: left;">Entrega funcional (roda / testa / documenta)</td>
-<td style="text-align: center;">-</td>
+<td style="text-align: left;"><code>ff24d39</code></td>
+<td style="text-align: left;">12/06</td>
+<td style="text-align: left;">martinnho</td>
+<td style="text-align: left;">feat(arquivos): cria estrutura do modulo e DTO de resposta segura</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>6b75ea8</code></td>
+<td style="text-align: left;">12/06</td>
+<td style="text-align: left;">martinnho</td>
+<td style="text-align: left;">test(arquivos): adiciona testes de segurança para omissão de dados sensíveis</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>f78ae73</code></td>
+<td style="text-align: left;">11/06</td>
+<td style="text-align: left;">Hugo Rosa</td>
+<td style="text-align: left;">(feat) Entity MedicoPaciente adicionada</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>d78d19b</code></td>
+<td style="text-align: left;">11/06</td>
+<td style="text-align: left;">Hugo Rosa</td>
+<td style="text-align: left;">(feat) Dto Vincular Medico Paciente Adicionado</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>ea10a20</code></td>
+<td style="text-align: left;">11/06</td>
+<td style="text-align: left;">Hugo Rosa</td>
+<td style="text-align: left;">(feat) Controller Medico Paciente Adicionado</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>e9d286f</code></td>
+<td style="text-align: left;">11/06</td>
+<td style="text-align: left;">Hugo Rosa</td>
+<td style="text-align: left;">(feat) Modulo Medico Paciente Adicionado</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>3f010f3</code></td>
+<td style="text-align: left;">11/06</td>
+<td style="text-align: left;">Hugo Rosa</td>
+<td style="text-align: left;">(feat) Serviço Medico Paciente Adicionado</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>b9e3ca8</code></td>
+<td style="text-align: left;">11/06</td>
+<td style="text-align: left;">Hugo Rosa</td>
+<td style="text-align: left;">(feat) App.module.ts alterado</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>f10c5f1</code></td>
+<td style="text-align: left;">13/06</td>
+<td style="text-align: left;">Hugo Rosa</td>
+<td style="text-align: left;">(feat) Geração de nome único implementada</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>1b44a72</code></td>
+<td style="text-align: left;">13/06</td>
+<td style="text-align: left;">Hugo Rosa</td>
+<td style="text-align: left;">(feat) Testes implementados</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>8495752</code></td>
+<td style="text-align: left;">11/06</td>
+<td style="text-align: left;">martinnho</td>
+<td style="text-align: left;">fix(medico-paciente): corrige nomenclatura de arquivos e DTO</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>9d335d0</code></td>
+<td style="text-align: left;">11/06</td>
+<td style="text-align: left;">martinnho</td>
+<td style="text-align: left;">test(medico-paciente): adiciona testes unitários do MedicoPacienteService</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>ffd9caa</code></td>
+<td style="text-align: left;">10/06</td>
+<td style="text-align: left;">Diogo</td>
+<td style="text-align: left;">refactor(dto + api): Mudança das estruturas dos DTOs e remoção do prefixo 'api'</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>95f86f2</code></td>
+<td style="text-align: left;">10/06</td>
+<td style="text-align: left;">Diogo</td>
+<td style="text-align: left;">refactor: Alinhamento do backend da lógica de cadastro e login</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>897c2b4</code></td>
+<td style="text-align: left;">10/06</td>
+<td style="text-align: left;">Diogo</td>
+<td style="text-align: left;">feat: Adiciona validação de CPF no frontend e backend</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>cc83445</code></td>
+<td style="text-align: left;">11/06</td>
+<td style="text-align: left;">Diogo</td>
+<td style="text-align: left;">fix: Rota '/api' removido do cloudbuild.yaml</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>88899b6</code></td>
+<td style="text-align: left;">11/06</td>
+<td style="text-align: left;">Diogo</td>
+<td style="text-align: left;">fix: Remove pasta user-data</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>4b49f7a</code></td>
+<td style="text-align: left;">11/06</td>
+<td style="text-align: left;">Diogo</td>
+<td style="text-align: left;">fix: Cloud_Logging yaml</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>be2a5a8</code></td>
+<td style="text-align: left;">11/06</td>
+<td style="text-align: left;">Diogo</td>
+<td style="text-align: left;">fix: Ajuste de rota no main.ts</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>8c6cf1c</code></td>
+<td style="text-align: left;">12/06</td>
+<td style="text-align: left;">Diogo</td>
+<td style="text-align: left;">fix: add AppController e AppService ao AppModule</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>e49635d</code></td>
+<td style="text-align: left;">12/06</td>
+<td style="text-align: left;">Diogo</td>
+<td style="text-align: left;">fix: Ajusta Backend URL + Frontends URLs</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>0e26499</code></td>
+<td style="text-align: left;">15/06</td>
+<td style="text-align: left;">Diogo</td>
+<td style="text-align: left;">refactor: Ajusta storage.service devido a erros</td>
 </tr>
 </tbody>
 </table>
+<p><strong>Branch:</strong> <code>feat/medico-paciente</code>, <code>feat/arquivo-migration</code>, <code>feat/integracao-banco</code>
+<strong>PRs:</strong> #40 (feat/medico-paciente), #42 (feat/arquivo-migration), #45 (feat/integracao-banco)
+<strong>Issue(s):</strong> #19, #26, #27, #29</p>
+<hr />
+<h3 id="frontend">Frontend</h3>
+<ul>
+<li>Refatoração visual completa das páginas de cadastro e login: paleta de cores, logos, favicon, fonte Inter, layout responsivo (#18).</li>
+<li>Formulário de cadastro atualizado: radio buttons para seleção de tipo, campos de CPF e data de nascimento.</li>
+<li>Redirecionamento na logo da home e melhoria na navegação.</li>
+</ul>
+<p><strong>Commits relacionados:</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Hash</th>
+<th style="text-align: left;">Data</th>
+<th style="text-align: left;">Autor</th>
+<th style="text-align: left;">Descrição</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>abca7b5</code></td>
+<td style="text-align: left;">09/06</td>
+<td style="text-align: left;">lucaspaulaleal</td>
+<td style="text-align: left;">feat(app): adiciona favicon</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>3d2afc5</code></td>
+<td style="text-align: left;">09/06</td>
+<td style="text-align: left;">lucaspaulaleal</td>
+<td style="text-align: left;">feat(public): adiciona logos vetorizadas</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>d2ce828</code></td>
+<td style="text-align: left;">09/06</td>
+<td style="text-align: left;">lucaspaulaleal</td>
+<td style="text-align: left;">feat: apaga duplicata de global.css e adiciona import fonte Inter</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>533d3a7</code></td>
+<td style="text-align: left;">10/06</td>
+<td style="text-align: left;">lucaspaulaleal</td>
+<td style="text-align: left;">refactor(globals.css): estilização global e refatorar páginas de login e registro</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>5cafd83</code></td>
+<td style="text-align: left;">10/06</td>
+<td style="text-align: left;">lucaspaulaleal</td>
+<td style="text-align: left;">refactor(globals.css): atualiza a paleta de cores</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>2329690</code></td>
+<td style="text-align: left;">10/06</td>
+<td style="text-align: left;">lucaspaulaleal</td>
+<td style="text-align: left;">refactor(globals.css): move globals.css para pasta correta</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>825170c</code></td>
+<td style="text-align: left;">10/06</td>
+<td style="text-align: left;">lucaspaulaleal</td>
+<td style="text-align: left;">refactor(login): atualiza styles e melhora layout</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>c54bfc9</code></td>
+<td style="text-align: left;">10/06</td>
+<td style="text-align: left;">lucaspaulaleal</td>
+<td style="text-align: left;">refactor(register): atualiza styles da página de registro</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>d34e964</code></td>
+<td style="text-align: left;">10/06</td>
+<td style="text-align: left;">lucaspaulaleal</td>
+<td style="text-align: left;">refactor(login, register): redireciona na logo e ajusta navegação da home</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>0263546</code></td>
+<td style="text-align: left;">10/06</td>
+<td style="text-align: left;">lucaspaulaleal</td>
+<td style="text-align: left;">refactor(register): adiciona botões para selecionar tipo de usuário</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>0fcbdc3</code></td>
+<td style="text-align: left;">10/06</td>
+<td style="text-align: left;">lucaspaulaleal</td>
+<td style="text-align: left;">refactor(globals.css): atualiza background-color e colore mensagem de erro</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>eb79e45</code></td>
+<td style="text-align: left;">10/06</td>
+<td style="text-align: left;">lucaspaulaleal</td>
+<td style="text-align: left;">refactor(register): implementa radio buttons e adiciona campos de cpf/nascimento</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>bdba945</code></td>
+<td style="text-align: left;">10/06</td>
+<td style="text-align: left;">lucaspaulaleal</td>
+<td style="text-align: left;">refactor(register): centraliza input radio de escolha de usuário</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>62e104b</code></td>
+<td style="text-align: left;">16/06</td>
+<td style="text-align: left;">lucaspaulaleal</td>
+<td style="text-align: left;">refactor(public): troca das logos e favicon</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Branch:</strong> <code>feat/page_login_cadastro</code>
+<strong>PRs:</strong> #34 (feat/page_login_cadastro)
+<strong>Issue(s):</strong> #18</p>
+<hr />
+<h3 id="documentacao">Documentação</h3>
+<ul>
+<li>Ata de reunião 10/06.</li>
+<li>Diagrama de classes atualizado com entidades <code>Arquivo</code> e <code>MedicoPaciente</code>.</li>
+</ul>
 <hr />
 <h2 id="participacao-por-integrante">Participação por Integrante</h2>
 <table>
 <thead>
 <tr>
 <th style="text-align: left;">Integrante</th>
+<th style="text-align: center;">Commits</th>
 <th style="text-align: left;">Issues principais</th>
 <th style="text-align: left;">Status</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align: left;">Hugo</td>
-<td style="text-align: left;">#27, #29, #18</td>
+<td style="text-align: left;">Diogo</td>
+<td style="text-align: center;">9</td>
+<td style="text-align: left;">Integrações, fixes de config</td>
 <td style="text-align: left;">Concluída</td>
 </tr>
 <tr>
-<td style="text-align: left;">Luíza</td>
-<td style="text-align: left;">#26</td>
+<td style="text-align: left;">Hugo</td>
+<td style="text-align: center;">8</td>
+<td style="text-align: left;">#27, #29</td>
 <td style="text-align: left;">Concluída</td>
 </tr>
 <tr>
 <td style="text-align: left;">Martin</td>
-<td style="text-align: left;">#26, #27, #29</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: left;">#26, #29 (testes)</td>
+<td style="text-align: left;">Concluída</td>
+</tr>
+<tr>
+<td style="text-align: left;">Luíza</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: left;">#19</td>
 <td style="text-align: left;">Concluída</td>
 </tr>
 <tr>
 <td style="text-align: left;">Lucas</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
+<td style="text-align: center;">13</td>
+<td style="text-align: left;">#18</td>
+<td style="text-align: left;">Concluída</td>
 </tr>
 <tr>
 <td style="text-align: left;">Gabriel</td>
-<td style="text-align: left;">#18</td>
-<td style="text-align: left;">Concluída</td>
+<td style="text-align: center;">-</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">-</td>
 </tr>
 </tbody>
 </table>
 <hr />
-<p><em>Documento a ser complementado pelo responsável da semana.</em></p>
+<h2 id="bloqueios-e-riscos">Bloqueios e Riscos</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Bloqueio / Risco</th>
+<th style="text-align: left;">Impacto</th>
+<th style="text-align: left;">Responsável</th>
+<th style="text-align: left;">Prazo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Endpoint de upload (#28) ainda não iniciado</td>
+<td style="text-align: left;">Bloqueia tela de upload no frontend</td>
+<td style="text-align: left;">Hugo, Martin</td>
+<td style="text-align: left;">Semana 11</td>
+</tr>
+<tr>
+<td style="text-align: left;">Endpoint de listagem de arquivos (#32) ainda não iniciado</td>
+<td style="text-align: left;">Bloqueia tela de listagem</td>
+<td style="text-align: left;">Hugo</td>
+<td style="text-align: left;">Semana 11</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="pendencias-para-a-proxima-semana">Pendências para a Próxima Semana</h2>
+<blockquote>
+<p>Semana 11 / 14 — Foco: endpoint de upload, endpoint de listagem e telas correspondentes no frontend.</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Tarefa</th>
+<th style="text-align: left;">Responsável</th>
+<th style="text-align: left;">Issue</th>
+<th style="text-align: left;">Prioridade</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Endpoint POST /arquivos/upload</td>
+<td style="text-align: left;">Hugo, Martin</td>
+<td style="text-align: left;">#28</td>
+<td style="text-align: left;">Alta</td>
+</tr>
+<tr>
+<td style="text-align: left;">Endpoint GET /arquivos com isolamento por tipo</td>
+<td style="text-align: left;">Hugo</td>
+<td style="text-align: left;">#32</td>
+<td style="text-align: left;">Alta</td>
+</tr>
+<tr>
+<td style="text-align: left;">Tela de listagem de arquivos (frontend)</td>
+<td style="text-align: left;">Gabriel, Lucas, Luíza</td>
+<td style="text-align: left;">#33</td>
+<td style="text-align: left;">Alta</td>
+</tr>
+<tr>
+<td style="text-align: left;">Tela de upload de arquivos (frontend)</td>
+<td style="text-align: left;">Gabriel, Lucas, Luíza</td>
+<td style="text-align: left;">#30</td>
+<td style="text-align: left;">Alta</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<p><em>Documento preenchido por: Diogo</em></p>
 
 
 

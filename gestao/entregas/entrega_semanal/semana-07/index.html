@@ -2866,10 +2866,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#infraestrutura" class="md-nav__link">
+  <a href="#infraestrutura-setup" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Infraestrutura
+        Infraestrutura &amp; Setup
       
     </span>
   </a>
@@ -2897,6 +2897,28 @@
     <span class="md-ellipsis">
       
         Participação por Integrante
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bloqueios-e-riscos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bloqueios e Riscos
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pendencias-para-a-proxima-semana" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pendências para a Próxima Semana
       
     </span>
   </a>
@@ -3951,69 +3973,15 @@
   
   
   
-    
-    
-      
-        
-      
-    
-    
-    
-      
-      
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_3_2_5" >
-        
-          
-          <label class="md-nav__link" for="__nav_5_3_2_5" id="__nav_5_3_2_5_label" tabindex="0">
-            
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Documentação
-  
-
-    
-  </span>
-  
-  
-
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_5_3_2_5_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_5_3_2_5">
-            <span class="md-nav__icon md-icon"></span>
-            
-  
-    Documentação
-  
-
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-  
     <li class="md-nav__item">
-      <a href="../../issues/docs/politica-auditoria/" class="md-nav__link">
+      <a href="../../../../docs" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    #43 - Politica de auditoria
+    Documentação
   
 
     
@@ -4022,14 +3990,6 @@
   
 
       </a>
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
-      
     </li>
   
 
@@ -4164,10 +4124,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#infraestrutura" class="md-nav__link">
+  <a href="#infraestrutura-setup" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Infraestrutura
+        Infraestrutura &amp; Setup
       
     </span>
   </a>
@@ -4201,6 +4161,28 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#bloqueios-e-riscos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bloqueios e Riscos
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pendencias-para-a-proxima-semana" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pendências para a Próxima Semana
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -4223,29 +4205,64 @@
 
 <h1 id="semana-07">Semana 07</h1>
 <blockquote>
-<p><strong>Status:</strong> Concluída
-<strong>Período:</strong> 19/05/2026 - 25/05/2026
-<strong>Semana do ciclo:</strong> 07 / 14
-<strong>Fase atual:</strong> Fase 1 - Arquitetura &amp; Setup</p>
+<p><strong>Status:</strong> Concluída<br />
+<strong>Período:</strong> 19/05/2026 - 25/05/2026<br />
+<strong>Semana do ciclo:</strong> 07 / 14<br />
+<strong>Fase atual:</strong> Fase 1 - Arquitetura &amp; Setup<br />
+<strong>Responsável pelo preenchimento:</strong> Diogo</p>
 </blockquote>
 <hr />
 <h2 id="objetivo-da-semana">Objetivo da Semana</h2>
-<p>Definir a arquitetura do projeto, configurar o repositório e estabelecer os padrões de trabalho do time.</p>
+<p>Definir a stack, arquitetura e organização do projeto. Configurar o repositório, o ambiente de desenvolvimento local e estabelecer os padrões de trabalho do time.</p>
 <hr />
 <h2 id="entregas-realizadas">Entregas Realizadas</h2>
-<h3 id="infraestrutura">Infraestrutura</h3>
+<h3 id="infraestrutura-setup">Infraestrutura &amp; Setup</h3>
 <ul>
-<li>Definição da arquitetura de infraestrutura MVP (#11)</li>
-<li>Provisionamento do projeto na Google Cloud (#12)</li>
-<li>Configuração do banco de dados Cloud SQL (#13)</li>
+<li>Criação do repositório no GitHub com estrutura monorepo (<code>backend/</code>, <code>frontend/</code>).</li>
+<li>Configuração do ambiente de desenvolvimento: Docker Compose com PostgreSQL 16 e Adminer.</li>
+<li>Implementação temporária de cadastro de usuário para validar o ambiente end-to-end.</li>
+<li>Configuração de CORS, ValidationPipe e estrutura inicial do NestJS.</li>
 </ul>
-<p><strong>Issue(s):</strong> #11, #12, #13</p>
+<p><strong>Commits relacionados:</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Hash</th>
+<th style="text-align: left;">Data</th>
+<th style="text-align: left;">Autor</th>
+<th style="text-align: left;">Descrição</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>229c870</code></td>
+<td style="text-align: left;">19/05</td>
+<td style="text-align: left;">Diogo</td>
+<td style="text-align: left;">Initial commit</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>24281eb</code></td>
+<td style="text-align: left;">25/05</td>
+<td style="text-align: left;">Diogo</td>
+<td style="text-align: left;">feat: Ambiente de Desenvolvimento Inicial Configurado</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>5b4f69b</code></td>
+<td style="text-align: left;">25/05</td>
+<td style="text-align: left;">Diogo</td>
+<td style="text-align: left;">feat: Implementado Temporariamente Cadastro do Usuario</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Branch:</strong> <code>main</code> / <code>develop</code></p>
 <hr />
 <h3 id="documentacao">Documentação</h3>
 <ul>
-<li>Estrutura inicial da documentação MkDocs</li>
-<li>Padrões de Git, código e review</li>
-<li>Ata de reunião 25/05</li>
+<li>Definição da stack tecnológica (Next.js 16, NestJS 11, PostgreSQL, GCP).</li>
+<li>Definição da arquitetura do sistema (monorepo, fluxo frontend → backend → banco).</li>
+<li>Definição do fluxo de trabalho: branches, commits convencionais, code review.</li>
+<li>Estrutura inicial da documentação MkDocs com Material theme.</li>
+<li>Padrões de Git, código e review documentados.</li>
 </ul>
 <hr />
 <h2 id="participacao-por-integrante">Participação por Integrante</h2>
@@ -4253,43 +4270,108 @@
 <thead>
 <tr>
 <th style="text-align: left;">Integrante</th>
+<th style="text-align: center;">Commits</th>
 <th style="text-align: left;">Issues principais</th>
 <th style="text-align: left;">Status</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align: left;">Hugo</td>
-<td style="text-align: left;">#11, #12, #13</td>
+<td style="text-align: left;">Diogo</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: left;">Setup repositório e ambiente</td>
 <td style="text-align: left;">Concluída</td>
 </tr>
 <tr>
-<td style="text-align: left;">Diogo</td>
-<td style="text-align: left;">Setup do repo</td>
+<td style="text-align: left;">Hugo</td>
+<td style="text-align: center;">-</td>
+<td style="text-align: left;">Planejamento infra</td>
 <td style="text-align: left;">Concluída</td>
 </tr>
 <tr>
 <td style="text-align: left;">Martin</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-</tr>
-<tr>
-<td style="text-align: left;">Lucas</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
+<td style="text-align: center;">-</td>
+<td style="text-align: left;">Planejamento backend</td>
+<td style="text-align: left;">Concluída</td>
 </tr>
 <tr>
 <td style="text-align: left;">Luíza</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
+<td style="text-align: center;">-</td>
+<td style="text-align: left;">Planejamento modelagem</td>
+<td style="text-align: left;">Concluída</td>
+</tr>
+<tr>
+<td style="text-align: left;">Lucas</td>
+<td style="text-align: center;">-</td>
+<td style="text-align: left;">Planejamento frontend</td>
+<td style="text-align: left;">Concluída</td>
 </tr>
 <tr>
 <td style="text-align: left;">Gabriel</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
+<td style="text-align: center;">-</td>
+<td style="text-align: left;">Planejamento frontend</td>
+<td style="text-align: left;">Concluída</td>
 </tr>
 </tbody>
 </table>
+<hr />
+<h2 id="bloqueios-e-riscos">Bloqueios e Riscos</h2>
+<p>Nenhum bloqueio identificado nesta semana.</p>
+<hr />
+<h2 id="pendencias-para-a-proxima-semana">Pendências para a Próxima Semana</h2>
+<blockquote>
+<p>Semana 08 / 14 — Foco: implementar cadastro de Paciente e Médico e provisionar infraestrutura no GCP.</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Tarefa</th>
+<th style="text-align: left;">Responsável</th>
+<th style="text-align: left;">Issue</th>
+<th style="text-align: left;">Prioridade</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Definir modelagem de Paciente e Médico</td>
+<td style="text-align: left;">Luíza, Martin</td>
+<td style="text-align: left;">#8</td>
+<td style="text-align: left;">Alta</td>
+</tr>
+<tr>
+<td style="text-align: left;">Implementar cadastro de Paciente</td>
+<td style="text-align: left;">Luíza, Martin</td>
+<td style="text-align: left;">#9</td>
+<td style="text-align: left;">Alta</td>
+</tr>
+<tr>
+<td style="text-align: left;">Implementar cadastro de Médico</td>
+<td style="text-align: left;">Luíza, Martin</td>
+<td style="text-align: left;">#10</td>
+<td style="text-align: left;">Alta</td>
+</tr>
+<tr>
+<td style="text-align: left;">Provisionar projeto no GCP</td>
+<td style="text-align: left;">Hugo</td>
+<td style="text-align: left;">#11, #12</td>
+<td style="text-align: left;">Alta</td>
+</tr>
+<tr>
+<td style="text-align: left;">Configurar banco de dados (Cloud SQL)</td>
+<td style="text-align: left;">Hugo</td>
+<td style="text-align: left;">#13</td>
+<td style="text-align: left;">Alta</td>
+</tr>
+<tr>
+<td style="text-align: left;">Configurar GCS e segredos</td>
+<td style="text-align: left;">Hugo</td>
+<td style="text-align: left;">#14, #15</td>
+<td style="text-align: left;">Alta</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<p><em>Documento preenchido por: Diogo</em></p>
 
 
 
