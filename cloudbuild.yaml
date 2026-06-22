@@ -10,8 +10,7 @@ substitutions:
   # --substitutions) e rode o pipeline completo.
   _BACKEND_URL: "https://healthtech-backend-515815792390.southamerica-east1.run.app"
   _CLOUDSQL_CONNECTION: "health-tech-ai-lab:southamerica-east1:health-tech-db"
-  # DB_SYNC=true apenas no primeiro deploy para criar as tabelas. Remova depois.
-  _DB_SYNC: "false"
+  _MIGRATIONS_JOB: healthtech-migrations
 
 steps:
   # Autentica Docker com Artifact Registry antes de qualquer push
@@ -63,10 +62,47 @@ steps:
     args:
       [push, --all-tags, $_REGION-docker.pkg.dev/$PROJECT_ID/$_AR_REPO/frontend]
 
-  # Deploy backend (aguarda push do backend)
+  # Cloud Run Job que roda as migrations contra o Cloud SQL.
+  # `gcloud run jobs deploy` cria o job na primeira execucao e atualiza nas seguintes.
+  - name: gcr.io/google.com/cloudsdktool/cloud-sdk
+    id: deploy-migrations-job
+    waitFor: [push-backend]
+    timeout: 300s
+    entrypoint: gcloud
+    args:
+      - run
+      - jobs
+      - deploy
+      - $_MIGRATIONS_JOB
+      - --image=$_REGION-docker.pkg.dev/$PROJECT_ID/$_AR_REPO/backend:$BUILD_ID
+      - --region=$_REGION
+      - --service-account=$_CR_SA
+      - --set-cloudsql-instances=$_CLOUDSQL_CONNECTION
+      - --set-env-vars=NODE_ENV=production,INSTANCE_CONNECTION_NAME=$_CLOUDSQL_CONNECTION
+      - --set-secrets=DB_USER=db-user:latest,DB_PASSWORD=db-password:latest,DB_NAME=db-name:latest
+      - --command=node
+      - --args=node_modules/typeorm/cli.js,migration:run,-d,dist/data-source.js
+      - --max-retries=1
+      - --task-timeout=600s
+
+  # Executa as migrations antes do deploy do backend.
+  - name: gcr.io/google.com/cloudsdktool/cloud-sdk
+    id: run-migrations
+    waitFor: [deploy-migrations-job]
+    timeout: 600s
+    entrypoint: gcloud
+    args:
+      - run
+      - jobs
+      - execute
+      - $_MIGRATIONS_JOB
+      - --region=$_REGION
+      - --wait
+
+  # Deploy backend (aguarda migrations terminarem com sucesso)
   - name: gcr.io/google.com/cloudsdktool/cloud-sdk
     id: deploy-backend
-    waitFor: [push-backend]
+    waitFor: [run-migrations]
     timeout: 300s
     entrypoint: gcloud
     args:
@@ -84,7 +120,7 @@ steps:
       - --min-instances=0
       - --max-instances=5
       - --add-cloudsql-instances=$_CLOUDSQL_CONNECTION
-      - --set-env-vars=NODE_ENV=production,INSTANCE_CONNECTION_NAME=$_CLOUDSQL_CONNECTION,DB_SYNC=$_DB_SYNC
+      - --set-env-vars=NODE_ENV=production,INSTANCE_CONNECTION_NAME=$_CLOUDSQL_CONNECTION
       - --set-secrets=JWT_SECRET=jwt-secret:latest,DB_USER=db-user:latest,DB_PASSWORD=db-password:latest,DB_NAME=db-name:latest,GCS_BUCKET_NAME=gcs-bucket-name:latest,FRONTEND_URL=frontend-url:latest
 
   # Deploy frontend (aguarda push do frontend e deploy do backend)
