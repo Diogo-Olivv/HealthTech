@@ -6,7 +6,7 @@ import type { ArquivoDto } from "@/dto/arquivo.dto";
 import LoadingState from "@/components/arquivos/LoadingState";
 import EmptyState from "@/components/arquivos/EmptyState";
 import ErrorState from "@/components/arquivos/ErrorState";
-import PacientsTable from "@/components/arquivos/PacientsTable";
+import FilesTable from "@/components/arquivos/FilesTable";
 import styles from "@/components/arquivos/ArquivosPage.module.css";
 
 type Status = "loading" | "success" | "error" | "empty";
@@ -27,7 +27,7 @@ export default function MedicoArquivosPage() {
         setStatus(data.length === 0 ? "empty" : "success");
       } catch (err) {
         if (cancelled) return;
-        setErrorMsg(err instanceof Error ? err.message : "Erro ao carregar Pacientes.");
+        setErrorMsg(err instanceof Error ? err.message : "Erro ao carregar arquivos.");
         setStatus("error");
       }
     }
@@ -39,7 +39,7 @@ export default function MedicoArquivosPage() {
   if (status === "error") return <ErrorState msg={errorMsg} />;
 //   if (status === "empty") {
 //     return (
-//       <EmptyState description="Quando Pacientes forem vinculados ao seu perfil, eles aparecerão aqui." title="Nenhum paciente encontrado" />
+//       <EmptyState description="Quando documentos forem vinculados a este Paciente, eles aparecerão aqui." title="Nenhum documento encontrado" />
 //     );
 //   }
 
@@ -48,14 +48,18 @@ export default function MedicoArquivosPage() {
       <div className={styles.container}>
         <header className={styles.header}>
           <div className={styles.headerLeft}>
-            <h1 className={styles.title}>Meus Pacientes</h1>
-            <p className={styles.subtitle}>Pacientes vinculados ao seu perfil</p>
+            <h1 className={styles.title}>Exames</h1>
+            <p className={styles.subtitle}>Documentos e exames vinculados a este Paciente</p>
           </div>
           <span className={styles.badge} aria-label="Perfil médico">Médico</span>
         </header>
 
         <div className={`${styles.card} ${styles.fadeIn}`}>
-          <PacientsTable arquivos={arquivos} viewerRole="medico" />
+          <FilesTable arquivos={arquivos} viewerRole="medico" />
+        </div>
+
+        <div>
+            Upload Documento
         </div>
       </div>
     </main>
