@@ -17,15 +17,17 @@ export default function Home() {
         </p>
 
         <div className={styles.actions}>
-          <a href="/login"><button className={styles.button}>
-            Entrar
-          </button>
-          </a>
+            <a href="/login">
+                <button className={styles.button}>
+                    Entrar
+                </button>
+            </a>
           
-          <a href="/register"><button className={styles.button}>
-            Criar conta
-          </button>
-          </a>
+            <a href="/register">
+                <button className={styles.button}>
+                    Criar conta
+                </button>
+            </a>
         </div>
       </div>
     </main>
