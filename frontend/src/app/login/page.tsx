@@ -34,8 +34,8 @@ export default function LoginPage() {
       const profile = await getProfile(accessToken);
       const destino =
         profile.tipo === UserType.MEDICO
-          ? '/medico/arquivos'
-          : '/paciente/arquivos';
+          ? '/dashboard/medico'
+          : '/dashboard/paciente';
       router.push(destino);
     } catch (err) {
       setErrorMsg(err instanceof Error ? err.message : 'Erro ao entrar. Tente novamente.');

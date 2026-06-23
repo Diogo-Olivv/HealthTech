@@ -45,27 +45,8 @@ export default function PacienteArquivosPage() {
 
   return (
     <main>
-      <div class="navbar__right">
-  <div class="navbar__user">
-    <div class="navbar__avatar">BR</div>
-    <div class="navbar__user-info">
-      <span class="navbar__user-name">Dr. Bruno Silva</span>
-      <span class="navbar__user-role">Cardiologia CRM 123456</span>
-    </div>
-  </div>
-
-  <div class="navbar__divider"></div>
-
-  <button class="navbar__logout">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
-      <polyline points="16 17 21 12 16 7"/>
-      <line x1="21" y1="12" x2="9" y2="12"/>
-    </svg>
-    Sair
-  </button>
-</div>
-      
+     
+       <div>
 
         <header className={styles.header}>
           <div className={styles.headerLeft}>
