@@ -27,14 +27,17 @@ import { AppService } from './app.service';
           ...(instanceName
             ? { host: `/cloudsql/${instanceName}` }
             : {
-              host: config.get('DB_HOST', 'localhost'),
-              port: config.get<number>('DB_PORT', 5432),
-            }),
+                host: config.get('DB_HOST', 'localhost'),
+                port: config.get<number>('DB_PORT', 5432),
+              }),
           username: config.get('DB_USER', 'postgres'),
           password: config.get('DB_PASSWORD', 'postgres'),
           database: config.get('DB_NAME', 'healthtech'),
           entities: [User, Paciente, Medico, MedicoPaciente, Arquivo],
-          synchronize: config.get('NODE_ENV') !== 'production' || config.get('DB_SYNC') === 'true',
+          migrations: [__dirname + '/migrations/*{.ts,.js}'],
+          migrationsTableName: 'migrations',
+          synchronize: false,
+          migrationsRun: config.get('NODE_ENV') !== 'production',
           logging: config.get('NODE_ENV') !== 'production',
         };
       },
@@ -47,4 +50,4 @@ import { AppService } from './app.service';
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule { }
+export class AppModule {}
