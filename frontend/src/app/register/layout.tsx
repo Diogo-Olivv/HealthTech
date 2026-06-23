@@ -12,7 +12,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-        <body className="min-h-full flex flex-col">
+        <div className={styles.Container}>
             <div className={styles.containerLeft}>
         
                 <div className={styles.logoCompleta}>
@@ -27,6 +27,6 @@ export default function RootLayout({
             </div>
             
             {children}
-        </body>
+        </div>
   );
 }

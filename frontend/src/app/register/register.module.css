@@ -9,22 +9,30 @@ display:    display
 border: border-radius, box-shadow, border
 texto: text-align, font-size, color, font-weight
 */
-.page {
-  flex: 1;
-  display: flex;
-  min-height: 100vh;
+
+
+/* Layout.tsx */
+
+.Container {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
 }
 
+
 .containerLeft {
-  width: 50%;
+  /* width: 50%; */
   padding: 2rem;
   background-color: var(--color-primary);
   color: var(--color-white);
-  min-height: 100vh;
+  min-height: 100%;
   text-align: left;
+  
+  height: 100vh;
 
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
 }
 
 .logoCompleta {
@@ -33,19 +41,19 @@ texto: text-align, font-size, color, font-weight
   margin: 0px;
   margin-right: 1rem;
   width: 30%;
-  font-size: var(--text-sm);
-  
+  font-size: var(--text-sm);  
 }
 
 .logoCompleta span {
   font-weight: var(--font-weight-regular);
 }
 
+/* Page.tsx */
 
-.containerLeft h2 {
-  margin-top: var(--spacing-16);
-  margin-bottom: 20px;
-  font-size: var(--text-3xl);
+.page {
+  flex: 1;
+  display: flex;
+  min-height: 100vh;
 }
 
 .containerRight {
