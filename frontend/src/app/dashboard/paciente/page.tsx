@@ -37,28 +37,28 @@ export default function PacienteArquivosPage() {
 
   if (status === "loading") return <LoadingState />;
   if (status === "error") return <ErrorState msg={errorMsg} />;
-  if (status === "empty") {
-    return (
-      <EmptyState description="Seus exames e documentos enviados pelo médico aparecerão aqui." />
-    );
-  }
+//   if (status === "empty") {
+//     return (
+//       <EmptyState description="Seus exames e documentos enviados pelo médico aparecerão aqui." title="Nenhum arquivo encontrado" />
+//     );
+//   }
 
   return (
     <main>
      
        <div>
 
-        <header className={styles.header}>
-          <div className={styles.headerLeft}>
-            <h1 className={styles.title}>Meus Arquivos</h1>
-            <p className={styles.subtitle}>Seus exames e documentos disponíveis na plataforma</p>
-          </div>
-          <span className={styles.badge} aria-label="Perfil paciente">Paciente</span>
-        </header>
+            <header className={styles.header}>
+                <div className={styles.headerLeft}>
+                    <h1 className={styles.title}>Meus Arquivos</h1>
+                    <p className={styles.subtitle}>Seus exames e documentos disponíveis na plataforma</p>
+                </div>
+                <span className={styles.badge} aria-label="Perfil paciente">Paciente</span>
+            </header>
 
-        <div className={`${styles.card} ${styles.fadeIn}`}>
-          <FilesTable arquivos={arquivos} viewerRole="paciente" />
-        </div>
+            <div className={`${styles.card} ${styles.fadeIn}`}>
+            <FilesTable arquivos={arquivos} viewerRole="paciente" />
+            </div>
       </div>
     </main>
   );
