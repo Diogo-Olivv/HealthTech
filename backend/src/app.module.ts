@@ -11,6 +11,7 @@ import { ArquivosModule } from './arquivos/arquivos.module';
 import { MedicoPaciente } from './entities/medico-paciente.entity';
 import { AuditLog } from './entities/audit-log/audit-log.entity';
 import { MedicoPacienteModule } from './medico-paciente/medico-paciente.module';
+import { AuditModule } from './audit/audit.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 
@@ -47,6 +48,7 @@ import { AppService } from './app.service';
     HealthModule,
     ArquivosModule,
     MedicoPacienteModule,
+    AuditModule,
   ],
   controllers: [AppController],
   providers: [AppService],
