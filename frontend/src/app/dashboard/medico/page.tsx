@@ -46,13 +46,13 @@ export default function MedicoArquivosPage() {
   return (
     <main>
       <div className={styles.container}>
-        <header className={styles.header}>
+        <div className={styles.header}>
           <div className={styles.headerLeft}>
             <h1 className={styles.title}>Meus Pacientes</h1>
             <p className={styles.subtitle}>Pacientes vinculados ao seu perfil</p>
           </div>
           <span className={styles.badge} aria-label="Perfil médico">Médico</span>
-        </header>
+        </div>
 
         <div className={`${styles.card} ${styles.fadeIn}`}>
           <PacientsTable arquivos={arquivos} viewerRole="medico" />

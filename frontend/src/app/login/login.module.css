@@ -22,7 +22,7 @@ texto: text-align, font-size, color, font-weight
 
 
 .containerLeft {
-  /* width: 50%; */
+  width: 50%;
   padding: 2rem;
   background-color: var(--color-primary);
   color: var(--color-white);
@@ -49,42 +49,32 @@ texto: text-align, font-size, color, font-weight
   font-weight: var(--font-weight-regular);
 }
 
+
+/************************/
 /* Page.tsx */
+
 .page {
-  min-width: 50%;
-  display: flex;
-  flex-direction: row;
-  min-width: 100vh;
-}
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 
-.containerRight {
-  padding: 1rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+    justify-content: center;
+    align-items: center;
 }
-
 
 
 .card {
-  /* margin: auto; */
-  padding: 2rem;
-  display: flex;
-  flex-direction: column;
-  background-color: var(--color-background);
+    display: flex;
+    flex-direction: column;
 
-  border-radius: var(--radius-xl);
-  box-shadow: var(--shadow-lg);
+    padding: 2rem;  
+    background-color: var(--color-background);
 
-  text-align: center;
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-lg);
 
-  align-items: center;
-}
-
-
-
-.logo {
-  width: 20%;
+    text-align: center;
 }
 
 .title {

@@ -21,7 +21,7 @@ texto: text-align, font-size, color, font-weight
 
 
 .containerLeft {
-  /* width: 50%; */
+  width: 50%;
   padding: 2rem;
   background-color: var(--color-primary);
   color: var(--color-white);
@@ -48,52 +48,44 @@ texto: text-align, font-size, color, font-weight
   font-weight: var(--font-weight-regular);
 }
 
+
+/************************/
 /* Page.tsx */
 
 .page {
-  flex: 1;
-  display: flex;
-  min-height: 100vh;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+
+    justify-content: center;
+    align-items: center;
 }
 
-.containerRight {
-  width: 100%;
-  padding: 1rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.page {
-  min-width: 50%;
-}
 
 .card {
-  /* margin: auto; */
-  padding: 2rem;
   display: flex;
   flex-direction: column;
+
+  padding: 2rem;
   background-color: var(--color-white);
 
   border-radius: var(--radius-xl);
   box-shadow: var(--shadow-lg);
 
   text-align: center;
-  width: 100%;
+  
 }
 
-.logo {
-  width: 20%;
-}
 
 .title {
   margin-bottom: 0.5rem;
-
   font-size: var(--text-2xl);
   color: var(--color-primary);
 }
 
 .subtitle {
-  margin-bottom: 1rem;
+  /* margin-bottom: 1rem; */
 
   font-size: var(--text-sm);
   color: var(--color-text-secondary);
@@ -116,7 +108,7 @@ texto: text-align, font-size, color, font-weight
   margin-bottom: 1rem;
 }
 
-.chooseTypePerson {
+/* .chooseTypePerson {
   display: flex;
   flex-direction: row;
   padding: 0.1rem;
@@ -124,7 +116,7 @@ texto: text-align, font-size, color, font-weight
   gap: 1rem;
 
   border-radius: var(--radius-lg);
-}
+} */
 
 .passwordCols {
   display: flex;
