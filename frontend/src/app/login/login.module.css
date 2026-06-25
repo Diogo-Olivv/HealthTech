@@ -67,7 +67,7 @@ texto: text-align, font-size, color, font-weight
 .card {
     display: flex;
     flex-direction: column;
-
+    min-width: 50%;
     padding: 2rem;  
     background-color: var(--color-background);
 

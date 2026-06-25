@@ -64,17 +64,18 @@ texto: text-align, font-size, color, font-weight
 
 
 .card {
-  display: flex;
-  flex-direction: column;
+    display: flex;
+    flex-direction: column;
+    min-width: 50%;
+    padding: 2rem;
+    background-color: var(--color-white);
 
-  padding: 2rem;
-  background-color: var(--color-white);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-lg);
 
-  border-radius: var(--radius-xl);
-  box-shadow: var(--shadow-lg);
-
-  text-align: center;
-  
+    text-align: center;
+    justify-content: center;
+    align-items: center;
 }
 
 
