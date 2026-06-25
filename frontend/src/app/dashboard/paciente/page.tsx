@@ -48,13 +48,13 @@ export default function PacienteArquivosPage() {
      
        <div>
 
-            <header className={styles.header}>
+            <div className={styles.header}>
                 <div className={styles.headerLeft}>
                     <h1 className={styles.title}>Meus Arquivos</h1>
                     <p className={styles.subtitle}>Seus exames e documentos disponíveis na plataforma</p>
                 </div>
                 <span className={styles.badge} aria-label="Perfil paciente">Paciente</span>
-            </header>
+            </div>
 
             <div className={`${styles.card} ${styles.fadeIn}`}>
             <FilesTable arquivos={arquivos} viewerRole="paciente" />

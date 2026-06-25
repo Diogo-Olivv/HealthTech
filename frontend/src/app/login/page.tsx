@@ -65,30 +65,17 @@ export default function LoginPage() {
               />
             </label>
 
-            <label className={styles.label}>
-              Senha
-              <input
-                className={styles.input}
-                type="password"
-                name="password"
-                value={form.password}
-                onChange={handleChange}
-                minLength={8}
-                placeholder="********"
-                required
-              />
-            </label>
+                    <button className={styles.button} type="submit" disabled={status === 'loading'}>
+                    {status === 'loading' ? 'Entrando...' : 'Entrar'}
+                    </button>
+                </form>
 
-            {status === 'error' && <p className={styles.error}>{errorMsg}</p>}
+                <p className={styles.footer}>
+                    Ainda não tem conta? <Link href="/register">Cadastre-se</Link>
+                </p>
 
-            <button className={styles.button} type="submit" disabled={status === 'loading'}>
-              {status === 'loading' ? 'Entrando...' : 'Entrar'}
-            </button>
-          </form>
-
-          <p className={styles.footer}>
-            Ainda não tem conta? <Link href="/register">Cadastre-se</Link>
-          </p>
-      </AuthCard>
+            </div>
+      
+    </main>
   );
 }

@@ -11,13 +11,12 @@ texto: text-align, font-size, color, font-weight
 */
 .title {
   margin-bottom: 0.5rem;
-
   font-size: var(--text-2xl);
   color: var(--color-primary);
 }
 
 .subtitle {
-  margin-bottom: 1rem;
+  /* margin-bottom: 1rem; */
 
   font-size: var(--text-sm);
   color: var(--color-text-secondary);
@@ -40,7 +39,7 @@ texto: text-align, font-size, color, font-weight
   margin-bottom: 1rem;
 }
 
-.chooseTypePerson {
+/* .chooseTypePerson {
   display: flex;
   flex-direction: row;
   padding: 0.1rem;
@@ -48,7 +47,7 @@ texto: text-align, font-size, color, font-weight
   gap: 1rem;
 
   border-radius: var(--radius-lg);
-}
+} */
 
 .passwordCols {
   display: flex;

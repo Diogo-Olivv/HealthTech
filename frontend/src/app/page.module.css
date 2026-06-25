@@ -1,25 +1,25 @@
 
 
 /* Ordem de estilo:
-layout:     display, flex-direction
-width:      width
-margin:     margin, margin-bottom
-padding:    padding
-background: background-color
-display:    display
+    layout:     display, flex-direction
+    width:      width
+    margin:     margin, margin-bottom
+    padding:    padding
+    background: background-color
+    display:    display
 
-border: border-radius, box-shadow, border
-texto: text-align, font-size, color, font-weight
+    border: border-radius, box-shadow, border
+    texto: text-align, font-size, color, font-weight
 */
 
 
 .page {
-  /* min-height: 100vh;
+  min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 1rem;
-  min-width: 40%; */
+  width: 100%;
 
 }
 
