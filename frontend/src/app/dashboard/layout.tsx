@@ -33,8 +33,9 @@ export default function RootLayout({
                     </svg>
                         Sair
                 </button>
+            </div>
+            {children}
         </div>
-        {children}
     </div>
   );
 }
