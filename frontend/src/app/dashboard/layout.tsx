@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import styles from './login.module.css';
+import styles from "./dashboard.module.css";
+
 
 export const metadata: Metadata = {
   title: "HealthTech",
@@ -12,21 +13,21 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-        <div className="min-h-full flex flex-col">
+        <div style={{ minHeight: '100vh', width: '100%', display: 'flex', flexDirection: 'column', alignSelf: 'flex-start' }}>
             
             
-            <div className="navbar__right">
-         <div className="navbar__user">
-           <div className="navbar__avatar">BR</div>
-           <div className="navbar__user-info">
-            <span className="navbar__user-name">Nome do Usuario</span>
-            <span className="navbar__user-role">Informações do usuário</span>
+            <div className={styles.navbar__right}>
+         <div className={styles.navbar__user}>
+           <div className={styles.navbar__avatar}>BR</div>
+           <div className={styles["navbar__user-info"]}>
+            <span className={styles["navbar__user-name"]}>Nome do Usuario</span>
+            <span className={styles["navbar__user-role"]}>Informações do usuário</span>
            </div>
            </div>
 
-           <div className="navbar__divider"></div>
+           <div className={styles.navbar__divider}></div>
 
-            <button className="navbar__logout">
+            <button className={styles.navbar__logout}>
              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
              <polyline points="16 17 21 12 16 7"/>
@@ -35,7 +36,11 @@ export default function RootLayout({
          Sair
         </button>
 </div>
-            {children}
-        </div>
-  );
+
+            <main style={{ flex: 1 }}>
+      {children}              
+    </main>
+
+  </div>                     
+);
 }
