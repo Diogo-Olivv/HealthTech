@@ -152,7 +152,7 @@ npm install
 
 ---
 
-## 4. Subir o banco de dados
+## 4. Subir a aplicação
 
 A partir da **raiz do projeto** (pasta `HealthTech`):
 
@@ -166,56 +166,11 @@ Verifique se os containers estão rodando:
 docker compose ps
 ```
 
-Você deve ver dois containers ativos:
-
-```
-NAME               STATUS         PORTS
-...-postgres-1     Up             0.0.0.0:5433->5432/tcp
-...-adminer-1      Up             0.0.0.0:8080->8080/tcp
-```
-
 > **Windows:** se o comando `docker compose` não funcionar, verifique se o Docker Desktop está aberto e com o ícone verde na bandeja do sistema.
 
 ---
 
-## 5. Rodar o backend
-
-Em um terminal separado:
-
-```bash
-cd backend
-npm run start:dev
-```
-
-Aguarde até ver a mensagem:
-
-```
-[NestApplication] Nest application successfully started
-```
-
-O backend estará disponível em `http://localhost:3001/api`.
-
----
-
-## 6. Rodar o frontend
-
-Em outro terminal separado:
-
-```bash
-cd frontend
-npm run dev
-```
-
-Aguarde até ver:
-
-```
-Ready in Xs
-- Local: http://localhost:3000
-```
-
----
-
-## 7. Verificar que tudo está funcionando
+## 5. Verificar que tudo está funcionando
 
 Com backend e banco rodando, teste a API:
 
@@ -250,7 +205,7 @@ Acesse também `http://localhost:3000/register` para ver o formulário de cadast
 
 ---
 
-## 8. Visualizar o banco de dados
+## 6. Visualizar o banco de dados
 
 Acesse o **Adminer** em `http://localhost:8080` e preencha:
 
@@ -268,33 +223,17 @@ Navegue até **healthtech > Schemas > public > Tables > users** para ver os regi
 
 ## Comandos úteis do dia a dia
 
-### Iniciar tudo
+### Parar a execução do projeto
 
-```bash
-# Terminal 1 - Banco (raiz do projeto)
-docker compose up -d
+````bash
 
-# Terminal 2 - Backend
-cd backend && npm run start:dev
-
-# Terminal 3 - Frontend
-cd frontend && npm run dev
-```
-
-### Parar tudo
-
-```bash
-# Parar banco (preserva os dados)
 docker compose down
-
-# Parar backend/frontend: Ctrl+C nos terminais respectivos
-```
 
 ### Resetar o banco (apaga todos os dados)
 
 ```bash
 docker compose down -v && docker compose up -d
-```
+````
 
 ### Porta 3001 travada ao reiniciar o backend
 
