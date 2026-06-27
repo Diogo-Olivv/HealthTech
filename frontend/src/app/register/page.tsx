@@ -4,8 +4,6 @@ import styles from "./register.module.css";
 export default function RegisterPage() {
   return (
     <main className={styles.page}>
-      <div className={styles.containerRight}>
-
         <div className={styles.card}>
 
           <h1 className={styles.title}>Crie sua conta</h1>
@@ -27,7 +25,6 @@ export default function RegisterPage() {
             Já tem uma conta? <Link href="/login">Fazer login</Link>
           </p>
         </div>
-      </div>
     </main>
   );
 }

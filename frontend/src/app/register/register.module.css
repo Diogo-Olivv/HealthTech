@@ -9,22 +9,30 @@ display:    display
 border: border-radius, box-shadow, border
 texto: text-align, font-size, color, font-weight
 */
-.page {
-  flex: 1;
-  display: flex;
-  min-height: 100vh;
+
+
+/* Layout.tsx */
+
+.Container {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
 }
+
 
 .containerLeft {
   width: 50%;
   padding: 2rem;
   background-color: var(--color-primary);
   color: var(--color-white);
-  min-height: 100vh;
+  min-height: 100%;
   text-align: left;
+  
+  height: 100vh;
 
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
 }
 
 .logoCompleta {
@@ -33,8 +41,7 @@ texto: text-align, font-size, color, font-weight
   margin: 0px;
   margin-right: 1rem;
   width: 30%;
-  font-size: var(--text-sm);
-  
+  font-size: var(--text-sm);  
 }
 
 .logoCompleta span {
@@ -42,50 +49,44 @@ texto: text-align, font-size, color, font-weight
 }
 
 
-.containerLeft h2 {
-  margin-top: var(--spacing-16);
-  margin-bottom: 20px;
-  font-size: var(--text-3xl);
+/************************/
+/* Page.tsx */
+
+.page {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+
+    justify-content: center;
+    align-items: center;
 }
 
-.containerRight {
-  width: 100%;
-  padding: 1rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.page {
-  min-width: 50%;
-}
 
 .card {
-  /* margin: auto; */
-  padding: 2rem;
-  display: flex;
-  flex-direction: column;
-  background-color: var(--color-white);
+    display: flex;
+    flex-direction: column;
+    min-width: 50%;
+    padding: 2rem;
+    background-color: var(--color-white);
 
-  border-radius: var(--radius-xl);
-  box-shadow: var(--shadow-lg);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-lg);
 
-  text-align: center;
-  width: 100%;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
 }
 
-.logo {
-  width: 20%;
-}
 
 .title {
   margin-bottom: 0.5rem;
-
   font-size: var(--text-2xl);
   color: var(--color-primary);
 }
 
 .subtitle {
-  margin-bottom: 1rem;
+  /* margin-bottom: 1rem; */
 
   font-size: var(--text-sm);
   color: var(--color-text-secondary);
@@ -108,7 +109,7 @@ texto: text-align, font-size, color, font-weight
   margin-bottom: 1rem;
 }
 
-.chooseTypePerson {
+/* .chooseTypePerson {
   display: flex;
   flex-direction: row;
   padding: 0.1rem;
@@ -116,7 +117,7 @@ texto: text-align, font-size, color, font-weight
   gap: 1rem;
 
   border-radius: var(--radius-lg);
-}
+} */
 
 .passwordCols {
   display: flex;
