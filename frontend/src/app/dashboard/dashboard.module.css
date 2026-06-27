@@ -16,8 +16,8 @@
 }
 
 .navbar__avatar {
-  width: 38px;
-  height: 38px;
+  width: 36px;
+  height: 36px;
   border-radius: var(--radius-full);
   background: var(--color-secondary-500);
   color: var(--color-white);
@@ -56,11 +56,11 @@
   align-items: center;
   gap: var(--spacing-2);
   background: none;
-  border: none;
-  color: var(--color-gray-500);
-  font-size: var(--text-sm);
+  border: 1px solid var(--color-primary);
+  color: var(--color-primary);
+  font-size: var(--text-base);
   cursor: pointer;
-  padding: var(--spacing-2);
+  padding: var(--spacing-3) var(--spacing-3);
   border-radius: var(--radius-md);
   font-family: inherit;
   transition: color var(--transition-fast), background var(--transition-fast);
