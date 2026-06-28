@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import styles from './dashboard.module.css';
+import styles from "./dashboard.module.css";
+
 
 export const metadata: Metadata = {
   title: "HealthTech",
