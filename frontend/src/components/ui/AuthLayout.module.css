@@ -1,76 +1,76 @@
 .splitLayout {
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-  min-height: 100vh;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    min-height: 100vh;
 }
 
 .sidePanel {
-  width: 45%;
-  flex-shrink: 0;
-  padding: 2rem;
-  background-color: var(--color-primary);
-  color: var(--color-white);
+    width: 45%;
+    flex-shrink: 0;
+    padding: 2rem;
+    background-color: var(--color-primary);
+    color: var(--color-white);
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .brand {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  gap: 1.5rem;
-  max-width: 28rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 1.5rem;
+    max-width: 28rem;
 }
 
 .logoBlock {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
 }
 
 .logo {
-  width: 96px;
-  height: auto;
-  margin: 0;
+    width: 96px;
+    height: auto;
+    margin: 0;
 }
 
 .brandName {
-  font-size: var(--text-2xl);
-  font-weight: var(--font-weight-bold);
-  line-height: 1;
+    font-size: var(--text-2xl);
+    font-weight: var(--font-weight-bold);
+    line-height: 1;
 }
 
 .brandName span {
-  font-weight: var(--font-weight-regular);
+    font-weight: var(--font-weight-regular);
 }
 
 .copy {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
 }
 
 .tagline {
-  font-size: var(--text-xl);
-  font-weight: var(--font-weight-medium);
-  line-height: 1.3;
+    font-size: var(--text-xl);
+    font-weight: var(--font-weight-medium);
+    line-height: 1.3;
 }
 
 .description {
-  font-size: var(--text-sm);
-  line-height: 1.5;
-  opacity: 0.85;
+    font-size: var(--text-sm);
+    line-height: 1.5;
+    opacity: 0.85;
 }
 
 .content {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 1rem;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
 }

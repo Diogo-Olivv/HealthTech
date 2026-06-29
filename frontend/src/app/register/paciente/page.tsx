@@ -9,184 +9,187 @@ import AuthCard from "@/components/ui/AuthCard";
 import styles from "../register.module.css";
 
 type FormState = {
-  name: string;
-  email: string;
-  password: string;
-  confirmPassword: string;
-  cpf: string;
-  dataNascimento: string;
+    name: string;
+    email: string;
+    password: string;
+    confirmPassword: string;
+    cpf: string;
+    dataNascimento: string;
 };
 type Status = "idle" | "loading" | "error";
 
 const INITIAL_FORM: FormState = {
-  name: "",
-  email: "",
-  password: "",
-  confirmPassword: "",
-  cpf: "",
-  dataNascimento: "",
+    name: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+    cpf: "",
+    dataNascimento: "",
 };
 
 export default function RegisterPacientePage() {
-  const router = useRouter();
-  const [form, setForm] = useState<FormState>(INITIAL_FORM);
-  const [status, setStatus] = useState<Status>("idle");
-  const [errorMsg, setErrorMsg] = useState("");
+    const router = useRouter();
+    const [form, setForm] = useState<FormState>(INITIAL_FORM);
+    const [status, setStatus] = useState<Status>("idle");
+    const [errorMsg, setErrorMsg] = useState("");
 
-  function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
-    const { name, value } = e.target;
-    // CPF só aceita dígitos
-    const nextValue = name === "cpf" ? onlyDigits(value) : value;
-    setForm((prev) => ({ ...prev, [name]: nextValue }));
-  }
-
-  async function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
-    setErrorMsg("");
-
-    if (form.password !== form.confirmPassword) {
-      setErrorMsg("As senhas não coincidem.");
-      setStatus("error");
-      return;
+    function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
+        const { name, value } = e.target;
+        // CPF só aceita dígitos
+        const nextValue = name === "cpf" ? onlyDigits(value) : value;
+        setForm((prev) => ({ ...prev, [name]: nextValue }));
     }
 
-    if (!isValidCPF(form.cpf)) {
-      setErrorMsg("CPF inválido.");
-      setStatus("error");
-      return;
+    async function handleSubmit(e: React.FormEvent) {
+        e.preventDefault();
+        setErrorMsg("");
+
+        if (form.password !== form.confirmPassword) {
+            setErrorMsg("As senhas não coincidem.");
+            setStatus("error");
+            return;
+        }
+
+        if (!isValidCPF(form.cpf)) {
+            setErrorMsg("CPF inválido.");
+            setStatus("error");
+            return;
+        }
+
+        setStatus("loading");
+
+        try {
+            await registerPaciente({
+                name: form.name,
+                email: form.email,
+                password: form.password,
+                cpf: form.cpf,
+                dataNascimento: form.dataNascimento,
+            });
+            router.push("/login");
+        } catch (err) {
+            setErrorMsg(
+                err instanceof Error
+                    ? err.message
+                    : "Erro ao cadastrar. Tente novamente.",
+            );
+            setStatus("error");
+        }
     }
 
-    setStatus("loading");
+    return (
+        <AuthCard>
+            <Link href="/register" className={styles.backLink}>
+                ← Voltar
+            </Link>
 
-    try {
-      await registerPaciente({
-        name: form.name,
-        email: form.email,
-        password: form.password,
-        cpf: form.cpf,
-        dataNascimento: form.dataNascimento,
-      });
-      router.push("/login");
-    } catch (err) {
-      setErrorMsg(
-        err instanceof Error
-          ? err.message
-          : "Erro ao cadastrar. Tente novamente.",
-      );
-      setStatus("error");
-    }
-  }
+            <h1 className={styles.title}>Cadastro de Paciente</h1>
 
-  return (
-    <AuthCard>
-        <Link href="/register" className={styles.backLink}>
-          ← Voltar
-        </Link>
+            <p className={styles.subtitle}>
+                Junte-se à plataforma
+                <span className={styles.textHealth}> HealthTech</span>
+            </p>
 
-        <h1 className={styles.title}>Cadastro de Paciente</h1>
+            <form onSubmit={handleSubmit} className={styles.form} noValidate>
+                <label className={styles.label}>
+                    Nome completo
+                    <input
+                        className={styles.input}
+                        type="text"
+                        name="name"
+                        value={form.name}
+                        onChange={handleChange}
+                        placeholder="Nome e Sobrenome"
+                        required
+                    />
+                </label>
 
-        <p className={styles.subtitle}>
-          Junte-se à plataforma
-          <span className={styles.textHealth}> HealthTech</span>
-        </p>
+                <label className={styles.label}>
+                    E-mail
+                    <input
+                        className={styles.input}
+                        type="email"
+                        name="email"
+                        value={form.email}
+                        onChange={handleChange}
+                        placeholder="seu@email.com"
+                        required
+                    />
+                </label>
 
-        <form onSubmit={handleSubmit} className={styles.form} noValidate>
-          <label className={styles.label}>
-            Nome completo
-            <input
-              className={styles.input}
-              type="text"
-              name="name"
-              value={form.name}
-              onChange={handleChange}
-              placeholder="Nome e Sobrenome"
-              required
-            />
-          </label>
+                <div className={styles.passwordCols}>
+                    <label className={styles.label}>
+                        Senha
+                        <input
+                            className={styles.input}
+                            type="password"
+                            name="password"
+                            value={form.password}
+                            onChange={handleChange}
+                            minLength={8}
+                            placeholder="********"
+                            required
+                        />
+                    </label>
 
-          <label className={styles.label}>
-            E-mail
-            <input
-              className={styles.input}
-              type="email"
-              name="email"
-              value={form.email}
-              onChange={handleChange}
-              placeholder="seu@email.com"
-              required
-            />
-          </label>
+                    <label className={styles.label}>
+                        Confirmar senha
+                        <input
+                            className={styles.input}
+                            type="password"
+                            name="confirmPassword"
+                            value={form.confirmPassword}
+                            onChange={handleChange}
+                            minLength={8}
+                            placeholder="********"
+                            required
+                        />
+                    </label>
+                </div>
 
-          <div className={styles.passwordCols}>
-            <label className={styles.label}>
-              Senha
-              <input
-                className={styles.input}
-                type="password"
-                name="password"
-                value={form.password}
-                onChange={handleChange}
-                minLength={8}
-                placeholder="********"
-                required
-              />
-            </label>
+                <label className={styles.label}>
+                    CPF
+                    <input
+                        className={styles.input}
+                        type="text"
+                        inputMode="numeric"
+                        name="cpf"
+                        value={form.cpf}
+                        maxLength={11}
+                        onChange={handleChange}
+                        placeholder="00000000000"
+                        required
+                    />
+                </label>
 
-            <label className={styles.label}>
-              Confirmar senha
-              <input
-                className={styles.input}
-                type="password"
-                name="confirmPassword"
-                value={form.confirmPassword}
-                onChange={handleChange}
-                minLength={8}
-                placeholder="********"
-                required
-              />
-            </label>
-          </div>
+                <label className={styles.label}>
+                    Data de Nascimento
+                    <input
+                        className={styles.input}
+                        type="date"
+                        name="dataNascimento"
+                        value={form.dataNascimento}
+                        onChange={handleChange}
+                        required
+                    />
+                </label>
 
-          <label className={styles.label}>
-            CPF
-            <input
-              className={styles.input}
-              type="text"
-              inputMode="numeric"
-              name="cpf"
-              value={form.cpf}
-              maxLength={11}
-              onChange={handleChange}
-              placeholder="00000000000"
-              required
-            />
-          </label>
+                {status === "error" && (
+                    <p className={styles.error}>{errorMsg}</p>
+                )}
 
-          <label className={styles.label}>
-            Data de Nascimento
-            <input
-              className={styles.input}
-              type="date"
-              name="dataNascimento"
-              value={form.dataNascimento}
-              onChange={handleChange}
-              required
-            />
-          </label>
+                <button
+                    className={styles.button}
+                    type="submit"
+                    disabled={status === "loading"}
+                >
+                    {status === "loading" ? "Cadastrando..." : "Criar conta"}
+                </button>
+            </form>
 
-          {status === "error" && <p className={styles.error}>{errorMsg}</p>}
-
-          <button
-            className={styles.button}
-            type="submit"
-            disabled={status === "loading"}>
-            {status === "loading" ? "Cadastrando..." : "Criar conta"}
-          </button>
-        </form>
-
-        <p className={styles.footer}>
-          Já tem uma conta? <Link href="/login">Fazer login</Link>
-        </p>
-    </AuthCard>
-  );
+            <p className={styles.footer}>
+                Já tem uma conta? <Link href="/login">Fazer login</Link>
+            </p>
+        </AuthCard>
+    );
 }

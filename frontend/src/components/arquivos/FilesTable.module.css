@@ -1,54 +1,54 @@
 .tableWrapper {
-  overflow-x: auto;
+    overflow-x: auto;
 }
 
 .table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: var(--text-sm);
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--text-sm);
 }
 
 .table th {
-  text-align: left;
-  padding: 0.75rem 0.5rem;
-  font-weight: var(--font-weight-medium);
-  color: var(--color-gray-700);
-  border-bottom: 1px solid var(--color-gray-200);
+    text-align: left;
+    padding: 0.75rem 0.5rem;
+    font-weight: var(--font-weight-medium);
+    color: var(--color-gray-700);
+    border-bottom: 1px solid var(--color-gray-200);
 }
 
 .table td {
-  padding: 0.75rem 0.5rem;
-  border-bottom: 1px solid var(--color-gray-100);
-  vertical-align: middle;
+    padding: 0.75rem 0.5rem;
+    border-bottom: 1px solid var(--color-gray-100);
+    vertical-align: middle;
 }
 
 .cellNome {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
 }
 
 .fileIcon {
-  width: 1.25rem;
-  height: 1.25rem;
-  color: var(--color-gray-500);
-  flex-shrink: 0;
+    width: 1.25rem;
+    height: 1.25rem;
+    color: var(--color-gray-500);
+    flex-shrink: 0;
 }
 
 .tipoBadge {
-  background-color: var(--color-primary-50);
-  color: var(--color-primary-600);
-  padding: 0.2rem 0.6rem;
-  border-radius: var(--radius-full);
-  font-size: var(--text-xs);
-  font-weight: var(--font-weight-medium);
+    background-color: var(--color-primary-50);
+    color: var(--color-primary-600);
+    padding: 0.2rem 0.6rem;
+    border-radius: var(--radius-full);
+    font-size: var(--text-xs);
+    font-weight: var(--font-weight-medium);
 }
 
 .cellDate {
-  white-space: nowrap;
-  color: var(--color-gray-600);
+    white-space: nowrap;
+    color: var(--color-gray-600);
 }
 
 .cellEnviado {
-  color: var(--color-gray-600);
+    color: var(--color-gray-600);
 }

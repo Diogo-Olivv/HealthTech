@@ -12,54 +12,62 @@ import styles from "@/components/arquivos/ArquivosPage.module.css";
 type Status = "loading" | "success" | "error" | "empty";
 
 export default function PacienteArquivosPage() {
-  const [arquivos, setArquivos] = useState<ArquivoDto[]>([]);
-  const [status, setStatus] = useState<Status>("loading");
-  const [errorMsg, setErrorMsg] = useState("");
+    const [arquivos, setArquivos] = useState<ArquivoDto[]>([]);
+    const [status, setStatus] = useState<Status>("loading");
+    const [errorMsg, setErrorMsg] = useState("");
 
-  useEffect(() => {
-    let cancelled = false;
-    async function fetchArquivos() {
-      setStatus("loading");
-      try {
-        const data = await getArquivos();
-        if (cancelled) return;
-        setArquivos(data);
-        setStatus(data.length === 0 ? "empty" : "success");
-      } catch (err) {
-        if (cancelled) return;
-        setErrorMsg(err instanceof Error ? err.message : "Erro ao carregar arquivos.");
-        setStatus("error");
-      }
-    }
-    fetchArquivos();
-    return () => { cancelled = true; };
-  }, []);
+    useEffect(() => {
+        let cancelled = false;
+        async function fetchArquivos() {
+            setStatus("loading");
+            try {
+                const data = await getArquivos();
+                if (cancelled) return;
+                setArquivos(data);
+                setStatus(data.length === 0 ? "empty" : "success");
+            } catch (err) {
+                if (cancelled) return;
+                setErrorMsg(
+                    err instanceof Error
+                        ? err.message
+                        : "Erro ao carregar arquivos.",
+                );
+                setStatus("error");
+            }
+        }
+        fetchArquivos();
+        return () => {
+            cancelled = true;
+        };
+    }, []);
 
-  if (status === "loading") return <LoadingState />;
-  if (status === "error") return <ErrorState msg={errorMsg} />;
-//   if (status === "empty") {
-//     return (
-//       <EmptyState description="Seus exames e documentos enviados pelo médico aparecerão aqui." title="Nenhum arquivo encontrado" />
-//     );
-//   }
+    if (status === "loading") return <LoadingState />;
+    if (status === "error") return <ErrorState msg={errorMsg} />;
+    //   if (status === "empty") {
+    //     return (
+    //       <EmptyState description="Seus exames e documentos enviados pelo médico aparecerão aqui." title="Nenhum arquivo encontrado" />
+    //     );
+    //   }
 
-  return (
-    <main>
-     
-       <div>
-
-            <div className={styles.header}>
-                <div className={styles.headerLeft}>
-                    <h1 className={styles.title}>Meus Arquivos</h1>
-                    <p className={styles.subtitle}>Seus exames e documentos disponíveis na plataforma</p>
+    return (
+        <main>
+            <div>
+                <div className={styles.header}>
+                    <div className={styles.headerLeft}>
+                        <h1 className={styles.title}>Meus Arquivos</h1>
+                        <p className={styles.subtitle}>
+                            Seus exames e documentos disponíveis na plataforma
+                        </p>
+                    </div>
+                    <span className={styles.badge} aria-label="Perfil paciente">
+                        Paciente
+                    </span>
                 </div>
-                <span className={styles.badge} aria-label="Perfil paciente">Paciente</span>
-            </div>
 
-            <div className={`${styles.card} ${styles.fadeIn}`}>
-            <FilesTable arquivos={arquivos} viewerRole="paciente" />
+                <div className={`${styles.card} ${styles.fadeIn}`}>
+                    <FilesTable arquivos={arquivos} viewerRole="paciente" />
+                </div>
             </div>
-      </div>
-    </main>
-  );
+        </main>
+    );
 }

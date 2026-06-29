@@ -2,18 +2,18 @@ import type { Metadata } from "next";
 import AuthLayout from "@/components/ui/AuthLayout";
 
 export const metadata: Metadata = {
-  title: "HealthTech",
-  description: "AILAB - Makers",
+    title: "HealthTech",
+    description: "AILAB - Makers",
 };
 
 export default function RootLayout({
-  children,
+    children,
 }: Readonly<{
-  children: React.ReactNode;
+    children: React.ReactNode;
 }>) {
-  return (
-    <div>
-      <AuthLayout>{children}</AuthLayout>
-    </div>
-  );
+    return (
+        <div>
+            <AuthLayout>{children}</AuthLayout>
+        </div>
+    );
 }

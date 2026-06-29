@@ -10,33 +10,33 @@ border: border-radius, box-shadow, border
 texto: text-align, font-size, color, font-weight
 */
 .title {
-  margin-bottom: 0.5rem;
-  font-size: var(--text-2xl);
-  color: var(--color-primary);
+    margin-bottom: 0.5rem;
+    font-size: var(--text-2xl);
+    color: var(--color-primary);
 }
 
 .subtitle {
-  /* margin-bottom: 1rem; */
+    /* margin-bottom: 1rem; */
 
-  font-size: var(--text-sm);
-  color: var(--color-text-secondary);
+    font-size: var(--text-sm);
+    color: var(--color-text-secondary);
 }
 
 .textHealth {
-  color: var(--color-primary-600);
-  font-weight: var(--font-weight-medium);
+    color: var(--color-primary-600);
+    font-weight: var(--font-weight-medium);
 }
 
 .textTech {
-  color: var(--color-secondary);
+    color: var(--color-secondary);
 }
 
 .form {
-  text-align: left;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  margin-bottom: 1rem;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 1rem;
 }
 
 /* .chooseTypePerson {
@@ -50,119 +50,118 @@ texto: text-align, font-size, color, font-weight
 } */
 
 .passwordCols {
-  display: flex;
-  flex-direction: row;
-  gap: 2rem;
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
 }
 
 /* Cada coluna de senha ocupa metade do espaço disponível */
 .passwordCols .label {
-  flex: 1;
-  min-width: 0;
+    flex: 1;
+    min-width: 0;
 }
 
 /* Lista vertical de opções de cadastro na tela de escolha */
 .registerOptions {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  margin: 1.5rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin: 1.5rem 0;
 }
 
 .optionCard {
-  padding: var(--spacing-2);
-  background-color: var(--color-background);
+    padding: var(--spacing-2);
+    background-color: var(--color-background);
 
-  border: 1px solid var(--color-gray-200);
-  border-radius: var(--radius-lg);
+    border: 1px solid var(--color-gray-200);
+    border-radius: var(--radius-lg);
 
-  font-weight: var(--font-weight-medium);
-  font-size: var(--text-base);
-  color: var(--color-gray-900);
+    font-weight: var(--font-weight-medium);
+    font-size: var(--text-base);
+    color: var(--color-gray-900);
 
-  text-align: center;
+    text-align: center;
 }
 
 .optionCard:hover {
-  border: 1px solid var(--color-secondary-500);
-  background-color: var(--color-white);
+    border: 1px solid var(--color-secondary-500);
+    background-color: var(--color-white);
 }
 
 /* Botão de voltar para a tela de escolha de tipo de usuário */
 .backLink {
-  align-self: flex-start;
-  margin-bottom: 1rem;
-  padding: 0.4rem 0.9rem;
-  background-color: var(--color-gray-100);
+    align-self: flex-start;
+    margin-bottom: 1rem;
+    padding: 0.4rem 0.9rem;
+    background-color: var(--color-gray-100);
 
-  border: 1px solid var(--color-gray-200);
-  border-radius: var(--radius-lg);
+    border: 1px solid var(--color-gray-200);
+    border-radius: var(--radius-lg);
 
-  font-size: var(--text-sm);
-  font-weight: var(--font-weight-medium);
-  color: var(--color-secondary-500);
-  text-align: left;
+    font-size: var(--text-sm);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-secondary-500);
+    text-align: left;
 }
 
 .backLink:hover {
-  background-color: var(--color-gray-200);
-  color: var(--color-secondary-600);
+    background-color: var(--color-gray-200);
+    color: var(--color-secondary-600);
 }
 
-
 .label {
-  display: block;
-  font-size: var(--text-base);
-  font-weight: var(--font-weight-regular);
-  color: var(--color-text-secondary);
+    display: block;
+    font-size: var(--text-base);
+    font-weight: var(--font-weight-regular);
+    color: var(--color-text-secondary);
 }
 
 .input {
-  width: 100%;
-  padding: var(--spacing-3);
-  background-color: var(--color-gray-100);
+    width: 100%;
+    padding: var(--spacing-3);
+    background-color: var(--color-gray-100);
 
-  border-radius: var(--radius-lg);
-  border: 1px solid var(--color-gray-200);
-  outline: none;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--color-gray-200);
+    outline: none;
 
-  font-size: var(--text-base);
+    font-size: var(--text-base);
 }
 
 .input:focus {
-  border: 1px solid var(--color-secondary-500);
-  background-color: var(--color-white);
+    border: 1px solid var(--color-secondary-500);
+    background-color: var(--color-white);
 }
 
 .button {
-  width: 100%;
-  padding: var(--spacing-3);
-  background-color: var(--color-primary);
+    width: 100%;
+    padding: var(--spacing-3);
+    background-color: var(--color-primary);
 
-  border-radius: var(--radius-lg);
-  border: 1px solid var(--color-gray-100);
-  outline: none;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--color-gray-100);
+    outline: none;
 
-  font-weight: var(--font-weight-medium);
-  font-size: var(--text-base);
-  color: var(--color-white);
+    font-weight: var(--font-weight-medium);
+    font-size: var(--text-base);
+    color: var(--color-white);
 }
 
 .button:hover {
-  background-color: var(--color-secondary);
+    background-color: var(--color-secondary);
 }
 
 /* Impede novo clique enquanto o cadastro está sendo enviado */
 .button:disabled {
-  background-color: var(--color-gray-200);
-  cursor: not-allowed;
+    background-color: var(--color-gray-200);
+    cursor: not-allowed;
 }
 
 .error {
-  color: var(--color-error-500);
+    color: var(--color-error-500);
 }
 
 .footer {
-  font-size: var(--text-sm);
-  color: var(--color-gray-700);
+    font-size: var(--text-sm);
+    color: var(--color-gray-700);
 }
