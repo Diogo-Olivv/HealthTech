@@ -1,0 +1,106 @@
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 50;
+}
+
+.modal {
+    background-color: white;
+    padding: 24px;
+    border-radius: 12px;
+    width: 100%;
+    max-width: 500px;
+    position: relative;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    animation: modal-appear 0.2s ease-out;
+}
+
+@keyframes modal-appear {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.closeButton {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    line-height: 1;
+    color: #666;
+    transition: color 0.2s;
+}
+
+.closeButton:hover {
+    color: #1a1a1a;
+}
+
+.title {
+    margin-top: 0;
+    margin-bottom: 16px;
+    color: #1a1a1a;
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+.content {
+    margin-bottom: 24px;
+}
+
+.description {
+    color: #4b5563;
+    line-height: 1.5;
+    margin: 0;
+}
+
+.footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+}
+
+.btnCancel {
+    padding: 8px 16px;
+    border: 1px solid #e5e7eb;
+    border-radius: 6px;
+    background: #ffffff;
+    color: #374151;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.btnCancel:hover {
+    background-color: #f3f4f6;
+}
+
+.btnConfirm {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 6px;
+    background: #2563eb;
+    color: #ffffff;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.btnConfirm:hover {
+    background-color: #1d4ed8;
+}

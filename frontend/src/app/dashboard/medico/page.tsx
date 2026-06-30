@@ -9,6 +9,8 @@ import ErrorState from "@/components/arquivos/ErrorState";
 import PacientsTable from "@/components/arquivos/PacientsTable";
 import styles from "@/components/arquivos/ArquivosPage.module.css";
 import FileUpload from "@/components/arquivos/FileUpload";
+import Button from "@/components/ui/Button";
+import { ModalVinculo } from "@/components/arquivos/ModalVinculo";
 
 type Status = "loading" | "success" | "error" | "empty";
 
@@ -16,6 +18,7 @@ export default function MedicoArquivosPage() {
     const [arquivos, setArquivos] = useState<ArquivoDto[]>([]);
     const [status, setStatus] = useState<Status>("loading");
     const [errorMsg, setErrorMsg] = useState("");
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     useEffect(() => {
         let cancelled = false;
@@ -77,12 +80,18 @@ export default function MedicoArquivosPage() {
                         <h2>14</h2>
                     </div>
                 </div>
-            
 
+                <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '20px' }}>
+                    <Button variant="primary" onClick={() => setIsModalOpen(true)}>
+                        Vincular Paciente
+                    </Button>
+                </div>
+                
                 <div className={`${styles.card} ${styles.fadeIn}`}>
                     <PacientsTable arquivos={arquivos} viewerRole="medico" />
                 </div>
                 <FileUpload />
+                <ModalVinculo isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
             </div>
         </main>
     );
