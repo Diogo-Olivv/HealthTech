@@ -27,9 +27,9 @@ Definir a stack, arquitetura e organização do projeto. Configurar o repositór
 
 | Hash      | Data  | Autor | Descrição                                              |
 | :-------- | :---- | :---- | :----------------------------------------------------- |
-| `229c870` | 19/05 | Diogo | Initial commit                                         |
-| `24281eb` | 25/05 | Diogo | feat: Ambiente de Desenvolvimento Inicial Configurado  |
-| `5b4f69b` | 25/05 | Diogo | feat: Implementado Temporariamente Cadastro do Usuario |
+| [`229c870`](https://github.com/Diogo-Olivv/HealthTech/commit/229c870) | 19/05 | Diogo | Initial commit                                         |
+| [`24281eb`](https://github.com/Diogo-Olivv/HealthTech/commit/24281eb) | 25/05 | Diogo | feat: Ambiente de Desenvolvimento Inicial Configurado  |
+| [`5b4f69b`](https://github.com/Diogo-Olivv/HealthTech/commit/5b4f69b) | 25/05 | Diogo | feat: Implementado Temporariamente Cadastro do Usuario |
 
 **Branch:** `main` / `develop`
 

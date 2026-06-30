@@ -27,8 +27,8 @@ Implementar a base da autenticação (login funcional com rota protegida), defin
 
 | Hash      | Data  | Autor | Descrição                                             |
 | :-------- | :---- | :---- | :---------------------------------------------------- |
-| `79545b0` | 31/05 | Diogo | feat: Login Funcional + Rota Protegida + Autenticação |
-| `6da3cd7` | 31/05 | Diogo | fix: Adiciona .env.example no frontend                |
+| [`79545b0`](https://github.com/Diogo-Olivv/HealthTech/commit/79545b0) | 31/05 | Diogo | feat: Login Funcional + Rota Protegida + Autenticação |
+| [`6da3cd7`](https://github.com/Diogo-Olivv/HealthTech/commit/6da3cd7) | 31/05 | Diogo | fix: Adiciona .env.example no frontend                |
 
 **Issue(s):** #8, #9, #10
 

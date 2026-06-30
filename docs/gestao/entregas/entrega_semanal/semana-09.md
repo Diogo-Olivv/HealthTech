@@ -27,16 +27,16 @@ Mergear e refinar o módulo de usuários, implementar tipo de usuário no JWT co
 
 | Hash      | Data  | Autor          | Descrição                                                              |
 | :-------- | :---- | :------------- | :--------------------------------------------------------------------- |
-| `e7f8199` | 03/06 | martinnho      | chore(test): configurar ambiente e timeout para testes e2e             |
-| `280a368` | 03/06 | martinnho      | feat(users): implementar cadastro e login de pacientes e medicos       |
-| `0925283` | 04/06 | martinnho      | test(users): adicionar testes unitarios, e2e e ajustar tipagens do jest|
-| `a9f0bf5` | 04/06 | martinnho      | chore: remover tsconfig.spec.json vazio                                |
-| `8fc967d` | 07/06 | martinnho      | refactor(dto): reduzir CreateUserDto aos campos comuns                 |
-| `a70a3c8` | 07/06 | martinnho      | refactor(dto): criar CreatePacienteDto e CreateMedicoDto com extends   |
-| `7248d1b` | 07/06 | martinnho      | refactor(users): separar rotas de cadastro por tipo                    |
-| `965a9ae` | 07/06 | martinnho      | refactor(users): remover validacao duplicada e dividir create no service|
-| `ef18255` | 07/06 | martinnho      | refactor(users): extrair PublicUser e toPublicUser                     |
-| `26c9d7c` | 07/06 | martinnho      | test(users): ajustar testes para as novas rotas e DTOs                 |
+| [`e7f8199`](https://github.com/Diogo-Olivv/HealthTech/commit/e7f8199) | 03/06 | martinnho      | chore(test): configurar ambiente e timeout para testes e2e             |
+| [`280a368`](https://github.com/Diogo-Olivv/HealthTech/commit/280a368) | 03/06 | martinnho      | feat(users): implementar cadastro e login de pacientes e medicos       |
+| [`0925283`](https://github.com/Diogo-Olivv/HealthTech/commit/0925283) | 04/06 | martinnho      | test(users): adicionar testes unitarios, e2e e ajustar tipagens do jest|
+| [`a9f0bf5`](https://github.com/Diogo-Olivv/HealthTech/commit/a9f0bf5) | 04/06 | martinnho      | chore: remover tsconfig.spec.json vazio                                |
+| [`8fc967d`](https://github.com/Diogo-Olivv/HealthTech/commit/8fc967d) | 07/06 | martinnho      | refactor(dto): reduzir CreateUserDto aos campos comuns                 |
+| [`a70a3c8`](https://github.com/Diogo-Olivv/HealthTech/commit/a70a3c8) | 07/06 | martinnho      | refactor(dto): criar CreatePacienteDto e CreateMedicoDto com extends   |
+| [`7248d1b`](https://github.com/Diogo-Olivv/HealthTech/commit/7248d1b) | 07/06 | martinnho      | refactor(users): separar rotas de cadastro por tipo                    |
+| [`965a9ae`](https://github.com/Diogo-Olivv/HealthTech/commit/965a9ae) | 07/06 | martinnho      | refactor(users): remover validacao duplicada e dividir create no service|
+| [`ef18255`](https://github.com/Diogo-Olivv/HealthTech/commit/ef18255) | 07/06 | martinnho      | refactor(users): extrair PublicUser e toPublicUser                     |
+| [`26c9d7c`](https://github.com/Diogo-Olivv/HealthTech/commit/26c9d7c) | 07/06 | martinnho      | test(users): ajustar testes para as novas rotas e DTOs                 |
 
 **Branch:** `feat/usuarios`
 **PRs:** #31 (feat/usuarios)
@@ -53,7 +53,7 @@ Mergear e refinar o módulo de usuários, implementar tipo de usuário no JWT co
 
 | Hash      | Data  | Autor          | Descrição                                                       |
 | :-------- | :---- | :------------- | :-------------------------------------------------------------- |
-| `70f4c4c` | 07/06 | Gabriel Robson | feat: identidade visual, componentes UI e testes do Button      |
+| [`70f4c4c`](https://github.com/Diogo-Olivv/HealthTech/commit/70f4c4c) | 07/06 | Gabriel Robson | feat: identidade visual, componentes UI e testes do Button      |
 
 **Issue(s):** #5, #6, #7 (iniciadas)
 
@@ -68,9 +68,9 @@ Mergear e refinar o módulo de usuários, implementar tipo de usuário no JWT co
 
 | Hash      | Data  | Autor     | Descrição                                                  |
 | :-------- | :---- | :-------- | :--------------------------------------------------------- |
-| `d161209` | 08/06 | Hugo Rosa | feat(infra): adiciona containers para upload google cloud  |
-| `090ef81` | 08/06 | Diogo     | Configuração Inicial do Google Cloud                       |
-| `1b9a04a` | 08/06 | Diogo     | PR de configuração da infraestrutura inicial               |
+| [`d161209`](https://github.com/Diogo-Olivv/HealthTech/commit/d161209) | 08/06 | Hugo Rosa | feat(infra): adiciona containers para upload google cloud  |
+| [`090ef81`](https://github.com/Diogo-Olivv/HealthTech/commit/090ef81) | 08/06 | Diogo     | Configuração Inicial do Google Cloud                       |
+| [`1b9a04a`](https://github.com/Diogo-Olivv/HealthTech/commit/1b9a04a) | 08/06 | Diogo     | PR de configuração da infraestrutura inicial               |
 
 **Issue(s):** #16
 
