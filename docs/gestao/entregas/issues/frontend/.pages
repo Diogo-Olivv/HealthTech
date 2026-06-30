@@ -5,3 +5,5 @@ nav:
   - "#18 - Refatoracao visual": 18-refatoracao-visual.md
   - "#30 - Upload de arquivos": 30-upload-arquivos.md
   - "#33 - Listagem de arquivos": 33-listagem-arquivos.md
+  - "#58 - Tela consulta de logs (admin)": 58-tela-consulta-logs.md
+  - "#62 - Navbar": 62-navbar.md

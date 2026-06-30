@@ -5,6 +5,14 @@ nav:
   - "#19 - Tipo de usuario no login": 19-tipo-usuario-login.md
   - "#26 - Entidade Arquivo": 26-entidade-arquivo.md
   - "#27 - Service GCS": 27-service-gcs.md
-  - "#29 - Vinculo Medico-Paciente": 29-medico-paciente-vinculo.md
   - "#28 - Upload de arquivos": 28-upload-arquivos.md
+  - "#29 - Vinculo Medico-Paciente": 29-medico-paciente-vinculo.md
   - "#32 - Listagem de arquivos": 32-listagem-arquivos.md
+  - "#50 - Entidade AuditLog": 50-entidade-auditlog.md
+  - "#51 - AuditLogService": 51-auditlog-service.md
+  - "#52 - AuditInterceptor e @Audit": 52-audit-interceptor.md
+  - "#53 - Auditoria em autenticacao": 53-auditoria-autenticacao.md
+  - "#54 - Auditoria em arquivos": 54-auditoria-arquivos.md
+  - "#55 - Auditoria em vinculo": 55-auditoria-vinculo.md
+  - "#56 - UserType ADMIN": 56-admin-usertype.md
+  - "#57 - Endpoint consulta de logs": 57-endpoint-consulta-logs.md

@@ -6,3 +6,4 @@ nav:
   - "#15 - Segredos": 15-segredos.md
   - "#16 - Deploy Cloud Run": 16-deploy-cloud-run.md
   - "#17 - Auditoria e observabilidade": 17-auditoria-observabilidade.md
+  - "#60 - Retencao de logs": 60-retencao-logs.md
