@@ -30,7 +30,7 @@ export function ModalVinculo({ isOpen, onClose }: ModalVinculoProps) {
                 {/* Conteúdo */}
                 <div className={styles.content}>
                     <p className={styles.description}>
-                        Aqui você pode adicionar a interface para seleção e vínculo de pacientes.
+                        Selecione os pacientes para se vincular e ter acesso a seus exames.
                     </p>
 
                     {/* Filtros de Pesquisa */}
