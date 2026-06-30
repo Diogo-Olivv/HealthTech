@@ -71,7 +71,7 @@ export default function MedicoArquivosPage() {
                 <div className={styles.resume}>
                     <div className={styles.cardResume} aria-label="Pacientes Ativos">
                         <img src="/pacientCard.svg" alt="Paciente" />
-                        <p>Pacientes Ativos</p>
+                        <p>Pacientes vinculados</p>
                         <h2>15</h2>
                     </div>
                     <div className={styles.cardResume} aria-label="Exames enviados esta semana">
