@@ -8,6 +8,7 @@ import EmptyState from "@/components/arquivos/EmptyState";
 import ErrorState from "@/components/arquivos/ErrorState";
 import PacientsTable from "@/components/arquivos/PacientsTable";
 import styles from "@/components/arquivos/ArquivosPage.module.css";
+import FileUpload from "@/components/arquivos/FileUpload";
 
 type Status = "loading" | "success" | "error" | "empty";
 
@@ -54,7 +55,7 @@ export default function MedicoArquivosPage() {
             <div className={styles.container}>
                 <div className={styles.header}>
                     <div className={styles.headerLeft}>
-                        <h1 className={styles.title}>Meus Pacientes</h1>
+                        <h1 className={styles.title}>Painel Clínico</h1>
                         <p className={styles.subtitle}>
                             Pacientes vinculados ao seu perfil
                         </p>
@@ -64,9 +65,24 @@ export default function MedicoArquivosPage() {
                     </span>
                 </div>
 
+                <div className={styles.resume}>
+                    <div className={styles.cardResume} aria-label="Pacientes Ativos">
+                        <img src="/pacientCard.svg" alt="Paciente" />
+                        <p>Pacientes Ativos</p>
+                        <h2>15</h2>
+                    </div>
+                    <div className={styles.cardResume} aria-label="Exames enviados esta semana">
+                        <img src="/FileIcon.svg" alt="Exames" />
+                        <p>Exames enviados esta semana</p>
+                        <h2>14</h2>
+                    </div>
+                </div>
+            
+
                 <div className={`${styles.card} ${styles.fadeIn}`}>
                     <PacientsTable arquivos={arquivos} viewerRole="medico" />
                 </div>
+                <FileUpload />
             </div>
         </main>
     );

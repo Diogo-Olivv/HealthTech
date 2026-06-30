@@ -8,6 +8,7 @@ import EmptyState from "@/components/arquivos/EmptyState";
 import ErrorState from "@/components/arquivos/ErrorState";
 import FilesTable from "@/components/arquivos/FilesTable";
 import styles from "@/components/arquivos/ArquivosPage.module.css";
+import FileUpload from "@/components/arquivos/FileUpload";
 
 type Status = "loading" | "success" | "error" | "empty";
 
@@ -68,7 +69,7 @@ export default function MedicoArquivosPage() {
                     <FilesTable arquivos={arquivos} viewerRole="medico" />
                 </div>
 
-                <div>Upload Documento</div>
+                <FileUpload />
             </div>
         </main>
     );

@@ -17,7 +17,9 @@ export default function RootLayout({
     return (
         <div className={styles.layoutContainer}>
             <NavBar />
-            {children}
+            <main className={styles.mainContent}>
+                {children}
+            </main>
         </div>
     );
 }

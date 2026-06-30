@@ -7,3 +7,13 @@
     flex-direction: column;
     align-self: flex-start;
 }
+
+
+.mainContent {
+    padding: 1rem;
+    width: 100%;
+    max-width: 1200px;
+    margin: auto;
+    flex: 1;
+}
+
