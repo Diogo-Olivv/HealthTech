@@ -1,3 +1,6 @@
+"use client";
+
+import { useState } from "react";
 import type { ArquivoDto } from "@/dto/arquivo.dto";
 import FileIcon from "@/components/icons/FileIcon";
 import styles from "./PacientsTable.module.css";
@@ -25,13 +28,30 @@ function formatTamanho(bytes: number): string {
 
 export default function FilesTable({ arquivos, viewerRole }: Props) {
     const isMedico = viewerRole === "medico";
+    const [searchTerm, setSearchTerm] = useState("");
+
     const partyHeader = isMedico ? "Paciente" : "Enviado por";
     const ariaLabel = isMedico
         ? "Lista de arquivos do médico"
         : "Lista de arquivos do paciente";
 
+    const filteredArquivos = arquivos.filter(arquivo => {
+        const nameMatch = arquivo.nomeOriginal || arquivo.pacienteNome || "";
+        return nameMatch.toLowerCase().includes(searchTerm.toLowerCase());
+    });
+
     return (
         <div className={styles.tableWrapper}>
+            <div className={styles.searchContainer}>
+                <input
+                    type="text"
+                    placeholder="Pesquisar paciente pelo nome..."
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    className={styles.searchInput}
+                />
+            </div>
+            
             <table className={styles.table} aria-label={ariaLabel}>
                 <thead>
                     <tr>
@@ -43,7 +63,7 @@ export default function FilesTable({ arquivos, viewerRole }: Props) {
                     </tr>
                 </thead>
                 <tbody>
-                    {arquivos.map((arquivo) => (
+                    {filteredArquivos.map((arquivo) => (
                         <tr key={arquivo.id}>
                             <td>
                                 <span className={styles.cellNome}>

@@ -82,6 +82,7 @@ export default function MedicoArquivosPage() {
                 </div>
 
                 <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '20px' }}>
+                    
                     <Button variant="primary" onClick={() => setIsModalOpen(true)}>
                         Vincular Paciente
                     </Button>
