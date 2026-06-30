@@ -29,6 +29,11 @@ export default function FileUpload() {
         <div className={styles.card} role="status" aria-live="polite">
             <input type="file" onChange={handleFileChange} />
             {error && <p style={{ color: 'red' }}>{error}</p>}
+            {file && (
+                <p>
+                    Arquivo selecionado: {file.name} ({(file.size / (1024 * 1024)).toFixed(2)} MB)
+                </p>
+            )}
             <button onClick={handleUpload} disabled={!file}>
                 Upload
             </button>
