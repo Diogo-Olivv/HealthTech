@@ -2,11 +2,17 @@
 .navbar__right {
     display: flex;
     align-items: center;
-    justify-content: flex-end;
+    justify-content: space-between;
     gap: var(--spacing-5);
     padding: var(--spacing-4) var(--spacing-8);
     background: var(--color-surface);
     border-bottom: 1px solid var(--color-gray-200);
+    width: 100%;
+}
+
+.navbar__logo {
+    margin-left: 2rem;
+    width: 150px;
 }
 
 .navbar__user {

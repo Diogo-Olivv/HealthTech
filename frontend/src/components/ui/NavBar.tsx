@@ -5,11 +5,16 @@ interface NavBarProps {
     // Defina as propriedades do componente aqui, se necessário
 }
 
+
+
 export default function NavBar({}: NavBarProps) {
     return (
         <nav>
             {/* O conteúdo da sua NavBar vai aqui */}
             <div className={styles.navbar__right}>
+                <a href="/">
+                    <img src="/logo-transparent-azul.svg" alt="Logo HealthTech" className={styles.navbar__logo} />
+                </a>
                 <div className={styles.navbar__user}>
                     <div className={styles.navbar__avatar}>BR</div>
                     <div className={styles["navbar__user-info"]}>
