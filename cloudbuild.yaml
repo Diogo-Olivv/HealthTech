@@ -1,17 +1,15 @@
 substitutions:
-  _REGION: us-central1
+  _AR: southamerica-east1 # Onde suas imagens Docker são salvas
+  _BACKEND: southamerica-east1 # Onde rodam Backend, BD e Migrations
+  _FRONTEND: us-central1 # Apenas o Frontend vai pros EUA (Workaround do Domínio)
+
   _AR_REPO: healthtech
   _BACKEND_SERVICE: healthtech-backend
   _FRONTEND_SERVICE: healthtech-frontend
-  # Service account criada pelo infra/setup-gcp.sh
   _CR_SA: healthtech-cloudrun@health-tech-ai-lab.iam.gserviceaccount.com
-  # BOOTSTRAP: na primeira execução deixe _BACKEND_URL vazio e rode apenas o
-  # deploy do backend. Copie a URL gerada, preencha aqui (ou passe via
-  # --substitutions) e rode o pipeline completo.
   _BACKEND_URL: "https://healthtech-backend-515815792390.southamerica-east1.run.app"
   _CLOUDSQL_CONNECTION: "health-tech-ai-lab:southamerica-east1:health-tech-db"
   _MIGRATIONS_JOB: healthtech-migrations
-
 steps:
   # Autentica Docker com Artifact Registry antes de qualquer push
   - name: gcr.io/google.com/cloudsdktool/cloud-sdk
@@ -21,7 +19,7 @@ steps:
     args:
       - auth
       - configure-docker
-      - $_REGION-docker.pkg.dev
+      - $_AR_REGION-docker.pkg.dev
       - --quiet
 
   # Build das imagens em paralelo
@@ -31,9 +29,9 @@ steps:
     args:
       - build
       - -t
-      - $_REGION-docker.pkg.dev/$PROJECT_ID/$_AR_REPO/backend:$BUILD_ID
+      - $_AR_REGION-docker.pkg.dev/$PROJECT_ID/$_AR_REPO/backend:$BUILD_ID
       - -t
-      - $_REGION-docker.pkg.dev/$PROJECT_ID/$_AR_REPO/backend:latest
+      - $_AR_REGION-docker.pkg.dev/$PROJECT_ID/$_AR_REPO/backend:latest
       - ./backend
 
   - name: gcr.io/cloud-builders/docker
@@ -42,9 +40,9 @@ steps:
     args:
       - build
       - -t
-      - $_REGION-docker.pkg.dev/$PROJECT_ID/$_AR_REPO/frontend:$BUILD_ID
+      - $_AR_REGION-docker.pkg.dev/$PROJECT_ID/$_AR_REPO/frontend:$BUILD_ID
       - -t
-      - $_REGION-docker.pkg.dev/$PROJECT_ID/$_AR_REPO/frontend:latest
+      - $_AR_REGION-docker.pkg.dev/$PROJECT_ID/$_AR_REPO/frontend:latest
       - --build-arg
       - NEXT_PUBLIC_API_URL=$_BACKEND_URL
       - ./frontend
@@ -54,13 +52,21 @@ steps:
     id: push-backend
     waitFor: [build-backend]
     args:
-      [push, --all-tags, $_REGION-docker.pkg.dev/$PROJECT_ID/$_AR_REPO/backend]
+      [
+        push,
+        --all-tags,
+        $_AR_REGION-docker.pkg.dev/$PROJECT_ID/$_AR_REPO/backend,
+      ]
 
   - name: gcr.io/cloud-builders/docker
     id: push-frontend
     waitFor: [build-frontend]
     args:
-      [push, --all-tags, $_REGION-docker.pkg.dev/$PROJECT_ID/$_AR_REPO/frontend]
+      [
+        push,
+        --all-tags,
+        $_AR_REGION-docker.pkg.dev/$PROJECT_ID/$_AR_REPO/frontend,
+      ]
 
   # Cloud Run Job que roda as migrations contra o Cloud SQL.
   # `gcloud run jobs deploy` cria o job na primeira execucao e atualiza nas seguintes.
@@ -74,8 +80,8 @@ steps:
       - jobs
       - deploy
       - $_MIGRATIONS_JOB
-      - --image=$_REGION-docker.pkg.dev/$PROJECT_ID/$_AR_REPO/backend:$BUILD_ID
-      - --region=$_REGION
+      - --image=$_BACKEND_REGION-docker.pkg.dev/$PROJECT_ID/$_AR_REPO/backend:$BUILD_ID
+      - --region=$_BACKEND_REGION
       - --service-account=$_CR_SA
       - --set-cloudsql-instances=$_CLOUDSQL_CONNECTION
       - --set-env-vars=NODE_ENV=production,INSTANCE_CONNECTION_NAME=$_CLOUDSQL_CONNECTION
@@ -96,7 +102,7 @@ steps:
       - jobs
       - execute
       - $_MIGRATIONS_JOB
-      - --region=$_REGION
+      - --region=$_BACKEND_REGION
       - --wait
 
   # Deploy backend (aguarda migrations terminarem com sucesso)
@@ -109,8 +115,8 @@ steps:
       - run
       - deploy
       - $_BACKEND_SERVICE
-      - --image=$_REGION-docker.pkg.dev/$PROJECT_ID/$_AR_REPO/backend:$BUILD_ID
-      - --region=$_REGION
+      - --image=$_BACKEND_REGION-docker.pkg.dev/$PROJECT_ID/$_AR_REPO/backend:$BUILD_ID
+      - --region=$_BACKEND_REGION
       - --platform=managed
       - --allow-unauthenticated
       - --service-account=$_CR_SA
@@ -133,8 +139,8 @@ steps:
       - run
       - deploy
       - $_FRONTEND_SERVICE
-      - --image=$_REGION-docker.pkg.dev/$PROJECT_ID/$_AR_REPO/frontend:$BUILD_ID
-      - --region=$_REGION
+      - --image=$_FRONTEND_REGION-docker.pkg.dev/$PROJECT_ID/$_AR_REPO/frontend:$BUILD_ID
+      - --region=$_FRONTEND_REGION
       - --platform=managed
       - --allow-unauthenticated
       - --service-account=$_CR_SA
@@ -145,8 +151,8 @@ steps:
       - --max-instances=5
 
 images:
-  - $_REGION-docker.pkg.dev/$PROJECT_ID/$_AR_REPO/backend:$BUILD_ID
-  - $_REGION-docker.pkg.dev/$PROJECT_ID/$_AR_REPO/frontend:$BUILD_ID
+  - $_AR_REGION-docker.pkg.dev/$PROJECT_ID/$_AR_REPO/backend:$BUILD_ID
+  - $_AR_REGION-docker.pkg.dev/$PROJECT_ID/$_AR_REPO/frontend:$BUILD_ID
 
 options:
   logging: CLOUD_LOGGING_ONLY
