@@ -47,7 +47,7 @@ export class AuditLog {
   @Column()
   ipOrigem!: string;
 
-  @Column({ nullable: true })
+  @Column({ type: 'varchar', nullable: true })
   userAgent!: string | null;
 
   @CreateDateColumn()
