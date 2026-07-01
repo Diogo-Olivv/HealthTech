@@ -4,13 +4,16 @@ import styles from './Button.module.css';
 /**
  * Componente de Botão Padronizado — HealthTech
  *
- * @param {'primary' | 'secondary' | 'ghost' | 'danger'} variant
- * @param {'sm' | 'md' | 'lg'} size
- * @param {boolean} fullWidth
- * @param {boolean} loading
- * @param {boolean} disabled
- * @param {React.ReactNode} children
- * @param {React.ButtonHTMLAttributes} ...rest
+ * @param {Object} props
+ * @param {'primary' | 'secondary' | 'ghost' | 'danger'} [props.variant]
+ * @param {'sm' | 'md' | 'lg'} [props.size]
+ * @param {boolean} [props.fullWidth]
+ * @param {boolean} [props.loading]
+ * @param {boolean} [props.disabled]
+ * @param {React.ReactNode} [props.children]
+ * @param {string} [props.className]
+ * @param {'button' | 'submit' | 'reset'} [props.type]
+ * @param {React.MouseEventHandler<HTMLButtonElement>} [props.onClick]
  */
 const Button = ({
   variant = 'primary',
