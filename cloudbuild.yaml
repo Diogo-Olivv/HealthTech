@@ -1,5 +1,5 @@
 substitutions:
-  _REGION: southamerica-east1
+  _REGION: us-central1
   _AR_REPO: healthtech
   _BACKEND_SERVICE: healthtech-backend
   _FRONTEND_SERVICE: healthtech-frontend
