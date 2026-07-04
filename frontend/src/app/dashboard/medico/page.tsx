@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { getArquivos } from "@/services/arquivos.service";
+import { getMyPatients, getToken } from "@/services/users.service";
 import type { ArquivoDto } from "@/dto/arquivo.dto";
 import LoadingState from "@/components/arquivos/LoadingState";
 import EmptyState from "@/components/arquivos/EmptyState";
@@ -15,7 +15,7 @@ import { ModalVinculo } from "@/components/arquivos/ModalVinculo";
 type Status = "loading" | "success" | "error" | "empty";
 
 export default function MedicoArquivosPage() {
-    const [arquivos, setArquivos] = useState<ArquivoDto[]>([]);
+    const [pacientes, setPacientes] = useState<any[]>([]);
     const [status, setStatus] = useState<Status>("loading");
     const [errorMsg, setErrorMsg] = useState("");
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -23,28 +23,29 @@ export default function MedicoArquivosPage() {
 
     useEffect(() => {
         let cancelled = false;
-        async function fetchArquivos() {
+        async function fetchPacientes() {
             setStatus("loading");
+            const token = getToken(); // Pega o token
+            if (!token) return;
+            
             try {
-                const data = await getArquivos();
+                const data = await getMyPatients(token); // Chama a NOSSA função!
                 if (cancelled) return;
-                setArquivos(data);
+                setPacientes(data);
                 setStatus(data.length === 0 ? "empty" : "success");
             } catch (err) {
                 if (cancelled) return;
-                setErrorMsg(
-                    err instanceof Error
-                        ? err.message
-                        : "Erro ao carregar Pacientes.",
-                );
+                setErrorMsg("Erro ao carregar Pacientes.");
                 setStatus("error");
             }
         }
-        fetchArquivos();
+        fetchPacientes(); // Inicia a busca
+
         return () => {
             cancelled = true;
         };
     }, [refreshKey]);
+
 
     if (status === "loading") return <LoadingState />;
     // if (status === "error") return <ErrorState msg={errorMsg} />;
@@ -90,7 +91,7 @@ export default function MedicoArquivosPage() {
                 </div>
 
                 <div className={`${styles.card} ${styles.fadeIn}`}>
-                    <PacientsTable arquivos={arquivos} viewerRole="medico" />
+                    <PacientsTable pacientes={pacientes} />
                 </div>
                 <FileUpload />
                 <ModalVinculo 

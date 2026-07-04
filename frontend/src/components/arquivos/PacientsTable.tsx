@@ -1,14 +1,6 @@
-import type { ArquivoDto } from "@/dto/arquivo.dto";
-import FileIcon from "@/components/icons/FileIcon";
 import styles from "./PacientsTable.module.css";
 
-export type ViewerRole = "medico" | "paciente";
-
-interface Props {
-    arquivos: ArquivoDto[];
-    viewerRole: ViewerRole;
-}
-
+// Formata a data (ex: 04/07/2026)
 function formatDate(iso: string): string {
     return new Date(iso).toLocaleDateString("pt-BR", {
         day: "2-digit",
@@ -17,55 +9,43 @@ function formatDate(iso: string): string {
     });
 }
 
-function formatTamanho(bytes: number): string {
-    if (bytes < 1024) return `${bytes} B`;
-    if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`;
-    return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
+// Essa é a estrutura que o backend manda para a gente!
+interface PacienteVinculado {
+    pacienteId: string;
+    nome: string;
+    vinculadoEm: string;
 }
 
-export default function FilesTable({ arquivos, viewerRole }: Props) {
-    const isMedico = viewerRole === "medico";
-    const partyHeader = isMedico ? "Paciente" : "Enviado por";
-    const ariaLabel = isMedico
-        ? "Lista de arquivos do médico"
-        : "Lista de arquivos do paciente";
+interface Props {
+    pacientes: PacienteVinculado[];
+}
 
+export default function PacientsTable({ pacientes }: Props) {
     return (
         <div className={styles.tableWrapper}>
-            <table className={styles.table} aria-label={ariaLabel}>
+            <table className={styles.table} aria-label="Lista de pacientes">
                 <thead>
                     <tr>
                         <th scope="col">Nome do Paciente</th>
-                        <th scope="col">Data de Nascimento</th>
-                        <th scope="col">Último Exame Atualizado</th>
+                        <th scope="col">Data do Vínculo</th>
                         <th scope="col">Ações</th>
-                        {/* <th scope="col">{partyHeader}</th> */}
                     </tr>
                 </thead>
                 <tbody>
-                    {arquivos.map((arquivo) => (
-                        <tr key={arquivo.id}>
+                    {pacientes.map((paciente) => (
+                        <tr key={paciente.pacienteId}>
                             <td>
                                 <span className={styles.cellNome}>
-                                    <FileIcon className={styles.fileIcon} />
-                                    {arquivo.nomeOriginal}
+                                    <strong>{paciente.nome}</strong>
                                 </span>
+                            </td>
+                            <td className={styles.cellDate}>
+                                {formatDate(paciente.vinculadoEm)}
                             </td>
                             <td>
-                                <span className={styles.tipoBadge}>
-                                    {arquivo.tipo}
-                                </span>
-                            </td>
-                            <td className={styles.cellDate}>
-                                {formatTamanho(arquivo.tamanho)}
-                            </td>
-                            <td className={styles.cellDate}>
-                                {formatDate(arquivo.dataUpload)}
-                            </td>
-                            <td className={styles.cellEnviado}>
-                                {isMedico
-                                    ? arquivo.pacienteNome
-                                    : arquivo.medicoNome}
+                                <button style={{ padding: '6px 12px', background: '#e0e7ff', color: '#3730a3', border: 'none', borderRadius: '4px', cursor: 'pointer' }}>
+                                    Ver Exames
+                                </button>
                             </td>
                         </tr>
                     ))}

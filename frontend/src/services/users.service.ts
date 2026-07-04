@@ -82,7 +82,6 @@ export async function getMyPatients(token: string): Promise<PublicUser[]> {
   return res.json();
 }
 
-// funcionalidade de listar Pacientes Vinculados acima PAUSADA até finalização da Funcionalidade De Vincúlo de Médico com Paciente
 
 // Busca a lista de pacientes disponíveis (que não são seus ainda)
 export async function getAvailablePatients(token: string): Promise<any[]> {
