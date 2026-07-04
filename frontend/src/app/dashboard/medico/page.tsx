@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { getMyPatients, getToken } from "@/services/users.service";
+import { getArquivos } from "@/services/arquivos.service";
 import type { ArquivoDto } from "@/dto/arquivo.dto";
 import LoadingState from "@/components/arquivos/LoadingState";
 import EmptyState from "@/components/arquivos/EmptyState";
@@ -16,6 +17,7 @@ type Status = "loading" | "success" | "error" | "empty";
 
 export default function MedicoArquivosPage() {
     const [pacientes, setPacientes] = useState<any[]>([]);
+    const [examesSemana, setExamesSemana] = useState(0);
     const [status, setStatus] = useState<Status>("loading");
     const [errorMsg, setErrorMsg] = useState("");
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -29,13 +31,34 @@ export default function MedicoArquivosPage() {
             if (!token) return;
             
             try {
-                const data = await getMyPatients(token); // Chama a NOSSA função!
+                // Busca os pacientes e os arquivos ao mesmo tempo!
+                const [dadosPacientes, dadosArquivos] = await Promise.all([
+                    getMyPatients(token),
+                    getArquivos()
+                ]);
+
                 if (cancelled) return;
-                setPacientes(data);
-                setStatus(data.length === 0 ? "empty" : "success");
+
+                // Salva os pacientes
+                setPacientes(dadosPacientes);
+
+                // Lógica da semana: Pega a data de 7 dias atrás
+                const umaSemanaAtras = new Date();
+                umaSemanaAtras.setDate(umaSemanaAtras.getDate() - 7);
+
+                // Conta quantos arquivos foram enviados depois dessa data
+                const arquivosRecentes = dadosArquivos.filter((arq: any) => {
+                    const dataUpload = new Date(arq.dataUpload);
+                    return dataUpload >= umaSemanaAtras;
+                });
+                
+                // Salva a contagem de exames
+                setExamesSemana(arquivosRecentes.length);
+
+                setStatus(dadosPacientes.length === 0 ? "empty" : "success");
             } catch (err) {
                 if (cancelled) return;
-                setErrorMsg("Erro ao carregar Pacientes.");
+                setErrorMsg("Erro ao carregar os dados do painel.");
                 setStatus("error");
             }
         }
@@ -74,12 +97,12 @@ export default function MedicoArquivosPage() {
                     <div className={styles.cardResume} aria-label="Pacientes Ativos">
                         <img src="/pacientCard.svg" alt="Paciente" />
                         <p>Pacientes vinculados</p>
-                        <h2>15</h2>
+                        <h2>{pacientes.length}</h2>
                     </div>
                     <div className={styles.cardResume} aria-label="Exames enviados esta semana">
                         <img src="/FileIcon.svg" alt="Exames" />
                         <p>Exames enviados esta semana</p>
-                        <h2>14</h2>
+                        <h2>{examesSemana}</h2>
                     </div>
                 </div>
 
