@@ -32,7 +32,6 @@ export default function FilesTable({ arquivos, viewerRole }: Props) {
 
     return (
         <div className={styles.tableWrapper}>
-            <div>oii</div>
             <table className={styles.table} aria-label={ariaLabel}>
                 <thead>
                     <tr>

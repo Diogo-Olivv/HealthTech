@@ -22,6 +22,7 @@ export default function NavBar({ }: NavBarProps) {
                     setUser(profile);
                 } catch (error) {
                     clearToken();
+                    window.location.href = "/";
                     // Sessão expirada ou inválida
                 }
             }
@@ -47,7 +48,7 @@ export default function NavBar({ }: NavBarProps) {
                     </div>
                     <div className={styles["navbar__user-info"]}>
                         <span className={styles["navbar__user-name"]}>
-                            {user ? user.name : "Carregando..."}
+                            {user ? user.name.charAt(0).toUpperCase() + user.name.slice(1).toLowerCase() : "Carregando..."}
                         </span>
                         <span className={styles["navbar__user-role"]}>
                             {user ? user.tipo.charAt(0).toUpperCase() + user.tipo.slice(1).toLowerCase() : "Autenticando"}
