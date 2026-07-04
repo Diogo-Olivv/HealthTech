@@ -68,6 +68,55 @@ export async function getProfile(token: string): Promise<PublicUser> {
   return res.json();
 }
 
+// Função para listar pacientes do médico
+
+export async function getMyPatients(token: string): Promise<PublicUser[]> {
+  const res = await fetch(`${API_URL}/medico-paciente/meus-pacientes`, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+
+  if (!res.ok) {
+    throw new Error('Sessão inválida ou expirada.');
+  }
+
+  return res.json();
+}
+
+// funcionalidade de listar Pacientes Vinculados acima PAUSADA até finalização da Funcionalidade De Vincúlo de Médico com Paciente
+
+// Busca a lista de pacientes disponíveis (que não são seus ainda)
+export async function getAvailablePatients(token: string): Promise<any[]> {
+  const res = await fetch(`${API_URL}/medico-paciente/pacientes-disponiveis`, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+
+  if (!res.ok) {
+    throw new Error('Erro ao buscar pacientes disponíveis.');
+  }
+
+  return res.json();
+}
+
+// Envia o pedido para o backend criar o vínculo
+export async function linkPatient(token: string, pacienteId: string): Promise<void> {
+  const res = await fetch(`${API_URL}/medico-paciente/vincular`, {
+    method: 'POST',
+    headers: { 
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}` 
+    },
+    body: JSON.stringify({ pacienteId }),
+  });
+
+  if (!res.ok) {
+    const errorData = await res.json().catch(() => ({}));
+    throw new Error(errorData.message || 'Erro ao vincular paciente.');
+  }
+}
+
+//************************************** *//
+
+
 export function saveToken(token: string) {
   localStorage.setItem(TOKEN_KEY, token);
 }

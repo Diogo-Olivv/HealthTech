@@ -19,6 +19,7 @@ export default function MedicoArquivosPage() {
     const [status, setStatus] = useState<Status>("loading");
     const [errorMsg, setErrorMsg] = useState("");
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [refreshKey, setRefreshKey] = useState(0);
 
     useEffect(() => {
         let cancelled = false;
@@ -43,7 +44,7 @@ export default function MedicoArquivosPage() {
         return () => {
             cancelled = true;
         };
-    }, []);
+    }, [refreshKey]);
 
     if (status === "loading") return <LoadingState />;
     // if (status === "error") return <ErrorState msg={errorMsg} />;
@@ -92,7 +93,11 @@ export default function MedicoArquivosPage() {
                     <PacientsTable arquivos={arquivos} viewerRole="medico" />
                 </div>
                 <FileUpload />
-                <ModalVinculo isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+                <ModalVinculo 
+                    isOpen={isModalOpen} 
+                    onClose={() => setIsModalOpen(false)} 
+                    onSuccess={() => setRefreshKey(old => old + 1)}
+                />
             </div>
         </main>
     );

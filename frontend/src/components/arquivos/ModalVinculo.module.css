@@ -104,3 +104,78 @@
 .btnConfirm:hover {
     background-color: #1d4ed8;
 }
+
+/* Conteúdo */
+.searchInput {
+    width: 100%;
+    padding: 10px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    border-radius: 6px;
+    border: 1px solid #d1d5db;
+    font-size: 0.95rem;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.searchInput:focus {
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.1);
+}
+
+.patientList {
+    max-height: 250px;
+    overflow-y: auto;
+    border: 1px solid #e5e7eb;
+    border-radius: 6px;
+    padding: 8px;
+    background-color: #f9fafb;
+}
+
+.patientItem {
+    padding: 12px;
+    border-bottom: 1px solid #e5e7eb;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+}
+
+.patientItem:last-child {
+    border-bottom: none;
+}
+
+.patientItem:hover {
+    background-color: #f3f4f6;
+}
+
+.patientItem.selected {
+    background-color: #eff6ff;
+    border-color: #bfdbfe;
+}
+
+.radioInput {
+    cursor: pointer;
+    width: 18px;
+    height: 18px;
+    accent-color: #2563eb;
+}
+
+.patientName {
+    color: #1f2937;
+    font-size: 0.95rem;
+}
+
+.patientCpf {
+    color: #6b7280;
+    font-size: 0.85rem;
+}
+
+.loadingText, .emptyText {
+    color: #6b7280;
+    text-align: center;
+    padding: 20px 0;
+    font-size: 0.95rem;
+}
