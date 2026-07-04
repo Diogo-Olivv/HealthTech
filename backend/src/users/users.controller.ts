@@ -12,6 +12,8 @@ import type { Request } from 'express';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { RolesGuard } from '../auth/roles.guard';
 import { Roles } from '../auth/roles.decorator';
+import { Audit } from '../audit/audit.decorator';
+import { TipoEventoAuditoria } from '../entities/audit-log/audit-log.entity';
 import { UserType } from '../entities/user.entity';
 import { CreatePacienteDto } from './dto/create-paciente.dto';
 import { CreateMedicoDto } from './dto/create-medico.dto';
@@ -24,18 +26,21 @@ export class UsersController {
 
   @Post('pacientes')
   @HttpCode(HttpStatus.CREATED)
+  @Audit(TipoEventoAuditoria.CRIACAO_USUARIO)
   createPaciente(@Body() dto: CreatePacienteDto) {
     return this.usersService.createPaciente(dto);
   }
 
   @Post('medicos')
   @HttpCode(HttpStatus.CREATED)
+  @Audit(TipoEventoAuditoria.CRIACAO_USUARIO)
   createMedico(@Body() dto: CreateMedicoDto) {
     return this.usersService.createMedico(dto);
   }
 
   @Post('login')
   @HttpCode(HttpStatus.OK)
+  @Audit({ onSuccess: TipoEventoAuditoria.LOGIN, onFailure: TipoEventoAuditoria.LOGIN_FALHA })
   login(@Body() dto: LoginUserDto) {
     return this.usersService.login(dto);
   }
