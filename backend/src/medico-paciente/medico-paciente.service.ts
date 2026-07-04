@@ -48,6 +48,7 @@ export class MedicoPacienteService {
       pacienteId: v.pacienteId,
       nome: v.paciente.user.name,
       vinculadoEm: v.vinculadoEm,
+      dataNascimento: v.paciente.dataNascimento,
     }));
   }
 

@@ -14,6 +14,7 @@ interface PacienteVinculado {
     pacienteId: string;
     nome: string;
     vinculadoEm: string;
+    dataNascimento: string;
 }
 
 interface Props {
@@ -28,22 +29,24 @@ export default function PacientsTable({ pacientes }: Props) {
                     <tr>
                         <th scope="col">Nome do Paciente</th>
                         <th scope="col">Data do Vínculo</th>
+                        <th scope="col">Data de Nascimento</th>
                         <th scope="col">Ações</th>
                     </tr>
                 </thead>
                 <tbody>
                     {pacientes.map((paciente) => (
                         <tr key={paciente.pacienteId}>
-                            <td>
-                                <span className={styles.cellNome}>
-                                    <strong>{paciente.nome}</strong>
-                                </span>
+                            <td className={styles.cellNome}>
+                                {paciente.nome}
                             </td>
                             <td className={styles.cellDate}>
                                 {formatDate(paciente.vinculadoEm)}
                             </td>
+                           <td className={styles.cellDate}>
+                                {formatDate(paciente.dataNascimento)}
+                            </td>
                             <td>
-                                <button style={{ padding: '6px 12px', background: '#e0e7ff', color: '#3730a3', border: 'none', borderRadius: '4px', cursor: 'pointer' }}>
+                                <button className={styles.buttonVerExames}>
                                     Ver Exames
                                 </button>
                             </td>
