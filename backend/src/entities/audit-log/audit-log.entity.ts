@@ -38,8 +38,8 @@ export class AuditLog {
   @Column({ type: 'enum', enum: TipoEventoAuditoria })
   tipoEvento!: TipoEventoAuditoria;
 
-  @Column({ nullable: true })
-  recursoId!: string | null;
+  @Column({ type: 'uuid', nullable: true })
+  recursoId: string | null;
 
   @Column({ type: 'enum', enum: StatusAuditoria })
   status!: StatusAuditoria;
@@ -47,7 +47,7 @@ export class AuditLog {
   @Column()
   ipOrigem!: string;
 
-  @Column({ nullable: true })
+  @Column({ type: 'varchar', nullable: true })
   userAgent!: string | null;
 
   @CreateDateColumn()
