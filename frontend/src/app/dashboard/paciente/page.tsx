@@ -43,11 +43,11 @@ export default function PacienteArquivosPage() {
 
     if (status === "loading") return <LoadingState />;
     if (status === "error") return <ErrorState msg={errorMsg} />;
-    //   if (status === "empty") {
-    //     return (
-    //       <EmptyState description="Seus exames e documentos enviados pelo médico aparecerão aqui." title="Nenhum arquivo encontrado" />
-    //     );
-    //   }
+      if (status === "empty") {
+        return (
+          <EmptyState description="Seus exames e documentos enviados pelo médico aparecerão aqui." title="Nenhum arquivo encontrado" />
+        );
+      }
 
     return (
         <main>

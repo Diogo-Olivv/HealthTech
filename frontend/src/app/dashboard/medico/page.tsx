@@ -71,12 +71,12 @@ export default function MedicoArquivosPage() {
 
 
     if (status === "loading") return <LoadingState />;
-    // if (status === "error") return <ErrorState msg={errorMsg} />;
-    //   if (status === "empty") {
-    //     return (
-    //       <EmptyState description="Quando Pacientes forem vinculados ao seu perfil, eles aparecerão aqui." title="Nenhum paciente encontrado" />
-    //     );
-    //   }
+    if (status === "error") return <ErrorState msg={errorMsg} />;
+      if (status === "empty") {
+        return (
+          <EmptyState description="Quando Pacientes forem vinculados ao seu perfil, eles aparecerão aqui." title="Nenhum paciente encontrado" />
+        );
+      }
 
     return (
         <main>
