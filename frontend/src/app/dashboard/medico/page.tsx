@@ -27,32 +27,25 @@ export default function MedicoPainelPage() {
         let cancelled = false;
         async function fetchPacientes() {
             setStatus("loading");
-            const token = getToken(); // Pega o token
+            const token = getToken();
             if (!token) return;
             
             try {
-                // Busca os pacientes e os arquivos ao mesmo tempo!
                 const [dadosPacientes, dadosArquivos] = await Promise.all([
                     getMyPatients(token),
                     getArquivos()
                 ]);
 
                 if (cancelled) return;
-
-                // Salva os pacientes
                 setPacientes(dadosPacientes);
-
-                // Lógica da semana: Pega a data de 7 dias atrás
                 const umaSemanaAtras = new Date();
                 umaSemanaAtras.setDate(umaSemanaAtras.getDate() - 7);
-
-                // Conta quantos arquivos foram enviados depois dessa data
+                
                 const arquivosRecentes = dadosArquivos.filter((arq: any) => {
                     const dataUpload = new Date(arq.dataUpload);
                     return dataUpload >= umaSemanaAtras;
                 });
                 
-                // Salva a contagem de exames
                 setExamesSemana(arquivosRecentes.length);
 
                 setStatus(dadosPacientes.length === 0 ? "empty" : "success");
@@ -62,7 +55,7 @@ export default function MedicoPainelPage() {
                 setStatus("error");
             }
         }
-        fetchPacientes(); // Inicia a busca
+        fetchPacientes();
 
         return () => {
             cancelled = true;

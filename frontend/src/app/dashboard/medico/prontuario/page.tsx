@@ -44,11 +44,7 @@ export default function MedicoProntuarioPage() {
 
     if (status === "loading") return <LoadingState />;
     if (status === "error") return <ErrorState msg={errorMsg} />;
-    //   if (status === "empty") {
-    //     return (
-    //       <EmptyState description="Quando documentos forem vinculados a este Paciente, eles aparecerão aqui." title="Nenhum documento encontrado" />
-    //     );
-    //   }
+
 
     return (
         <main>
