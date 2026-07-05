@@ -152,3 +152,10 @@
         transform: translateY(0);
     }
 }
+
+.actionsContainer {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 1rem;
+}
+

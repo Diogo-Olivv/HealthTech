@@ -1,5 +1,6 @@
 "use client";
-
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import styles from "./NavBar.module.css";
@@ -8,6 +9,7 @@ import type { PublicUser } from "@/dto/public-user";
 
 
 export default function NavBar() {
+    const router = useRouter();
     const [user, setUser] = useState<PublicUser | null>(null);
 
     useEffect(() => {
@@ -19,7 +21,7 @@ export default function NavBar() {
                     setUser(profile);
                 } catch (error) {
                     clearToken();
-                    window.location.href = "/";
+                    router.push("/");
                     // Sessão expirada ou inválida
                 }
             }
@@ -29,19 +31,25 @@ export default function NavBar() {
 
     const handleLogout = () => {
         clearToken();
-        window.location.href = "/";
+        router.push("/");
     };
+
+    const getInitials = (name: string) => {
+        const parts = name.trim().split(" ");
+        if (parts.length === 1) return parts[0].substring(0, 2).toUpperCase();
+        return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
+    };
+
 
     return (
         <nav>
-            {/* O conteúdo da sua NavBar vai aqui */}
             <div className={styles.navbar__right}>
-                <a href="/dashboard">
-                    <img src="/logo-transparent-azul.svg" alt="Logo HealthTech" className={styles.navbar__logo} />
-                </a>
+                <Link href={user ? `/dashboard/${user.tipo.toLowerCase()}` : "#"}>
+                    <Image src="/logo-transparent-azul.svg" alt="Logo HealthTech" className={styles.navbar__logo} width={150} height={40} />
+                </Link>
                 <div className={styles.navbar__user}>
                     <div className={styles.navbar__avatar}>
-                        {user ? user.name.substring(0, 2).toUpperCase() : "??"}
+                        {user ? getInitials(user.name) : "??"}
                     </div>
                     <div className={styles["navbar__user-info"]}>
                         <span className={styles["navbar__user-name"]}>

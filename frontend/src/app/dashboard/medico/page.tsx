@@ -95,7 +95,7 @@ export default function MedicoPainelPage() {
                     </div>
                 </div>
 
-                <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '20px' }}>
+                <div className={styles.actionsContainer}>
 
                     <Button onClick={() => setIsModalOpen(true)}>
                         Vincular Paciente
