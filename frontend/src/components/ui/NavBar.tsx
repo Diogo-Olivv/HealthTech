@@ -6,11 +6,8 @@ import styles from "./NavBar.module.css";
 import { getProfile, getToken, clearToken } from "@/services/users.service";
 import type { PublicUser } from "@/dto/public-user";
 
-interface NavBarProps {
-    // Defina as propriedades do componente aqui, se necessário
-}
 
-export default function NavBar({ }: NavBarProps) {
+export default function NavBar() {
     const [user, setUser] = useState<PublicUser | null>(null);
 
     useEffect(() => {

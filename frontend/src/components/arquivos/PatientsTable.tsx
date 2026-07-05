@@ -1,4 +1,4 @@
-import styles from "./PacientsTable.module.css";
+import styles from "./PatientsTable.module.css";
 
 // Formata a data (ex: 04/07/2026)
 function formatDate(iso: string): string {
@@ -21,7 +21,7 @@ interface Props {
     pacientes: PacienteVinculado[];
 }
 
-export default function PacientsTable({ pacientes }: Props) {
+export default function PatientsTable({ pacientes }: Props) {
     return (
         <div className={styles.tableWrapper}>
             <table className={styles.table} aria-label="Lista de pacientes">

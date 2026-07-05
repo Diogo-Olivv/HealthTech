@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import styles from "./dashboard.module.css";
 import NavBar from "@/components/ui/NavBar";
 
@@ -9,7 +8,7 @@ export const metadata: Metadata = {
     description: "AILAB - Makers",
 };
 
-export default function RootLayout({
+export default function DashboardLayout({
     children,
 }: Readonly<{
     children: React.ReactNode;

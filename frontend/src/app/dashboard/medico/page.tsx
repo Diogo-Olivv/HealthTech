@@ -7,7 +7,7 @@ import type { ArquivoDto } from "@/dto/arquivo.dto";
 import LoadingState from "@/components/arquivos/LoadingState";
 import EmptyState from "@/components/arquivos/EmptyState";
 import ErrorState from "@/components/arquivos/ErrorState";
-import PacientsTable from "@/components/arquivos/PacientsTable";
+import PatientsTable from "@/components/arquivos/PatientsTable";
 import styles from "@/components/arquivos/ArquivosPage.module.css";
 import FileUpload from "@/components/arquivos/FileUpload";
 import Button from "@/components/ui/Button";
@@ -15,7 +15,7 @@ import { ModalVinculo } from "@/components/arquivos/ModalVinculo";
 
 type Status = "loading" | "success" | "error" | "empty";
 
-export default function MedicoArquivosPage() {
+export default function MedicoPainelPage() {
     const [pacientes, setPacientes] = useState<any[]>([]);
     const [examesSemana, setExamesSemana] = useState(0);
     const [status, setStatus] = useState<Status>("loading");
@@ -116,7 +116,7 @@ export default function MedicoArquivosPage() {
                             title="Nenhum paciente encontrado" 
                         />
                     ) : (
-                        <PacientsTable pacientes={pacientes} />
+                        <PatientsTable pacientes={pacientes} />
                     )}
                 </div>
                 <FileUpload />

@@ -12,7 +12,7 @@ import FileUpload from "@/components/arquivos/FileUpload";
 
 type Status = "loading" | "success" | "error" | "empty";
 
-export default function MedicoArquivosPage() {
+export default function MedicoProntuarioPage() {
     const [arquivos, setArquivos] = useState<ArquivoDto[]>([]);
     const [status, setStatus] = useState<Status>("loading");
     const [errorMsg, setErrorMsg] = useState("");
