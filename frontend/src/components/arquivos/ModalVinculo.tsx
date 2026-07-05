@@ -18,7 +18,6 @@ interface ModalVinculoProps {
 
 
 export function ModalVinculo({ isOpen, onClose, onSuccess }: ModalVinculoProps) {
-    if (!isOpen) return null;
 
     const [pacientes, setPacientes] = useState<PacienteDisponivel[]>([]);
     const [busca, setBusca] = useState('');
@@ -59,14 +58,15 @@ export function ModalVinculo({ isOpen, onClose, onSuccess }: ModalVinculoProps) 
         if (token) {
             try {
                 await linkPatient(token, selecionado);
-                onSuccess(); // Avisa que deu certo!
-                onClose(); // Fecha o modal
+                onSuccess(); 
+                onClose(); 
             } catch (error) {
                 alert("Erro ao vincular.");
             }
         }
     };
-
+    
+    if (!isOpen) return null;
 
     return (
         <div className={styles.overlay}>
