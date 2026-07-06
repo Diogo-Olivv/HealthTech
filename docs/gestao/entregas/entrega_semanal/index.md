@@ -16,9 +16,9 @@ responsável até a sexta-feira da semana correspondente.
 | [Semana 08](semana-08.md) | 26/05 - 01/06 | Desenvolvimento     | Concluída    |
 | [Semana 09](semana-09.md) | 02/06 - 08/06 | Desenvolvimento     | Concluída    |
 | [Semana 10](semana-10.md) | 09/06 - 15/06 | Desenvolvimento     | Concluída    |
-| [Semana 11](semana-11.md) | 16/06 - 22/06 | Desenvolvimento     | Em andamento |
-| Semana 12                 | 23/06 - 29/06 | Desenvolvimento     | Pendente     |
-| Semana 13                 | 30/06 - 06/07 | Deploy & Demo       | Pendente     |
+| [Semana 11](semana-11.md) | 16/06 - 22/06 | Desenvolvimento     | Concluída    |
+| [Semana 12](semana-12.md) | 23/06 - 29/06 | Desenvolvimento     | Concluída    |
+| [Semana 13](semana-13.md) | 30/06 - 06/07 | Deploy & Demo       | Concluída    |
 | Semana 14                 | 07/07 - 13/07 | Deploy & Demo       | Pendente     |
 
 > Adicione um novo arquivo para cada semana copiando o
