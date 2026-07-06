@@ -7,6 +7,7 @@ import {
   MaxFileSizeValidator,
   FileTypeValidator,
   ParseFilePipe,
+  Param,
   Post,
   Req,
   UploadedFile,
@@ -44,6 +45,17 @@ export class ArquivosController {
 
     return this.arquivosService.listarParaPaciente(id);
   }
+
+    @Get('paciente/:pacienteId')
+    @Roles(UserType.MEDICO)
+    listarProntuario(
+        @Req() req: AuthRequest,
+        @Param('pacienteId') pacienteId: string,
+    ): Promise<ListarArquivosResponseDto[]> {
+        const medicoId = req.user.id;
+        return this.arquivosService.listarProntuarioPaciente(medicoId, pacienteId);
+    }
+
 
   @Post('upload')
   @HttpCode(HttpStatus.CREATED)

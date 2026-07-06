@@ -76,6 +76,30 @@ export class ArquivosService {
     return arquivos.map(toListagemDto);
   }
 
+    async listarProntuarioPaciente(
+    medicoId: string,
+    pacienteId: string,
+  ): Promise<ListarArquivosResponseDto[]> {
+    // 1. Verifica se existe vínculo ativo entre o médico logado e o paciente solicitado
+    const vinculo = await this.medicoPacienteRepository.findOne({
+      where: { medicoId, pacienteId },
+    });
+
+    if (!vinculo) {
+      throw new ForbiddenException(
+        'Médico não possui vínculo com este paciente para acessar o prontuário.',
+      );
+    }
+
+    // 2. Retorna todos os arquivos do paciente, independente de quem fez o upload
+    const arquivos = await this.arquivosRepository.find({
+      where: { pacienteId },
+      relations: LISTAGEM_RELATIONS,
+      order: { dataUpload: 'DESC' },
+    });
+
+    return arquivos.map(toListagemDto);
+  }
 
   async uploadArquivo(
     file: Express.Multer.File,
