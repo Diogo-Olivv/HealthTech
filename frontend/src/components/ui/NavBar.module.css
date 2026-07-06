@@ -1,14 +1,64 @@
-/* navbar */
-.navbar__right {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: var(--spacing-5);
-    padding: var(--spacing-4) var(--spacing-12);
+.navbar {
     background: var(--color-surface);
     border-bottom: 1px solid var(--color-gray-200);
     width: 100%;
+}
 
+.navbar__container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--spacing-4) var(--spacing-12);
+    width: 100%;
+}
+
+.navbar__left {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-8);
+}
+
+.navbar__links {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-2);
+}
+
+.navLink {
+    text-decoration: none;
+    color: var(--color-text-secondary);
+    font-weight: 500;
+    font-size: var(--text-sm);
+    padding: var(--spacing-2) var(--spacing-4);
+    border-radius: var(--radius-md);
+    transition: all 0.2s ease;
+}
+
+.navLink:hover {
+    color: var(--color-primary);
+    background: var(--color-primary-50, #e7eff8);
+    text-decoration: none;
+}
+
+.activeLink {
+    color: var(--color-primary);
+    background: var(--color-primary-50, #e7eff8);
+    font-weight: 600;
+}
+
+.mobileMenuBtn {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: var(--color-primary);
+    cursor: pointer;
+}
+
+.navbar__right {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-5);
 }
 
 .navbar__logo {
@@ -60,21 +110,19 @@
 .navbar__logout {
     display: flex;
     align-items: center;
+    justify-content: flex-start;
+
     gap: var(--spacing-2);
     background: none;
     border: 1px solid var(--color-primary);
     border-radius: var(--radius-md);
-
     color: var(--color-primary);
     font-size: var(--text-base);
     font-weight: var(--font-weight-medium);
     font-family: inherit;
     cursor: pointer;
     padding: var(--spacing-3) var(--spacing-3);
-
-    transition:
-        color var(--transition-fast),
-        background var(--transition-fast);
+    transition: color var(--transition-fast), background var(--transition-fast);
 }
 
 .logoutIcon {
@@ -85,4 +133,77 @@
 .navbar__logout:hover {
     color: var(--color-error-500);
     background: var(--color-gray-100);
+}
+
+.mobileUserMenu {
+    display: none;
+}
+
+/* Responsividade Mobile */
+@media (max-width: 768px) {
+    .navbar__container {
+        padding: var(--spacing-3) var(--spacing-4);
+    }
+    
+    .navbar__left {
+        gap: var(--spacing-4);
+    }
+
+    .mobileMenuBtn {
+        display: block;
+    }
+    
+    .navbar__links {
+        display: none;
+        position: absolute;
+        top: 70px;
+        left: 0;
+        width: 100%;
+        background: white;
+        flex-direction: column;
+        padding: 1rem 0; /* Ajuste para as linhas ficarem de ponta a ponta */
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        z-index: 100;
+        align-items: flex-start;
+    }
+    
+    .mobileOpen {
+        display: flex;
+    }
+
+    .navLink {
+        width: 100%;
+        padding: 1rem 1.5rem;
+    }
+
+    .navLink:hover {
+        text-decoration: none;
+    }
+
+    /* O grande segredo: escondemos o bloco da direita inteiro na barra do topo! */
+    .navbar__right {
+        display: none;
+    }
+    
+    /* E mostramos os itens de usuário dentro do menu que desce! */
+    .mobileUserMenu {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        padding: 1.5rem;
+        border-top: 1px solid var(--color-gray-200);
+        margin-top: 0.5rem;
+        gap: 1.5rem;
+    }
+
+    .mobileUserInfo {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+    
+    .mobileUserDetails {
+        display: flex;
+        flex-direction: column;
+    }
 }
