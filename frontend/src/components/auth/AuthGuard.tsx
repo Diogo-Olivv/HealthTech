@@ -19,7 +19,7 @@ export default function AuthGuard({ children }: { children: React.ReactNode }) {
             }
 
             try {
-                const profile = await getProfile(token);
+                const profile = await getProfile();
                 const tipo = profile.tipo.toLowerCase();
 
                 if (pathname.includes("/dashboard/medico") && tipo !== "medico") {

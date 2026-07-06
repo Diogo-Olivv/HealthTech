@@ -8,6 +8,7 @@ import LoadingState from "@/components/arquivos/LoadingState";
 import EmptyState from "@/components/arquivos/EmptyState";
 import ErrorState from "@/components/arquivos/ErrorState";
 import PatientsTable from "@/components/arquivos/PatientsTable";
+import type { PacienteVinculadoDto } from "@/dto/paciente-vinculado.dto"
 import styles from "@/components/arquivos/ArquivosPage.module.css";
 import Button from "@/components/ui/Button";
 import { ModalVinculo } from "@/components/arquivos/ModalVinculo";
@@ -15,7 +16,7 @@ import { ModalVinculo } from "@/components/arquivos/ModalVinculo";
 type Status = "loading" | "success" | "error" | "empty";
 
 export default function MedicoPainelPage() {
-    const [pacientes, setPacientes] = useState<any[]>([]);
+    const [pacientes, setPacientes] = useState<PacienteVinculadoDto[]>([]);
     const [examesSemana, setExamesSemana] = useState(0);
     const [status, setStatus] = useState<Status>("loading");
     const [errorMsg, setErrorMsg] = useState("");
@@ -31,7 +32,7 @@ export default function MedicoPainelPage() {
             
             try {
                 const [dadosPacientes, dadosArquivos] = await Promise.all([
-                    getMyPatients(token),
+                    getMyPatients(),
                     getArquivos()
                 ]);
 

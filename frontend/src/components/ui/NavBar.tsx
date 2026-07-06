@@ -17,7 +17,7 @@ export default function NavBar() {
             const token = getToken();
             if (token) {
                 try {
-                    const profile = await getProfile(token);
+                    const profile = await getProfile();
                     setUser(profile);
                 } catch (error) {
                     clearToken();

@@ -1,13 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styles from './ModalVinculo.module.css';
 import { getAvailablePatients, linkPatient, getToken } from '@/services/users.service';
-
-export interface PacienteDisponivel {
-    id: string;
-    nome: string;
-    cpf: string;
-    email: string;
-}
+import type { PacienteDisponivelDto } from "@/dto/paciente-disponivel.dto";
 
 
 interface ModalVinculoProps {
@@ -19,7 +13,7 @@ interface ModalVinculoProps {
 
 export function ModalVinculo({ isOpen, onClose, onSuccess }: ModalVinculoProps) {
 
-    const [pacientes, setPacientes] = useState<PacienteDisponivel[]>([]);
+    const [pacientes, setPacientes] = useState<PacienteDisponivelDto[]>([]);
     const [busca, setBusca] = useState('');
     const [selecionado, setSelecionado] = useState<string | null>(null);
     const [loading, setLoading] = useState(false);
@@ -33,7 +27,7 @@ export function ModalVinculo({ isOpen, onClose, onSuccess }: ModalVinculoProps) 
             const token = getToken();
             if (token) {
                 try {
-                    const dados = await getAvailablePatients(token);
+                    const dados = await getAvailablePatients();
                     setPacientes(dados);
                 } catch (error) {
                     console.error("Erro", error);
@@ -57,7 +51,7 @@ export function ModalVinculo({ isOpen, onClose, onSuccess }: ModalVinculoProps) 
         const token = getToken();
         if (token) {
             try {
-                await linkPatient(token, selecionado);
+                await linkPatient(selecionado);
                 onSuccess(); 
                 onClose(); 
             } catch (error) {

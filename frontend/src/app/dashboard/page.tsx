@@ -16,7 +16,7 @@ export default function DashboardRootPage() {
                 return;
             }
             try {
-                const profile = await getProfile(token);
+                const profile = await getProfile();
                 // Redireciona para /dashboard/medico ou /dashboard/paciente
                 router.replace(`/dashboard/${profile.tipo.toLowerCase()}`);
             } catch (error) {

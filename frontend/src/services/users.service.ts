@@ -3,6 +3,9 @@ import type { CreatePacienteDto } from '@/dto/create-paciente.dto';
 import type { LoginUserDto } from '@/dto/login-user.dto';
 import type { LoginResponse } from '@/dto/login-response';
 import type { PublicUser } from '@/dto/public-user';
+import type { PacienteDisponivelDto } from '@/dto/paciente-disponivel.dto';
+import type { PacienteVinculadoDto } from '@/dto/paciente-vinculado.dto';
+
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:3001';
 const TOKEN_KEY = 'accessToken';
@@ -56,48 +59,35 @@ export async function loginUser(dto: LoginUserDto): Promise<LoginResponse> {
   return res.json();
 }
 
-export async function getProfile(token: string): Promise<PublicUser> {
+export async function getProfile(): Promise<PublicUser> {
+  const token = getToken();
   const res = await fetch(`${API_URL}/users/me`, {
     headers: { Authorization: `Bearer ${token}` },
   });
-
-  if (!res.ok) {
-    throw new Error('Sessão inválida ou expirada.');
-  }
-
+  if (!res.ok) throw new Error('Sessão inválida ou expirada.');
   return res.json();
 }
 
-// Função para listar pacientes do médico
-
-export async function getMyPatients(token: string): Promise<PublicUser[]> {
+export async function getMyPatients(): Promise<PacienteVinculadoDto[]> {
+  const token = getToken();
   const res = await fetch(`${API_URL}/medico-paciente/meus-pacientes`, {
     headers: { Authorization: `Bearer ${token}` },
   });
-
-  if (!res.ok) {
-    throw new Error('Sessão inválida ou expirada.');
-  }
-
+  if (!res.ok) throw new Error('Sessão inválida ou expirada.');
   return res.json();
 }
 
-
-// Busca a lista de pacientes disponíveis (que não são seus ainda)
-export async function getAvailablePatients(token: string): Promise<any[]> {
+export async function getAvailablePatients(): Promise<PacienteDisponivelDto[]> {
+  const token = getToken();
   const res = await fetch(`${API_URL}/medico-paciente/pacientes-disponiveis`, {
     headers: { Authorization: `Bearer ${token}` },
   });
-
-  if (!res.ok) {
-    throw new Error('Erro ao buscar pacientes disponíveis.');
-  }
-
+  if (!res.ok) throw new Error('Erro ao buscar pacientes disponíveis.');
   return res.json();
 }
 
-// Envia o pedido para o backend criar o vínculo
-export async function linkPatient(token: string, pacienteId: string): Promise<void> {
+export async function linkPatient(pacienteId: string): Promise<void> {
+  const token = getToken();
   const res = await fetch(`${API_URL}/medico-paciente/vincular`, {
     method: 'POST',
     headers: { 
@@ -106,12 +96,12 @@ export async function linkPatient(token: string, pacienteId: string): Promise<vo
     },
     body: JSON.stringify({ pacienteId }),
   });
-
   if (!res.ok) {
     const errorData = await res.json().catch(() => ({}));
     throw new Error(errorData.message || 'Erro ao vincular paciente.');
   }
 }
+
 
 //************************************** *//
 
