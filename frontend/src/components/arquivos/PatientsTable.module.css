@@ -57,10 +57,23 @@
 }
 
 .buttonVerExames {
-    padding: 6px 12px;
-    background: #e0e7ff;
-    color: #3730a3;
-    border: none;
-    border-radius: 4px;
+    padding: 8px 16px;
+    background-color: var(--color-primary-50);
+    color: var(--color-primary-600);
+    border: 1px solid var(--color-primary-200);
+    border-radius: var(--radius-md);
     cursor: pointer;
+    text-decoration: none;
+    font-weight: var(--font-weight-medium);
+    font-size: var(--text-sm);
+    transition: all 0.2s ease;
+    display: inline-block; /* Essencial para a tag <Link> se comportar exatamente como um botão */
+}
+
+.buttonVerExames:hover {
+    background-color: var(--color-primary-600);
+    color: var(--color-white);
+    border-color: var(--color-primary-600);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-sm);
 }

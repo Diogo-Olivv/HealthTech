@@ -1,5 +1,6 @@
 import styles from "./PatientsTable.module.css";
 import type { PacienteVinculadoDto } from "@/dto/paciente-vinculado.dto";
+import Link from "next/link";
 
 // Formata a data (ex: 04/07/2026)
 function formatDate(iso?: string): string {
@@ -40,9 +41,9 @@ export default function PatientsTable({ pacientes }: Props) {
                                 {formatDate(paciente.dataNascimento)}
                             </td>
                             <td>
-                                <button className={styles.buttonVerExames}>
+                                <Link href={`/dashboard/medico/paciente/${paciente.pacienteId}?nome=${encodeURIComponent(paciente.nome)}`} className={styles.buttonVerExames}>
                                     Ver Exames
-                                </button>
+                                </Link>
                             </td>
                         </tr>
                     ))}

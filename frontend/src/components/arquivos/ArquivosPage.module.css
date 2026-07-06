@@ -25,10 +25,19 @@
     color: var(--color-gray-700);
 }
 
+.backLink {
+    text-decoration: none;
+    color: var(--color-primary-600);
+    font-weight: 600;
+    display: inline-block;
+    margin-bottom: 1rem;
+    transition: color 0.2s;
+}
 
-
-
-
+.backLink:hover {
+    color: var(--color-primary-700);
+    text-decoration: underline;
+}
 
 .badge {
     background-color: var(--color-primary-50);
