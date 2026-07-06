@@ -120,3 +120,52 @@
     cursor: not-allowed;
     box-shadow: none;
 }
+
+.dropzoneLabel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 120px;
+}
+
+.hiddenInput {
+    display: none;
+}
+
+.dropzoneText {
+    pointer-events: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.uploadIcon {
+    transition: transform 0.2s ease;
+}
+
+/* Quando estiver arrastando, faz apenas o ícone pular para cima */
+.dragging .uploadIcon {
+    transform: translateY(-4px);
+}
+
+.dropzoneSubText {
+    font-size: 0.8rem;
+    color: var(--color-gray-500, #69747b);
+    margin-top: 0.2rem;
+    text-align: center;
+}
+
+.browseButton {
+    display: inline-block;
+    margin-top: 0.75rem;
+    padding: 0.4rem 1.2rem;
+    background-color: transparent;
+    color: var(--color-primary, #1e4969);
+    border: 1.5px solid var(--color-primary, #1e4969);
+    border-radius: var(--radius-sm, 6px);
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+

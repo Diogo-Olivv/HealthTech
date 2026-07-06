@@ -2,6 +2,7 @@
 
 import styles from "./FileUpload.module.css";
 import { useState, useEffect } from "react";
+import Image from "next/image";
 import { uploadArquivo } from "@/services/arquivos.service";
 import { getMyPatients } from "@/services/users.service";
 import type { PacienteVinculadoDto } from "@/dto/paciente-vinculado.dto";
@@ -53,6 +54,7 @@ export default function FileUpload() {
     };
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setIsDragging(false);
         if (e.target.files && e.target.files.length > 0) {
             processFile(e.target.files[0]);
         }
@@ -103,16 +105,50 @@ export default function FileUpload() {
             </div>
 
             <div className={styles.formGroup}>
-                <label className={styles.label}>Arquivo (Arraste ou clique) - Máx 10MB:</label>
-                <input 
-                    type="file" 
-                    onChange={handleFileChange} 
-                    onDragEnter={() => setIsDragging(true)}
-                    onDragLeave={() => setIsDragging(false)}
-                    onDrop={() => setIsDragging(false)}
-                    className={`${styles.fileInput} ${isDragging ? styles.dragging : ''}`} 
-                />
+                <label 
+                    className={`${styles.fileInput} ${styles.dropzoneLabel} ${isDragging ? styles.dragging : ''}`}
+                    onDragEnter={(e) => { e.preventDefault(); setIsDragging(true); }}
+                    onDragOver={(e) => { e.preventDefault(); setIsDragging(true); }}
+                    onDragLeave={(e) => { e.preventDefault(); setIsDragging(false); }}
+                    onDrop={(e) => {
+                        e.preventDefault();
+                        setIsDragging(false);
+                        if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
+                            console.log("Arquivo capturado via Drop:", e.dataTransfer.files[0]);
+                            processFile(e.dataTransfer.files[0]);
+                        }
+                    }}
+                >
+                    <input 
+                        type="file" 
+                        onChange={handleFileChange} 
+                        className={styles.hiddenInput}
+                    />
+                    <div className={styles.dropzoneText}>
+                        <Image 
+                            src="/upload-icon.svg" 
+                            alt="Ícone de Upload" 
+                            width={24}
+                            height={24} 
+                            className={styles.uploadIcon}
+                        />
+                        <span>Solte o arquivo aqui ou clique para selecionar</span>
+                        
+                        <span className={styles.dropzoneSubText}>
+                            Formatos permitidos: PDF, PNG, JPG (Máx 10MB)
+                        </span>
+
+                        {/* Este span tem aparência de botão e abre a galeria no mobile por estar dentro da Label */}
+                        <span className={styles.browseButton}>
+                            Procurar Arquivo
+                        </span>
+                    </div>
+
+
+                </label>
+
             </div>
+
 
             {file && (
                 <p className={styles.fileInfo}>
