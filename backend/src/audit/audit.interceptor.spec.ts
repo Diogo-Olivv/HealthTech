@@ -3,6 +3,7 @@ import { Reflector } from '@nestjs/core';
 import { of, throwError } from 'rxjs';
 import { AuditInterceptor } from './audit.interceptor';
 import { AuditLogService } from './audit-log.service';
+import { AuditConfig } from './audit.decorator';
 import {
   StatusAuditoria,
   TipoEventoAuditoria,
@@ -18,6 +19,7 @@ const makeRequest = (user?: { id: string }) =>
 const makeExecutionContext = (request: any): ExecutionContext =>
   ({
     getHandler: jest.fn(),
+    getClass: jest.fn(),
     switchToHttp: () => ({
       getRequest: () => request,
     }),
@@ -33,6 +35,9 @@ describe('AuditInterceptor', () => {
   let reflector: Reflector;
   let auditLogService: jest.Mocked<AuditLogService>;
 
+  const mockConfig = (config: AuditConfig | undefined) =>
+    jest.spyOn(reflector, 'getAllAndOverride').mockReturnValue(config);
+
   beforeEach(() => {
     reflector = new Reflector();
 
@@ -46,7 +51,7 @@ describe('AuditInterceptor', () => {
   afterEach(() => jest.restoreAllMocks());
 
   it('deve prosseguir sem auditar quando @Audit não está presente', (done) => {
-    jest.spyOn(reflector, 'get').mockReturnValue(undefined);
+    mockConfig(undefined);
 
     const ctx = makeExecutionContext(makeRequest());
     const handler = makeCallHandler({ ok: true });
@@ -62,10 +67,11 @@ describe('AuditInterceptor', () => {
     });
   });
 
-  it('deve registrar SUCCESS com tipo simples (string) quando handler resolve', (done) => {
-    jest
-      .spyOn(reflector, 'get')
-      .mockReturnValue(TipoEventoAuditoria.LOGIN);
+  it('deve registrar SUCCESS quando handler resolve', (done) => {
+    mockConfig({
+      evento: TipoEventoAuditoria.LOGIN,
+      extractRecursoId: (res: any) => res?.id ?? null,
+    });
 
     const request = makeRequest({ id: 'user-123' });
     const ctx = makeExecutionContext(request);
@@ -85,10 +91,8 @@ describe('AuditInterceptor', () => {
     });
   });
 
-  it('deve registrar FAILURE com o mesmo tipo quando handler rejeita e não há onFailure', (done) => {
-    jest
-      .spyOn(reflector, 'get')
-      .mockReturnValue(TipoEventoAuditoria.LOGIN);
+  it('deve registrar FAILURE com o mesmo evento quando handler rejeita', (done) => {
+    mockConfig({ evento: TipoEventoAuditoria.LOGIN });
 
     const request = makeRequest();
     const ctx = makeExecutionContext(request);
@@ -110,59 +114,11 @@ describe('AuditInterceptor', () => {
     });
   });
 
-  it('deve usar onFailure distinto quando configurado via AuditConfig', (done) => {
-    jest.spyOn(reflector, 'get').mockReturnValue({
-      onSuccess: TipoEventoAuditoria.LOGIN,
-      onFailure: TipoEventoAuditoria.LOGIN_FALHA,
-    });
-
-    const request = makeRequest({ id: 'user-456' });
-    const ctx = makeExecutionContext(request);
-    const error = new Error('Senha errada');
-    const handler = makeCallHandler(error, true);
-
-    interceptor.intercept(ctx, handler).subscribe({
-      error: () => {
-        expect(auditLogService.registrar).toHaveBeenCalledWith(
-          TipoEventoAuditoria.LOGIN_FALHA,
-          'user-456',
-          null,
-          StatusAuditoria.FAILURE,
-          request,
-        );
-        done();
-      },
-    });
-  });
-
-  it('deve usar onSuccess do AuditConfig quando handler resolve', (done) => {
-    jest.spyOn(reflector, 'get').mockReturnValue({
-      onSuccess: TipoEventoAuditoria.LOGIN,
-      onFailure: TipoEventoAuditoria.LOGIN_FALHA,
-    });
-
-    const request = makeRequest({ id: 'user-789' });
-    const ctx = makeExecutionContext(request);
-    const handler = makeCallHandler({ id: 'user-789', token: 'jwt...' });
-
-    interceptor.intercept(ctx, handler).subscribe({
-      complete: () => {
-        expect(auditLogService.registrar).toHaveBeenCalledWith(
-          TipoEventoAuditoria.LOGIN,
-          'user-789',
-          'user-789',
-          StatusAuditoria.SUCCESS,
-          request,
-        );
-        done();
-      },
-    });
-  });
-
   it('deve passar userId null quando request.user não está presente', (done) => {
-    jest
-      .spyOn(reflector, 'get')
-      .mockReturnValue(TipoEventoAuditoria.CRIACAO_USUARIO);
+    mockConfig({
+      evento: TipoEventoAuditoria.CRIACAO_USUARIO,
+      extractRecursoId: (res: any) => res?.id ?? null,
+    });
 
     const request = makeRequest();
     const ctx = makeExecutionContext(request);
@@ -183,9 +139,7 @@ describe('AuditInterceptor', () => {
   });
 
   it('deve re-lançar o erro original após registrar auditoria', (done) => {
-    jest
-      .spyOn(reflector, 'get')
-      .mockReturnValue(TipoEventoAuditoria.ACESSO_NEGADO);
+    mockConfig({ evento: TipoEventoAuditoria.ACESSO_NEGADO });
 
     const originalError = new Error('Forbidden');
     const request = makeRequest({ id: 'user-bad' });
@@ -201,14 +155,12 @@ describe('AuditInterceptor', () => {
     });
   });
 
-  it('deve passar recursoId null quando resposta não contém campo de id', (done) => {
-    jest
-      .spyOn(reflector, 'get')
-      .mockReturnValue(TipoEventoAuditoria.LOGIN);
+  it('deve passar recursoId null quando extractRecursoId não é configurado', (done) => {
+    mockConfig({ evento: TipoEventoAuditoria.LOGIN });
 
     const request = makeRequest({ id: 'user-x' });
     const ctx = makeExecutionContext(request);
-    const handler = makeCallHandler({ message: 'ok' });
+    const handler = makeCallHandler({ id: 'ignorado-porque-nao-ha-extractor' });
 
     interceptor.intercept(ctx, handler).subscribe({
       complete: () => {

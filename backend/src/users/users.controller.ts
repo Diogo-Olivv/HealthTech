@@ -18,6 +18,7 @@ import { UserType } from '../entities/user.entity';
 import { CreatePacienteDto } from './dto/create-paciente.dto';
 import { CreateMedicoDto } from './dto/create-medico.dto';
 import { LoginUserDto } from './dto/login-user.dto';
+import { PublicUser } from './dto/public-user.dto';
 import { UsersService } from './users.service';
 
 @Controller('users')
@@ -26,21 +27,30 @@ export class UsersController {
 
   @Post('pacientes')
   @HttpCode(HttpStatus.CREATED)
-  @Audit(TipoEventoAuditoria.CRIACAO_USUARIO)
+  @Audit({
+    evento: TipoEventoAuditoria.CRIACAO_USUARIO,
+    extractRecursoId: (r: PublicUser) => r.id,
+  })
   createPaciente(@Body() dto: CreatePacienteDto) {
     return this.usersService.createPaciente(dto);
   }
 
   @Post('medicos')
   @HttpCode(HttpStatus.CREATED)
-  @Audit(TipoEventoAuditoria.CRIACAO_USUARIO)
+  @Audit({
+    evento: TipoEventoAuditoria.CRIACAO_USUARIO,
+    extractRecursoId: (r: PublicUser) => r.id,
+  })
   createMedico(@Body() dto: CreateMedicoDto) {
     return this.usersService.createMedico(dto);
   }
 
   @Post('login')
   @HttpCode(HttpStatus.OK)
-  @Audit({ onSuccess: TipoEventoAuditoria.LOGIN, onFailure: TipoEventoAuditoria.LOGIN_FALHA })
+  @Audit({
+    evento: TipoEventoAuditoria.LOGIN,
+    extractRecursoId: (r: { user: PublicUser }) => r.user.id,
+  })
   login(@Body() dto: LoginUserDto) {
     return this.usersService.login(dto);
   }
