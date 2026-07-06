@@ -1,62 +1,70 @@
 import React, { useState, useEffect } from 'react';
 import styles from './ModalVinculo.module.css';
-import { getAvailablePatients, linkPatient, getToken } from '@/services/users.service';
+import { getAvailablePatients, linkPatient } from '@/services/users.service';
 import type { PacienteDisponivelDto } from "@/dto/paciente-disponivel.dto";
-
+import FeedbackMessage from "@/components/ui/FeedbackMessage";
 
 interface ModalVinculoProps {
     isOpen: boolean;
     onClose: () => void;
-    onSuccess: () => void; // Avisa a tela principal que deu certo!
+    onSuccess: () => void;
 }
 
-
 export function ModalVinculo({ isOpen, onClose, onSuccess }: ModalVinculoProps) {
-
     const [pacientes, setPacientes] = useState<PacienteDisponivelDto[]>([]);
     const [busca, setBusca] = useState('');
     const [selecionado, setSelecionado] = useState<string | null>(null);
     const [loading, setLoading] = useState(false);
+    
+    // Estado do Feedback (Substitui os Alerts feios)
+    const [feedback, setFeedback] = useState<{type: "error" | "success", msg: string} | null>(null);
 
     // Quando o modal abrir, busca a lista
     useEffect(() => {
-        if (!isOpen) return;
+        if (!isOpen) {
+            // Limpa os dados de estados anteriores toda vez que fecha
+            setFeedback(null);
+            setSelecionado(null);
+            setBusca('');
+            return;
+        }
         
         async function fetchPacientes() {
             setLoading(true);
-            const token = getToken();
-            if (token) {
-                try {
-                    const dados = await getAvailablePatients();
-                    setPacientes(dados);
-                } catch (error) {
-                    console.error("Erro", error);
-                }
+            try {
+                const dados = await getAvailablePatients();
+                setPacientes(dados);
+            } catch (error) {
+                console.error("Erro", error);
+            } finally {
+                setLoading(false);
             }
-            setLoading(false);
         }
         fetchPacientes();
     }, [isOpen]);
 
-    // Filtra a lista com base no que foi digitado na pesquisa
     const pacientesFiltrados = pacientes.filter(p => 
         p.nome?.toLowerCase().includes(busca.toLowerCase()) || 
         p.cpf?.includes(busca)
     );
 
-    // Função do botão de confirmar
     const handleConfirmar = async () => {
-        if (!selecionado) return alert("Selecione um paciente!");
+        if (!selecionado) {
+            setFeedback({ type: "error", msg: "Selecione um paciente na lista antes de confirmar." });
+            return;
+        }
         
-        const token = getToken();
-        if (token) {
-            try {
-                await linkPatient(selecionado);
+        try {
+            await linkPatient(selecionado);
+            setFeedback({ type: "success", msg: "Paciente vinculado com sucesso!" });
+            
+            // Dá 1.5s de tempo para o usuário ler a mensagem de sucesso antes do Modal fechar sozinho
+            setTimeout(() => {
                 onSuccess(); 
                 onClose(); 
-            } catch (error) {
-                alert("Erro ao vincular.");
-            }
+            }, 1500);
+        } catch (error: any) {
+            setFeedback({ type: "error", msg: error.message || "Erro ao vincular paciente." });
         }
     };
     
@@ -84,6 +92,12 @@ export function ModalVinculo({ isOpen, onClose, onSuccess }: ModalVinculoProps) 
                     <p className={styles.description}>
                         Selecione os pacientes para se vincular e ter acesso a seus exames.
                     </p>
+
+                    {feedback && (
+                        <div className={styles.feedbackWrapper}>
+                            <FeedbackMessage type={feedback.type} message={feedback.msg} />
+                        </div>
+                    )}
 
                     {/* Barra de Pesquisa */}
                     <input 
@@ -126,20 +140,14 @@ export function ModalVinculo({ isOpen, onClose, onSuccess }: ModalVinculoProps) 
                         </div>
                     )}
 
-
                 </div>
 
                 {/* Rodapé com Ações */}
                 <div className={styles.footer}>
-                    <button
-                        onClick={onClose}
-                        className={styles.btnCancel}
-                    >
+                    <button onClick={onClose} className={styles.btnCancel}>
                         Cancelar
                     </button>
-                    <button
-                        onClick={handleConfirmar}
-                        className={styles.btnConfirm}>
+                    <button onClick={handleConfirmar} className={styles.btnConfirm}>
                         Confirmar Vínculo
                     </button>
                 </div>
