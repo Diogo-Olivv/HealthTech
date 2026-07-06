@@ -19,3 +19,26 @@ export async function getArquivos(): Promise<ArquivoDto[]> {
 
   return res.json();
 }
+
+export async function uploadArquivo(file: File, pacienteId: string): Promise<ArquivoDto> {
+  const token = getToken();
+  if (!token) throw new Error("Usuário não autenticado.");
+
+  const formData = new FormData();
+  formData.append("arquivo", file);
+  formData.append("pacienteId", pacienteId);
+
+  const res = await fetch(`${API_URL}/arquivos/upload`, {
+    method: "POST",
+    headers: { Authorization: `Bearer ${token}` },
+    body: formData, 
+  });
+
+  if (!res.ok) {
+    const data = await res.json().catch(() => ({}));
+    throw new Error(data.message ?? "Erro ao enviar o arquivo.");
+  }
+
+  return res.json();
+}
+

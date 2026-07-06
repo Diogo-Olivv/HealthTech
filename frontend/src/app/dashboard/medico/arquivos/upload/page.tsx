@@ -16,7 +16,7 @@ export default function UploadPage() {
                     </div>
                 </div>
                 
-                <div className={styles.card} style={{ marginTop: "2rem" }}>
+                <div className={styles.card}>
                     <FileUpload />
                 </div>
             </div>

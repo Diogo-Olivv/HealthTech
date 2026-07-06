@@ -1,10 +1,122 @@
+.formGroup {
+    margin-bottom: 1.5rem;
+    text-align: left;
+}
 
+.label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: var(--color-gray-700, #333);
+    font-size: 0.95rem;
+}
 
-.card {
-    padding: 1rem;
-    text-align: center;
-    margin-top: 1rem;
-    border-radius: var(--radius-xl);
+.select {
+    width: 100%;
+    padding: 0.85rem 1rem;
+    border-radius: var(--radius-md, 8px);
+    border: 1px solid var(--color-gray-300, #c9d2da);
+    background-color: var(--color-white, #fff);
+    font-size: 1rem;
+    color: var(--color-gray-800, #2f373d);
+    transition: border-color 0.2s, box-shadow 0.2s;
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    background-size: 1em;
+}
+
+.select:focus {
+    outline: none;
+    border-color: var(--color-primary, #1e4969);
+    box-shadow: 0 0 0 3px rgba(30, 73, 105, 0.1);
+}
+
+.fileInput {
+    display: block;
+    width: 100%;
+    padding: 1.5rem;
+    border: 2px dashed var(--color-gray-300, #c9d2da);
+    border-radius: var(--radius-md, 8px);
+    background-color: var(--color-background, #f8fafc);
+    cursor: pointer;
+    color: var(--color-gray-600, #515f67);
+    transition: all 0.2s ease;
+}
+
+.fileInput:hover, .fileInput.dragging {
+    border-color: var(--color-primary, #1e4969);
+    background-color: var(--color-primary-50, #e7eff8);
+}
+
+.fileInput:focus {
+    outline: none;
+    border-color: var(--color-primary, #1e4969);
+    box-shadow: 0 0 0 3px rgba(30, 73, 105, 0.1);
+}
+
+.fileInput::file-selector-button {
+    padding: 0.6rem 1.2rem;
+    margin-right: 1rem;
+    border: none;
+    border-radius: var(--radius-sm, 6px);
+    background-color: var(--color-primary, #1e4969);
+    color: white;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.2s, transform 0.1s;
+}
+
+.fileInput::file-selector-button:hover {
+    background-color: var(--color-primary-700, #15354e);
+}
+
+.fileInput::file-selector-button:active {
+    transform: scale(0.98);
+}
+
+.fileInfo {
+    font-size: 0.9rem;
+    color: var(--color-success, #059669);
+    margin-bottom: 1.5rem;
+    background-color: rgba(5, 150, 105, 0.1);
+    padding: 0.75rem;
+    border-radius: var(--radius-sm, 6px);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 500;
+}
+
+.uploadButton {
+    width: 100%;
+    padding: 0.85rem 1.5rem;
+    background-color: var(--color-primary, #1e4969);
+    color: white;
+    border: none;
+    border-radius: var(--radius-md, 8px);
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: all 0.2s ease;
+    box-shadow: var(--shadow-md);
+}
+
+.uploadButton:hover:not(:disabled) {
+    background-color: var(--color-primary-700, #15354e);
+    transform: translateY(-1px);
     box-shadow: var(--shadow-lg);
-    background-color: var(--color-white);
+}
+
+.uploadButton:active:not(:disabled) {
+    transform: translateY(0);
+    box-shadow: var(--shadow-sm);
+}
+
+.uploadButton:disabled {
+    background-color: var(--color-gray-300, #c9d2da);
+    color: var(--color-gray-600, #515f67);
+    cursor: not-allowed;
+    box-shadow: none;
 }

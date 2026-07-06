@@ -49,6 +49,8 @@ export class MedicoPacienteService {
       nome: v.paciente.user.name,
       vinculadoEm: v.vinculadoEm,
       dataNascimento: v.paciente.dataNascimento,
+      cpf: v.paciente.cpf,
+      email: v.paciente.user.email,
     }));
   }
 

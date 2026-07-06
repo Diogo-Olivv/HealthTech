@@ -31,7 +31,7 @@ export default function LoginPage() {
         try {
             const { accessToken } = await loginUser(form);
             saveToken(accessToken);
-            const profile = await getProfile(accessToken);
+            const profile = await getProfile();
             const destino =
                 profile.tipo === UserType.MEDICO
                     ? "/dashboard/medico"
