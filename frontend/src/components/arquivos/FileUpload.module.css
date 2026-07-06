@@ -1,7 +1,18 @@
-.formGroup {
-    margin-bottom: 1.5rem;
+/* Escudo para blindar o formulário contra estilos externos e forçar o padrão esquerdo */
+.uploadContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
     text-align: left;
+    width: 100%;
 }
+
+.formGroup {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
 
 .label {
     display: block;
@@ -56,25 +67,6 @@
     box-shadow: 0 0 0 3px rgba(30, 73, 105, 0.1);
 }
 
-.fileInput::file-selector-button {
-    padding: 0.6rem 1.2rem;
-    margin-right: 1rem;
-    border: none;
-    border-radius: var(--radius-sm, 6px);
-    background-color: var(--color-primary, #1e4969);
-    color: white;
-    cursor: pointer;
-    font-weight: 500;
-    transition: background-color 0.2s, transform 0.1s;
-}
-
-.fileInput::file-selector-button:hover {
-    background-color: var(--color-primary-700, #15354e);
-}
-
-.fileInput::file-selector-button:active {
-    transform: scale(0.98);
-}
 
 .fileInfo {
     font-size: 0.9rem;

@@ -66,12 +66,16 @@ export class ArquivosService {
     if (!pacienteIds.length) return [];
 
     const arquivos = await this.arquivosRepository.find({
-      where: pacienteIds.map((pacienteId) => ({ pacienteId })),
+      where: pacienteIds.map((pacienteId) => ({ 
+          pacienteId,
+          medicoUploadId: medicoId 
+      })),
       relations: LISTAGEM_RELATIONS,
       order: { dataUpload: 'DESC' },
     });
     return arquivos.map(toListagemDto);
   }
+
 
   async uploadArquivo(
     file: Express.Multer.File,

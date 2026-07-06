@@ -82,7 +82,7 @@ export default function FileUpload() {
     };
 
         return (
-        <div className={styles.card}>
+        <div className={styles.uploadContainer}>
             {/* Componente visual de erro ou sucesso */}
             {status !== "idle" && status !== "loading" && (
                 <FeedbackMessage type={status} message={feedbackMsg} />
