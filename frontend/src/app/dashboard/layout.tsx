@@ -1,7 +1,8 @@
+// src/app/dashboard/layout.tsx
 import type { Metadata } from "next";
 import styles from "./dashboard.module.css";
 import NavBar from "@/components/ui/NavBar";
-
+import AuthGuard from "@/components/auth/AuthGuard"; // <-- Adicione esta importação
 
 export const metadata: Metadata = {
     title: "HealthTech",
@@ -17,7 +18,9 @@ export default function DashboardLayout({
         <div className={styles.layoutContainer}>
             <NavBar />
             <main className={styles.mainContent}>
-                {children}
+                <AuthGuard>
+                    {children}
+                </AuthGuard>
             </main>
         </div>
     );
