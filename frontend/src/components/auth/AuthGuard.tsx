@@ -2,47 +2,41 @@
 
 import { useEffect, useState } from "react";
 import { useRouter, usePathname } from "next/navigation";
-import { getToken, getProfile, clearToken } from "@/services/users.service";
+import { useAuth } from "@/contexts/AuthContext";
 import LoadingState from "@/components/arquivos/LoadingState";
 
 export default function AuthGuard({ children }: { children: React.ReactNode }) {
     const router = useRouter();
     const pathname = usePathname();
+    
+    // Consumindo o usuário direto da memória!
+    const { user, loading } = useAuth();
     const [isAuthorized, setIsAuthorized] = useState(false);
 
     useEffect(() => {
-        const checkAuth = async () => {
-            const token = getToken();
-            if (!token) {
-                router.replace("/");
-                return;
-            }
+        if (loading) return;
 
-            try {
-                const profile = await getProfile();
-                const tipo = profile.tipo.toLowerCase();
+        if (!user) {
+            router.replace("/");
+            return;
+        }
 
-                if (pathname.includes("/dashboard/medico") && tipo !== "medico") {
-                    router.replace("/dashboard/paciente");
-                    return;
-                }
+        const tipo = user.tipo.toLowerCase();
 
-                if (pathname.includes("/dashboard/paciente") && tipo !== "paciente") {
-                    router.replace("/dashboard/medico");
-                    return;
-                }
+        if (pathname.includes("/dashboard/medico") && tipo !== "medico") {
+            router.replace("/dashboard/paciente");
+            return;
+        }
 
-                setIsAuthorized(true);
-            } catch (error) {
-                clearToken();
-                router.replace("/");
-            }
-        };
+        if (pathname.includes("/dashboard/paciente") && tipo !== "paciente") {
+            router.replace("/dashboard/medico");
+            return;
+        }
 
-        checkAuth();
-    }, [pathname, router]);
+        setIsAuthorized(true);
+    }, [user, loading, pathname, router]);
 
-    if (!isAuthorized) {
+    if (loading || !isAuthorized) {
         return <LoadingState />;
     }
 

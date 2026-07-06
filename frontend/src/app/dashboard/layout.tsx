@@ -1,8 +1,8 @@
-// src/app/dashboard/layout.tsx
 import type { Metadata } from "next";
 import styles from "./dashboard.module.css";
 import NavBar from "@/components/ui/NavBar";
-import AuthGuard from "@/components/auth/AuthGuard"; // <-- Adicione esta importação
+import AuthGuard from "@/components/auth/AuthGuard";
+import { AuthProvider } from "@/contexts/AuthContext";
 
 export const metadata: Metadata = {
     title: "HealthTech",
@@ -15,13 +15,15 @@ export default function DashboardLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <div className={styles.layoutContainer}>
-            <NavBar />
-            <main className={styles.mainContent}>
-                <AuthGuard>
-                    {children}
-                </AuthGuard>
-            </main>
-        </div>
+        <AuthProvider>
+            <div className={styles.layoutContainer}>
+                <NavBar />
+                <main className={styles.mainContent}>
+                    <AuthGuard>
+                        {children}
+                    </AuthGuard>
+                </main>
+            </div>
+        </AuthProvider>
     );
 }
