@@ -38,7 +38,7 @@ export class AuditLog {
   tipoEvento!: TipoEventoAuditoria;
 
   @Column({ type: 'uuid', nullable: true })
-  recursoId: string | null;
+  recursoId!: string | null;
 
   @Column({ type: 'enum', enum: StatusAuditoria })
   status!: StatusAuditoria;
