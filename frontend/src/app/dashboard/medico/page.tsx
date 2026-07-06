@@ -9,7 +9,6 @@ import EmptyState from "@/components/arquivos/EmptyState";
 import ErrorState from "@/components/arquivos/ErrorState";
 import PatientsTable from "@/components/arquivos/PatientsTable";
 import styles from "@/components/arquivos/ArquivosPage.module.css";
-import FileUpload from "@/components/arquivos/FileUpload";
 import Button from "@/components/ui/Button";
 import { ModalVinculo } from "@/components/arquivos/ModalVinculo";
 
@@ -112,7 +111,7 @@ export default function MedicoPainelPage() {
                         <PatientsTable pacientes={pacientes} />
                     )}
                 </div>
-                <FileUpload />
+
                 <ModalVinculo 
                     isOpen={isModalOpen} 
                     onClose={() => setIsModalOpen(false)} 
