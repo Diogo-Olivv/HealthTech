@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common';
+import { APP_INTERCEPTOR } from '@nestjs/core';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './entities/user.entity';
@@ -12,6 +13,7 @@ import { MedicoPaciente } from './entities/medico-paciente.entity';
 import { AuditLog } from './entities/audit-log/audit-log.entity';
 import { MedicoPacienteModule } from './medico-paciente/medico-paciente.module';
 import { AuditModule } from './audit/audit.module';
+import { AuditInterceptor } from './audit/audit.interceptor';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 
@@ -51,6 +53,12 @@ import { AppService } from './app.service';
     AuditModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: AuditInterceptor,
+    },
+  ],
 })
 export class AppModule {}
