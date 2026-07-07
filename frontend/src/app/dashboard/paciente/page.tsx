@@ -50,7 +50,7 @@ export default function PacienteArquivosPage() {
 
     return (
         <main>
-            <div>
+            <div className={styles.container}>
                 <div className={styles.header}>
                     <div className={styles.headerLeft}>
                         <h1 className={styles.title}>Meus Arquivos</h1>

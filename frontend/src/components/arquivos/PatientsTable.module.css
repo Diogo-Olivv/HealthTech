@@ -77,9 +77,6 @@
 
 
 .cellNome {
-    /* display: flex; */
-    /* align-items: center; */
-    /* gap: 0.5rem; */
     color: var(--color-gray-800);
     font-weight: var(--font-weight-medium);
 }
@@ -129,6 +126,7 @@
     border-color: var(--color-primary-600);
     transform: translateY(-1px);
     box-shadow: var(--shadow-sm);
+    text-decoration: none;
 }
 
 .buttonVerExames:focus-visible {

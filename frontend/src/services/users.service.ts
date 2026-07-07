@@ -112,10 +112,6 @@ export async function linkPatient(pacienteId: string): Promise<void> {
   }
 }
 
-
-//************************************** *//
-
-
 export function saveToken(token: string) {
   localStorage.setItem(TOKEN_KEY, token);
 }

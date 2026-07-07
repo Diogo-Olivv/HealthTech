@@ -9,7 +9,6 @@ export default function AuthGuard({ children }: { children: React.ReactNode }) {
     const router = useRouter();
     const pathname = usePathname();
     
-    // Consumindo o usuário direto da memória!
     const { user, loading } = useAuth();
     const [isAuthorized, setIsAuthorized] = useState(false);
 
