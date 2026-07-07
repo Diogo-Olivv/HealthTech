@@ -5,6 +5,7 @@ import type { LoginResponse } from '@/dto/login-response';
 import type { PublicUser } from '@/dto/public-user';
 import type { PacienteDisponivelDto } from '@/dto/paciente-disponivel.dto';
 import type { PacienteVinculadoDto } from '@/dto/paciente-vinculado.dto';
+import type { MedicoVinculadoDto } from '@/dto/medico-vinculado.dto';
 
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:3001';
@@ -74,6 +75,15 @@ export async function getMyPatients(): Promise<PacienteVinculadoDto[]> {
     headers: { Authorization: `Bearer ${token}` },
   });
   if (!res.ok) throw new Error('Sessão inválida ou expirada.');
+  return res.json();
+}
+
+export async function getMyMedicos(): Promise<MedicoVinculadoDto[]> {
+  const token = getToken();
+  const res = await fetch(`${API_URL}/medico-paciente/meus-medicos`, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  if (!res.ok) throw new Error('Erro ao buscar seus médicos.');
   return res.json();
 }
 
