@@ -14,6 +14,7 @@ import Button from "@/components/ui/Button";
 import { ModalVinculo } from "@/components/arquivos/ModalVinculo";
 import type { UiStatus } from "@/types/ui-status";
 import { contarExamesUltimosDias } from "@/utils/arquivos";
+import UserPlusIcon from "@/components/icons/UserPlusIcon";
 
 export default function MedicoPainelPage() {
     const [pacientes, setPacientes] = useState<PacienteVinculadoDto[]>([]);
@@ -92,6 +93,7 @@ export default function MedicoPainelPage() {
                 <div className={styles.actionsContainer}>
 
                     <Button onClick={() => setIsModalOpen(true)}>
+                        <UserPlusIcon />
                         Vincular Paciente
                     </Button>
                 </div>

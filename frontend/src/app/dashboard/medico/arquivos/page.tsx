@@ -10,6 +10,8 @@ import FilesTable from "@/components/arquivos/FilesTable";
 import styles from "@/components/arquivos/ArquivosPage.module.css";
 import Button from "@/components/ui/Button";
 import type { UiStatus } from "@/types/ui-status";
+import UploadCloudIcon from "@/components/icons/UploadCloudIcon";
+
 
 export default function ArquivosMedicoPage() {
     const [arquivos, setArquivos] = useState<any[]>([]);
@@ -20,7 +22,6 @@ export default function ArquivosMedicoPage() {
         let cancelled = false;
         async function fetchArquivos() {
             try {
-                // No futuro, isso pode ser filtrado só para os arquivos deste médico
                 const dados = await getArquivos(); 
                 if (cancelled) return;
                 
@@ -50,8 +51,8 @@ export default function ArquivosMedicoPage() {
                         </p>
                     </div>
                     
-                    {/* Botão para levar para a tela de Upload que criamos há pouco */}
                     <Button onClick={() => router.push("/dashboard/medico/arquivos/upload")}>
+                        <UploadCloudIcon />
                         Novo Upload
                     </Button>
                 </div>
