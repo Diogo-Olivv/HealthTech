@@ -9,12 +9,11 @@ import EmptyState from "@/components/arquivos/EmptyState";
 import FilesTable from "@/components/arquivos/FilesTable";
 import styles from "@/components/arquivos/ArquivosPage.module.css";
 import Button from "@/components/ui/Button";
-
-type Status = "loading" | "success" | "error" | "empty";
+import type { UiStatus } from "@/types/ui-status";
 
 export default function ArquivosMedicoPage() {
     const [arquivos, setArquivos] = useState<any[]>([]);
-    const [status, setStatus] = useState<Status>("loading");
+    const [status, setStatus] = useState<UiStatus>("loading");
     const router = useRouter();
 
     useEffect(() => {

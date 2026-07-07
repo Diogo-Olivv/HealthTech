@@ -10,8 +10,8 @@ import ErrorState from "@/components/arquivos/ErrorState";
 import FilesTable from "@/components/arquivos/FilesTable";
 import styles from "@/components/arquivos/ArquivosPage.module.css";
 import Link from "next/link";
+import type { UiStatus } from "@/types/ui-status";
 
-type Status = "loading" | "success" | "error" | "empty";
 
 export default function ProntuarioPacientePage() {
     // Essa é a mágica do Next.js: ele extrai o [id] direto da URL!
@@ -22,7 +22,7 @@ export default function ProntuarioPacientePage() {
     const nomeDoPaciente = searchParams.get("nome") || "Paciente";
     
     const [arquivos, setArquivos] = useState<ArquivoDto[]>([]);
-    const [status, setStatus] = useState<Status>("loading");
+    const [status, setStatus] = useState<UiStatus>("loading");
     const [errorMsg, setErrorMsg] = useState("");
 
     useEffect(() => {

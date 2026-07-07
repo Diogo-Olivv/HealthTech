@@ -1,16 +1,7 @@
 import styles from "./PatientsTable.module.css";
 import type { PacienteVinculadoDto } from "@/dto/paciente-vinculado.dto";
 import Link from "next/link";
-
-// Formata a data (ex: 04/07/2026)
-function formatDate(iso?: string): string {
-    if (!iso) return "-";
-    return new Date(iso).toLocaleDateString("pt-BR", {
-        day: "2-digit",
-        month: "2-digit",
-        year: "numeric",
-    });
-}
+import { formatDate } from "@/utils/date";
 
 interface Props {
     pacientes: PacienteVinculadoDto[];

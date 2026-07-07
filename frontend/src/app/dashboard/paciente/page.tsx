@@ -8,12 +8,11 @@ import EmptyState from "@/components/arquivos/EmptyState";
 import ErrorState from "@/components/arquivos/ErrorState";
 import FilesTable from "@/components/arquivos/FilesTable";
 import styles from "@/components/arquivos/ArquivosPage.module.css";
-
-type Status = "loading" | "success" | "error" | "empty";
+import type { UiStatus } from "@/types/ui-status";
 
 export default function PacienteArquivosPage() {
     const [arquivos, setArquivos] = useState<ArquivoDto[]>([]);
-    const [status, setStatus] = useState<Status>("loading");
+    const [status, setStatus] = useState<UiStatus>("loading");
     const [errorMsg, setErrorMsg] = useState("");
 
     useEffect(() => {

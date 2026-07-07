@@ -12,13 +12,13 @@ import type { PacienteVinculadoDto } from "@/dto/paciente-vinculado.dto"
 import styles from "@/components/arquivos/ArquivosPage.module.css";
 import Button from "@/components/ui/Button";
 import { ModalVinculo } from "@/components/arquivos/ModalVinculo";
-
-type Status = "loading" | "success" | "error" | "empty";
+import type { UiStatus } from "@/types/ui-status";
+import { contarExamesUltimosDias } from "@/utils/arquivos";
 
 export default function MedicoPainelPage() {
     const [pacientes, setPacientes] = useState<PacienteVinculadoDto[]>([]);
     const [examesSemana, setExamesSemana] = useState(0);
-    const [status, setStatus] = useState<Status>("loading");
+    const [status, setStatus] = useState<UiStatus>("loading");
     const [errorMsg, setErrorMsg] = useState("");
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [refreshKey, setRefreshKey] = useState(0);
@@ -38,15 +38,9 @@ export default function MedicoPainelPage() {
 
                 if (cancelled) return;
                 setPacientes(dadosPacientes);
-                const umaSemanaAtras = new Date();
-                umaSemanaAtras.setDate(umaSemanaAtras.getDate() - 7);
                 
-                const arquivosRecentes = dadosArquivos.filter((arq: any) => {
-                    const dataUpload = new Date(arq.dataUpload);
-                    return dataUpload >= umaSemanaAtras;
-                });
-                
-                setExamesSemana(arquivosRecentes.length);
+                setExamesSemana(contarExamesUltimosDias(dadosArquivos, 7));
+
 
                 setStatus(dadosPacientes.length === 0 ? "empty" : "success");
             } catch (err) {

@@ -1,20 +1,13 @@
 import type { ArquivoDto } from "@/dto/arquivo.dto";
 import FileIcon from "@/components/icons/FileIcon";
 import styles from "./FilesTable.module.css";
+import { formatDate } from "@/utils/date";
 
 export type ViewerRole = "medico" | "paciente";
 
 interface Props {
     arquivos: ArquivoDto[];
     viewerRole: ViewerRole;
-}
-
-function formatDate(iso: string): string {
-    return new Date(iso).toLocaleDateString("pt-BR", {
-        day: "2-digit",
-        month: "2-digit",
-        year: "numeric",
-    });
 }
 
 function formatTamanho(bytes: number): string {
