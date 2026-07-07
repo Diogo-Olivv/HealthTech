@@ -26,7 +26,8 @@ export default function NavBar() {
             { label: "Novo Upload", href: "/dashboard/medico/arquivos/upload"}
           ]
         : [
-            { label: "Início", href: "/dashboard/paciente" }
+            { label: "Início", href: "/dashboard/paciente" },
+            { label: "Meus Médicos", href: "/dashboard/paciente/medicos" }
           ];
 
     return (
