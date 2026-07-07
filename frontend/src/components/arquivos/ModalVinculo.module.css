@@ -110,6 +110,12 @@
     background-color: var(--color-primary-700);
 }
 
+.btnCancel:focus-visible,
+.btnConfirm:focus-visible {
+    outline: 2px solid var(--color-primary-600);
+    outline-offset: 2px;
+}
+
 /* Conteúdo */
 .searchInput {
     width: 100%;
@@ -160,6 +166,12 @@
     background-color: #eff6ff;
     border-color: #bfdbfe;
 }
+
+.patientItem:focus-visible {
+    outline: 2px solid var(--color-primary-600);
+    outline-offset: 2px;
+}
+
 
 .radioInput {
     cursor: pointer;

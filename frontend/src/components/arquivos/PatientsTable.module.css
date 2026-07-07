@@ -67,7 +67,7 @@
     font-weight: var(--font-weight-medium);
     font-size: var(--text-sm);
     transition: all 0.2s ease;
-    display: inline-block; /* Essencial para a tag <Link> se comportar exatamente como um botão */
+    display: inline-block;
 }
 
 .buttonVerExames:hover {
@@ -77,3 +77,9 @@
     transform: translateY(-1px);
     box-shadow: var(--shadow-sm);
 }
+
+.buttonVerExames:focus-visible {
+    outline: 2px solid var(--color-primary-600);
+    outline-offset: 2px;
+}
+
