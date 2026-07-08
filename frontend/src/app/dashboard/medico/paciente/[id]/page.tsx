@@ -14,7 +14,6 @@ import type { UiStatus } from "@/types/ui-status";
 
 
 export default function ProntuarioPacientePage() {
-    // Essa é a mágica do Next.js: ele extrai o [id] direto da URL!
     const params = useParams();
     const pacienteId = params.id as string;
 
