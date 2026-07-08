@@ -44,6 +44,98 @@
     box-shadow: 0 0 0 3px rgba(30, 73, 105, 0.1);
 }
 
+.combobox {
+    position: relative;
+    width: 100%;
+}
+
+.comboboxInput {
+    width: 100%;
+    padding: 0.85rem 1rem;
+    border-radius: var(--radius-md, 8px);
+    border: 1px solid var(--color-gray-300, #c9d2da);
+    background-color: var(--color-white, #fff);
+    font-size: 1rem;
+    color: var(--color-gray-800, #2f373d);
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.comboboxInput:focus {
+    outline: none;
+    border-color: var(--color-primary, #1e4969);
+    box-shadow: 0 0 0 3px rgba(30, 73, 105, 0.1);
+}
+
+.comboboxList {
+    position: absolute;
+    top: calc(100% + 4px);
+    left: 0;
+    right: 0;
+    z-index: 20;
+    max-height: 220px;
+    overflow-y: auto;
+    margin: 0;
+    padding: 0.25rem 0;
+    list-style: none;
+    background: var(--color-white, #fff);
+    border: 1px solid var(--color-gray-200);
+    border-radius: var(--radius-md, 8px);
+    box-shadow: var(--shadow-md);
+}
+
+.comboboxOption {
+    display: flex;
+    flex-direction: column;
+    padding: 0.6rem 1rem;
+    cursor: pointer;
+    color: var(--color-gray-800);
+    transition: background-color 0.15s ease;
+}
+
+.comboboxOption:hover,
+.comboboxOption:focus {
+    background-color: var(--color-primary-50, #e7eff8);
+    outline: none;
+}
+
+.comboboxOption small {
+    color: var(--color-gray-500);
+}
+
+.comboboxEmpty {
+    padding: 0.75rem 1rem;
+    color: var(--color-gray-500);
+    font-size: 0.9rem;
+    text-align: center;
+}
+
+.pacienteSelecionado {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.85rem 1rem;
+    border-radius: var(--radius-md, 8px);
+    border: 1px solid var(--color-primary, #1e4969);
+    background-color: var(--color-primary-50, #e7eff8);
+    color: var(--color-gray-800);
+    font-size: 1rem;
+}
+
+.limparBtn {
+    background: none;
+    border: none;
+    color: var(--color-primary, #1e4969);
+    font-weight: 600;
+    cursor: pointer;
+    padding: 0.25rem 0.5rem;
+    font-size: 0.85rem;
+}
+
+.limparBtn:hover {
+    text-decoration: underline;
+}
+
 .fileInput {
     display: block;
     width: 100%;
@@ -159,5 +251,6 @@
     border-radius: var(--radius-sm, 6px);
     font-size: 0.85rem;
     font-weight: 600;
+    cursor: pointer;
 }
 

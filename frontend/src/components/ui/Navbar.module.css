@@ -4,7 +4,7 @@
     width: 100%;
 }
 
-.navbar__container {
+.container {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -12,13 +12,24 @@
     width: 100%;
 }
 
-.navbar__left {
+.left {
     display: flex;
     align-items: center;
     gap: var(--spacing-8);
 }
 
-.navbar__links {
+.right {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-5);
+}
+
+.logo {
+    width: 150px;
+    height: auto;
+}
+
+.links {
     display: flex;
     align-items: center;
     gap: var(--spacing-2);
@@ -46,32 +57,23 @@
     font-weight: 600;
 }
 
-.mobileMenuBtn {
-    display: none;
-    background: none;
-    border: none;
-    font-size: 1.5rem;
-    color: var(--color-primary);
-    cursor: pointer;
-}
-
-.navbar__right {
-    display: flex;
-    align-items: center;
-    gap: var(--spacing-5);
-}
-
-.navbar__logo {
-    width: 150px;
-}
-
-.navbar__user {
+.userBlockDesktop {
     display: flex;
     align-items: center;
     gap: var(--spacing-3);
 }
 
-.navbar__avatar {
+.userBlockMobile {
+    display: none;
+}
+
+.userSummary {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-3);
+}
+
+.avatar {
     width: 36px;
     height: 36px;
     border-radius: var(--radius-full);
@@ -84,34 +86,41 @@
     font-size: var(--text-sm);
 }
 
-.navbar__user-info {
+.userInfo {
     display: flex;
     flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing-1);
     line-height: 1.3;
 }
 
-.navbar__user-name {
+.userName {
     font-size: var(--text-sm);
     font-weight: var(--font-weight-semibold);
     color: var(--color-text-primary);
 }
 
-.navbar__user-role {
+.userBadge {
+    background-color: var(--color-primary-50);
+    color: var(--color-primary-600);
+    padding: 0.15rem 0.6rem;
+    border-radius: var(--radius-full);
     font-size: var(--text-xs);
-    color: var(--color-text-secondary);
+    font-weight: var(--font-weight-medium);
+    text-transform: capitalize;
+    line-height: 1.4;
 }
 
-.navbar__divider {
+.divider {
     width: 1px;
     height: 32px;
     background: var(--color-gray-200);
 }
 
-.navbar__logout {
+.logoutBtn {
     display: flex;
     align-items: center;
     justify-content: flex-start;
-
     gap: var(--spacing-2);
     background: none;
     border: 1px solid var(--color-primary);
@@ -121,52 +130,65 @@
     font-weight: var(--font-weight-medium);
     font-family: inherit;
     cursor: pointer;
-    padding: var(--spacing-3) var(--spacing-3);
+    padding: var(--spacing-3);
     transition: color var(--transition-fast), background var(--transition-fast);
 }
 
-.logoutIcon {
-    width: 20px;
-    height: 20px;
-}
-
-.navbar__logout:hover {
+.logoutBtn:hover {
     color: var(--color-error-500);
     background: var(--color-gray-100);
 }
 
-.mobileUserMenu {
+.logoutIcon {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+}
+
+.logoutText {
+    display: inline;
+}
+
+.mobileMenuBtn {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: var(--color-primary);
+    cursor: pointer;
+}
+
+.mobileOnly {
     display: none;
 }
 
-/* Responsividade Mobile */
 @media (max-width: 768px) {
-    .navbar__container {
+    .container {
         padding: var(--spacing-3) var(--spacing-4);
     }
-    
-    .navbar__left {
+
+    .left {
         gap: var(--spacing-4);
     }
 
     .mobileMenuBtn {
         display: block;
     }
-    
-    .navbar__links {
+
+    .links {
         display: none;
         position: absolute;
         top: 70px;
         left: 0;
         width: 100%;
-        background: white;
+        background: var(--color-white);
         flex-direction: column;
-        padding: 1rem 0; /* Ajuste para as linhas ficarem de ponta a ponta */
-        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        padding: 1rem 0;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         z-index: 100;
         align-items: flex-start;
     }
-    
+
     .mobileOpen {
         display: flex;
     }
@@ -180,13 +202,16 @@
         text-decoration: none;
     }
 
-    /* O grande segredo: escondemos o bloco da direita inteiro na barra do topo! */
-    .navbar__right {
+    .right {
         display: none;
     }
-    
-    /* E mostramos os itens de usuário dentro do menu que desce! */
-    .mobileUserMenu {
+
+    .mobileOnly {
+        display: block;
+        width: 100%;
+    }
+
+    .userBlockMobile {
         display: flex;
         flex-direction: column;
         width: 100%;
@@ -196,14 +221,9 @@
         gap: 1.5rem;
     }
 
-    .mobileUserInfo {
+    .userBlockMobile .userSummary {
         display: flex;
         align-items: center;
         gap: 1rem;
-    }
-    
-    .mobileUserDetails {
-        display: flex;
-        flex-direction: column;
     }
 }

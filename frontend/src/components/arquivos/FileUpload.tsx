@@ -1,47 +1,85 @@
 "use client";
 
-import styles from "./FileUpload.module.css";
-import { useState, useEffect } from "react";
 import Image from "next/image";
+import { useEffect, useMemo, useRef, useState } from "react";
+import type { ChangeEvent, DragEvent, KeyboardEvent } from "react";
 import { uploadArquivo } from "@/services/arquivos.service";
 import { getMyPatients } from "@/services/users.service";
 import type { PacienteVinculadoDto } from "@/dto/paciente-vinculado.dto";
+import { UPLOAD_ARQUIVO_LIMITES } from "@/dto/upload-arquivo.dto";
 import FeedbackMessage from "@/components/ui/FeedbackMessage";
+import styles from "./FileUpload.module.css";
+
+type Status = "idle" | "loading" | "success" | "error";
+
+const { tamanhoMaximoBytes, formatosPermitidos } = UPLOAD_ARQUIVO_LIMITES;
+
+function mensagemDeErro(erro: unknown, fallback: string): string {
+    return erro instanceof Error && erro.message ? erro.message : fallback;
+}
 
 export default function FileUpload() {
     const [file, setFile] = useState<File | null>(null);
     const [pacientes, setPacientes] = useState<PacienteVinculadoDto[]>([]);
     const [pacienteId, setPacienteId] = useState<string>("");
-    
-    const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
-    const [feedbackMsg, setFeedbackMsg] = useState("");
-    const [isDragging, setIsDragging] = useState(false);
+    const [buscaPaciente, setBuscaPaciente] = useState<string>("");
+    const [dropdownAberto, setDropdownAberto] = useState<boolean>(false);
+    const [status, setStatus] = useState<Status>("idle");
+    const [feedbackMsg, setFeedbackMsg] = useState<string>("");
+    const [isDragging, setIsDragging] = useState<boolean>(false);
 
-    // Carrega a lista de pacientes do médico
+    const dropzoneRef = useRef<HTMLInputElement>(null);
+    const seletorPacienteRef = useRef<HTMLDivElement>(null);
+
     useEffect(() => {
-        async function fetchPacientes() {
+        async function carregarPacientes() {
             try {
-                const dados = await getMyPatients();
-                setPacientes(dados);
+                setPacientes(await getMyPatients());
             } catch (err) {
-                console.error("Erro ao buscar pacientes pro seletor", err);
+                setStatus("error");
+                setFeedbackMsg(
+                    mensagemDeErro(err, "Não foi possível carregar seus pacientes vinculados."),
+                );
             }
         }
-        fetchPacientes();
+        carregarPacientes();
     }, []);
 
-    const processFile = (selectedFile: File) => {
-        // Validação de formato
-        const allowedTypes = ["application/pdf", "image/png", "image/jpeg"];
-        if (!allowedTypes.includes(selectedFile.type)) {
+    useEffect(() => {
+        if (!dropdownAberto) return;
+        const handleClickFora = (e: MouseEvent) => {
+            if (!seletorPacienteRef.current?.contains(e.target as Node)) {
+                setDropdownAberto(false);
+            }
+        };
+        window.addEventListener("mousedown", handleClickFora);
+        return () => window.removeEventListener("mousedown", handleClickFora);
+    }, [dropdownAberto]);
+
+    const pacienteSelecionado = useMemo(
+        () => pacientes.find((p) => p.pacienteId === pacienteId) ?? null,
+        [pacientes, pacienteId],
+    );
+
+    const pacientesFiltrados = useMemo(() => {
+        const termo = buscaPaciente.trim().toLowerCase();
+        if (!termo) return pacientes;
+        return pacientes.filter(
+            (p) =>
+                p.nome?.toLowerCase().includes(termo) ||
+                p.cpf?.replace(/\D/g, "").includes(termo.replace(/\D/g, "")),
+        );
+    }, [pacientes, buscaPaciente]);
+
+    const validarEArmazenar = (selecionado: File) => {
+        if (!formatosPermitidos.includes(selecionado.type as (typeof formatosPermitidos)[number])) {
             setStatus("error");
             setFeedbackMsg("Formato inválido. Apenas PDF, PNG ou JPG são permitidos.");
             setFile(null);
             return;
         }
 
-        // Validação de 10MB
-        if (selectedFile.size > 10 * 1024 * 1024) {
+        if (selecionado.size > tamanhoMaximoBytes) {
             setStatus("error");
             setFeedbackMsg("O arquivo deve ter no máximo 10 MB.");
             setFile(null);
@@ -50,14 +88,39 @@ export default function FileUpload() {
 
         setStatus("idle");
         setFeedbackMsg("");
-        setFile(selectedFile);
+        setFile(selecionado);
     };
 
-    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
         setIsDragging(false);
-        if (e.target.files && e.target.files.length > 0) {
-            processFile(e.target.files[0]);
+        const arquivoSelecionado = e.target.files?.[0];
+        if (arquivoSelecionado) validarEArmazenar(arquivoSelecionado);
+    };
+
+    const handleDrop = (e: DragEvent<HTMLLabelElement>) => {
+        e.preventDefault();
+        setIsDragging(false);
+        const arquivoSolto = e.dataTransfer.files?.[0];
+        if (arquivoSolto) validarEArmazenar(arquivoSolto);
+    };
+
+    const handleDropzoneKeyDown = (e: KeyboardEvent<HTMLLabelElement>) => {
+        if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            dropzoneRef.current?.click();
         }
+    };
+
+    const selecionarPaciente = (p: PacienteVinculadoDto) => {
+        setPacienteId(p.pacienteId);
+        setBuscaPaciente("");
+        setDropdownAberto(false);
+    };
+
+    const limparSelecaoPaciente = () => {
+        setPacienteId("");
+        setBuscaPaciente("");
+        setDropdownAberto(true);
     };
 
     const handleUpload = async () => {
@@ -70,85 +133,146 @@ export default function FileUpload() {
 
         setStatus("loading");
         try {
-            await uploadArquivo(file, pacienteId);
+            await uploadArquivo({ file, pacienteId });
             setStatus("success");
             setFeedbackMsg("Exame enviado e vinculado com sucesso!");
             setFile(null);
             setPacienteId("");
-        } catch (error: any) {
+            setBuscaPaciente("");
+        } catch (err) {
             setStatus("error");
-            setFeedbackMsg(error.message || "Erro ao enviar o arquivo.");
+            setFeedbackMsg(mensagemDeErro(err, "Erro ao enviar o arquivo."));
         }
     };
 
-        return (
+    const isEnvioBloqueado = !file || !pacienteId || status === "loading";
+
+    return (
         <div className={styles.uploadContainer}>
-            {/* Componente visual de erro ou sucesso */}
-            {status !== "idle" && status !== "loading" && (
+            {(status === "error" || status === "success") && (
                 <FeedbackMessage type={status} message={feedbackMsg} />
             )}
 
-            <div className={styles.formGroup}>
-                <label className={styles.label}>Paciente Vinculado:</label>
-                <select 
-                    value={pacienteId} 
-                    onChange={(e) => setPacienteId(e.target.value)}
-                    className={styles.select}
-                >
-                    <option value="">Selecione o paciente...</option>
-                    {pacientes.map(p => (
-                        <option key={p.pacienteId} value={p.pacienteId}>
-                            {p.nome} (CPF: {p.cpf})
-                        </option>
-                    ))}
-                </select>
+            <div className={styles.formGroup} ref={seletorPacienteRef}>
+                <label className={styles.label} htmlFor="paciente-busca">
+                    Paciente Vinculado:
+                </label>
+
+                {pacienteSelecionado ? (
+                    <div className={styles.pacienteSelecionado}>
+                        <span>
+                            {pacienteSelecionado.nome} (CPF: {pacienteSelecionado.cpf})
+                        </span>
+                        <button
+                            type="button"
+                            onClick={limparSelecaoPaciente}
+                            className={styles.limparBtn}
+                            aria-label="Trocar paciente selecionado"
+                        >
+                            Trocar
+                        </button>
+                    </div>
+                ) : (
+                    <div className={styles.combobox}>
+                        <input
+                            id="paciente-busca"
+                            type="text"
+                            role="combobox"
+                            aria-expanded={dropdownAberto}
+                            aria-controls="paciente-listbox"
+                            autoComplete="off"
+                            placeholder="Pesquise por nome ou CPF..."
+                            value={buscaPaciente}
+                            onFocus={() => setDropdownAberto(true)}
+                            onChange={(e) => {
+                                setBuscaPaciente(e.target.value);
+                                setDropdownAberto(true);
+                            }}
+                            className={styles.comboboxInput}
+                        />
+                        {dropdownAberto && (
+                            <ul
+                                id="paciente-listbox"
+                                role="listbox"
+                                className={styles.comboboxList}
+                            >
+                                {pacientesFiltrados.length === 0 ? (
+                                    <li className={styles.comboboxEmpty}>
+                                        Nenhum paciente encontrado.
+                                    </li>
+                                ) : (
+                                    pacientesFiltrados.map((p) => (
+                                        <li
+                                            key={p.pacienteId}
+                                            role="option"
+                                            aria-selected={p.pacienteId === pacienteId}
+                                            className={styles.comboboxOption}
+                                            onClick={() => selecionarPaciente(p)}
+                                            onKeyDown={(e) => {
+                                                if (e.key === "Enter" || e.key === " ") {
+                                                    e.preventDefault();
+                                                    selecionarPaciente(p);
+                                                }
+                                            }}
+                                            tabIndex={0}
+                                        >
+                                            <strong>{p.nome}</strong>
+                                            <small>CPF: {p.cpf}</small>
+                                        </li>
+                                    ))
+                                )}
+                            </ul>
+                        )}
+                    </div>
+                )}
             </div>
 
             <div className={styles.formGroup}>
-                <label 
-                    className={`${styles.fileInput} ${styles.dropzoneLabel} ${isDragging ? styles.dragging : ''}`}
-                    onDragEnter={(e) => { e.preventDefault(); setIsDragging(true); }}
-                    onDragOver={(e) => { e.preventDefault(); setIsDragging(true); }}
-                    onDragLeave={(e) => { e.preventDefault(); setIsDragging(false); }}
-                    onDrop={(e) => {
+                <label
+                    className={`${styles.fileInput} ${styles.dropzoneLabel} ${isDragging ? styles.dragging : ""}`}
+                    role="button"
+                    tabIndex={0}
+                    onKeyDown={handleDropzoneKeyDown}
+                    onDragEnter={(e) => {
+                        e.preventDefault();
+                        setIsDragging(true);
+                    }}
+                    onDragOver={(e) => {
+                        e.preventDefault();
+                        setIsDragging(true);
+                    }}
+                    onDragLeave={(e) => {
                         e.preventDefault();
                         setIsDragging(false);
-                        if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
-                            console.log("Arquivo capturado via Drop:", e.dataTransfer.files[0]);
-                            processFile(e.dataTransfer.files[0]);
-                        }
                     }}
+                    onDrop={handleDrop}
                 >
-                    <input 
-                        type="file" 
-                        onChange={handleFileChange} 
+                    <input
+                        ref={dropzoneRef}
+                        type="file"
+                        onChange={handleFileChange}
                         className={styles.hiddenInput}
+                        accept={formatosPermitidos.join(",")}
                     />
                     <div className={styles.dropzoneText}>
-                        <Image 
-                            src="/upload-icon.svg" 
-                            alt="Ícone de Upload" 
+                        <Image
+                            src="/upload-icon.svg"
+                            alt=""
                             width={24}
-                            height={24} 
+                            height={24}
+                            aria-hidden="true"
                             className={styles.uploadIcon}
                         />
                         <span>Solte o arquivo aqui ou clique para selecionar</span>
-                        
+
                         <span className={styles.dropzoneSubText}>
                             Formatos permitidos: PDF, PNG, JPG (Máx 10MB)
                         </span>
 
-                        {/* Este span tem aparência de botão e abre a galeria no mobile por estar dentro da Label */}
-                        <span className={styles.browseButton}>
-                            Procurar Arquivo
-                        </span>
+                        <span className={styles.browseButton}>Procurar Arquivo</span>
                     </div>
-
-
                 </label>
-
             </div>
-
 
             {file && (
                 <p className={styles.fileInfo}>
@@ -156,9 +280,10 @@ export default function FileUpload() {
                 </p>
             )}
 
-            <button 
-                onClick={handleUpload} 
-                disabled={!file || !pacienteId || status === "loading"}
+            <button
+                type="button"
+                onClick={handleUpload}
+                disabled={isEnvioBloqueado}
                 className={styles.uploadButton}
             >
                 {status === "loading" ? "Enviando..." : "Upload do Exame"}

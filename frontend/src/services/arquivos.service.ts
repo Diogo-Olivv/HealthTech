@@ -1,4 +1,5 @@
 import type { ArquivoDto } from "@/dto/arquivo.dto";
+import type { UploadArquivoDto } from "@/dto/upload-arquivo.dto";
 import { getToken } from "./users.service";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:3001";
@@ -20,18 +21,18 @@ export async function getArquivos(): Promise<ArquivoDto[]> {
   return res.json();
 }
 
-export async function uploadArquivo(file: File, pacienteId: string): Promise<ArquivoDto> {
+export async function uploadArquivo(dto: UploadArquivoDto): Promise<ArquivoDto> {
   const token = getToken();
   if (!token) throw new Error("Usuário não autenticado.");
 
   const formData = new FormData();
-  formData.append("arquivo", file);
-  formData.append("pacienteId", pacienteId);
+  formData.append("arquivo", dto.file);
+  formData.append("pacienteId", dto.pacienteId);
 
   const res = await fetch(`${API_URL}/arquivos/upload`, {
     method: "POST",
     headers: { Authorization: `Bearer ${token}` },
-    body: formData, 
+    body: formData,
   });
 
   if (!res.ok) {
