@@ -50,7 +50,7 @@ O projeto encontra-se na **fase de desenvolvimento ativo** branch `develop` com 
 docker compose up --build
 ```
 
-Isso constrói e sobe banco de dados, backend e frontend juntos. As tabelas são criadas automaticamente na primeira execução.
+Isso constrói e sobe banco de dados, backend e frontend juntos. As tabelas são criadas automaticamente pelas migrations no boot do backend (em produção, as migrations rodam num Cloud Run Job dedicado — veja [Banco de Dados e Migrations](#banco-de-dados-e-migrations)).
 
 ### URLs
 
@@ -278,6 +278,43 @@ npm test
 
 ---
 
+## Banco de Dados e Migrations
+
+O schema é versionado via **TypeORM migrations**. `synchronize` está desligado em todos os ambientes — qualquer nova entidade ou alteração precisa de migration commitada.
+
+### Fluxo padrão
+
+1. Crie ou edite a entidade em `backend/src/entities/`.
+2. Suba o banco local: `docker compose up postgres -d`.
+3. Gere a migration a partir do diff de schema:
+   ```bash
+   cd backend
+   npm run migration:generate -- src/migrations/NomeDescritivo
+   ```
+4. Revise o SQL gerado, commite junto com a entidade.
+5. Em dev, basta reiniciar o backend — as migrations pendentes rodam automaticamente no boot (`migrationsRun: true` fora de produção).
+6. Em produção, o `cloudbuild.yaml` executa o Cloud Run Job `healthtech-migrations` antes do deploy do backend; se a migration falhar, o deploy é abortado.
+
+### Comandos úteis (dentro de `backend/`)
+
+| Comando                           | O que faz                                          |
+| --------------------------------- | -------------------------------------------------- |
+| `npm run migration:generate -- src/migrations/Nome` | Gera migration a partir do diff entidades ↔ DB |
+| `npm run migration:create -- src/migrations/Nome`   | Cria migration vazia (para mudanças manuais)   |
+| `npm run migration:run`           | Aplica migrations pendentes                        |
+| `npm run migration:revert`        | Reverte a última migration aplicada                |
+
+### Cloud Run Job de produção
+
+O job `healthtech-migrations` é criado/atualizado a cada build pelo step `deploy-migrations-job` do `cloudbuild.yaml` e executado pelo step `run-migrations`. Ele reutiliza a mesma imagem do backend e os mesmos secrets (`db-user`, `db-password`, `db-name`), com `--set-cloudsql-instances` para acessar o Cloud SQL via socket. Override de comando: `node node_modules/typeorm/cli.js migration:run -d dist/data-source.js`.
+
+Para rodar manualmente (rollback, hotfix):
+```bash
+gcloud run jobs execute healthtech-migrations --region=southamerica-east1 --wait
+```
+
+---
+
 ## Deploy (GCP)
 
 O pipeline de CI/CD usa **Google Cloud Build** (`cloudbuild.yaml`).
@@ -337,20 +374,6 @@ gcloud builds submit --config cloudbuild.yaml
 
 ---
 
-## Code of Conduct
-
-Este projeto adota o [Código de Conduta do Contribuidor](https://www.contributor-covenant.org/version/2/1/code_of_conduct/) (Contributor Covenant v2.1).
-
-Nos comprometemos a tornar a participação neste projeto uma experiência livre de assédio para todos, independentemente de idade, tamanho corporal, deficiência, etnia, identidade e expressão de gênero, nível de experiência, nacionalidade, aparência pessoal, raça, religião ou identidade e orientação sexual.
-
-**Padrões esperados:** linguagem acolhedora e inclusiva · respeito a pontos de vista diferentes · críticas construtivas · foco no que é melhor para o projeto · empatia com os demais.
-
-**Comportamentos inaceitáveis:** linguagem ou imagens sexualizadas · trolling e ataques pessoais · assédio público ou privado · publicar informações privadas de terceiros sem permissão.
-
-Casos de comportamento inaceitável podem ser reportados abrindo um [Security Advisory](https://github.com/Diogo-Olivv/HealthTech/security/advisories/new) privado ou entrando em contato com a equipe pelo repositório.
-
----
-
 ## Política de Segurança
 
 ### Versões Suportadas
@@ -379,7 +402,3 @@ Casos de comportamento inaceitável podem ser reportados abrindo um [Security Ad
 - CORS configurado via variável de ambiente, aceitando apenas origens autorizadas em produção.
 
 ---
-
-## Licença
-
-Projeto acadêmico desenvolvido para fins educacionais no Laboratório de Inteligência Artificial (**AILAB Makers, UnB FCTE**). Código-fonte disponibilizado sob a [MIT License](LICENSE).
