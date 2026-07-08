@@ -20,6 +20,7 @@
     position: relative;
     overflow: hidden;
     user-select: none;
+    cursor: pointer;
 }
 
 .btn:focus-visible {

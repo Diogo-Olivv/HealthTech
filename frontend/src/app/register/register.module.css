@@ -81,6 +81,7 @@ texto: text-align, font-size, color, font-weight
     color: var(--color-gray-900);
 
     text-align: center;
+    cursor: pointer;
 }
 
 .optionCard:hover {
@@ -102,6 +103,7 @@ texto: text-align, font-size, color, font-weight
     font-weight: var(--font-weight-medium);
     color: var(--color-secondary-500);
     text-align: left;
+    cursor: pointer;
 }
 
 .backLink:hover {
@@ -145,6 +147,7 @@ texto: text-align, font-size, color, font-weight
     font-weight: var(--font-weight-medium);
     font-size: var(--text-base);
     color: var(--color-white);
+    cursor: pointer;
 }
 
 .button:hover {

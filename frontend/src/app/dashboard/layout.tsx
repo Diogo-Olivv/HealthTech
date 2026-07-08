@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import styles from "./dashboard.module.css";
-import NavBar from "@/components/ui/NavBar";
+import Navbar from "@/components/ui/Navbar";
 import AuthGuard from "@/components/auth/AuthGuard";
 import { AuthProvider } from "@/contexts/AuthContext";
 
@@ -17,7 +17,7 @@ export default function DashboardLayout({
     return (
         <AuthProvider>
             <div className={styles.layoutContainer}>
-                <NavBar />
+                <Navbar />
                 <main className={styles.mainContent}>
                     <AuthGuard>
                         {children}
