@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { getArquivos } from "@/services/arquivos.service";
+import type { ArquivoDto } from "@/dto/arquivo.dto";
 import LoadingState from "@/components/arquivos/LoadingState";
 import ErrorState from "@/components/arquivos/ErrorState";
 import EmptyState from "@/components/arquivos/EmptyState";
@@ -14,7 +15,7 @@ import UploadCloudIcon from "@/components/icons/UploadCloudIcon";
 
 
 export default function ArquivosMedicoPage() {
-    const [arquivos, setArquivos] = useState<any[]>([]);
+    const [arquivos, setArquivos] = useState<ArquivoDto[]>([]);
     const [status, setStatus] = useState<UiStatus>("loading");
     const router = useRouter();
 

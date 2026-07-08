@@ -35,7 +35,12 @@ export function ModalVinculo({ isOpen, onClose, onSuccess }: ModalVinculoProps) 
                 const dados = await getAvailablePatients();
                 setPacientes(dados);
             } catch (error) {
-                console.error("Erro", error);
+                const msg =
+                    error instanceof Error
+                        ? error.message
+                        : "Não foi possível carregar a lista de pacientes disponíveis.";
+                setFeedback({ type: "error", msg });
+                setPacientes([]);
             } finally {
                 setLoading(false);
             }
@@ -63,8 +68,9 @@ export function ModalVinculo({ isOpen, onClose, onSuccess }: ModalVinculoProps) 
                 onSuccess(); 
                 onClose(); 
             }, 1500);
-        } catch (error: any) {
-            setFeedback({ type: "error", msg: error.message || "Erro ao vincular paciente." });
+        } catch (error) {
+            const msg = error instanceof Error ? error.message : "Erro ao vincular paciente.";
+            setFeedback({ type: "error", msg });
         }
     };
     

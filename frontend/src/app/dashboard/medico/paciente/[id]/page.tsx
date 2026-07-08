@@ -9,7 +9,9 @@ import EmptyState from "@/components/arquivos/EmptyState";
 import ErrorState from "@/components/arquivos/ErrorState";
 import FilesTable from "@/components/arquivos/FilesTable";
 import styles from "@/components/arquivos/ArquivosPage.module.css";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
+import Button from "@/components/ui/Button";
+import UploadCloudIcon from "@/components/icons/UploadCloudIcon";
 import type { UiStatus } from "@/types/ui-status";
 
 
@@ -19,6 +21,7 @@ export default function ProntuarioPacientePage() {
 
     const searchParams = useSearchParams();
     const nomeDoPaciente = searchParams.get("nome") || "Paciente";
+    const router = useRouter();
     
     const [arquivos, setArquivos] = useState<ArquivoDto[]>([]);
     const [status, setStatus] = useState<UiStatus>("loading");
@@ -36,9 +39,9 @@ export default function ProntuarioPacientePage() {
                 const data = await getProntuarioPaciente(pacienteId, controller.signal);
                 setArquivos(data);
                 setStatus(data.length === 0 ? "empty" : "success");
-            } catch (err: any) {
-                if (err.name === 'AbortError') return; 
-                setErrorMsg(err.message || "Erro ao carregar o prontuário.");
+            } catch (err) {
+                if (err instanceof DOMException && err.name === "AbortError") return;
+                setErrorMsg(err instanceof Error ? err.message : "Erro ao carregar o prontuário.");
                 setStatus("error");
             }
         }
@@ -54,17 +57,16 @@ export default function ProntuarioPacientePage() {
         return (
             <div className={styles.header}>
                 <div className={styles.headerLeft}>
-                    <Link href="/dashboard/medico" className={styles.backLink}>
-                        ← Voltar para o Painel
-                    </Link>
                     <h1 className={styles.title}>Prontuário de {nomeDoPaciente}</h1>
                     <p className={styles.subtitle}>
                         Histórico consolidado de exames e laudos
                     </p>
                 </div>
-                <span className={styles.badge} aria-label="Perfil médico">
-                    Médico
-                </span>
+
+                <Button onClick={() => router.push("/dashboard/medico/arquivos/upload")}>
+                    <UploadCloudIcon />
+                    Novo Upload
+                </Button>
             </div>
         );
     };

@@ -15,6 +15,7 @@ import { ModalVinculo } from "@/components/arquivos/ModalVinculo";
 import type { UiStatus } from "@/types/ui-status";
 import { contarExamesUltimosDias } from "@/utils/arquivos";
 import UserPlusIcon from "@/components/icons/UserPlusIcon";
+import UserIcon from "@/components/icons/UserIcon";
 
 export default function MedicoPainelPage() {
     const [pacientes, setPacientes] = useState<PacienteVinculadoDto[]>([]);
@@ -72,9 +73,11 @@ export default function MedicoPainelPage() {
                             Pacientes vinculados ao seu perfil
                         </p>
                     </div>
-                    <span className={styles.badge} aria-label="Perfil médico">
-                        Médico
-                    </span>
+
+                    <Button onClick={() => setIsModalOpen(true)}>
+                        <UserPlusIcon />
+                        Vincular Paciente
+                    </Button>
                 </div>
 
                 <div className={styles.resume}>
@@ -90,19 +93,12 @@ export default function MedicoPainelPage() {
                     </div>
                 </div>
 
-                <div className={styles.actionsContainer}>
-
-                    <Button onClick={() => setIsModalOpen(true)}>
-                        <UserPlusIcon />
-                        Vincular Paciente
-                    </Button>
-                </div>
-
                 <div className={`${styles.card} ${styles.fadeIn}`}>
                     {pacientes.length === 0 ? (
-                        <EmptyState 
-                            description="Quando Pacientes forem vinculados ao seu perfil, eles aparecerão aqui." 
-                            title="Nenhum paciente encontrado" 
+                        <EmptyState
+                            icon={UserIcon}
+                            description="Quando Pacientes forem vinculados ao seu perfil, eles aparecerão aqui."
+                            title="Nenhum paciente encontrado"
                         />
                     ) : (
                         <PatientsTable pacientes={pacientes} />

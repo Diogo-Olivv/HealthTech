@@ -11,6 +11,11 @@ import type { MedicoVinculadoDto } from '@/dto/medico-vinculado.dto';
 const API_URL = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:3001';
 const TOKEN_KEY = 'accessToken';
 
+async function throwFromResponse(res: Response, fallback: string): Promise<never> {
+  const data = await res.json().catch(() => ({}));
+  throw new Error(data?.message ?? fallback);
+}
+
 export async function registerPaciente(
   dto: CreatePacienteDto,
 ): Promise<PublicUser> {
@@ -20,11 +25,7 @@ export async function registerPaciente(
     body: JSON.stringify(dto),
   });
 
-  if (!res.ok) {
-    const data = await res.json().catch(() => ({}));
-    throw new Error(data.message ?? 'Erro ao cadastrar. Tente novamente.');
-  }
-
+  if (!res.ok) await throwFromResponse(res, 'Erro ao cadastrar. Tente novamente.');
   return res.json();
 }
 
@@ -37,11 +38,7 @@ export async function registerMedico(
     body: JSON.stringify(dto),
   });
 
-  if (!res.ok) {
-    const data = await res.json().catch(() => ({}));
-    throw new Error(data.message ?? 'Erro ao cadastrar. Tente novamente.');
-  }
-
+  if (!res.ok) await throwFromResponse(res, 'Erro ao cadastrar. Tente novamente.');
   return res.json();
 }
 
@@ -52,11 +49,7 @@ export async function loginUser(dto: LoginUserDto): Promise<LoginResponse> {
     body: JSON.stringify(dto),
   });
 
-  if (!res.ok) {
-    const data = await res.json().catch(() => ({}));
-    throw new Error(data.message ?? 'Erro ao entrar. Tente novamente.');
-  }
-
+  if (!res.ok) await throwFromResponse(res, 'Erro ao entrar. Tente novamente.');
   return res.json();
 }
 
@@ -65,7 +58,7 @@ export async function getProfile(): Promise<PublicUser> {
   const res = await fetch(`${API_URL}/users/me`, {
     headers: { Authorization: `Bearer ${token}` },
   });
-  if (!res.ok) throw new Error('Sessão inválida ou expirada.');
+  if (!res.ok) await throwFromResponse(res, 'Sessão inválida ou expirada.');
   return res.json();
 }
 
@@ -74,7 +67,7 @@ export async function getMyPatients(): Promise<PacienteVinculadoDto[]> {
   const res = await fetch(`${API_URL}/medico-paciente/meus-pacientes`, {
     headers: { Authorization: `Bearer ${token}` },
   });
-  if (!res.ok) throw new Error('Sessão inválida ou expirada.');
+  if (!res.ok) await throwFromResponse(res, 'Erro ao buscar seus pacientes.');
   return res.json();
 }
 
@@ -83,7 +76,7 @@ export async function getMyMedicos(): Promise<MedicoVinculadoDto[]> {
   const res = await fetch(`${API_URL}/medico-paciente/meus-medicos`, {
     headers: { Authorization: `Bearer ${token}` },
   });
-  if (!res.ok) throw new Error('Erro ao buscar seus médicos.');
+  if (!res.ok) await throwFromResponse(res, 'Erro ao buscar seus médicos.');
   return res.json();
 }
 
@@ -92,7 +85,7 @@ export async function getAvailablePatients(): Promise<PacienteDisponivelDto[]> {
   const res = await fetch(`${API_URL}/medico-paciente/pacientes-disponiveis`, {
     headers: { Authorization: `Bearer ${token}` },
   });
-  if (!res.ok) throw new Error('Erro ao buscar pacientes disponíveis.');
+  if (!res.ok) await throwFromResponse(res, 'Erro ao buscar pacientes disponíveis.');
   return res.json();
 }
 
@@ -100,16 +93,13 @@ export async function linkPatient(pacienteId: string): Promise<void> {
   const token = getToken();
   const res = await fetch(`${API_URL}/medico-paciente/vincular`, {
     method: 'POST',
-    headers: { 
+    headers: {
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}` 
+      Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify({ pacienteId }),
   });
-  if (!res.ok) {
-    const errorData = await res.json().catch(() => ({}));
-    throw new Error(errorData.message || 'Erro ao vincular paciente.');
-  }
+  if (!res.ok) await throwFromResponse(res, 'Erro ao vincular paciente.');
 }
 
 export function saveToken(token: string) {
