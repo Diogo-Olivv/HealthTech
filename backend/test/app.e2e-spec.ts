@@ -8,7 +8,7 @@ const pacientePayload = {
   name: 'Paciente E2E',
   email: 'paciente-e2e@test.com',
   password: 'senha1234',
-  cpf: '111.222.333-44',
+  cpf: '529.982.247-25',
   dataNascimento: '1995-08-20',
 };
 
@@ -70,7 +70,7 @@ describe('Registro de usuários (E2E)', () => {
 
       await request(app.getHttpServer())
         .post('/users/pacientes')
-        .send({ ...pacientePayload, cpf: '999.888.777-66' })
+        .send({ ...pacientePayload, cpf: '111.444.777-35' })
         .expect(409);
     });
 

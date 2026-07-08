@@ -12,10 +12,13 @@ import type { Request } from 'express';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { RolesGuard } from '../auth/roles.guard';
 import { Roles } from '../auth/roles.decorator';
+import { Audit } from '../audit/audit.decorator';
+import { TipoEventoAuditoria } from '../entities/audit-log/audit-log.entity';
 import { UserType } from '../entities/user.entity';
 import { CreatePacienteDto } from './dto/create-paciente.dto';
 import { CreateMedicoDto } from './dto/create-medico.dto';
 import { LoginUserDto } from './dto/login-user.dto';
+import { PublicUser } from './dto/public-user.dto';
 import { UsersService } from './users.service';
 
 @Controller('users')
@@ -24,18 +27,30 @@ export class UsersController {
 
   @Post('pacientes')
   @HttpCode(HttpStatus.CREATED)
+  @Audit({
+    evento: TipoEventoAuditoria.CRIACAO_USUARIO,
+    extractRecursoId: (r: PublicUser) => r.id,
+  })
   createPaciente(@Body() dto: CreatePacienteDto) {
     return this.usersService.createPaciente(dto);
   }
 
   @Post('medicos')
   @HttpCode(HttpStatus.CREATED)
+  @Audit({
+    evento: TipoEventoAuditoria.CRIACAO_USUARIO,
+    extractRecursoId: (r: PublicUser) => r.id,
+  })
   createMedico(@Body() dto: CreateMedicoDto) {
     return this.usersService.createMedico(dto);
   }
 
   @Post('login')
   @HttpCode(HttpStatus.OK)
+  @Audit({
+    evento: TipoEventoAuditoria.LOGIN,
+    extractRecursoId: (r: { user: PublicUser }) => r.user.id,
+  })
   login(@Body() dto: LoginUserDto) {
     return this.usersService.login(dto);
   }

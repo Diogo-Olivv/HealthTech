@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common';
+import { APP_INTERCEPTOR } from '@nestjs/core';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './entities/user.entity';
@@ -9,7 +10,10 @@ import { UsersModule } from './users/users.module';
 import { HealthModule } from './health/health.module';
 import { ArquivosModule } from './arquivos/arquivos.module';
 import { MedicoPaciente } from './entities/medico-paciente.entity';
+import { AuditLog } from './entities/audit-log/audit-log.entity';
 import { MedicoPacienteModule } from './medico-paciente/medico-paciente.module';
+import { AuditModule } from './audit/audit.module';
+import { AuditInterceptor } from './audit/audit.interceptor';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 
@@ -27,14 +31,17 @@ import { AppService } from './app.service';
           ...(instanceName
             ? { host: `/cloudsql/${instanceName}` }
             : {
-              host: config.get('DB_HOST', 'localhost'),
-              port: config.get<number>('DB_PORT', 5432),
-            }),
+                host: config.get('DB_HOST', 'localhost'),
+                port: config.get<number>('DB_PORT', 5432),
+              }),
           username: config.get('DB_USER', 'postgres'),
           password: config.get('DB_PASSWORD', 'postgres'),
           database: config.get('DB_NAME', 'healthtech'),
-          entities: [User, Paciente, Medico, MedicoPaciente, Arquivo],
-          synchronize: config.get('NODE_ENV') !== 'production' || config.get('DB_SYNC') === 'true',
+          entities: [User, Paciente, Medico, MedicoPaciente, Arquivo, AuditLog],
+          migrations: [__dirname + '/migrations/*{.ts,.js}'],
+          migrationsTableName: 'migrations',
+          synchronize: false,
+          migrationsRun: config.get('NODE_ENV') !== 'production',
           logging: config.get('NODE_ENV') !== 'production',
         };
       },
@@ -43,8 +50,15 @@ import { AppService } from './app.service';
     HealthModule,
     ArquivosModule,
     MedicoPacienteModule,
+    AuditModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: AuditInterceptor,
+    },
+  ],
 })
-export class AppModule { }
+export class AppModule {}
