@@ -1,0 +1,136 @@
+.toolbar {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 16px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.searchInput, .sortSelect {
+    padding: 8px 12px;
+    border: 1px solid var(--color-gray-300);
+    border-radius: var(--radius-md);
+    font-size: var(--text-sm);
+    color: var(--color-gray-800);
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.searchInput {
+    flex-grow: 1;
+    min-width: 200px;
+}
+
+.searchInput:focus-visible, .sortSelect:focus-visible {
+    border-color: var(--color-primary-500);
+    outline: 2px solid var(--color-primary-600);
+    outline-offset: 2px;
+}
+
+/* --- EFEITOS DA LINHA (HOVER E FOCUS) --- */
+.rowItem {
+    transition: background-color 0.2s ease;
+}
+
+.rowItem:hover {
+    background-color: var(--color-primary-50);
+}
+
+.rowItem:focus-visible, .rowItem:focus-within {
+    outline: 2px solid var(--color-primary-600);
+    outline-offset: -2px; /* Essencial para o outline aparecer dentro do <tr> */
+    background-color: var(--color-primary-50);
+}
+
+.tableWrapper {
+    overflow-x: auto;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--text-sm);
+}
+
+/* --- ALINHAMENTO PADRÃO AO CENTRO (Datas, Ações, Especialidade) --- */
+.table th {
+    text-align: center;
+    padding: 0.75rem 0.5rem;
+    font-weight: var(--font-weight-medium);
+    color: var(--color-gray-700);
+    border-bottom: 1px solid var(--color-gray-200);
+}
+
+.table td {
+    padding: 0.75rem 0.5rem;
+    border-bottom: 1px solid var(--color-gray-100);
+    vertical-align: middle;
+    text-align: center;
+}
+
+/* --- ALINHAMENTO DA 1ª COLUNA À ESQUERDA (Nomes) --- */
+.table th:first-child,
+.table td:first-child {
+    text-align: left;
+    padding-left: 1rem; /* Dá um respiro lateral pro texto */
+}
+
+
+.cellNome {
+    color: var(--color-gray-800);
+    font-weight: var(--font-weight-medium);
+}
+
+.fileIcon {
+    width: 1.25rem;
+    height: 1.25rem;
+    color: var(--color-gray-500);
+    flex-shrink: 0;
+}
+
+.tipoBadge {
+    background-color: var(--color-primary-50);
+    color: var(--color-primary-600);
+    padding: 0.2rem 0.6rem;
+    border-radius: var(--radius-full);
+    font-size: var(--text-xs);
+    font-weight: var(--font-weight-medium);
+}
+
+.cellDate {
+    white-space: nowrap;
+    color: var(--color-gray-600);
+}
+
+.cellEnviado {
+    color: var(--color-gray-600);
+}
+
+.buttonVerExames {
+    padding: 8px 16px;
+    background-color: var(--color-primary-50);
+    color: var(--color-primary-600);
+    border: 1px solid var(--color-primary-200);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    text-decoration: none;
+    font-weight: var(--font-weight-medium);
+    font-size: var(--text-sm);
+    transition: all 0.2s ease;
+    display: inline-block;
+}
+
+.buttonVerExames:hover {
+    background-color: var(--color-primary-600);
+    color: var(--color-white);
+    border-color: var(--color-primary-600);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-sm);
+    text-decoration: none;
+}
+
+.buttonVerExames:focus-visible {
+    outline: 2px solid var(--color-primary-600);
+    outline-offset: 2px;
+}
+

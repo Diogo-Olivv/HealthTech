@@ -42,4 +42,13 @@ export class MedicoPacienteController {
   meusMedicos(@Req() req: AuthRequest) {
     return this.medicoPacienteService.meusMedicos(req.user.id);
   }
+  
+  // Pacientes disponíveis para Vínculo
+  @Get('pacientes-disponiveis')
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(UserType.MEDICO)
+  pacientesDisponiveis(@Req() req: AuthRequest) {
+    return this.medicoPacienteService.pacientesDisponiveis(req.user.id);
+  }
+
 }
