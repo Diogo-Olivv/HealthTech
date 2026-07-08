@@ -27,9 +27,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             try {
                 const profile = await getProfile();
                 setUser(profile);
-            } catch (error) {
+            } catch {
                 clearToken();
-                router.push("/"); 
+                router.push("/login");
             } finally {
                 setLoading(false);
             }
@@ -41,7 +41,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const logout = () => {
         clearToken();
         setUser(null);
-        router.push("/");
+        router.push("/login");
     };
 
     return (
