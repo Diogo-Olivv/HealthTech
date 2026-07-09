@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useEffect, useMemo, useRef, useState } from "react";
 import type { ChangeEvent, DragEvent, KeyboardEvent } from "react";
+import { useRouter } from "next/navigation";
 import { uploadArquivo } from "@/services/arquivos.service";
 import { getMyPatients } from "@/services/users.service";
 import type { PacienteVinculadoDto } from "@/dto/paciente-vinculado.dto";
@@ -10,12 +11,14 @@ import { UPLOAD_ARQUIVO_LIMITES } from "@/dto/upload-arquivo.dto";
 import FeedbackMessage from "@/components/ui/FeedbackMessage";
 import CloseButton from "@/components/ui/CloseButton";
 import { mensagemDeErro } from "@/utils/mensagem-de-erro";
+import { errorAlert, confirmAlert } from "@/utils/alerts";
 import type { FileUploadStatus } from "@/types/ui-status";
 import styles from "./FileUpload.module.css";
 
 const { tamanhoMaximoBytes, formatosPermitidos } = UPLOAD_ARQUIVO_LIMITES;
 
 export default function FileUpload() {
+    const router = useRouter();
     const [file, setFile] = useState<File | null>(null);
     const [pacientes, setPacientes] = useState<PacienteVinculadoDto[]>([]);
     const [pacienteId, setPacienteId] = useState<string>("");
@@ -34,10 +37,13 @@ export default function FileUpload() {
             try {
                 setPacientes(await getMyPatients());
             } catch (err) {
-                setStatus("error");
-                setFeedbackMsg(
-                    mensagemDeErro(err, "Não foi possível carregar seus pacientes vinculados."),
+                const msg = mensagemDeErro(
+                    err,
+                    "Não foi possível carregar seus pacientes vinculados.",
                 );
+                setStatus("error");
+                setFeedbackMsg(msg);
+                errorAlert("Erro ao carregar pacientes", msg);
             }
         }
         carregarPacientes();
@@ -142,14 +148,29 @@ export default function FileUpload() {
         try {
             await uploadArquivo({ file, pacienteId, descricao: descricao.trim() || undefined });
             setStatus("success");
-            setFeedbackMsg("Exame enviado e vinculado com sucesso!");
+            setFeedbackMsg("");
             setFile(null);
             setPacienteId("");
             setBuscaPaciente("");
             setDescricao("");
+
+            const enviarOutro = await confirmAlert({
+                icon: "success",
+                title: "Exame enviado com sucesso!",
+                text: "O arquivo já está disponível para o paciente. Deseja enviar outro exame agora?",
+                confirmButtonText: "Enviar outro",
+                cancelButtonText: "Voltar aos arquivos",
+            });
+
+            setStatus("idle");
+            if (!enviarOutro) {
+                router.push("/dashboard/medico/arquivos");
+            }
         } catch (err) {
+            const msg = mensagemDeErro(err, "Erro ao enviar o arquivo.");
             setStatus("error");
-            setFeedbackMsg(mensagemDeErro(err, "Erro ao enviar o arquivo."));
+            setFeedbackMsg(msg);
+            errorAlert("Falha no upload", msg);
         }
     };
 
