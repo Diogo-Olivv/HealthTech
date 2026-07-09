@@ -42,6 +42,7 @@ import { AppService } from './app.service';
           entities: [User, Paciente, Medico, MedicoPaciente, Arquivo, AuditLog, Especialidade],
           migrations: [__dirname + '/migrations/*{.ts,.js}'],
           migrationsTableName: 'migrations',
+          migrationsTransactionMode: 'each',
           synchronize: false,
           migrationsRun: config.get('NODE_ENV') !== 'production',
           logging: config.get('NODE_ENV') !== 'production',

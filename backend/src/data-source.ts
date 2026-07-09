@@ -25,6 +25,7 @@ export const AppDataSource = new DataSource({
   entities: [User, Paciente, Medico, MedicoPaciente, Arquivo],
   migrations: [__dirname + '/migrations/*{.ts,.js}'],
   migrationsTableName: 'migrations',
+  migrationsTransactionMode: 'each',
   synchronize: false,
   logging: process.env.NODE_ENV !== 'production',
 });
