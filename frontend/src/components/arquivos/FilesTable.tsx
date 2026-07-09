@@ -8,17 +8,17 @@ import EditIcon from "@/components/icons/EditIcon";
 import EyeIcon from "@/components/icons/EyeIcon";
 import TrashIcon from "@/components/icons/TrashIcon";
 import FeedbackMessage from "@/components/ui/FeedbackMessage";
-import ConfirmDialog from "@/components/ui/ConfirmDialog";
 import EditarArquivoModal from "./EditarArquivoModal";
 import VisualizadorArquivo from "./VisualizadorArquivo";
 import {
     atualizarArquivo,
     deleteArquivo,
-    getDownloadUrl,
+    getArquivoBlob,
 } from "@/services/arquivos.service";
 import { formatDate } from "@/utils/date";
 import { formatTamanho } from "@/utils/format-tamanho";
 import { mensagemDeErro } from "@/utils/mensagem-de-erro";
+import { confirmAlert, errorAlert, successAlert } from "@/utils/alerts";
 import type { FilesTableProps } from "@/types/files-table";
 import styles from "./FilesTable.module.css";
 
@@ -39,7 +39,6 @@ export default function FilesTable({
     const [downloadingId, setDownloadingId] = useState<string | null>(null);
     const [arquivoParaVisualizar, setArquivoParaVisualizar] = useState<ArquivoDto | null>(null);
     const [arquivoParaEditar, setArquivoParaEditar] = useState<ArquivoDto | null>(null);
-    const [arquivoParaExcluir, setArquivoParaExcluir] = useState<ArquivoDto | null>(null);
     const [mutating, setMutating] = useState(false);
     const [erro, setErro] = useState("");
 
@@ -75,10 +74,20 @@ export default function FilesTable({
         setErro("");
         setDownloadingId(arquivo.id);
         try {
-            const { url } = await getDownloadUrl(arquivo.id);
-            window.open(url, "_blank", "noopener,noreferrer");
+            const blob = await getArquivoBlob(arquivo.id);
+            const objectUrl = URL.createObjectURL(blob);
+            const link = document.createElement("a");
+            link.href = objectUrl;
+            link.download = arquivo.nomeOriginal;
+            link.rel = "noopener noreferrer";
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(objectUrl);
         } catch (err) {
-            setErro(mensagemDeErro(err, "Erro ao gerar link de download."));
+            const msg = mensagemDeErro(err, "Erro ao baixar o arquivo.");
+            setErro(msg);
+            errorAlert("Falha no download", msg);
         } finally {
             setDownloadingId(null);
         }
@@ -92,25 +101,40 @@ export default function FilesTable({
             await atualizarArquivo(arquivoParaEditar.id, {
                 descricao: novaDescricao ?? undefined,
             });
+            const nome = arquivoParaEditar.nomeOriginal;
             setArquivoParaEditar(null);
             onMutation?.();
+            await successAlert("Descrição atualizada", `A descrição de "${nome}" foi salva.`);
         } catch (err) {
-            setErro(mensagemDeErro(err, "Erro ao atualizar descrição."));
+            const msg = mensagemDeErro(err, "Erro ao atualizar descrição.");
+            setErro(msg);
+            errorAlert("Não foi possível salvar", msg);
         } finally {
             setMutating(false);
         }
     };
 
-    const handleConfirmarExclusao = async () => {
-        if (!arquivoParaExcluir) return;
+    const handleExcluir = async (arquivo: ArquivoDto) => {
+        const confirmado = await confirmAlert({
+            icon: "warning",
+            title: "Excluir arquivo?",
+            text: `Tem certeza que deseja excluir "${arquivo.nomeOriginal}"? Esta ação não pode ser desfeita.`,
+            confirmButtonText: "Sim, excluir",
+            cancelButtonText: "Cancelar",
+            isDestructive: true,
+        });
+        if (!confirmado) return;
+
         setErro("");
         setMutating(true);
         try {
-            await deleteArquivo(arquivoParaExcluir.id);
-            setArquivoParaExcluir(null);
+            await deleteArquivo(arquivo.id);
             onMutation?.();
+            await successAlert("Arquivo excluído", `"${arquivo.nomeOriginal}" foi removido do sistema.`);
         } catch (err) {
-            setErro(mensagemDeErro(err, "Erro ao excluir arquivo."));
+            const msg = mensagemDeErro(err, "Erro ao excluir arquivo.");
+            setErro(msg);
+            errorAlert("Não foi possível excluir", msg);
         } finally {
             setMutating(false);
         }
@@ -153,7 +177,6 @@ export default function FilesTable({
                     <thead>
                         <tr>
                             <th scope="col">Nome</th>
-                            <th scope="col">Tipo</th>
                             <th scope="col">Tamanho</th>
                             <th scope="col">Data de upload</th>
                             <th scope="col">{partyHeader}</th>
@@ -179,9 +202,6 @@ export default function FilesTable({
                                                 )}
                                             </span>
                                         </span>
-                                    </td>
-                                    <td>
-                                        <span className={styles.tipoBadge}>{arquivo.tipo}</span>
                                     </td>
                                     <td className={styles.cellDate}>
                                         {formatTamanho(arquivo.tamanho)}
@@ -226,7 +246,8 @@ export default function FilesTable({
                                                 <button
                                                     type="button"
                                                     className={`${styles.actionBtn} ${styles.actionBtnDanger}`}
-                                                    onClick={() => setArquivoParaExcluir(arquivo)}
+                                                    onClick={() => handleExcluir(arquivo)}
+                                                    disabled={mutating}
                                                     aria-label={`Excluir ${arquivo.nomeOriginal}`}
                                                     title="Excluir"
                                                 >
@@ -252,16 +273,6 @@ export default function FilesTable({
                 isLoading={mutating}
                 onClose={() => (mutating ? undefined : setArquivoParaEditar(null))}
                 onSubmit={handleSalvarEdicao}
-            />
-
-            <ConfirmDialog
-                isOpen={!!arquivoParaExcluir}
-                title="Excluir arquivo"
-                message={`Tem certeza que deseja excluir o arquivo "${arquivoParaExcluir?.nomeOriginal ?? ""}"? Esta ação não pode ser desfeita.`}
-                confirmLabel="Excluir"
-                isLoading={mutating}
-                onConfirm={handleConfirmarExclusao}
-                onClose={() => (mutating ? undefined : setArquivoParaExcluir(null))}
             />
         </div>
     );
