@@ -311,3 +311,43 @@
     cursor: pointer;
 }
 
+@media (max-width: 768px) {
+    .uploadContainer {
+        gap: 1rem;
+    }
+
+    .pacienteSelecionado {
+        flex-wrap: wrap;
+        padding: 0.75rem;
+    }
+
+    .limparBtn {
+        min-height: 44px;
+        padding: 0.5rem 0.75rem;
+    }
+
+    .fileInput {
+        padding: 1rem;
+    }
+
+    .dropzoneLabel {
+        min-height: 96px;
+    }
+
+    .fileInfo {
+        flex-wrap: wrap;
+        padding: 0.6rem;
+        font-size: 0.85rem;
+    }
+
+    .fileInfoClose {
+        min-width: 44px;
+        min-height: 44px;
+    }
+
+    .uploadButton {
+        padding: 0.9rem 1rem;
+        min-height: 48px;
+    }
+}
+
