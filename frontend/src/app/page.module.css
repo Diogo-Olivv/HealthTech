@@ -111,6 +111,29 @@
     margin-bottom: 0.75rem;
 }
 
+@media (max-width: 768px) {
+    .card {
+        padding: 1.5rem 1.25rem;
+        width: 100%;
+        max-width: 100%;
+        box-shadow: none;
+        border-radius: 0;
+    }
+
+    .page {
+        padding: 0;
+        align-items: stretch;
+    }
+
+    .title {
+        font-size: var(--text-xl);
+    }
+
+    .button {
+        min-height: 48px;
+    }
+}
+
 .footer {
     font-size: var(--text-sm);
     color: var(--color-gray-700);

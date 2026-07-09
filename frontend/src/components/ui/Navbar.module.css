@@ -196,6 +196,18 @@
     .navLink {
         width: 100%;
         padding: 1rem 1.5rem;
+        min-height: 48px;
+        display: flex;
+        align-items: center;
+    }
+
+    .mobileMenuBtn {
+        min-width: 44px;
+        min-height: 44px;
+    }
+
+    .logo {
+        width: 120px;
     }
 
     .navLink:hover {
