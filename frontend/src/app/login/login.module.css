@@ -173,3 +173,17 @@
     font-size: var(--text-sm);
     color: var(--color-text-secondary);
 }
+
+@media (max-width: 768px) {
+    .title {
+        font-size: var(--text-xl);
+    }
+
+    .subtitle {
+        margin-bottom: 1.25rem;
+    }
+
+    .button {
+        min-height: 48px;
+    }
+}
