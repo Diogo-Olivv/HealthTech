@@ -171,3 +171,46 @@
     background: rgba(220, 38, 38, 0.08);
     border-color: rgba(220, 38, 38, 0.2);
 }
+
+/* ===== Mobile ===== */
+@media (max-width: 768px) {
+    .toolbar {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.5rem;
+    }
+
+    .searchInput,
+    .sortSelect {
+        width: 100%;
+    }
+
+    /* Touch target mínimo (WCAG 2.5.5 – 44x44 css px) */
+    .actionBtn {
+        min-width: 44px;
+        min-height: 44px;
+        padding: 0.5rem;
+    }
+
+    .cellAcoes {
+        gap: 0.25rem;
+        padding: 0.35rem;
+        flex-wrap: nowrap;
+        justify-content: flex-end;
+        white-space: nowrap;
+    }
+
+    .table th,
+    .table td {
+        padding: 0.6rem 0.4rem;
+    }
+
+    .table th:first-child,
+    .table td:first-child {
+        padding-left: 0.6rem;
+    }
+
+    .cellDescricao {
+        max-width: 180px;
+    }
+}
