@@ -16,7 +16,7 @@ texto: text-align, font-size, color, font-weight
 }
 
 .subtitle {
-    /* margin-bottom: 1rem; */
+    margin-bottom: 2rem;
 
     font-size: var(--text-sm);
     color: var(--color-text-secondary);
@@ -104,28 +104,6 @@ texto: text-align, font-size, color, font-weight
     color: var(--color-gray-700);
 }
 
-/* Botão de voltar para a tela de escolha de tipo de usuário */
-.backLink {
-    align-self: flex-start;
-    margin-bottom: 1rem;
-    padding: 0.4rem 0.9rem;
-    background-color: var(--color-gray-100);
-
-    border: 1px solid var(--color-gray-200);
-    border-radius: var(--radius-lg);
-
-    font-size: var(--text-sm);
-    font-weight: var(--font-weight-medium);
-    color: var(--color-secondary-500);
-    text-align: left;
-    cursor: pointer;
-}
-
-.backLink:hover {
-    background-color: var(--color-gray-200);
-    color: var(--color-secondary-600);
-}
-
 .label {
     display: block;
     font-size: var(--text-base);
@@ -202,6 +180,29 @@ texto: text-align, font-size, color, font-weight
 
 .error {
     color: var(--color-error-500);
+}
+
+@media (max-width: 768px) {
+    .title {
+        font-size: var(--text-xl);
+    }
+
+    .subtitle {
+        margin-bottom: 1.25rem;
+    }
+
+    .passwordCols {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .button {
+        min-height: 48px;
+    }
+
+    .optionCard {
+        padding: 1rem;
+    }
 }
 
 .footer {
