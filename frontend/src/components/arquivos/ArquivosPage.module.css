@@ -146,6 +146,32 @@
 
 .errorWrapper {
     margin-bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.errorActions {
+    display: flex;
+    justify-content: center;
+}
+
+.retryButton {
+    padding: 0.5rem 1rem;
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    border: none;
+    border-radius: var(--radius-md);
+    font-weight: var(--font-weight-medium);
+    font-size: var(--text-sm);
+    cursor: pointer;
+    transition: background-color var(--transition-fast);
+}
+
+.retryButton:hover,
+.retryButton:focus-visible {
+    background-color: var(--color-primary-600);
+    outline: none;
 }
 
 .fadeIn {
