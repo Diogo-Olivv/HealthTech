@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { getArquivos } from "@/services/arquivos.service";
 import type { ArquivoDto } from "@/dto/arquivo.dto";
@@ -12,31 +12,28 @@ import styles from "@/components/arquivos/ArquivosPage.module.css";
 import Button from "@/components/ui/Button";
 import type { UiStatus } from "@/types/ui-status";
 import UploadCloudIcon from "@/components/icons/UploadCloudIcon";
+import { useAuth } from "@/contexts/AuthContext";
 
 
 export default function ArquivosMedicoPage() {
     const [arquivos, setArquivos] = useState<ArquivoDto[]>([]);
     const [status, setStatus] = useState<UiStatus>("loading");
     const router = useRouter();
+    const { user } = useAuth();
+
+    const carregar = useCallback(async () => {
+        try {
+            const dados = await getArquivos();
+            setArquivos(dados);
+            setStatus(dados.length === 0 ? "empty" : "success");
+        } catch {
+            setStatus("error");
+        }
+    }, []);
 
     useEffect(() => {
-        let cancelled = false;
-        async function fetchArquivos() {
-            try {
-                const dados = await getArquivos(); 
-                if (cancelled) return;
-                
-                setArquivos(dados);
-                setStatus(dados.length === 0 ? "empty" : "success");
-            } catch (err) {
-                if (cancelled) return;
-                setStatus("error");
-            }
-        }
-        fetchArquivos();
-
-        return () => { cancelled = true; };
-    }, []);
+        carregar();
+    }, [carregar]);
 
     if (status === "loading") return <LoadingState />;
     if (status === "error") return <ErrorState msg="Erro ao carregar os arquivos." />;
@@ -65,7 +62,12 @@ export default function ArquivosMedicoPage() {
                             description="Você ainda não enviou nenhum arquivo."
                         />
                     ) : (
-                        <FilesTable arquivos={arquivos} viewerRole="medico" />
+                        <FilesTable
+                            arquivos={arquivos}
+                            viewerRole="medico"
+                            medicoLogadoId={user?.id}
+                            onMutation={carregar}
+                        />
                     )}
                 </div>
             </div>

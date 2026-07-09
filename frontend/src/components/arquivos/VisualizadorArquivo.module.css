@@ -1,0 +1,136 @@
+.overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+    z-index: 1100;
+}
+
+.dialog {
+    background: var(--color-white);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    width: min(100%, 960px);
+    height: min(100%, 720px);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.9rem 1.25rem;
+    border-bottom: 1px solid var(--color-gray-200);
+    background: var(--color-primary-50, #e7eff8);
+}
+
+.title {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+    flex: 1;
+    margin-right: 1rem;
+}
+
+.nome {
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-primary-700, #15354e);
+    font-size: var(--text-sm);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.descricao {
+    font-size: 0.75rem;
+    color: var(--color-gray-600);
+}
+
+.actions {
+    display: flex;
+    gap: 0.4rem;
+    align-items: center;
+}
+
+.iconBtn {
+    background: transparent;
+    border: 1px solid transparent;
+    color: var(--color-primary-700, #15354e);
+    padding: 0.4rem;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.15s ease;
+}
+
+.iconBtn:hover {
+    background: rgba(30, 73, 105, 0.08);
+}
+
+.body {
+    flex: 1;
+    min-height: 0;
+    background: var(--color-gray-100);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: auto;
+    padding: 1rem;
+}
+
+.loading, .errorMsg {
+    color: var(--color-gray-700);
+    font-size: var(--text-sm);
+    text-align: center;
+    padding: 2rem;
+}
+
+.errorMsg {
+    color: var(--color-error-600, #dc2626);
+}
+
+.imagem {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    box-shadow: var(--shadow-sm);
+    background: var(--color-white);
+}
+
+.pdf {
+    width: 100%;
+    height: 100%;
+    border: none;
+    background: var(--color-white);
+}
+
+.fallback {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    padding: 2rem;
+    color: var(--color-gray-700);
+    font-size: var(--text-sm);
+    text-align: center;
+}
+
+.fallbackDownload {
+    padding: 0.55rem 1.1rem;
+    border-radius: var(--radius-md);
+    background: var(--color-primary-600);
+    color: var(--color-white);
+    text-decoration: none;
+    font-weight: var(--font-weight-semibold);
+    cursor: pointer;
+    border: none;
+    font-family: inherit;
+}

@@ -3,26 +3,19 @@ import styles from './ModalVinculo.module.css';
 import { getAvailablePatients, linkPatient } from '@/services/users.service';
 import type { PacienteDisponivelDto } from "@/dto/paciente-disponivel.dto";
 import FeedbackMessage from "@/components/ui/FeedbackMessage";
-
-interface ModalVinculoProps {
-    isOpen: boolean;
-    onClose: () => void;
-    onSuccess: () => void;
-}
+import CloseButton from "@/components/ui/CloseButton";
+import { mensagemDeErro } from "@/utils/mensagem-de-erro";
+import type { ModalVinculoProps } from "@/types/modal-vinculo";
 
 export function ModalVinculo({ isOpen, onClose, onSuccess }: ModalVinculoProps) {
     const [pacientes, setPacientes] = useState<PacienteDisponivelDto[]>([]);
     const [busca, setBusca] = useState('');
     const [selecionado, setSelecionado] = useState<string | null>(null);
     const [loading, setLoading] = useState(false);
-    
-    // Estado do Feedback (Substitui os Alerts feios)
     const [feedback, setFeedback] = useState<{type: "error" | "success", msg: string} | null>(null);
 
-    // Quando o modal abrir, busca a lista
     useEffect(() => {
         if (!isOpen) {
-            // Limpa os dados de estados anteriores toda vez que fecha
             setFeedback(null);
             setSelecionado(null);
             setBusca('');
@@ -35,10 +28,10 @@ export function ModalVinculo({ isOpen, onClose, onSuccess }: ModalVinculoProps) 
                 const dados = await getAvailablePatients();
                 setPacientes(dados);
             } catch (error) {
-                const msg =
-                    error instanceof Error
-                        ? error.message
-                        : "Não foi possível carregar a lista de pacientes disponíveis.";
+                const msg = mensagemDeErro(
+                    error,
+                    "Não foi possível carregar a lista de pacientes disponíveis.",
+                );
                 setFeedback({ type: "error", msg });
                 setPacientes([]);
             } finally {
@@ -62,14 +55,13 @@ export function ModalVinculo({ isOpen, onClose, onSuccess }: ModalVinculoProps) 
         try {
             await linkPatient(selecionado);
             setFeedback({ type: "success", msg: "Paciente vinculado com sucesso!" });
-            
-            // Dá 1.5s de tempo para o usuário ler a mensagem de sucesso antes do Modal fechar sozinho
+
             setTimeout(() => {
-                onSuccess(); 
-                onClose(); 
+                onSuccess();
+                onClose();
             }, 1500);
         } catch (error) {
-            const msg = error instanceof Error ? error.message : "Erro ao vincular paciente.";
+            const msg = mensagemDeErro(error, "Erro ao vincular paciente.");
             setFeedback({ type: "error", msg });
         }
     };
@@ -79,14 +71,11 @@ export function ModalVinculo({ isOpen, onClose, onSuccess }: ModalVinculoProps) 
     return (
         <div className={styles.overlay}>
             <div className={styles.modal}>
-                {/* Botão de Fechar */}
-                <button
+                <CloseButton
                     onClick={onClose}
                     className={styles.closeButton}
-                    aria-label="Fechar modal"
-                >
-                    &times;
-                </button>
+                    ariaLabel="Fechar modal"
+                />
 
                 {/* Cabeçalho */}
                 <h2 className={styles.title}>

@@ -1,14 +1,10 @@
 import styles from "./PatientsTable.module.css";
-import type { PacienteVinculadoDto } from "@/dto/paciente-vinculado.dto";
 import Link from "next/link";
 import { formatDate } from "@/utils/date";
 import { useState, useMemo } from "react";
+import type { PatientsTableProps } from "@/types/tables";
 
-interface Props {
-    pacientes: PacienteVinculadoDto[];
-}
-
-export default function PatientsTable({ pacientes }: Props) {
+export default function PatientsTable({ pacientes }: PatientsTableProps) {
     const [busca, setBusca] = useState("");
     const [ordenacao, setOrdenacao] = useState("nome_asc");
 

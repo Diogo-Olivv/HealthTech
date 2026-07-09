@@ -1,32 +1,47 @@
+"use client";
+
+import { useCallback, useMemo, useState } from "react";
 import type { ArquivoDto } from "@/dto/arquivo.dto";
 import FileIcon from "@/components/icons/FileIcon";
-import styles from "./FilesTable.module.css";
+import DownloadIcon from "@/components/icons/DownloadIcon";
+import EditIcon from "@/components/icons/EditIcon";
+import EyeIcon from "@/components/icons/EyeIcon";
+import TrashIcon from "@/components/icons/TrashIcon";
+import FeedbackMessage from "@/components/ui/FeedbackMessage";
+import ConfirmDialog from "@/components/ui/ConfirmDialog";
+import EditarArquivoModal from "./EditarArquivoModal";
+import VisualizadorArquivo from "./VisualizadorArquivo";
+import {
+    atualizarArquivo,
+    deleteArquivo,
+    getDownloadUrl,
+} from "@/services/arquivos.service";
 import { formatDate } from "@/utils/date";
-import { useState, useMemo } from "react";
+import { formatTamanho } from "@/utils/format-tamanho";
+import { mensagemDeErro } from "@/utils/mensagem-de-erro";
+import type { FilesTableProps } from "@/types/files-table";
+import styles from "./FilesTable.module.css";
 
-export type ViewerRole = "medico" | "paciente";
-
-interface Props {
-    arquivos: ArquivoDto[];
-    viewerRole: ViewerRole;
-}
-
-function formatTamanho(bytes: number): string {
-    if (bytes < 1024) return `${bytes} B`;
-    if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`;
-    return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
-}
-
-export default function FilesTable({ arquivos, viewerRole }: Props) {
+export default function FilesTable({
+    arquivos,
+    viewerRole,
+    medicoLogadoId,
+    onMutation,
+}: FilesTableProps) {
     const isMedico = viewerRole === "medico";
     const partyHeader = isMedico ? "Paciente" : "Enviado por";
     const ariaLabel = isMedico
         ? "Lista de arquivos do médico"
         : "Lista de arquivos do paciente";
 
-    // --- NOVA LÓGICA DE FILTRO E ORDENAÇÃO ---
     const [busca, setBusca] = useState("");
     const [ordenacao, setOrdenacao] = useState("data_desc");
+    const [downloadingId, setDownloadingId] = useState<string | null>(null);
+    const [arquivoParaVisualizar, setArquivoParaVisualizar] = useState<ArquivoDto | null>(null);
+    const [arquivoParaEditar, setArquivoParaEditar] = useState<ArquivoDto | null>(null);
+    const [arquivoParaExcluir, setArquivoParaExcluir] = useState<ArquivoDto | null>(null);
+    const [mutating, setMutating] = useState(false);
+    const [erro, setErro] = useState("");
 
     const arquivosFiltrados = useMemo(() => {
         return arquivos
@@ -34,6 +49,7 @@ export default function FilesTable({ arquivos, viewerRole }: Props) {
                 const termo = busca.toLowerCase();
                 return (
                     arq.nomeOriginal.toLowerCase().includes(termo) ||
+                    (arq.descricao && arq.descricao.toLowerCase().includes(termo)) ||
                     (arq.medicoNome && arq.medicoNome.toLowerCase().includes(termo)) ||
                     (arq.pacienteNome && arq.pacienteNome.toLowerCase().includes(termo))
                 );
@@ -49,21 +65,77 @@ export default function FilesTable({ arquivos, viewerRole }: Props) {
             });
     }, [arquivos, busca, ordenacao]);
 
+    const podeMutarArquivo = useCallback(
+        (arquivo: ArquivoDto): boolean =>
+            isMedico && !!medicoLogadoId && arquivo.medicoUploadId === medicoLogadoId,
+        [isMedico, medicoLogadoId],
+    );
+
+    const handleDownload = async (arquivo: ArquivoDto) => {
+        setErro("");
+        setDownloadingId(arquivo.id);
+        try {
+            const { url } = await getDownloadUrl(arquivo.id);
+            window.open(url, "_blank", "noopener,noreferrer");
+        } catch (err) {
+            setErro(mensagemDeErro(err, "Erro ao gerar link de download."));
+        } finally {
+            setDownloadingId(null);
+        }
+    };
+
+    const handleSalvarEdicao = async (novaDescricao: string | null) => {
+        if (!arquivoParaEditar) return;
+        setErro("");
+        setMutating(true);
+        try {
+            await atualizarArquivo(arquivoParaEditar.id, {
+                descricao: novaDescricao ?? undefined,
+            });
+            setArquivoParaEditar(null);
+            onMutation?.();
+        } catch (err) {
+            setErro(mensagemDeErro(err, "Erro ao atualizar descrição."));
+        } finally {
+            setMutating(false);
+        }
+    };
+
+    const handleConfirmarExclusao = async () => {
+        if (!arquivoParaExcluir) return;
+        setErro("");
+        setMutating(true);
+        try {
+            await deleteArquivo(arquivoParaExcluir.id);
+            setArquivoParaExcluir(null);
+            onMutation?.();
+        } catch (err) {
+            setErro(mensagemDeErro(err, "Erro ao excluir arquivo."));
+        } finally {
+            setMutating(false);
+        }
+    };
+
     return (
         <div>
-            {/* Toolbar de Ações */}
+            {erro && (
+                <div className={styles.errorWrapper}>
+                    <FeedbackMessage type="error" message={erro} />
+                </div>
+            )}
+
             <div className={styles.toolbar}>
-                <input 
-                    type="search" 
-                    placeholder="Pesquisar por nome do arquivo, médico ou paciente..." 
+                <input
+                    type="search"
+                    placeholder="Pesquisar por nome, descrição, médico ou paciente..."
                     className={styles.searchInput}
                     value={busca}
                     onChange={(e) => setBusca(e.target.value)}
                     aria-label="Pesquisar arquivos"
                 />
-                <select 
-                    className={styles.sortSelect} 
-                    value={ordenacao} 
+                <select
+                    className={styles.sortSelect}
+                    value={ordenacao}
                     onChange={(e) => setOrdenacao(e.target.value)}
                     aria-label="Ordenar arquivos"
                 >
@@ -85,38 +157,112 @@ export default function FilesTable({ arquivos, viewerRole }: Props) {
                             <th scope="col">Tamanho</th>
                             <th scope="col">Data de upload</th>
                             <th scope="col">{partyHeader}</th>
+                            <th scope="col">Ações</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {arquivosFiltrados.map((arquivo) => (
-                            <tr key={arquivo.id} tabIndex={0} className={styles.rowItem}>
-                                <td>
-                                    <span className={styles.cellNome}>
-                                        <FileIcon className={styles.fileIcon} />
-                                        {arquivo.nomeOriginal}
-                                    </span>
-                                </td>
-                                <td>
-                                    <span className={styles.tipoBadge}>
-                                        {arquivo.tipo}
-                                    </span>
-                                </td>
-                                <td className={styles.cellDate}>
-                                    {formatTamanho(arquivo.tamanho)}
-                                </td>
-                                <td className={styles.cellDate}>
-                                    {formatDate(arquivo.dataUpload)}
-                                </td>
-                                <td className={styles.cellEnviado}>
-                                    {isMedico
-                                        ? arquivo.pacienteNome
-                                        : arquivo.medicoNome}
-                                </td>
-                            </tr>
-                        ))}
+                        {arquivosFiltrados.map((arquivo) => {
+                            const podeEditar = podeMutarArquivo(arquivo);
+                            const baixando = downloadingId === arquivo.id;
+
+                            return (
+                                <tr key={arquivo.id} className={styles.rowItem}>
+                                    <td>
+                                        <span className={styles.cellNome}>
+                                            <FileIcon className={styles.fileIcon} />
+                                            <span className={styles.cellNomeText}>
+                                                <strong>{arquivo.nomeOriginal}</strong>
+                                                {arquivo.descricao && (
+                                                    <small className={styles.cellDescricao}>
+                                                        {arquivo.descricao}
+                                                    </small>
+                                                )}
+                                            </span>
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <span className={styles.tipoBadge}>{arquivo.tipo}</span>
+                                    </td>
+                                    <td className={styles.cellDate}>
+                                        {formatTamanho(arquivo.tamanho)}
+                                    </td>
+                                    <td className={styles.cellDate}>
+                                        {formatDate(arquivo.dataUpload)}
+                                    </td>
+                                    <td className={styles.cellEnviado}>
+                                        {isMedico ? arquivo.pacienteNome : arquivo.medicoNome}
+                                    </td>
+                                    <td className={styles.cellAcoes}>
+                                        <button
+                                            type="button"
+                                            className={styles.actionBtn}
+                                            onClick={() => setArquivoParaVisualizar(arquivo)}
+                                            aria-label={`Visualizar ${arquivo.nomeOriginal}`}
+                                            title="Visualizar"
+                                        >
+                                            <EyeIcon />
+                                        </button>
+                                        <button
+                                            type="button"
+                                            className={styles.actionBtn}
+                                            onClick={() => handleDownload(arquivo)}
+                                            disabled={baixando}
+                                            aria-label={`Baixar ${arquivo.nomeOriginal}`}
+                                            title="Baixar"
+                                        >
+                                            <DownloadIcon />
+                                        </button>
+                                        {podeEditar && (
+                                            <>
+                                                <button
+                                                    type="button"
+                                                    className={styles.actionBtn}
+                                                    onClick={() => setArquivoParaEditar(arquivo)}
+                                                    aria-label={`Editar ${arquivo.nomeOriginal}`}
+                                                    title="Editar descrição"
+                                                >
+                                                    <EditIcon />
+                                                </button>
+                                                <button
+                                                    type="button"
+                                                    className={`${styles.actionBtn} ${styles.actionBtnDanger}`}
+                                                    onClick={() => setArquivoParaExcluir(arquivo)}
+                                                    aria-label={`Excluir ${arquivo.nomeOriginal}`}
+                                                    title="Excluir"
+                                                >
+                                                    <TrashIcon />
+                                                </button>
+                                            </>
+                                        )}
+                                    </td>
+                                </tr>
+                            );
+                        })}
                     </tbody>
                 </table>
             </div>
+
+            <VisualizadorArquivo
+                arquivo={arquivoParaVisualizar}
+                onClose={() => setArquivoParaVisualizar(null)}
+            />
+
+            <EditarArquivoModal
+                arquivo={arquivoParaEditar}
+                isLoading={mutating}
+                onClose={() => (mutating ? undefined : setArquivoParaEditar(null))}
+                onSubmit={handleSalvarEdicao}
+            />
+
+            <ConfirmDialog
+                isOpen={!!arquivoParaExcluir}
+                title="Excluir arquivo"
+                message={`Tem certeza que deseja excluir o arquivo "${arquivoParaExcluir?.nomeOriginal ?? ""}"? Esta ação não pode ser desfeita.`}
+                confirmLabel="Excluir"
+                isLoading={mutating}
+                onConfirm={handleConfirmarExclusao}
+                onClose={() => (mutating ? undefined : setArquivoParaExcluir(null))}
+            />
         </div>
     );
 }

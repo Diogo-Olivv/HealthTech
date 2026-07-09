@@ -1,0 +1,36 @@
+.closeButton {
+    background: transparent;
+    border: none;
+    color: inherit;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    width: 1.75rem;
+    height: 1.75rem;
+    border-radius: 50%;
+    font-size: 1.25rem;
+    line-height: 1;
+    transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.closeButton:hover:not(:disabled) {
+    background: rgba(0, 0, 0, 0.06);
+}
+
+.closeButton:focus-visible {
+    outline: 2px solid var(--color-primary, #2563eb);
+    outline-offset: 2px;
+}
+
+.closeButton:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+.symbol {
+    font-size: 1.35rem;
+    line-height: 1;
+    display: inline-block;
+}
