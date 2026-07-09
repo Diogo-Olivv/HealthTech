@@ -74,16 +74,16 @@ export function ModalVinculo({ isOpen, onClose, onSuccess }: ModalVinculoProps) 
             await linkPatient(selecionado);
             setConfirmando(false);
             await successAlert(
-                "Paciente vinculado!",
-                `${pacienteSelecionado?.nome ?? "O paciente"} já aparece na sua lista de pacientes.`,
+                "Solicitação enviada!",
+                `${pacienteSelecionado?.nome ?? "O paciente"} precisa aprovar a solicitação antes que você tenha acesso aos exames.`,
                 "Continuar",
             );
             onSuccess();
             onClose();
         } catch (error) {
-            const msg = mensagemDeErro(error, "Erro ao vincular paciente.");
+            const msg = mensagemDeErro(error, "Erro ao solicitar vínculo.");
             setFeedback({ type: "error", msg });
-            errorAlert("Não foi possível vincular", msg);
+            errorAlert("Não foi possível solicitar o vínculo", msg);
             setConfirmando(false);
         }
     };
@@ -109,12 +109,12 @@ export function ModalVinculo({ isOpen, onClose, onSuccess }: ModalVinculoProps) 
                 />
 
                 <h2 id="modal-vinculo-title" className={styles.title}>
-                    Vincular Paciente
+                    Solicitar vínculo com paciente
                 </h2>
 
                 <div className={styles.content}>
                     <p className={styles.description}>
-                        Selecione um paciente para se vincular e ter acesso a seus exames.
+                        Selecione um paciente para enviar a solicitação. O paciente precisará aprovar antes que você possa acessar os exames dele.
                     </p>
 
                     {feedback && (
@@ -206,7 +206,7 @@ export function ModalVinculo({ isOpen, onClose, onSuccess }: ModalVinculoProps) 
                         disabled={!selecionado || confirmando}
                         aria-busy={confirmando}
                     >
-                        {confirmando ? "Vinculando..." : "Confirmar Vínculo"}
+                        {confirmando ? "Enviando..." : "Enviar solicitação"}
                     </button>
                 </div>
             </div>

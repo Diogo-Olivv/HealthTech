@@ -78,10 +78,10 @@ export default function MedicoPainelPage() {
 
                     <Button
                         onClick={() => setIsModalOpen(true)}
-                        aria-label="Abrir modal para vincular novo paciente"
+                        aria-label="Abrir modal para solicitar vínculo com novo paciente"
                     >
                         <UserPlusIcon />
-                        Vincular Paciente
+                        Solicitar Vínculo
                     </Button>
                 </div>
 
@@ -109,7 +109,7 @@ export default function MedicoPainelPage() {
                 {pacientes.length === 0 ? (
                     <EmptyState
                         icon={UserIcon}
-                        description="Quando pacientes forem vinculados ao seu perfil, eles aparecerão aqui. Clique em ‘Vincular Paciente’ para começar."
+                        description="Quando um paciente aprovar sua solicitação, ele aparecerá aqui. Clique em ‘Solicitar Vínculo’ para enviar um convite."
                         title="Nenhum paciente vinculado"
                     />
                 ) : (
