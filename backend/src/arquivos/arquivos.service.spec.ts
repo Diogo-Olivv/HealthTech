@@ -3,7 +3,10 @@ import { ObjectLiteral, Repository } from 'typeorm';
 import { ArquivosService } from './arquivos.service';
 import { toArquivoResponse } from './dto/arquivo-response.dto';
 import { Arquivo } from '../entities/arquivo.entity';
-import { MedicoPaciente } from '../entities/medico-paciente.entity';
+import {
+  MedicoPaciente,
+  StatusVinculo,
+} from '../entities/medico-paciente.entity';
 import { UserType } from '../entities/user.entity';
 
 const makeArquivoEntity = (overrides: Partial<Arquivo> = {}): Arquivo => ({
@@ -123,7 +126,9 @@ describe('ArquivosService.uploadArquivo()', () => {
 
     const result = await service.uploadArquivo(file, pacienteId, medicoId);
 
-    expect(medicoPacienteRepo.findOne).toHaveBeenCalledWith({ where: { medicoId, pacienteId } });
+    expect(medicoPacienteRepo.findOne).toHaveBeenCalledWith({
+      where: { medicoId, pacienteId, status: StatusVinculo.APROVADO },
+    });
     expect(storage.upload).toHaveBeenCalledWith(file.buffer, nomeUnico, file.mimetype);
     expect(arquivosRepo.create).toHaveBeenCalledWith(
       expect.objectContaining({
@@ -169,7 +174,7 @@ describe('ArquivosService.uploadArquivo()', () => {
     );
   });
 
-  it('deve lançar ForbiddenException quando médico não tem vínculo', async () => {
+  it('deve lançar ForbiddenException quando médico não tem vínculo aprovado', async () => {
     (medicoPacienteRepo.findOne as jest.Mock).mockResolvedValue(null);
 
     await expect(
@@ -178,6 +183,14 @@ describe('ArquivosService.uploadArquivo()', () => {
 
     expect(storage.upload).not.toHaveBeenCalled();
     expect(arquivosRepo.save).not.toHaveBeenCalled();
+  });
+
+  it('vínculo PENDENTE também bloqueia upload (findOne com status APROVADO retorna null)', async () => {
+    (medicoPacienteRepo.findOne as jest.Mock).mockResolvedValue(null);
+
+    await expect(
+      service.uploadArquivo(makeMulterFile(), 'uuid-p', 'uuid-m'),
+    ).rejects.toThrow(ForbiddenException);
   });
 });
 
@@ -218,6 +231,11 @@ describe('ArquivosService — listagens', () => {
     const result = await service.listarParaMedico('uuid-medico-1');
 
     expect(result.every((a) => a.pacienteId === 'uuid-paciente-vinculado')).toBe(true);
+    expect(medicoPacienteRepo.find).toHaveBeenCalledWith(
+      expect.objectContaining({
+        where: { medicoId: 'uuid-medico-1', status: StatusVinculo.APROVADO },
+      }),
+    );
     expect(arquivosRepo.find).toHaveBeenCalledWith(
       expect.objectContaining({
         where: [{ pacienteId: 'uuid-paciente-vinculado', medicoUploadId: 'uuid-medico-1' }],
@@ -325,6 +343,7 @@ describe('ArquivosService.atualizarDescricao()', () => {
   it('médico dono do upload atualiza descrição com sucesso', async () => {
     const arquivo = makeArquivoEntity({ medicoUploadId: 'uuid-m-1', descricao: 'antiga' });
     (arquivosRepo.findOne as jest.Mock).mockResolvedValue(arquivo);
+    (medicoPacienteRepo.findOne as jest.Mock).mockResolvedValue({});
     (arquivosRepo.save as jest.Mock).mockImplementation((a) => Promise.resolve(a));
 
     const result = await service.atualizarDescricao('uuid-a', 'uuid-m-1', {
@@ -352,11 +371,25 @@ describe('ArquivosService.atualizarDescricao()', () => {
   it('descrição vazia é gravada como null', async () => {
     const arquivo = makeArquivoEntity({ medicoUploadId: 'uuid-m-1', descricao: 'antes' });
     (arquivosRepo.findOne as jest.Mock).mockResolvedValue(arquivo);
+    (medicoPacienteRepo.findOne as jest.Mock).mockResolvedValue({});
     (arquivosRepo.save as jest.Mock).mockImplementation((a) => Promise.resolve(a));
 
     const result = await service.atualizarDescricao('uuid-a', 'uuid-m-1', { descricao: '   ' });
 
     expect(result.descricao).toBeNull();
+  });
+
+  it('médico revogado (sem vínculo aprovado) não pode editar descrição do próprio upload', async () => {
+    (arquivosRepo.findOne as jest.Mock).mockResolvedValue(
+      makeArquivoEntity({ medicoUploadId: 'uuid-m-1' }),
+    );
+    (medicoPacienteRepo.findOne as jest.Mock).mockResolvedValue(null);
+
+    await expect(
+      service.atualizarDescricao('uuid-a', 'uuid-m-1', { descricao: 'x' }),
+    ).rejects.toThrow(ForbiddenException);
+
+    expect(arquivosRepo.save).not.toHaveBeenCalled();
   });
 });
 
@@ -376,6 +409,7 @@ describe('ArquivosService.excluirArquivo()', () => {
   it('médico dono remove: chama storage.delete antes do repo.delete', async () => {
     const arquivo = makeArquivoEntity({ medicoUploadId: 'uuid-m-1', nomeUnico: 'stored.pdf' });
     (arquivosRepo.findOne as jest.Mock).mockResolvedValue(arquivo);
+    (medicoPacienteRepo.findOne as jest.Mock).mockResolvedValue({});
     storage.delete.mockResolvedValue(undefined);
     (arquivosRepo.delete as jest.Mock).mockResolvedValue({ affected: 1 });
 
@@ -413,6 +447,7 @@ describe('ArquivosService.excluirArquivo()', () => {
     (arquivosRepo.findOne as jest.Mock).mockResolvedValue(
       makeArquivoEntity({ medicoUploadId: 'uuid-m-1' }),
     );
+    (medicoPacienteRepo.findOne as jest.Mock).mockResolvedValue({});
     storage.delete.mockRejectedValue(new Error('S3 timeout'));
 
     await expect(
@@ -428,5 +463,19 @@ describe('ArquivosService.excluirArquivo()', () => {
     await expect(
       service.excluirArquivo('uuid-inexistente', 'uuid-m-1'),
     ).rejects.toThrow(NotFoundException);
+  });
+
+  it('médico revogado não pode excluir seu próprio upload', async () => {
+    (arquivosRepo.findOne as jest.Mock).mockResolvedValue(
+      makeArquivoEntity({ medicoUploadId: 'uuid-m-1' }),
+    );
+    (medicoPacienteRepo.findOne as jest.Mock).mockResolvedValue(null);
+
+    await expect(
+      service.excluirArquivo('uuid-a', 'uuid-m-1'),
+    ).rejects.toThrow(ForbiddenException);
+
+    expect(storage.delete).not.toHaveBeenCalled();
+    expect(arquivosRepo.delete).not.toHaveBeenCalled();
   });
 });
