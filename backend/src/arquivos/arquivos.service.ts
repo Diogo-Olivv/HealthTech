@@ -7,7 +7,10 @@ import {
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Arquivo } from '../entities/arquivo.entity';
-import { MedicoPaciente } from '../entities/medico-paciente.entity';
+import {
+  MedicoPaciente,
+  StatusVinculo,
+} from '../entities/medico-paciente.entity';
 import { UserType } from '../entities/user.entity';
 import { StorageService } from '../storage/storage.service';
 import { AtualizarArquivoDto } from './dto/atualizar-arquivo.dto';
@@ -72,7 +75,7 @@ export class ArquivosService {
   ): Promise<ListarArquivosResponseDto[]> {
     const vinculos = await this.medicoPacienteRepository.find({
       select: { pacienteId: true },
-      where: { medicoId },
+      where: { medicoId, status: StatusVinculo.APROVADO },
     });
 
     const pacienteIds = vinculos.map((v) => v.pacienteId);
@@ -94,12 +97,12 @@ export class ArquivosService {
     pacienteId: string,
   ): Promise<ListarArquivosResponseDto[]> {
     const vinculo = await this.medicoPacienteRepository.findOne({
-      where: { medicoId, pacienteId },
+      where: { medicoId, pacienteId, status: StatusVinculo.APROVADO },
     });
 
     if (!vinculo) {
       throw new ForbiddenException(
-        'Médico não possui vínculo com este paciente para acessar o prontuário.',
+        'Médico não possui vínculo aprovado com este paciente para acessar o prontuário.',
       );
     }
 
@@ -119,12 +122,12 @@ export class ArquivosService {
     descricao?: string,
   ): Promise<ArquivoResponseDto> {
     const vinculo = await this.medicoPacienteRepository.findOne({
-      where: { medicoId, pacienteId },
+      where: { medicoId, pacienteId, status: StatusVinculo.APROVADO },
     });
 
     if (!vinculo) {
       throw new ForbiddenException(
-        'Médico não possui vínculo com o paciente informado',
+        'Médico não possui vínculo aprovado com o paciente informado.',
       );
     }
 
@@ -191,6 +194,7 @@ export class ArquivosService {
   ): Promise<ArquivoResponseDto> {
     const arquivo = await this.buscarArquivoOuFalhar(arquivoId);
     this.garantirDonoDoUpload(arquivo, medicoId);
+    await this.garantirVinculoAprovado(medicoId, arquivo.pacienteId);
 
     arquivo.descricao = dto.descricao?.trim() || null;
 
@@ -201,6 +205,7 @@ export class ArquivosService {
   async excluirArquivo(arquivoId: string, medicoId: string): Promise<void> {
     const arquivo = await this.buscarArquivoOuFalhar(arquivoId);
     this.garantirDonoDoUpload(arquivo, medicoId);
+    await this.garantirVinculoAprovado(medicoId, arquivo.pacienteId);
 
     await this.storageService.delete(arquivo.nomeUnico);
 
@@ -239,11 +244,15 @@ export class ArquivosService {
 
     if (tipoUsuario === UserType.MEDICO) {
       const vinculo = await this.medicoPacienteRepository.findOne({
-        where: { medicoId: usuarioId, pacienteId: arquivo.pacienteId },
+        where: {
+          medicoId: usuarioId,
+          pacienteId: arquivo.pacienteId,
+          status: StatusVinculo.APROVADO,
+        },
       });
       if (!vinculo) {
         throw new ForbiddenException(
-          'Médico não possui vínculo com o paciente deste arquivo.',
+          'Médico não possui vínculo aprovado com o paciente deste arquivo.',
         );
       }
       return;
@@ -256,6 +265,20 @@ export class ArquivosService {
     if (arquivo.medicoUploadId !== medicoId) {
       throw new ForbiddenException(
         'Somente o médico que enviou o arquivo pode alterá-lo ou removê-lo.',
+      );
+    }
+  }
+
+  private async garantirVinculoAprovado(
+    medicoId: string,
+    pacienteId: string,
+  ): Promise<void> {
+    const vinculo = await this.medicoPacienteRepository.findOne({
+      where: { medicoId, pacienteId, status: StatusVinculo.APROVADO },
+    });
+    if (!vinculo) {
+      throw new ForbiddenException(
+        'Médico não possui vínculo aprovado com o paciente deste arquivo.',
       );
     }
   }
