@@ -223,3 +223,76 @@ img {
 .ht-fade-in {
     animation: ht-fade-in var(--transition-normal) ease forwards;
 }
+
+/* ===== SweetAlert2 — tema HealthTech ===== */
+.ht-swal-popup {
+    padding: 1.5rem 1.5rem 1.25rem;
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-lg);
+    font-family: inherit;
+}
+
+.ht-swal-title {
+    color: var(--color-primary-700);
+    font-size: var(--text-xl);
+    font-weight: var(--font-weight-medium);
+    margin-bottom: 0.25rem;
+}
+
+.ht-swal-text {
+    color: var(--color-gray-700);
+    font-size: var(--text-base);
+    line-height: var(--line-height-normal);
+}
+
+.ht-swal-actions {
+    gap: 0.75rem;
+    margin-top: 1rem;
+}
+
+.ht-swal-btn {
+    padding: 0.55rem 1.1rem;
+    border-radius: var(--radius-lg);
+    border: 1px solid transparent;
+    font-size: var(--text-base);
+    font-weight: var(--font-weight-medium);
+    cursor: pointer;
+    transition: background-color var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast);
+}
+
+.ht-swal-btn:focus-visible {
+    outline: 2px solid var(--color-secondary-500);
+    outline-offset: 2px;
+}
+
+.ht-swal-btn--primary {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+}
+
+.ht-swal-btn--primary:hover {
+    background-color: var(--color-primary-600);
+}
+
+.ht-swal-btn--ghost {
+    background-color: var(--color-gray-100);
+    color: var(--color-gray-700);
+}
+
+.ht-swal-btn--ghost:hover {
+    background-color: var(--color-gray-200);
+}
+
+.ht-swal-btn--danger {
+    background-color: var(--color-error-600);
+    color: var(--color-white);
+}
+
+.ht-swal-btn--danger:hover {
+    background-color: var(--color-error-700);
+}
+
+.ht-swal-icon {
+    border-color: var(--color-primary-200);
+    color: var(--color-primary-600);
+}
