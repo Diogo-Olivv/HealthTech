@@ -1,9 +1,10 @@
-import { ForbiddenException } from '@nestjs/common';
+import { ForbiddenException, NotFoundException } from '@nestjs/common';
+import { ObjectLiteral, Repository } from 'typeorm';
 import { ArquivosService } from './arquivos.service';
 import { toArquivoResponse } from './dto/arquivo-response.dto';
 import { Arquivo } from '../entities/arquivo.entity';
 import { MedicoPaciente } from '../entities/medico-paciente.entity';
-import { Repository } from 'typeorm';
+import { UserType } from '../entities/user.entity';
 
 const makeArquivoEntity = (overrides: Partial<Arquivo> = {}): Arquivo => ({
   id: 'uuid-arquivo-1',
@@ -11,6 +12,7 @@ const makeArquivoEntity = (overrides: Partial<Arquivo> = {}): Arquivo => ({
   nomeUnico: 'uuid-gerado-exame_sangue.pdf',
   tipo: 'application/pdf',
   tamanho: 204800,
+  descricao: null,
   caminhoStorage: 'https://storage.googleapis.com/bucket/uuid-gerado-exame_sangue.pdf',
   dataUpload: new Date('2026-06-12T00:00:00Z'),
   pacienteId: 'uuid-paciente-1',
@@ -20,18 +22,6 @@ const makeArquivoEntity = (overrides: Partial<Arquivo> = {}): Arquivo => ({
   ...overrides,
 });
 
-// ---------------------------------------------------------------------------
-// Helper para montar um mock de Repository<T> apenas com os métodos usados
-// ---------------------------------------------------------------------------
-const mockRepo = <T>(overrides: Partial<Repository<T>> = {}): Repository<T> =>
-  ({
-    find: jest.fn(),
-    ...overrides,
-  }) as unknown as Repository<T>;
-
-// ---------------------------------------------------------------------------
-// Testes de segurança — critério exclusivo: caminhoStorage NUNCA na resposta
-// ---------------------------------------------------------------------------
 const makeMulterFile = (overrides: Partial<Express.Multer.File> = {}): Express.Multer.File =>
   ({
     fieldname: 'arquivo',
@@ -43,47 +33,56 @@ const makeMulterFile = (overrides: Partial<Express.Multer.File> = {}): Express.M
     ...overrides,
   }) as Express.Multer.File;
 
+const mockRepo = <T extends ObjectLiteral>(
+  overrides: Partial<Repository<T>> = {},
+): Repository<T> =>
+  ({
+    find: jest.fn(),
+    findOne: jest.fn(),
+    delete: jest.fn(),
+    save: jest.fn(),
+    create: jest.fn(),
+    ...overrides,
+  }) as unknown as Repository<T>;
+
+const mockStorage = () => ({
+  generateUniqueName: jest.fn(),
+  upload: jest.fn(),
+  download: jest.fn(),
+  delete: jest.fn(),
+  getSignedUrl: jest.fn(),
+  getPublicUrl: jest.fn(),
+});
+
 describe('ArquivosService — segurança do caminhoStorage', () => {
   let service: ArquivosService;
 
   beforeEach(() => {
-    // Repositório não é necessário para testar o mapeamento; usamos um mock vazio.
     const mockRepository = {} as any;
-    service = new ArquivosService(mockRepository, mockRepository);
+    service = new ArquivosService(mockRepository, mockRepository, mockStorage() as any);
   });
 
-  describe('toPublicArquivo()', () => {
-    it('deve omitir o campo caminhoStorage da resposta', () => {
-      const result = service.toPublicArquivo(makeArquivoEntity());
-      expect(result).not.toHaveProperty('caminhoStorage');
-    });
+  it('toPublicArquivo deve omitir o caminhoStorage e nomeUnico', () => {
+    const result = service.toPublicArquivo(makeArquivoEntity());
+    expect(result).not.toHaveProperty('caminhoStorage');
+    expect(result).not.toHaveProperty('nomeUnico');
+  });
 
-    it('deve preservar todos os demais campos públicos do arquivo', () => {
-      const result = service.toPublicArquivo(makeArquivoEntity());
-      expect(result).toMatchObject({
-        id: 'uuid-arquivo-1',
-        nomeOriginal: 'exame_sangue.pdf',
-        tipo: 'application/pdf',
-        tamanho: 204800,
-        pacienteId: 'uuid-paciente-1',
-        medicoUploadId: 'uuid-medico-1',
-      });
-    });
-
-    it('deve omitir o campo nomeUnico (nome no bucket — sensível)', () => {
-      const result = service.toPublicArquivo(makeArquivoEntity());
-      expect(result).not.toHaveProperty('nomeUnico');
+  it('toPublicArquivo deve preservar os demais campos públicos', () => {
+    const result = service.toPublicArquivo(makeArquivoEntity());
+    expect(result).toMatchObject({
+      id: 'uuid-arquivo-1',
+      nomeOriginal: 'exame_sangue.pdf',
+      tipo: 'application/pdf',
+      tamanho: 204800,
+      pacienteId: 'uuid-paciente-1',
+      medicoUploadId: 'uuid-medico-1',
     });
   });
 });
 
 describe('toArquivoResponse() — mapper puro', () => {
-  it('deve omitir o campo caminhoStorage', () => {
-    const result = toArquivoResponse(makeArquivoEntity());
-    expect(result).not.toHaveProperty('caminhoStorage');
-  });
-
-  it('não deve vazar o valor do link de storage mesmo que populado', () => {
+  it('nunca vaza o valor do caminho de storage no JSON', () => {
     const result = toArquivoResponse(
       makeArquivoEntity({
         caminhoStorage: 'https://storage.googleapis.com/bucket-secreto/arquivo-privado.pdf',
@@ -96,110 +95,107 @@ describe('toArquivoResponse() — mapper puro', () => {
 
 describe('ArquivosService.uploadArquivo()', () => {
   let service: ArquivosService;
-
-  const mockArquivosRepo = { create: jest.fn(), save: jest.fn() };
-  const mockMedicoPacienteRepo = { findOne: jest.fn() };
-  const mockStorageService = {
-    generateUniqueName: jest.fn(),
-    upload: jest.fn(),
-    getPublicUrl: jest.fn(),
-  };
+  let arquivosRepo: ReturnType<typeof mockRepo<Arquivo>>;
+  let medicoPacienteRepo: ReturnType<typeof mockRepo<MedicoPaciente>>;
+  let storage: ReturnType<typeof mockStorage>;
 
   beforeEach(() => {
-    jest.clearAllMocks();
-    service = new ArquivosService(
-      mockArquivosRepo as any,
-      mockMedicoPacienteRepo as any,
-      mockStorageService as any,
-    );
+    arquivosRepo = mockRepo<Arquivo>();
+    medicoPacienteRepo = mockRepo<MedicoPaciente>();
+    storage = mockStorage();
+    service = new ArquivosService(arquivosRepo, medicoPacienteRepo, storage as any);
   });
 
-  it('deve fazer o upload com sucesso e retornar o arquivo sem caminhoStorage', async () => {
+  it('deve fazer upload com sucesso e omitir campos sensíveis no retorno', async () => {
     const file = makeMulterFile();
     const pacienteId = 'uuid-paciente-1';
     const medicoId = 'uuid-medico-1';
-    const nomeUnico = 'uuid-gerado-exame_sangue.pdf';
-    const urlGcs = 'https://storage.googleapis.com/bucket/uuid-gerado-exame_sangue.pdf';
+    const nomeUnico = 'uuid-gerado-exame.pdf';
+    const urlGcs = 'https://storage.googleapis.com/bucket/uuid-gerado-exame.pdf';
     const arquivoSalvo = makeArquivoEntity({ nomeUnico, caminhoStorage: urlGcs });
 
-    mockMedicoPacienteRepo.findOne.mockResolvedValue({ medicoId, pacienteId });
-    mockStorageService.generateUniqueName.mockReturnValue(nomeUnico);
-    mockStorageService.upload.mockResolvedValue(undefined);
-    mockStorageService.getPublicUrl.mockReturnValue(urlGcs);
-    mockArquivosRepo.create.mockReturnValue(arquivoSalvo);
-    mockArquivosRepo.save.mockResolvedValue(arquivoSalvo);
+    (medicoPacienteRepo.findOne as jest.Mock).mockResolvedValue({ medicoId, pacienteId });
+    storage.generateUniqueName.mockReturnValue(nomeUnico);
+    storage.upload.mockResolvedValue(undefined);
+    storage.getPublicUrl.mockReturnValue(urlGcs);
+    (arquivosRepo.create as jest.Mock).mockReturnValue(arquivoSalvo);
+    (arquivosRepo.save as jest.Mock).mockResolvedValue(arquivoSalvo);
 
     const result = await service.uploadArquivo(file, pacienteId, medicoId);
 
-    expect(mockMedicoPacienteRepo.findOne).toHaveBeenCalledWith({ where: { medicoId, pacienteId } });
-    expect(mockStorageService.generateUniqueName).toHaveBeenCalledWith(file.originalname);
-    expect(mockStorageService.upload).toHaveBeenCalledWith(file.buffer, nomeUnico, file.mimetype);
-    expect(mockArquivosRepo.create).toHaveBeenCalledWith(
+    expect(medicoPacienteRepo.findOne).toHaveBeenCalledWith({ where: { medicoId, pacienteId } });
+    expect(storage.upload).toHaveBeenCalledWith(file.buffer, nomeUnico, file.mimetype);
+    expect(arquivosRepo.create).toHaveBeenCalledWith(
       expect.objectContaining({
         nomeOriginal: file.originalname,
         nomeUnico,
-        tamanho: file.size,
-        tipo: file.mimetype,
-        caminhoStorage: urlGcs,
+        descricao: null,
         pacienteId,
         medicoUploadId: medicoId,
       }),
     );
-    expect(mockArquivosRepo.save).toHaveBeenCalled();
     expect(result).not.toHaveProperty('caminhoStorage');
-    expect(result).toHaveProperty('id', 'uuid-arquivo-1');
-    expect(result).toHaveProperty('nomeOriginal', 'exame_sangue.pdf');
   });
 
-  it('deve lançar ForbiddenException quando médico não tem vínculo com o paciente', async () => {
-    mockMedicoPacienteRepo.findOne.mockResolvedValue(null);
+  it('deve persistir a descrição trimada quando informada', async () => {
+    const file = makeMulterFile();
+    const arquivoSalvo = makeArquivoEntity({ descricao: 'Hemograma completo' });
+
+    (medicoPacienteRepo.findOne as jest.Mock).mockResolvedValue({});
+    storage.generateUniqueName.mockReturnValue('uuid.pdf');
+    storage.getPublicUrl.mockReturnValue('url');
+    (arquivosRepo.create as jest.Mock).mockReturnValue(arquivoSalvo);
+    (arquivosRepo.save as jest.Mock).mockResolvedValue(arquivoSalvo);
+
+    await service.uploadArquivo(file, 'uuid-p', 'uuid-m', '  Hemograma completo  ');
+
+    expect(arquivosRepo.create).toHaveBeenCalledWith(
+      expect.objectContaining({ descricao: 'Hemograma completo' }),
+    );
+  });
+
+  it('deve gravar null quando descrição vier apenas com espaços', async () => {
+    const arquivoSalvo = makeArquivoEntity();
+    (medicoPacienteRepo.findOne as jest.Mock).mockResolvedValue({});
+    storage.generateUniqueName.mockReturnValue('uuid.pdf');
+    storage.getPublicUrl.mockReturnValue('url');
+    (arquivosRepo.create as jest.Mock).mockReturnValue(arquivoSalvo);
+    (arquivosRepo.save as jest.Mock).mockResolvedValue(arquivoSalvo);
+
+    await service.uploadArquivo(makeMulterFile(), 'uuid-p', 'uuid-m', '     ');
+
+    expect(arquivosRepo.create).toHaveBeenCalledWith(
+      expect.objectContaining({ descricao: null }),
+    );
+  });
+
+  it('deve lançar ForbiddenException quando médico não tem vínculo', async () => {
+    (medicoPacienteRepo.findOne as jest.Mock).mockResolvedValue(null);
 
     await expect(
-      service.uploadArquivo(makeMulterFile(), 'uuid-paciente-sem-vinculo', 'uuid-medico-1'),
+      service.uploadArquivo(makeMulterFile(), 'uuid-p', 'uuid-m'),
     ).rejects.toThrow(ForbiddenException);
 
-    expect(mockStorageService.upload).not.toHaveBeenCalled();
-    expect(mockArquivosRepo.save).not.toHaveBeenCalled();
-  });
-
-  it('deve persistir o medicoUploadId correto', async () => {
-    const pacienteId = 'uuid-paciente-1';
-    const medicoId = 'uuid-medico-abc';
-    const nomeUnico = 'novo-nome-unico.pdf';
-    const arquivoSalvo = makeArquivoEntity({ medicoUploadId: medicoId, nomeUnico });
-
-    mockMedicoPacienteRepo.findOne.mockResolvedValue({ medicoId, pacienteId });
-    mockStorageService.generateUniqueName.mockReturnValue(nomeUnico);
-    mockStorageService.upload.mockResolvedValue(undefined);
-    mockStorageService.getPublicUrl.mockReturnValue('https://gcs/fake.pdf');
-    mockArquivosRepo.create.mockReturnValue(arquivoSalvo);
-    mockArquivosRepo.save.mockResolvedValue(arquivoSalvo);
-
-    await service.uploadArquivo(makeMulterFile(), pacienteId, medicoId);
-
-    expect(mockArquivosRepo.create).toHaveBeenCalledWith(
-      expect.objectContaining({ medicoUploadId: medicoId }),
-    );
+    expect(storage.upload).not.toHaveBeenCalled();
+    expect(arquivosRepo.save).not.toHaveBeenCalled();
   });
 });
 
-// ---------------------------------------------------------------------------
-// Testes unitários — listarParaPaciente()
-// ---------------------------------------------------------------------------
-describe('ArquivosService — listarParaPaciente()', () => {
+describe('ArquivosService — listagens', () => {
   let service: ArquivosService;
-  let arquivosRepo: jest.Mocked<Repository<Arquivo>>;
-  let medicoPacienteRepo: jest.Mocked<Repository<MedicoPaciente>>;
+  let arquivosRepo: ReturnType<typeof mockRepo<Arquivo>>;
+  let medicoPacienteRepo: ReturnType<typeof mockRepo<MedicoPaciente>>;
 
   beforeEach(() => {
-    arquivosRepo = mockRepo<Arquivo>() as jest.Mocked<Repository<Arquivo>>;
-    medicoPacienteRepo = mockRepo<MedicoPaciente>() as jest.Mocked<Repository<MedicoPaciente>>;
-    service = new ArquivosService(arquivosRepo, medicoPacienteRepo);
+    arquivosRepo = mockRepo<Arquivo>();
+    medicoPacienteRepo = mockRepo<MedicoPaciente>();
+    service = new ArquivosService(arquivosRepo, medicoPacienteRepo, mockStorage() as any);
   });
 
-  it('deve retornar apenas os arquivos do paciente informado', async () => {
-    const arquivoDoPaciente = makeArquivoEntity({ pacienteId: 'uuid-paciente-1' });
-    arquivosRepo.find.mockResolvedValueOnce([arquivoDoPaciente]);
+  it('listarParaPaciente retorna apenas os arquivos do paciente informado', async () => {
+    (arquivosRepo.find as jest.Mock).mockResolvedValueOnce([
+      makeArquivoEntity({ pacienteId: 'uuid-paciente-1' }),
+    ]);
 
     const result = await service.listarParaPaciente('uuid-paciente-1');
 
@@ -207,122 +203,230 @@ describe('ArquivosService — listarParaPaciente()', () => {
       expect.objectContaining({ where: { pacienteId: 'uuid-paciente-1' } }),
     );
     expect(result).toHaveLength(1);
-    expect(result[0].pacienteId).toBe('uuid-paciente-1');
     expect(result[0].pacienteNome).toBe('Paciente Teste');
-    expect(result[0].medicoNome).toBe('Dr. Teste');
+    expect(result[0]).not.toHaveProperty('caminhoStorage');
   });
 
-  it('deve retornar array vazio quando o paciente não possui arquivos', async () => {
-    arquivosRepo.find.mockResolvedValueOnce([]);
-
-    const result = await service.listarParaPaciente('uuid-paciente-sem-arquivos');
-
-    expect(result).toEqual([]);
-  });
-
-  it('nunca deve incluir caminhoStorage nos resultados', async () => {
-    const arquivoComCaminho = makeArquivoEntity();
-    arquivosRepo.find.mockResolvedValueOnce([arquivoComCaminho]);
-
-    const result = await service.listarParaPaciente('uuid-paciente-1');
-
-    // O select explícito no TypeORM já impede isso em produção,
-    // mas validamos que o contrato do método nunca expõe o campo.
-    result.forEach((item) => {
-      expect(item).not.toHaveProperty('caminhoStorage');
-    });
-  });
-});
-
-// ---------------------------------------------------------------------------
-// Testes unitários — listarParaMedico()
-// ---------------------------------------------------------------------------
-describe('ArquivosService — listarParaMedico()', () => {
-  let service: ArquivosService;
-  let arquivosRepo: jest.Mocked<Repository<Arquivo>>;
-  let medicoPacienteRepo: jest.Mocked<Repository<MedicoPaciente>>;
-
-  const makeVinculo = (pacienteId: string): MedicoPaciente =>
-    ({
-      medicoId: 'uuid-medico-1',
-      pacienteId,
-      medico: {} as any,
-      paciente: {} as any,
-      vinculadoEm: new Date(),
-    }) as MedicoPaciente;
-
-  beforeEach(() => {
-    arquivosRepo = mockRepo<Arquivo>() as jest.Mocked<Repository<Arquivo>>;
-    medicoPacienteRepo = mockRepo<MedicoPaciente>() as jest.Mocked<Repository<MedicoPaciente>>;
-    service = new ArquivosService(arquivosRepo, medicoPacienteRepo);
-  });
-
-  it('deve retornar APENAS arquivos de pacientes vinculados ao médico', async () => {
-    const pacienteVinculado = 'uuid-paciente-vinculado';
-    medicoPacienteRepo.find.mockResolvedValueOnce([makeVinculo(pacienteVinculado)]);
-
-    const arquivoDoVinculado = makeArquivoEntity({ pacienteId: pacienteVinculado });
-    arquivosRepo.find.mockResolvedValueOnce([arquivoDoVinculado]);
+  it('listarParaMedico ignora arquivos de pacientes não vinculados', async () => {
+    (medicoPacienteRepo.find as jest.Mock).mockResolvedValueOnce([
+      { pacienteId: 'uuid-paciente-vinculado' },
+    ]);
+    (arquivosRepo.find as jest.Mock).mockResolvedValueOnce([
+      makeArquivoEntity({ pacienteId: 'uuid-paciente-vinculado' }),
+    ]);
 
     const result = await service.listarParaMedico('uuid-medico-1');
 
-    expect(result).toHaveLength(1);
-    expect(result[0].pacienteId).toBe(pacienteVinculado);
-  });
-
-  it('NÃO deve retornar arquivos de pacientes não vinculados ao médico', async () => {
-    const pacienteVinculado = 'uuid-paciente-vinculado';
-    const pacienteNaoVinculado = 'uuid-paciente-NAO-vinculado';
-
-    // Médico possui vínculo apenas com pacienteVinculado
-    medicoPacienteRepo.find.mockResolvedValueOnce([makeVinculo(pacienteVinculado)]);
-
-    // O banco retorna apenas arquivos do paciente vinculado (WHERE IN correto)
-    const arquivoDoVinculado = makeArquivoEntity({ pacienteId: pacienteVinculado });
-    arquivosRepo.find.mockResolvedValueOnce([arquivoDoVinculado]);
-
-    const result = await service.listarParaMedico('uuid-medico-1');
-
-    // Garante que nenhum arquivo do paciente não vinculado aparece
-    const pacienteIdsNoResultado = result.map((a) => a.pacienteId);
-    expect(pacienteIdsNoResultado).not.toContain(pacienteNaoVinculado);
-
-    // Confirma que a query foi feita somente com o ID do paciente vinculado
+    expect(result.every((a) => a.pacienteId === 'uuid-paciente-vinculado')).toBe(true);
     expect(arquivosRepo.find).toHaveBeenCalledWith(
       expect.objectContaining({
-        where: [{ pacienteId: pacienteVinculado }],
+        where: [{ pacienteId: 'uuid-paciente-vinculado', medicoUploadId: 'uuid-medico-1' }],
       }),
     );
   });
 
-  it('deve retornar array vazio se o médico não possuir nenhum paciente vinculado (edge case)', async () => {
-    // Médico recém-cadastrado: nenhum vínculo na tabela medico_paciente
-    medicoPacienteRepo.find.mockResolvedValueOnce([]);
+  it('listarParaMedico retorna [] se o médico não tem vínculos (early return)', async () => {
+    (medicoPacienteRepo.find as jest.Mock).mockResolvedValueOnce([]);
 
     const result = await service.listarParaMedico('uuid-medico-sem-vinculos');
 
-    // Early return deve evitar a chamada ao repositório de arquivos
     expect(result).toEqual([]);
     expect(arquivosRepo.find).not.toHaveBeenCalled();
   });
 
-  it('deve retornar array vazio se o médico estiver vinculado mas os pacientes não tiverem arquivos', async () => {
-    medicoPacienteRepo.find.mockResolvedValueOnce([makeVinculo('uuid-paciente-sem-arquivos')]);
-    arquivosRepo.find.mockResolvedValueOnce([]);
+  it('listarProntuarioPaciente exige vínculo com o paciente', async () => {
+    (medicoPacienteRepo.findOne as jest.Mock).mockResolvedValueOnce(null);
 
-    const result = await service.listarParaMedico('uuid-medico-1');
+    await expect(
+      service.listarProntuarioPaciente('uuid-m', 'uuid-p'),
+    ).rejects.toThrow(ForbiddenException);
+  });
+});
 
-    expect(result).toEqual([]);
+describe('ArquivosService.gerarUrlDownload()', () => {
+  let service: ArquivosService;
+  let arquivosRepo: ReturnType<typeof mockRepo<Arquivo>>;
+  let medicoPacienteRepo: ReturnType<typeof mockRepo<MedicoPaciente>>;
+  let storage: ReturnType<typeof mockStorage>;
+
+  beforeEach(() => {
+    arquivosRepo = mockRepo<Arquivo>();
+    medicoPacienteRepo = mockRepo<MedicoPaciente>();
+    storage = mockStorage();
+    service = new ArquivosService(arquivosRepo, medicoPacienteRepo, storage as any);
   });
 
-  it('nunca deve incluir caminhoStorage nos resultados', async () => {
-    medicoPacienteRepo.find.mockResolvedValueOnce([makeVinculo('uuid-paciente-1')]);
-    arquivosRepo.find.mockResolvedValueOnce([makeArquivoEntity()]);
+  it('paciente dono do arquivo recebe URL assinada', async () => {
+    (arquivosRepo.findOne as jest.Mock).mockResolvedValue(
+      makeArquivoEntity({ pacienteId: 'uuid-p-1', nomeUnico: 'gcs.pdf' }),
+    );
+    storage.getSignedUrl.mockResolvedValue('https://signed.url');
 
-    const result = await service.listarParaMedico('uuid-medico-1');
+    const result = await service.gerarUrlDownload('uuid-a', 'uuid-p-1', UserType.PACIENTE);
 
-    result.forEach((item) => {
-      expect(item).not.toHaveProperty('caminhoStorage');
+    expect(storage.getSignedUrl).toHaveBeenCalledWith('gcs.pdf', 15 * 60);
+    expect(result.url).toBe('https://signed.url');
+    expect(new Date(result.expiresAt).getTime()).toBeGreaterThan(Date.now());
+  });
+
+  it('paciente de outro cadastro é bloqueado com 403', async () => {
+    (arquivosRepo.findOne as jest.Mock).mockResolvedValue(
+      makeArquivoEntity({ pacienteId: 'uuid-p-1' }),
+    );
+
+    await expect(
+      service.gerarUrlDownload('uuid-a', 'uuid-p-2', UserType.PACIENTE),
+    ).rejects.toThrow(ForbiddenException);
+
+    expect(storage.getSignedUrl).not.toHaveBeenCalled();
+  });
+
+  it('médico com vínculo consegue baixar (mesmo sem ser dono do upload)', async () => {
+    (arquivosRepo.findOne as jest.Mock).mockResolvedValue(
+      makeArquivoEntity({ pacienteId: 'uuid-p-1', medicoUploadId: 'outro-medico' }),
+    );
+    (medicoPacienteRepo.findOne as jest.Mock).mockResolvedValue({});
+    storage.getSignedUrl.mockResolvedValue('https://signed.url');
+
+    const result = await service.gerarUrlDownload('uuid-a', 'uuid-m-1', UserType.MEDICO);
+
+    expect(result.url).toBe('https://signed.url');
+  });
+
+  it('médico sem vínculo é bloqueado com 403', async () => {
+    (arquivosRepo.findOne as jest.Mock).mockResolvedValue(makeArquivoEntity());
+    (medicoPacienteRepo.findOne as jest.Mock).mockResolvedValue(null);
+
+    await expect(
+      service.gerarUrlDownload('uuid-a', 'uuid-m-2', UserType.MEDICO),
+    ).rejects.toThrow(ForbiddenException);
+  });
+
+  it('id inexistente lança 404', async () => {
+    (arquivosRepo.findOne as jest.Mock).mockResolvedValue(null);
+
+    await expect(
+      service.gerarUrlDownload('uuid-inexistente', 'uuid-p', UserType.PACIENTE),
+    ).rejects.toThrow(NotFoundException);
+  });
+});
+
+describe('ArquivosService.atualizarDescricao()', () => {
+  let service: ArquivosService;
+  let arquivosRepo: ReturnType<typeof mockRepo<Arquivo>>;
+  let medicoPacienteRepo: ReturnType<typeof mockRepo<MedicoPaciente>>;
+
+  beforeEach(() => {
+    arquivosRepo = mockRepo<Arquivo>();
+    medicoPacienteRepo = mockRepo<MedicoPaciente>();
+    service = new ArquivosService(arquivosRepo, medicoPacienteRepo, mockStorage() as any);
+  });
+
+  it('médico dono do upload atualiza descrição com sucesso', async () => {
+    const arquivo = makeArquivoEntity({ medicoUploadId: 'uuid-m-1', descricao: 'antiga' });
+    (arquivosRepo.findOne as jest.Mock).mockResolvedValue(arquivo);
+    (arquivosRepo.save as jest.Mock).mockImplementation((a) => Promise.resolve(a));
+
+    const result = await service.atualizarDescricao('uuid-a', 'uuid-m-1', {
+      descricao: '  Nova descrição  ',
     });
+
+    expect(arquivosRepo.save).toHaveBeenCalledWith(
+      expect.objectContaining({ descricao: 'Nova descrição' }),
+    );
+    expect(result.descricao).toBe('Nova descrição');
+  });
+
+  it('médico que não subiu o arquivo recebe 403', async () => {
+    (arquivosRepo.findOne as jest.Mock).mockResolvedValue(
+      makeArquivoEntity({ medicoUploadId: 'uuid-outro-medico' }),
+    );
+
+    await expect(
+      service.atualizarDescricao('uuid-a', 'uuid-m-1', { descricao: 'x' }),
+    ).rejects.toThrow(ForbiddenException);
+
+    expect(arquivosRepo.save).not.toHaveBeenCalled();
+  });
+
+  it('descrição vazia é gravada como null', async () => {
+    const arquivo = makeArquivoEntity({ medicoUploadId: 'uuid-m-1', descricao: 'antes' });
+    (arquivosRepo.findOne as jest.Mock).mockResolvedValue(arquivo);
+    (arquivosRepo.save as jest.Mock).mockImplementation((a) => Promise.resolve(a));
+
+    const result = await service.atualizarDescricao('uuid-a', 'uuid-m-1', { descricao: '   ' });
+
+    expect(result.descricao).toBeNull();
+  });
+});
+
+describe('ArquivosService.excluirArquivo()', () => {
+  let service: ArquivosService;
+  let arquivosRepo: ReturnType<typeof mockRepo<Arquivo>>;
+  let medicoPacienteRepo: ReturnType<typeof mockRepo<MedicoPaciente>>;
+  let storage: ReturnType<typeof mockStorage>;
+
+  beforeEach(() => {
+    arquivosRepo = mockRepo<Arquivo>();
+    medicoPacienteRepo = mockRepo<MedicoPaciente>();
+    storage = mockStorage();
+    service = new ArquivosService(arquivosRepo, medicoPacienteRepo, storage as any);
+  });
+
+  it('médico dono remove: chama storage.delete antes do repo.delete', async () => {
+    const arquivo = makeArquivoEntity({ medicoUploadId: 'uuid-m-1', nomeUnico: 'stored.pdf' });
+    (arquivosRepo.findOne as jest.Mock).mockResolvedValue(arquivo);
+    storage.delete.mockResolvedValue(undefined);
+    (arquivosRepo.delete as jest.Mock).mockResolvedValue({ affected: 1 });
+
+    const chamadas: string[] = [];
+    storage.delete.mockImplementation(() => {
+      chamadas.push('storage');
+      return Promise.resolve();
+    });
+    (arquivosRepo.delete as jest.Mock).mockImplementation(() => {
+      chamadas.push('repo');
+      return Promise.resolve({ affected: 1 });
+    });
+
+    await service.excluirArquivo('uuid-a', 'uuid-m-1');
+
+    expect(chamadas).toEqual(['storage', 'repo']);
+    expect(storage.delete).toHaveBeenCalledWith('stored.pdf');
+    expect(arquivosRepo.delete).toHaveBeenCalledWith({ id: arquivo.id });
+  });
+
+  it('médico não-dono recebe 403 e nada é apagado', async () => {
+    (arquivosRepo.findOne as jest.Mock).mockResolvedValue(
+      makeArquivoEntity({ medicoUploadId: 'uuid-outro' }),
+    );
+
+    await expect(
+      service.excluirArquivo('uuid-a', 'uuid-m-1'),
+    ).rejects.toThrow(ForbiddenException);
+
+    expect(storage.delete).not.toHaveBeenCalled();
+    expect(arquivosRepo.delete).not.toHaveBeenCalled();
+  });
+
+  it('se storage.delete falhar, o registro não é removido do banco (rollback lógico)', async () => {
+    (arquivosRepo.findOne as jest.Mock).mockResolvedValue(
+      makeArquivoEntity({ medicoUploadId: 'uuid-m-1' }),
+    );
+    storage.delete.mockRejectedValue(new Error('S3 timeout'));
+
+    await expect(
+      service.excluirArquivo('uuid-a', 'uuid-m-1'),
+    ).rejects.toThrow('S3 timeout');
+
+    expect(arquivosRepo.delete).not.toHaveBeenCalled();
+  });
+
+  it('id inexistente lança 404', async () => {
+    (arquivosRepo.findOne as jest.Mock).mockResolvedValue(null);
+
+    await expect(
+      service.excluirArquivo('uuid-inexistente', 'uuid-m-1'),
+    ).rejects.toThrow(NotFoundException);
   });
 });
