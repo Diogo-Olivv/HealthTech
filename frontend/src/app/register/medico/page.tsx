@@ -7,8 +7,10 @@ import { registerMedico } from "@/services/users.service";
 import AuthCard from "@/components/ui/AuthCard";
 import FeedbackMessage from "@/components/ui/FeedbackMessage";
 import PasswordField from "@/components/ui/PasswordField";
+import RegisterTypeTabs from "@/components/ui/RegisterTypeTabs";
 import SeletorEspecialidades from "@/components/especialidades/SeletorEspecialidades";
 import { mensagemDeErro } from "@/utils/mensagem-de-erro";
+import { successAlert } from "@/utils/alerts";
 import {
     validarNomeCompleto,
     validarEmail,
@@ -75,18 +77,23 @@ export default function RegisterMedicoPage() {
                 especialidadeIds: form.especialidadeIds,
             });
             setStatus("success");
+            await successAlert(
+                "Cadastro realizado!",
+                "Sua conta de médico foi criada. Clique em continuar para fazer login.",
+                "Ir para o login",
+            );
             router.push("/login");
         } catch (err) {
-            setErrorMsg(mensagemDeErro(err, "Erro ao cadastrar. Tente novamente."));
+            setErrorMsg(
+                mensagemDeErro(err, "Erro ao cadastrar. Tente novamente."),
+            );
             setStatus("error");
         }
     }
 
     return (
         <AuthCard>
-            <Link href="/register" className={styles.backLink}>
-                ← Voltar
-            </Link>
+            <RegisterTypeTabs ativo="medico" />
 
             <h1 className={styles.title}>Cadastro de Médico</h1>
             <p className={styles.subtitle}>
@@ -181,12 +188,6 @@ export default function RegisterMedicoPage() {
                 <div className={styles.feedbackSlot} aria-live="polite">
                     {status === "error" && errorMsg && (
                         <FeedbackMessage type="error" message={errorMsg} />
-                    )}
-                    {status === "success" && (
-                        <FeedbackMessage
-                            type="success"
-                            message="Cadastro realizado! Redirecionando para o login..."
-                        />
                     )}
                 </div>
 

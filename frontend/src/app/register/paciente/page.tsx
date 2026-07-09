@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { registerPaciente } from "@/services/users.service";
 import { isValidCPF, onlyDigits } from "@/utils/cpf";
 import { mensagemDeErro } from "@/utils/mensagem-de-erro";
+import { successAlert } from "@/utils/alerts";
 import {
     validarNomeCompleto,
     validarEmail,
@@ -16,6 +17,7 @@ import {
 import AuthCard from "@/components/ui/AuthCard";
 import FeedbackMessage from "@/components/ui/FeedbackMessage";
 import PasswordField from "@/components/ui/PasswordField";
+import RegisterTypeTabs from "@/components/ui/RegisterTypeTabs";
 import type { RegisterPacienteFormState } from "@/types/auth-forms";
 import type { AuthStatus } from "@/types/ui-status";
 import styles from "../register.module.css";
@@ -77,18 +79,23 @@ export default function RegisterPacientePage() {
                 dataNascimento: form.dataNascimento,
             });
             setStatus("success");
+            await successAlert(
+                "Cadastro realizado!",
+                "Sua conta de paciente foi criada. Clique em continuar para fazer login.",
+                "Ir para o login",
+            );
             router.push("/login");
         } catch (err) {
-            setErrorMsg(mensagemDeErro(err, "Erro ao cadastrar. Tente novamente."));
+            setErrorMsg(
+                mensagemDeErro(err, "Erro ao cadastrar. Tente novamente."),
+            );
             setStatus("error");
         }
     }
 
     return (
         <AuthCard>
-            <Link href="/register" className={styles.backLink}>
-                ← Voltar
-            </Link>
+            <RegisterTypeTabs ativo="paciente" />
 
             <h1 className={styles.title}>Cadastro de Paciente</h1>
 
@@ -192,12 +199,6 @@ export default function RegisterPacientePage() {
                 <div className={styles.feedbackSlot} aria-live="polite">
                     {status === "error" && errorMsg && (
                         <FeedbackMessage type="error" message={errorMsg} />
-                    )}
-                    {status === "success" && (
-                        <FeedbackMessage
-                            type="success"
-                            message="Cadastro realizado! Redirecionando para o login..."
-                        />
                     )}
                 </div>
 
