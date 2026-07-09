@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
-import { getMyMedicos } from "@/services/users.service";
+import { getMyMedicos, revokeAccess } from "@/services/users.service";
 import type { MedicoVinculadoDto } from "@/dto/medico-vinculado.dto";
 import LoadingState from "@/components/arquivos/LoadingState";
 import ErrorState from "@/components/arquivos/ErrorState";
@@ -10,12 +10,14 @@ import MedicosTable from "@/components/arquivos/MedicosTable";
 import UserIcon from "@/components/icons/UserIcon";
 import styles from "@/components/arquivos/ArquivosPage.module.css";
 import { mensagemDeErro } from "@/utils/mensagem-de-erro";
+import { confirmAlert, errorAlert, successAlert } from "@/utils/alerts";
 import type { UiStatus } from "@/types/ui-status";
 
 export default function MeusMedicosPage() {
     const [medicos, setMedicos] = useState<MedicoVinculadoDto[]>([]);
     const [status, setStatus] = useState<UiStatus>("loading");
     const [errorMsg, setErrorMsg] = useState("");
+    const [revogandoId, setRevogandoId] = useState<string | null>(null);
 
     const carregar = useCallback(async () => {
         setStatus("loading");
@@ -32,6 +34,31 @@ export default function MeusMedicosPage() {
     useEffect(() => {
         carregar();
     }, [carregar]);
+
+    const handleRevogar = async (medicoId: string, medicoNome: string) => {
+        const confirmado = await confirmAlert({
+            icon: "warning",
+            title: `Revogar acesso de ${medicoNome}?`,
+            text: "O médico perderá o acesso aos seus exames e não poderá mais enviar arquivos para você. Ele precisará solicitar um novo vínculo se quiser voltar.",
+            confirmButtonText: "Sim, revogar",
+            cancelButtonText: "Cancelar",
+        });
+        if (!confirmado) return;
+
+        setRevogandoId(medicoId);
+        try {
+            await revokeAccess(medicoId);
+            await successAlert("Acesso revogado");
+            carregar();
+        } catch (err) {
+            errorAlert(
+                "Não foi possível revogar",
+                mensagemDeErro(err, "Tente novamente."),
+            );
+        } finally {
+            setRevogandoId(null);
+        }
+    };
 
     if (status === "loading") return <LoadingState />;
     if (status === "error")
@@ -69,7 +96,11 @@ export default function MeusMedicosPage() {
                 {header}
 
                 <div className={`${styles.card} ${styles.fadeIn}`}>
-                    <MedicosTable medicos={medicos} />
+                    <MedicosTable
+                        medicos={medicos}
+                        onRevogar={handleRevogar}
+                        revogandoId={revogandoId}
+                    />
                 </div>
             </div>
         </main>

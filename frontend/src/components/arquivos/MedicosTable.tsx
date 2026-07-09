@@ -3,7 +3,7 @@ import { formatDate } from "@/utils/date";
 import { useState, useMemo } from "react";
 import type { MedicosTableProps } from "@/types/tables";
 
-export default function MedicosTable({ medicos }: MedicosTableProps) {
+export default function MedicosTable({ medicos, onRevogar, revogandoId }: MedicosTableProps) {
     const [busca, setBusca] = useState("");
     const [ordenacao, setOrdenacao] = useState("nome_asc");
 
@@ -63,6 +63,7 @@ export default function MedicosTable({ medicos }: MedicosTableProps) {
                             <th scope="col">Nome do Médico</th>
                             <th scope="col">Especialidade</th>
                             <th scope="col">Data do Vínculo</th>
+                            {onRevogar && <th scope="col">Ações</th>}
                         </tr>
                     </thead>
                     <tbody>
@@ -113,6 +114,19 @@ export default function MedicosTable({ medicos }: MedicosTableProps) {
                                     <td className={styles.cellDate}>
                                         {formatDate(medico.vinculadoEm)}
                                     </td>
+                                    {onRevogar && (
+                                        <td>
+                                            <button
+                                                type="button"
+                                                onClick={() => onRevogar(medico.medicoId, medico.nome)}
+                                                disabled={revogandoId === medico.medicoId}
+                                                aria-busy={revogandoId === medico.medicoId}
+                                                aria-label={`Revogar acesso de ${medico.nome}`}
+                                            >
+                                                {revogandoId === medico.medicoId ? "Revogando..." : "Revogar acesso"}
+                                            </button>
+                                        </td>
+                                    )}
                                 </tr>
                             );
                         })}
