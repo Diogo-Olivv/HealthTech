@@ -70,23 +70,38 @@ texto: text-align, font-size, color, font-weight
 }
 
 .optionCard {
-    padding: var(--spacing-2);
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    padding: var(--spacing-4, 1rem);
     background-color: var(--color-background);
 
     border: 1px solid var(--color-gray-200);
     border-radius: var(--radius-lg);
 
-    font-weight: var(--font-weight-medium);
-    font-size: var(--text-base);
-    color: var(--color-gray-900);
-
-    text-align: center;
+    text-align: left;
+    text-decoration: none;
     cursor: pointer;
+    transition: border-color var(--transition-fast), background-color var(--transition-fast), transform var(--transition-fast);
 }
 
-.optionCard:hover {
-    border: 1px solid var(--color-secondary-500);
+.optionCard:hover,
+.optionCard:focus-visible {
+    border-color: var(--color-secondary-500);
     background-color: var(--color-white);
+    transform: translateY(-1px);
+    outline: none;
+}
+
+.optionTitle {
+    font-weight: var(--font-weight-medium);
+    font-size: var(--text-base);
+    color: var(--color-primary-700);
+}
+
+.optionDescription {
+    font-size: var(--text-sm);
+    color: var(--color-gray-700);
 }
 
 /* Botão de voltar para a tela de escolha de tipo de usuário */
