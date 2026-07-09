@@ -1,0 +1,118 @@
+.list {
+    display: grid;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.card {
+    background: var(--color-white, #fff);
+    border: 1px solid var(--color-gray-200, #e5e7eb);
+    border-radius: var(--radius-lg, 12px);
+    padding: 1.25rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+}
+
+.cardHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.medicoNome {
+    font-size: var(--text-lg, 1.125rem);
+    font-weight: 600;
+    color: var(--color-primary-700, #0d4a8a);
+    margin: 0;
+}
+
+.dataSolicitacao {
+    font-size: var(--text-xs, 0.75rem);
+    color: var(--color-gray-500, #6b7280);
+    white-space: nowrap;
+}
+
+.especialidades {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.375rem;
+}
+
+.badge {
+    display: inline-block;
+    background: var(--color-primary-50, #eaf3ff);
+    color: var(--color-primary-700, #0d4a8a);
+    font-size: var(--text-xs, 0.75rem);
+    padding: 0.25rem 0.625rem;
+    border-radius: var(--radius-full, 999px);
+    font-weight: 500;
+}
+
+.acoes {
+    display: flex;
+    gap: 0.75rem;
+    justify-content: flex-end;
+    margin-top: 0.25rem;
+    flex-wrap: wrap;
+}
+
+.btnAprovar,
+.btnRejeitar {
+    padding: 0.5rem 1.25rem;
+    border-radius: var(--radius-md, 8px);
+    font-weight: 600;
+    font-size: var(--text-sm, 0.875rem);
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: background 0.15s, border-color 0.15s;
+    min-height: 40px;
+}
+
+.btnAprovar {
+    background: var(--color-primary-600, #2563eb);
+    color: #fff;
+}
+
+.btnAprovar:hover:not(:disabled) {
+    background: var(--color-primary-700, #1e40af);
+}
+
+.btnRejeitar {
+    background: transparent;
+    color: var(--color-gray-700, #374151);
+    border-color: var(--color-gray-300, #d1d5db);
+}
+
+.btnRejeitar:hover:not(:disabled) {
+    background: var(--color-gray-100, #f3f4f6);
+}
+
+.btnAprovar:disabled,
+.btnRejeitar:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.avisoConsentimento {
+    font-size: var(--text-sm, 0.875rem);
+    color: var(--color-gray-700, #374151);
+    background: var(--color-gray-50, #f9fafb);
+    border-left: 3px solid var(--color-primary-500, #3b82f6);
+    padding: 0.75rem 1rem;
+    border-radius: 0 var(--radius-md, 8px) var(--radius-md, 8px) 0;
+    margin-top: 0.75rem;
+}
+
+@media (max-width: 640px) {
+    .acoes {
+        justify-content: stretch;
+    }
+    .btnAprovar,
+    .btnRejeitar {
+        flex: 1;
+    }
+}
