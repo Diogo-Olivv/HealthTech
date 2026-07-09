@@ -1,0 +1,36 @@
+# Override automático de dev — carregado por `docker compose up`.
+# Substitui o build de produção por Node em modo watch, com bind mount do código.
+# Para rodar em modo prod-like (build imutável), use:
+#   docker compose -f docker-compose.yml up --build
+
+services:
+  backend:
+    image: node:22-alpine
+    build: !reset null
+    working_dir: /app
+    command: sh -c "npm ci && npm run start:dev"
+    volumes:
+      - ./backend:/app
+      - backend_node_modules:/app/node_modules
+    environment:
+      CHOKIDAR_USEPOLLING: "true"
+      WATCHPACK_POLLING: "true"
+
+  frontend:
+    image: node:22-alpine
+    build: !reset null
+    working_dir: /app
+    command: sh -c "npm ci && npm run dev -- --hostname 0.0.0.0"
+    volumes:
+      - ./frontend:/app
+      - frontend_node_modules:/app/node_modules
+      - frontend_next_cache:/app/.next
+    environment:
+      NEXT_PUBLIC_API_URL: http://localhost:3001
+      CHOKIDAR_USEPOLLING: "true"
+      WATCHPACK_POLLING: "true"
+
+volumes:
+  backend_node_modules:
+  frontend_node_modules:
+  frontend_next_cache:
