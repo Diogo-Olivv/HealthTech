@@ -106,17 +106,17 @@ export default function MedicoPainelPage() {
                     </div>
                 </div>
 
-                <div className={`${styles.card} ${styles.fadeIn}`}>
-                    {pacientes.length === 0 ? (
-                        <EmptyState
-                            icon={UserIcon}
-                            description="Quando pacientes forem vinculados ao seu perfil, eles aparecerão aqui. Clique em ‘Vincular Paciente’ para começar."
-                            title="Nenhum paciente vinculado"
-                        />
-                    ) : (
+                {pacientes.length === 0 ? (
+                    <EmptyState
+                        icon={UserIcon}
+                        description="Quando pacientes forem vinculados ao seu perfil, eles aparecerão aqui. Clique em ‘Vincular Paciente’ para começar."
+                        title="Nenhum paciente vinculado"
+                    />
+                ) : (
+                    <div className={`${styles.card} ${styles.fadeIn}`}>
                         <PatientsTable pacientes={pacientes} />
-                    )}
-                </div>
+                    </div>
+                )}
 
                 <ModalVinculo
                     isOpen={isModalOpen}

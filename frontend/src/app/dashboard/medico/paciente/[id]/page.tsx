@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
+import Link from "next/link";
 import { useParams, useRouter, useSearchParams } from "next/navigation";
 import { getProntuarioPaciente } from "@/services/arquivos.service";
 import type { ArquivoDto } from "@/dto/arquivo.dto";
@@ -51,44 +52,72 @@ export default function ProntuarioPacientePage() {
     }, [pacienteId, carregar]);
 
     const renderHeader = () => (
-        <div className={styles.header}>
-            <div className={styles.headerLeft}>
-                <h1 className={styles.title}>Prontuário de {nomeDoPaciente}</h1>
-                <p className={styles.subtitle}>
-                    Histórico consolidado de exames e laudos
-                </p>
-            </div>
+        <>
+            <Link
+                href="/dashboard/medico"
+                className={styles.backLink}
+                aria-label="Voltar para o painel clínico"
+            >
+                Voltar
+            </Link>
+            <div className={styles.header}>
+                <div className={styles.headerLeft}>
+                    <h1 className={styles.title}>Prontuário de {nomeDoPaciente}</h1>
+                    <p className={styles.subtitle}>
+                        Histórico consolidado de exames e laudos
+                    </p>
+                </div>
 
-            <Button onClick={() => router.push("/dashboard/medico/arquivos/upload")}>
-                <UploadCloudIcon />
-                Novo Upload
-            </Button>
-        </div>
+                <Button
+                    onClick={() => router.push("/dashboard/medico/arquivos/upload")}
+                    aria-label={`Enviar novo arquivo para ${nomeDoPaciente}`}
+                >
+                    <UploadCloudIcon />
+                    Novo Upload
+                </Button>
+            </div>
+        </>
     );
 
-    if (status === "loading") return <main><div className={styles.container}>{renderHeader()}<LoadingState /></div></main>;
-    if (status === "error") return <main><div className={styles.container}>{renderHeader()}<ErrorState msg={errorMsg} /></div></main>;
+    if (status === "loading")
+        return (
+            <main>
+                <div className={styles.container}>
+                    {renderHeader()}
+                    <LoadingState />
+                </div>
+            </main>
+        );
+    if (status === "error")
+        return (
+            <main>
+                <div className={styles.container}>
+                    {renderHeader()}
+                    <ErrorState msg={errorMsg} onRetry={() => carregar()} />
+                </div>
+            </main>
+        );
 
     return (
         <main>
             <div className={styles.container}>
                 {renderHeader()}
 
-                <div className={`${styles.card} ${styles.fadeIn}`}>
-                    {status === "empty" ? (
-                        <EmptyState
-                            title="Nenhum arquivo encontrado"
-                            description="Este paciente ainda não possui nenhum laudo ou exame registrado no sistema."
-                        />
-                    ) : (
+                {status === "empty" ? (
+                    <EmptyState
+                        title="Nenhum arquivo neste prontuário"
+                        description={`${nomeDoPaciente} ainda não tem laudos ou exames registrados. Clique em ‘Novo Upload’ para enviar o primeiro.`}
+                    />
+                ) : (
+                    <div className={`${styles.card} ${styles.fadeIn}`}>
                         <FilesTable
                             arquivos={arquivos}
                             viewerRole="medico"
                             medicoLogadoId={user?.id}
                             onMutation={() => carregar()}
                         />
-                    )}
-                </div>
+                    </div>
+                )}
             </div>
         </main>
     );
