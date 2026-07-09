@@ -6,6 +6,10 @@ import type { PublicUser } from "@/dto/public-user";
 import type { PacienteDisponivelDto } from "@/dto/paciente-disponivel.dto";
 import type { PacienteVinculadoDto } from "@/dto/paciente-vinculado.dto";
 import type { MedicoVinculadoDto } from "@/dto/medico-vinculado.dto";
+import type {
+  SolicitacaoEnviadaDto,
+  SolicitacaoVinculoDto,
+} from "@/dto/solicitacao-vinculo.dto";
 import { API_URL } from "@/lib/api-config";
 import { authHeaders, throwFromResponse } from "@/lib/http";
 
@@ -83,5 +87,47 @@ export async function linkPatient(pacienteId: string): Promise<void> {
     },
     body: JSON.stringify({ pacienteId }),
   });
-  if (!res.ok) await throwFromResponse(res, "Erro ao vincular paciente.");
+  if (!res.ok) await throwFromResponse(res, "Erro ao solicitar vínculo.");
+}
+
+export async function getPendingRequests(): Promise<SolicitacaoVinculoDto[]> {
+  const res = await fetch(
+    `${API_URL}/medico-paciente/solicitacoes-pendentes`,
+    { headers: authHeaders() },
+  );
+  if (!res.ok) await throwFromResponse(res, "Erro ao buscar solicitações.");
+  return res.json();
+}
+
+export async function approveRequest(medicoId: string): Promise<void> {
+  const res = await fetch(
+    `${API_URL}/medico-paciente/solicitacoes/${medicoId}/aprovar`,
+    { method: "POST", headers: authHeaders() },
+  );
+  if (!res.ok) await throwFromResponse(res, "Erro ao aprovar solicitação.");
+}
+
+export async function rejectRequest(medicoId: string): Promise<void> {
+  const res = await fetch(
+    `${API_URL}/medico-paciente/solicitacoes/${medicoId}/rejeitar`,
+    { method: "POST", headers: authHeaders() },
+  );
+  if (!res.ok) await throwFromResponse(res, "Erro ao rejeitar solicitação.");
+}
+
+export async function revokeAccess(medicoId: string): Promise<void> {
+  const res = await fetch(
+    `${API_URL}/medico-paciente/vinculos/${medicoId}`,
+    { method: "DELETE", headers: authHeaders() },
+  );
+  if (!res.ok) await throwFromResponse(res, "Erro ao revogar acesso.");
+}
+
+export async function getSentRequests(): Promise<SolicitacaoEnviadaDto[]> {
+  const res = await fetch(
+    `${API_URL}/medico-paciente/solicitacoes-enviadas`,
+    { headers: authHeaders() },
+  );
+  if (!res.ok) await throwFromResponse(res, "Erro ao buscar suas solicitações enviadas.");
+  return res.json();
 }
