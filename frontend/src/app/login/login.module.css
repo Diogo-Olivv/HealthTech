@@ -117,6 +117,11 @@
 }
 
 .button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+
     width: 100%;
     padding: var(--spacing-3);
     background-color: var(--color-primary);
@@ -131,8 +136,37 @@
     cursor: pointer;
 }
 
-.button:hover {
+.button:hover:not(:disabled) {
     background-color: var(--color-secondary);
+}
+
+.button:disabled {
+    background-color: var(--color-gray-400);
+    cursor: not-allowed;
+}
+
+.spinner {
+    display: inline-block;
+    width: 1rem;
+    height: 1rem;
+    border: 2px solid rgba(255, 255, 255, 0.35);
+    border-top-color: var(--color-white);
+    border-radius: 50%;
+    animation: login-spin 0.7s linear infinite;
+}
+
+@keyframes login-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.feedbackSlot {
+    min-height: 0;
+}
+
+.feedbackSlot:empty {
+    display: none;
 }
 
 .footer {

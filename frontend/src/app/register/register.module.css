@@ -136,6 +136,11 @@ texto: text-align, font-size, color, font-weight
 }
 
 .button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+
     width: 100%;
     padding: var(--spacing-3);
     background-color: var(--color-primary);
@@ -150,14 +155,34 @@ texto: text-align, font-size, color, font-weight
     cursor: pointer;
 }
 
-.button:hover {
+.button:hover:not(:disabled) {
     background-color: var(--color-secondary);
 }
 
 /* Impede novo clique enquanto o cadastro está sendo enviado */
 .button:disabled {
-    background-color: var(--color-gray-200);
+    background-color: var(--color-gray-400);
     cursor: not-allowed;
+}
+
+.spinner {
+    display: inline-block;
+    width: 1rem;
+    height: 1rem;
+    border: 2px solid rgba(255, 255, 255, 0.35);
+    border-top-color: var(--color-white);
+    border-radius: 50%;
+    animation: register-spin 0.7s linear infinite;
+}
+
+@keyframes register-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.feedbackSlot:empty {
+    display: none;
 }
 
 .error {
