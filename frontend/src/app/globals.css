@@ -179,6 +179,23 @@ select {
     font-size: inherit;
 }
 
+/* iOS Safari faz zoom automático em inputs com font-size < 16px.
+   Força 16px em telas de toque para evitar essa quebra de contexto. */
+@media (max-width: 768px) {
+    input,
+    textarea,
+    select {
+        font-size: 16px !important;
+    }
+}
+
+/* Sem tap-highlight cinza padrão do webkit em elementos interativos */
+button,
+a,
+[role="button"] {
+    -webkit-tap-highlight-color: transparent;
+}
+
 img {
     display: block;
     width: 120px;
