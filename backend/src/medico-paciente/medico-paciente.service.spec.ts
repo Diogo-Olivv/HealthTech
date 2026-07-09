@@ -20,7 +20,8 @@ const makePaciente = (overrides = {}) => ({
 const makeMedico = (overrides = {}) => ({
   userId: 'medico-uuid-1',
   crm: 'CRM/SP 123456',
-  especialidade: 'Cardiologia',
+  especialidadeLegado: null,
+  especialidades: [{ id: 'esp-1', nome: 'Cardiologia', slug: 'cardiologia', ativa: true }],
   user: { id: 'medico-uuid-1', name: 'Dra. Ana Lima' },
   ...overrides,
 });
@@ -245,6 +246,7 @@ describe('MedicoPacienteService', () => {
         medicoId: 'medico-uuid-1',
         nome: 'Dra. Ana Lima',
         especialidade: 'Cardiologia',
+        especialidades: [{ id: 'esp-1', nome: 'Cardiologia' }],
         vinculadoEm: vinculo.vinculadoEm,
       });
     });

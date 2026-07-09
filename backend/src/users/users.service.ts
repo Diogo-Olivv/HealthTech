@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   ConflictException,
   Injectable,
   UnauthorizedException,
@@ -11,6 +12,7 @@ import * as bcrypt from 'bcrypt';
 import { User, UserType } from '../entities/user.entity';
 import { Paciente } from '../entities/paciente.entity';
 import { Medico } from '../entities/medico.entity';
+import { EspecialidadesService } from '../especialidades/especialidades.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { CreatePacienteDto } from './dto/create-paciente.dto';
 import { CreateMedicoDto } from './dto/create-medico.dto';
@@ -28,6 +30,7 @@ export class UsersService {
     private readonly medicosRepository: Repository<Medico>,
     private readonly jwtService: JwtService,
     private readonly dataSource: DataSource,
+    private readonly especialidadesService: EspecialidadesService,
   ) {}
 
   async createPaciente(dto: CreatePacienteDto): Promise<PublicUser> {
@@ -52,13 +55,22 @@ export class UsersService {
     await this.ensureEmailIsFree(dto.email);
     await this.ensureCrmIsFree(dto.crm);
 
+    const especialidades = await this.especialidadesService.buscarPorIds(
+      dto.especialidadeIds,
+    );
+    if (especialidades.length !== dto.especialidadeIds.length) {
+      throw new BadRequestException(
+        'Alguma especialidade selecionada não existe ou está desativada.',
+      );
+    }
+
     return this.dataSource.transaction(async (manager) => {
       const user = await this.createBaseUser(manager, dto, UserType.MEDICO);
 
       const medico = manager.create(Medico, {
         userId: user.id,
         crm: dto.crm,
-        especialidade: dto.especialidade,
+        especialidades,
       });
       await manager.save(medico);
 
@@ -93,8 +105,6 @@ export class UsersService {
 
     return this.toPublicUser(user);
   }
-
-  // --- HELPERS PRIVADOS ---
 
   private toPublicUser(user: User): PublicUser {
     return {

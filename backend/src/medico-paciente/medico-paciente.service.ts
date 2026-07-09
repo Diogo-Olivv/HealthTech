@@ -57,38 +57,47 @@ export class MedicoPacienteService {
   async meusMedicos(pacienteId: string) {
     const vinculos = await this.repo.find({
       where: { pacienteId },
-      relations: { medico: { user: true } },
+      relations: { medico: { user: true, especialidades: true } },
     });
 
-    return vinculos.map((v) => ({
-      medicoId: v.medicoId,
-      nome: v.medico.user.name,
-      especialidade: v.medico.especialidade,
-      vinculadoEm: v.vinculadoEm,
-    }));
+    return vinculos.map((v) => {
+      const especialidades = (v.medico.especialidades ?? [])
+        .filter((esp) => esp.ativa)
+        .map((esp) => ({ id: esp.id, nome: esp.nome }));
+
+      const especialidadeConcatenada =
+        especialidades.map((e) => e.nome).join(', ') ||
+        v.medico.especialidadeLegado ||
+        'A definir';
+
+      return {
+        medicoId: v.medicoId,
+        nome: v.medico.user.name,
+        especialidade: especialidadeConcatenada,
+        especialidades,
+        vinculadoEm: v.vinculadoEm,
+      };
+    });
   }
 
-  // funcionalidade de listar todos os Pacientes disponíveis para vínculo, não mostrando os já vinculados com o médico
   async pacientesDisponiveis(medicoId: string) {
-    // 1. Cria uma consulta no banco de dados na tabela de pacientes
-    const query = this.pacienteRepo.createQueryBuilder('paciente')
-      .leftJoinAndSelect('paciente.user', 'user') // Junta com os dados de Usuário para pegar o nome
-      // 2. A Mágica: Exclui todos os pacientes que já têm o seu medicoId na tabela de vínculos
-      
-      .where(`paciente.userId NOT IN (
+    const query = this.pacienteRepo
+      .createQueryBuilder('paciente')
+      .leftJoinAndSelect('paciente.user', 'user')
+      .where(
+        `paciente.userId NOT IN (
         SELECT "pacienteId" FROM medico_paciente WHERE "medicoId" = :medicoId
-      )`, { medicoId });
-    
+      )`,
+        { medicoId },
+      );
+
     const pacientes = await query.getMany();
-    
-    // 3. Devolve só as informações limpas que o Frontend precisa
-    return pacientes.map(p => ({
+
+    return pacientes.map((p) => ({
       id: p.userId,
       nome: p.user.name,
       cpf: p.cpf,
-      email: p.user.email
+      email: p.user.email,
     }));
   }
-
-
 }
