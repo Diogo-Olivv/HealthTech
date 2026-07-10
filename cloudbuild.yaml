@@ -4,7 +4,7 @@ substitutions:
   _FRONTEND_REGION: "us-central1"
   _AR_REPO: "healthtech"
   _BACKEND_SERVICE: "healthtech-backend"
-  _FRONTEND_SERVICE: "healthtech-frontend"
+  _FRONTEND_SERVICE: "healthtech-frontend-us"
   _CR_SA: "healthtech-cloudrun@health-tech-ai-lab.iam.gserviceaccount.com"
   _BACKEND_URL: "https://healthtech-backend-515815792390.southamerica-east1.run.app"
   _CLOUDSQL_CONNECTION: "health-tech-ai-lab:southamerica-east1:health-tech-db"
