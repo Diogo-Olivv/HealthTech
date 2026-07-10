@@ -40,7 +40,7 @@ export class AuditInterceptor implements NestInterceptor {
 
     return next.handle().pipe(
       tap((responseBody) => {
-        const recursoId = extractRecursoId?.(responseBody) ?? null;
+        const recursoId = extractRecursoId?.(responseBody, request) ?? null;
 
         this.auditLogService.registrar(
           evento,

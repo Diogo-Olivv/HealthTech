@@ -45,9 +45,10 @@ describe('AuditLog entity', () => {
     const valores = Object.values(TipoEventoAuditoria);
     expect(valores).toContain('LOGIN');
     expect(valores).toContain('LOGOUT');
-    expect(valores).toContain('LOGIN_FALHA');
+    expect(valores).toContain('CRIACAO_USUARIO');
+    expect(valores).toContain('VINCULO_MEDICO_PACIENTE');
+    expect(valores).toContain('DESVINCULO_MEDICO_PACIENTE');
     expect(valores).toContain('UPLOAD_ARQUIVO');
-    expect(valores).toContain('DOWNLOAD_ARQUIVO');
     expect(valores).toContain('ACESSO_NEGADO');
     expect(valores).toContain('TENTATIVA_ESCALONAMENTO_PRIVILEGIO');
   });
