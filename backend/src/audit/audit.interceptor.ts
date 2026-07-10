@@ -6,14 +6,10 @@ import {
 } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { Observable, catchError, tap, throwError } from 'rxjs';
-import type { Request } from 'express';
 import { AuditLogService } from './audit-log.service';
 import { AUDIT_METADATA_KEY, AuditConfig } from './audit.decorator';
 import { StatusAuditoria } from '../entities/audit-log/audit-log.entity';
-
-interface AuthenticatedRequest extends Request {
-  user?: { id?: string };
-}
+import { AuthRequest } from '../auth/models/AuthRequest';
 
 @Injectable()
 export class AuditInterceptor implements NestInterceptor {
@@ -35,7 +31,7 @@ export class AuditInterceptor implements NestInterceptor {
     const { evento, extractRecursoId } = config;
     const request = context
       .switchToHttp()
-      .getRequest<AuthenticatedRequest>();
+      .getRequest<AuthRequest>();
     const userId = request.user?.id ?? null;
 
     return next.handle().pipe(

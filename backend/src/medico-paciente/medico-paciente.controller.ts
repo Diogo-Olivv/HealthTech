@@ -1,5 +1,4 @@
 import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Post, Req, UseGuards } from '@nestjs/common';
-import type { Request } from 'express';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { Roles } from '../auth/roles.decorator';
 import { RolesGuard } from '../auth/roles.guard';
@@ -8,8 +7,7 @@ import { TipoEventoAuditoria } from '../entities/audit-log/audit-log.entity';
 import { UserType } from '../entities/user.entity';
 import { MedicoPacienteDto } from './dto/medico-paciente.dto';
 import { MedicoPacienteService } from './medico-paciente.service';
-
-type AuthRequest = Request & { user: { id: string } };
+import type { AuthRequest } from '../auth/models/AuthRequest';
 
 @Controller('medico-paciente')
 export class MedicoPacienteController {

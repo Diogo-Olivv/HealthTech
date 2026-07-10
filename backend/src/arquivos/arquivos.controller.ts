@@ -14,27 +14,29 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
-import type { Request } from 'express';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { Roles } from '../auth/roles.decorator';
 import { RolesGuard } from '../auth/roles.guard';
+import { Audit } from '../audit/audit.decorator';
+import { TipoEventoAuditoria } from '../entities/audit-log/audit-log.entity';
 import { UserType } from '../entities/user.entity';
 import { ArquivosService } from './arquivos.service';
 import { ListarArquivosResponseDto } from './dto/listar-arquivos-response.dto';
-
-type AuthRequest = Request & {
-  user: { id: string; tipo: UserType };
-};
+import type { AuthRequest } from '../auth/models/AuthRequest';
 
 const DEZ_MB = 10 * 1024 * 1024; // 10 MB em bytes
 
 @Controller('arquivos')
 @UseGuards(JwtAuthGuard, RolesGuard)
 export class ArquivosController {
-  constructor(private readonly arquivosService: ArquivosService) {}
+  constructor(private readonly arquivosService: ArquivosService) { }
 
   @Get()
   @Roles(UserType.PACIENTE, UserType.MEDICO)
+  @Audit({
+    evento: TipoEventoAuditoria.VISUALIZACAO_ARQUIVO,
+    extractRecursoId: (_res, req: AuthRequest) => req.user?.id ?? null,
+  })
   listar(@Req() req: AuthRequest): Promise<ListarArquivosResponseDto[]> {
     const { id, tipo } = req.user;
 
@@ -48,6 +50,10 @@ export class ArquivosController {
   @Post('upload')
   @HttpCode(HttpStatus.CREATED)
   @Roles(UserType.MEDICO)
+  @Audit({
+    evento: TipoEventoAuditoria.UPLOAD_ARQUIVO,
+    extractRecursoId: (_res, req: AuthRequest) => req.body?.pacienteId ?? null,
+  })
   @UseInterceptors(FileInterceptor('arquivo'))
   async upload(
     @Req() req: AuthRequest,
