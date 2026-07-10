@@ -17,10 +17,12 @@ const LINKS_POR_TIPO: Record<UserType, NavLinkItem[]> = {
   [UserType.MEDICO]: [
     { label: "Meus Pacientes", href: "/dashboard/medico" },
     { label: "Arquivos", href: "/dashboard/medico/arquivos" },
+    { label: "Solicitações", href: "/dashboard/medico/solicitacoes" },
   ],
   [UserType.PACIENTE]: [
     { label: "Meus Arquivos", href: "/dashboard/paciente" },
     { label: "Meus Médicos", href: "/dashboard/paciente/medicos" },
+    { label: "Solicitações", href: "/dashboard/paciente/solicitacoes" },
   ],
 };
 
