@@ -8,6 +8,8 @@ import { Paciente } from './entities/paciente.entity';
 import { Medico } from './entities/medico.entity';
 import { MedicoPaciente } from './entities/medico-paciente.entity';
 import { Arquivo } from './entities/arquivo.entity';
+import { Especialidade } from './entities/especialidade.entity';
+import { AuditLog } from './entities/audit-log/audit-log.entity';
 
 const instanceName = process.env.INSTANCE_CONNECTION_NAME;
 
@@ -22,7 +24,7 @@ export const AppDataSource = new DataSource({
   username: process.env.DB_USER ?? 'postgres',
   password: process.env.DB_PASSWORD ?? 'postgres',
   database: process.env.DB_NAME ?? 'healthtech',
-  entities: [User, Paciente, Medico, MedicoPaciente, Arquivo],
+  entities: [User, Paciente, Medico, MedicoPaciente, Arquivo, Especialidade, AuditLog],
   migrations: [__dirname + '/migrations/*{.ts,.js}'],
   migrationsTableName: 'migrations',
   migrationsTransactionMode: 'each',
