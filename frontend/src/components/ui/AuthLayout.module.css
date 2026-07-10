@@ -74,3 +74,14 @@
     justify-content: center;
     padding: 1rem;
 }
+
+@media (max-width: 768px) {
+    .sidePanel {
+        display: none;
+    }
+
+    .content {
+        padding: 1rem;
+        min-height: 100vh;
+    }
+}

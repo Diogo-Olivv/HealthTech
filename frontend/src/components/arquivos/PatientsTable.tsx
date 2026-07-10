@@ -1,14 +1,10 @@
 import styles from "./PatientsTable.module.css";
-import type { PacienteVinculadoDto } from "@/dto/paciente-vinculado.dto";
 import Link from "next/link";
 import { formatDate } from "@/utils/date";
 import { useState, useMemo } from "react";
+import type { PatientsTableProps } from "@/types/tables";
 
-interface Props {
-    pacientes: PacienteVinculadoDto[];
-}
-
-export default function PatientsTable({ pacientes }: Props) {
+export default function PatientsTable({ pacientes }: PatientsTableProps) {
     const [busca, setBusca] = useState("");
     const [ordenacao, setOrdenacao] = useState("nome_asc");
 
@@ -65,7 +61,6 @@ export default function PatientsTable({ pacientes }: Props) {
                     <thead>
                         <tr>
                             <th scope="col">Nome do Paciente</th>
-                            <th scope="col">Data do Vínculo</th>
                             <th scope="col">Data de Nascimento</th>
                             <th scope="col">Ações</th>
                         </tr>
@@ -75,9 +70,6 @@ export default function PatientsTable({ pacientes }: Props) {
                             <tr key={paciente.pacienteId} tabIndex={0} className={styles.rowItem}>
                                 <td className={styles.cellNome}>
                                     {paciente.nome}
-                                </td>
-                                <td className={styles.cellDate}>
-                                    {formatDate(paciente.vinculadoEm)}
                                 </td>
                                 <td className={styles.cellDate}>
                                     {formatDate(paciente.dataNascimento)}

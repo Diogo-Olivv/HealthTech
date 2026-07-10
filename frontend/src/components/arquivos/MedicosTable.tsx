@@ -1,13 +1,9 @@
 import styles from "./PatientsTable.module.css";
-import type { MedicoVinculadoDto } from "@/dto/medico-vinculado.dto";
 import { formatDate } from "@/utils/date";
 import { useState, useMemo } from "react";
+import type { MedicosTableProps } from "@/types/tables";
 
-interface Props {
-    medicos: MedicoVinculadoDto[];
-}
-
-export default function MedicosTable({ medicos }: Props) {
+export default function MedicosTable({ medicos, onRevogar, revogandoId }: MedicosTableProps) {
     const [busca, setBusca] = useState("");
     const [ordenacao, setOrdenacao] = useState("nome_asc");
 
@@ -15,9 +11,13 @@ export default function MedicosTable({ medicos }: Props) {
         return medicos
             .filter((med) => {
                 const termo = busca.toLowerCase();
+                const especialidadesTexto = (med.especialidades ?? [])
+                    .map((e) => e.nome.toLowerCase())
+                    .join(" ");
                 return (
                     med.nome.toLowerCase().includes(termo) ||
-                    med.especialidade.toLowerCase().includes(termo)
+                    (med.especialidade ?? "").toLowerCase().includes(termo) ||
+                    especialidadesTexto.includes(termo)
                 );
             })
             .sort((a, b) => {
@@ -63,22 +63,73 @@ export default function MedicosTable({ medicos }: Props) {
                             <th scope="col">Nome do Médico</th>
                             <th scope="col">Especialidade</th>
                             <th scope="col">Data do Vínculo</th>
+                            {onRevogar && <th scope="col">Ações</th>}
                         </tr>
                     </thead>
                     <tbody>
-                        {medicosFiltrados.map((medico) => (
-                            <tr key={medico.medicoId} tabIndex={0} className={styles.rowItem}>
-                                <td className={styles.cellNome}>{medico.nome}</td>
-                                <td>
-                                    <span className={styles.tipoBadge}>
-                                        {medico.especialidade}
-                                    </span>
-                                </td>
-                                <td className={styles.cellDate}>
-                                    {formatDate(medico.vinculadoEm)}
-                                </td>
-                            </tr>
-                        ))}
+                        {medicosFiltrados.map((medico) => {
+                            const especialidades = medico.especialidades ?? [];
+                            const visiveis = especialidades.slice(0, 2);
+                            const extras = especialidades.length - visiveis.length;
+
+                            return (
+                                <tr key={medico.medicoId} tabIndex={0} className={styles.rowItem}>
+                                    <td className={styles.cellNome}>{medico.nome}</td>
+                                    <td>
+                                        {especialidades.length === 0 ? (
+                                            <span className={styles.tipoBadge}>
+                                                {medico.especialidade}
+                                            </span>
+                                        ) : (
+                                            <span
+                                                style={{
+                                                    display: "inline-flex",
+                                                    flexWrap: "wrap",
+                                                    gap: "0.25rem",
+                                                    justifyContent: "center",
+                                                }}
+                                            >
+                                                {visiveis.map((esp) => (
+                                                    <span
+                                                        key={esp.id}
+                                                        className={styles.tipoBadge}
+                                                    >
+                                                        {esp.nome}
+                                                    </span>
+                                                ))}
+                                                {extras > 0 && (
+                                                    <span
+                                                        className={styles.tipoBadge}
+                                                        title={especialidades
+                                                            .slice(2)
+                                                            .map((e) => e.nome)
+                                                            .join(", ")}
+                                                    >
+                                                        +{extras}
+                                                    </span>
+                                                )}
+                                            </span>
+                                        )}
+                                    </td>
+                                    <td className={styles.cellDate}>
+                                        {formatDate(medico.vinculadoEm)}
+                                    </td>
+                                    {onRevogar && (
+                                        <td>
+                                            <button
+                                                type="button"
+                                                onClick={() => onRevogar(medico.medicoId, medico.nome)}
+                                                disabled={revogandoId === medico.medicoId}
+                                                aria-busy={revogandoId === medico.medicoId}
+                                                aria-label={`Revogar acesso de ${medico.nome}`}
+                                            >
+                                                {revogandoId === medico.medicoId ? "Revogando..." : "Revogar acesso"}
+                                            </button>
+                                        </td>
+                                    )}
+                                </tr>
+                            );
+                        })}
                     </tbody>
                 </table>
             </div>

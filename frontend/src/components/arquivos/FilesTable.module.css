@@ -1,3 +1,7 @@
+.errorWrapper {
+    margin-bottom: 12px;
+}
+
 .toolbar {
     display: flex;
     gap: 16px;
@@ -105,4 +109,108 @@
 
 .cellEnviado {
     color: var(--color-gray-600);
+}
+
+.cellNomeText {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
+}
+
+.cellDescricao {
+    color: var(--color-gray-500);
+    font-size: 0.75rem;
+    max-width: 260px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.cellAcoes {
+    display: flex;
+    gap: 0.35rem;
+    justify-content: center;
+    align-items: center;
+    padding: 0.5rem;
+}
+
+.actionBtn {
+    background: transparent;
+    border: 1px solid transparent;
+    color: var(--color-primary-600);
+    padding: 0.35rem;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+.actionBtn:hover:not(:disabled) {
+    background: var(--color-primary-50);
+    border-color: var(--color-primary-200, transparent);
+}
+
+.actionBtn:focus-visible {
+    outline: 2px solid var(--color-primary-600);
+    outline-offset: 2px;
+}
+
+.actionBtn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.actionBtnDanger {
+    color: var(--color-error-600, #dc2626);
+}
+
+.actionBtnDanger:hover:not(:disabled) {
+    background: rgba(220, 38, 38, 0.08);
+    border-color: rgba(220, 38, 38, 0.2);
+}
+
+/* ===== Mobile ===== */
+@media (max-width: 768px) {
+    .toolbar {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.5rem;
+    }
+
+    .searchInput,
+    .sortSelect {
+        width: 100%;
+    }
+
+    /* Touch target mínimo (WCAG 2.5.5 – 44x44 css px) */
+    .actionBtn {
+        min-width: 44px;
+        min-height: 44px;
+        padding: 0.5rem;
+    }
+
+    .cellAcoes {
+        gap: 0.25rem;
+        padding: 0.35rem;
+        flex-wrap: nowrap;
+        justify-content: flex-end;
+        white-space: nowrap;
+    }
+
+    .table th,
+    .table td {
+        padding: 0.6rem 0.4rem;
+    }
+
+    .table th:first-child,
+    .table td:first-child {
+        padding-left: 0.6rem;
+    }
+
+    .cellDescricao {
+        max-width: 180px;
+    }
 }

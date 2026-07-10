@@ -34,20 +34,28 @@ const paciente2Payload = {
   dataNascimento: '1985-05-15',
 };
 
-const medicoVinculadoPayload = {
+type MedicoPayload = {
+  name: string;
+  email: string;
+  password: string;
+  crm: string;
+  especialidadeIds: string[];
+};
+
+const medicoVinculadoPayload: MedicoPayload = {
   name: 'Medico Vinculado',
   email: 'medico-vinculado-arquivos@test.com',
   password: 'senha1234',
   crm: 'CRM/RJ 111111',
-  especialidade: 'Cardiologia',
+  especialidadeIds: [],
 };
 
-const medicoSemVinculoPayload = {
+const medicoSemVinculoPayload: MedicoPayload = {
   name: 'Medico Sem Vinculo',
   email: 'medico-semvinculo-arquivos@test.com',
   password: 'senha1234',
   crm: 'CRM/SP 222222',
-  especialidade: 'Neurologia',
+  especialidadeIds: [],
 };
 
 describe('GET /arquivos (E2E)', () => {
@@ -86,6 +94,12 @@ describe('GET /arquivos (E2E)', () => {
     jwtService = moduleFixture.get<JwtService>(JwtService);
 
     await limparDados(dataSource);
+
+    const especialidades = await dataSource.query<{ id: string }[]>(
+      `SELECT id FROM especialidades WHERE ativa = true ORDER BY nome ASC LIMIT 1`,
+    );
+    medicoVinculadoPayload.especialidadeIds = [especialidades[0].id];
+    medicoSemVinculoPayload.especialidadeIds = [especialidades[0].id];
 
     const resPac1 = await request(app.getHttpServer())
       .post('/users/pacientes')

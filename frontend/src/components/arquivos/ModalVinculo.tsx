@@ -1,44 +1,39 @@
-import React, { useState, useEffect } from 'react';
-import styles from './ModalVinculo.module.css';
-import { getAvailablePatients, linkPatient } from '@/services/users.service';
+import { useEffect, useState } from "react";
+import styles from "./ModalVinculo.module.css";
+import { getAvailablePatients, linkPatient } from "@/services/users.service";
 import type { PacienteDisponivelDto } from "@/dto/paciente-disponivel.dto";
 import FeedbackMessage from "@/components/ui/FeedbackMessage";
-
-interface ModalVinculoProps {
-    isOpen: boolean;
-    onClose: () => void;
-    onSuccess: () => void;
-}
+import CloseButton from "@/components/ui/CloseButton";
+import { mensagemDeErro } from "@/utils/mensagem-de-erro";
+import { errorAlert, successAlert } from "@/utils/alerts";
+import type { ModalVinculoProps } from "@/types/modal-vinculo";
 
 export function ModalVinculo({ isOpen, onClose, onSuccess }: ModalVinculoProps) {
     const [pacientes, setPacientes] = useState<PacienteDisponivelDto[]>([]);
-    const [busca, setBusca] = useState('');
+    const [busca, setBusca] = useState("");
     const [selecionado, setSelecionado] = useState<string | null>(null);
     const [loading, setLoading] = useState(false);
-    
-    // Estado do Feedback (Substitui os Alerts feios)
-    const [feedback, setFeedback] = useState<{type: "error" | "success", msg: string} | null>(null);
+    const [confirmando, setConfirmando] = useState(false);
+    const [feedback, setFeedback] = useState<{ type: "error" | "success"; msg: string } | null>(null);
 
-    // Quando o modal abrir, busca a lista
     useEffect(() => {
         if (!isOpen) {
-            // Limpa os dados de estados anteriores toda vez que fecha
             setFeedback(null);
             setSelecionado(null);
-            setBusca('');
+            setBusca("");
             return;
         }
-        
+
         async function fetchPacientes() {
             setLoading(true);
             try {
                 const dados = await getAvailablePatients();
                 setPacientes(dados);
             } catch (error) {
-                const msg =
-                    error instanceof Error
-                        ? error.message
-                        : "Não foi possível carregar a lista de pacientes disponíveis.";
+                const msg = mensagemDeErro(
+                    error,
+                    "Não foi possível carregar a lista de pacientes disponíveis.",
+                );
                 setFeedback({ type: "error", msg });
                 setPacientes([]);
             } finally {
@@ -48,55 +43,78 @@ export function ModalVinculo({ isOpen, onClose, onSuccess }: ModalVinculoProps) 
         fetchPacientes();
     }, [isOpen]);
 
-    const pacientesFiltrados = pacientes.filter(p => 
-        p.nome?.toLowerCase().includes(busca.toLowerCase()) || 
-        p.cpf?.includes(busca)
+    useEffect(() => {
+        if (!isOpen) return;
+        const handleKey = (e: KeyboardEvent) => {
+            if (e.key === "Escape" && !confirmando) onClose();
+        };
+        window.addEventListener("keydown", handleKey);
+        return () => window.removeEventListener("keydown", handleKey);
+    }, [isOpen, confirmando, onClose]);
+
+    const pacientesFiltrados = pacientes.filter(
+        (p) =>
+            p.nome?.toLowerCase().includes(busca.toLowerCase()) ||
+            p.cpf?.includes(busca),
     );
+
+    const pacienteSelecionado = pacientes.find((p) => p.id === selecionado);
 
     const handleConfirmar = async () => {
         if (!selecionado) {
-            setFeedback({ type: "error", msg: "Selecione um paciente na lista antes de confirmar." });
+            setFeedback({
+                type: "error",
+                msg: "Selecione um paciente na lista antes de confirmar.",
+            });
             return;
         }
-        
+
+        setConfirmando(true);
         try {
             await linkPatient(selecionado);
-            setFeedback({ type: "success", msg: "Paciente vinculado com sucesso!" });
-            
-            // Dá 1.5s de tempo para o usuário ler a mensagem de sucesso antes do Modal fechar sozinho
-            setTimeout(() => {
-                onSuccess(); 
-                onClose(); 
-            }, 1500);
+            setConfirmando(false);
+            await successAlert(
+                "Solicitação enviada!",
+                `${pacienteSelecionado?.nome ?? "O paciente"} precisa aprovar a solicitação antes que você tenha acesso aos exames.`,
+                "Continuar",
+            );
+            onSuccess();
+            onClose();
         } catch (error) {
-            const msg = error instanceof Error ? error.message : "Erro ao vincular paciente.";
+            const msg = mensagemDeErro(error, "Erro ao solicitar vínculo.");
             setFeedback({ type: "error", msg });
+            errorAlert("Não foi possível solicitar o vínculo", msg);
+            setConfirmando(false);
         }
     };
-    
+
     if (!isOpen) return null;
 
     return (
-        <div className={styles.overlay}>
+        <div
+            className={styles.overlay}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="modal-vinculo-title"
+            onClick={(e) => {
+                if (e.target === e.currentTarget && !confirmando) onClose();
+            }}
+        >
             <div className={styles.modal}>
-                {/* Botão de Fechar */}
-                <button
+                <CloseButton
                     onClick={onClose}
                     className={styles.closeButton}
-                    aria-label="Fechar modal"
-                >
-                    &times;
-                </button>
+                    ariaLabel="Fechar modal"
+                    disabled={confirmando}
+                />
 
-                {/* Cabeçalho */}
-                <h2 className={styles.title}>
-                    Vincular Paciente
+                <h2 id="modal-vinculo-title" className={styles.title}>
+                    Solicitar vínculo com paciente
                 </h2>
 
-                {/* Conteúdo */}
                 <div className={styles.content}>
                     <p className={styles.description}>
-                        Selecione os pacientes para se vincular e ter acesso a seus exames.
+                        Selecione um paciente para enviar a solicitação. O paciente precisará aprovar antes que você possa acessar os exames dele.
                     </p>
 
                     {feedback && (
@@ -105,65 +123,90 @@ export function ModalVinculo({ isOpen, onClose, onSuccess }: ModalVinculoProps) 
                         </div>
                     )}
 
-                    {/* Barra de Pesquisa */}
-                    <input 
-                        type="text" 
-                        placeholder="Pesquisar por nome ou CPF..." 
+                    <label htmlFor="modal-vinculo-busca" className="sr-only">
+                        Pesquisar por nome ou CPF
+                    </label>
+                    <input
+                        id="modal-vinculo-busca"
+                        type="search"
+                        placeholder="Pesquisar por nome ou CPF..."
                         value={busca}
                         onChange={(e) => setBusca(e.target.value)}
                         className={styles.searchInput}
+                        autoFocus
                     />
 
-                    {/* Lista de Pacientes */}
                     {loading ? (
-                        <p className={styles.loadingText}>Carregando pacientes...</p>
+                        <p className={styles.loadingText} role="status" aria-live="polite">
+                            Carregando pacientes...
+                        </p>
                     ) : (
-                        <div className={styles.patientList}>
+                        <div
+                            className={styles.patientList}
+                            role="radiogroup"
+                            aria-label="Pacientes disponíveis para vínculo"
+                        >
                             {pacientesFiltrados.length === 0 ? (
-                                <p className={styles.emptyText}>Nenhum paciente disponível encontrado.</p>
+                                <p className={styles.emptyText}>
+                                    {busca
+                                        ? "Nenhum paciente corresponde à sua busca."
+                                        : "Nenhum paciente disponível para vínculo no momento."}
+                                </p>
                             ) : (
-                                pacientesFiltrados.map(p => (
-                                    <div 
-                                        key={p.id} 
-                                        className={`${styles.patientItem} ${selecionado === p.id ? styles.selected : ''}`}
-                                        onClick={() => setSelecionado(p.id)}
-                                        role="button"
-                                        tabIndex={0}
-                                        onKeyDown={(e) => {
-                                            if (e.key === 'Enter' || e.key === ' ') {
-                                                e.preventDefault();
-                                                setSelecionado(p.id);
-                                            }
-                                        }}
-                                    >
-
-                                        <input 
-                                            type="radio" 
-                                            name="paciente" 
-                                            value={p.id} 
-                                            checked={selecionado === p.id}
-                                            onChange={() => setSelecionado(p.id)}
-                                            className={styles.radioInput}
-                                        />
-                                        <div>
-                                            <strong className={styles.patientName}>{p.nome}</strong> <br/>
-                                            <small className={styles.patientCpf}>CPF: {p.cpf}</small>
+                                pacientesFiltrados.map((p) => {
+                                    const marcado = selecionado === p.id;
+                                    return (
+                                        <div
+                                            key={p.id}
+                                            className={`${styles.patientItem} ${marcado ? styles.selected : ""}`}
+                                            onClick={() => setSelecionado(p.id)}
+                                            role="radio"
+                                            aria-checked={marcado}
+                                            tabIndex={0}
+                                            onKeyDown={(e) => {
+                                                if (e.key === "Enter" || e.key === " ") {
+                                                    e.preventDefault();
+                                                    setSelecionado(p.id);
+                                                }
+                                            }}
+                                        >
+                                            <input
+                                                type="radio"
+                                                name="paciente"
+                                                value={p.id}
+                                                checked={marcado}
+                                                onChange={() => setSelecionado(p.id)}
+                                                className={styles.radioInput}
+                                                tabIndex={-1}
+                                            />
+                                            <div>
+                                                <strong className={styles.patientName}>{p.nome}</strong>
+                                                <br />
+                                                <small className={styles.patientCpf}>CPF: {p.cpf}</small>
+                                            </div>
                                         </div>
-                                    </div>
-                                ))
+                                    );
+                                })
                             )}
                         </div>
                     )}
-
                 </div>
 
-                {/* Rodapé com Ações */}
                 <div className={styles.footer}>
-                    <button onClick={onClose} className={styles.btnCancel}>
+                    <button
+                        onClick={onClose}
+                        className={styles.btnCancel}
+                        disabled={confirmando}
+                    >
                         Cancelar
                     </button>
-                    <button onClick={handleConfirmar} className={styles.btnConfirm}>
-                        Confirmar Vínculo
+                    <button
+                        onClick={handleConfirmar}
+                        className={styles.btnConfirm}
+                        disabled={!selecionado || confirmando}
+                        aria-busy={confirmando}
+                    >
+                        {confirmando ? "Enviando..." : "Enviar solicitação"}
                     </button>
                 </div>
             </div>

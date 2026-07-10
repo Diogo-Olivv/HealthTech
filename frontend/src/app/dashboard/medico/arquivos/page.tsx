@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { getArquivos } from "@/services/arquivos.service";
 import type { ArquivoDto } from "@/dto/arquivo.dto";
@@ -11,35 +11,37 @@ import FilesTable from "@/components/arquivos/FilesTable";
 import styles from "@/components/arquivos/ArquivosPage.module.css";
 import Button from "@/components/ui/Button";
 import type { UiStatus } from "@/types/ui-status";
+import { mensagemDeErro } from "@/utils/mensagem-de-erro";
 import UploadCloudIcon from "@/components/icons/UploadCloudIcon";
+import { useAuth } from "@/contexts/AuthContext";
 
 
 export default function ArquivosMedicoPage() {
     const [arquivos, setArquivos] = useState<ArquivoDto[]>([]);
     const [status, setStatus] = useState<UiStatus>("loading");
+    const [errorMsg, setErrorMsg] = useState("");
     const router = useRouter();
+    const { user } = useAuth();
 
-    useEffect(() => {
-        let cancelled = false;
-        async function fetchArquivos() {
-            try {
-                const dados = await getArquivos(); 
-                if (cancelled) return;
-                
-                setArquivos(dados);
-                setStatus(dados.length === 0 ? "empty" : "success");
-            } catch (err) {
-                if (cancelled) return;
-                setStatus("error");
-            }
+    const carregar = useCallback(async () => {
+        setStatus("loading");
+        try {
+            const dados = await getArquivos();
+            setArquivos(dados);
+            setStatus(dados.length === 0 ? "empty" : "success");
+        } catch (err) {
+            setErrorMsg(mensagemDeErro(err, "Erro ao carregar os arquivos."));
+            setStatus("error");
         }
-        fetchArquivos();
-
-        return () => { cancelled = true; };
     }, []);
 
+    useEffect(() => {
+        carregar();
+    }, [carregar]);
+
     if (status === "loading") return <LoadingState />;
-    if (status === "error") return <ErrorState msg="Erro ao carregar os arquivos." />;
+    if (status === "error")
+        return <ErrorState msg={errorMsg} onRetry={carregar} />;
 
     return (
         <main>
@@ -51,23 +53,31 @@ export default function ArquivosMedicoPage() {
                             Histórico de laudos e exames enviados por você
                         </p>
                     </div>
-                    
-                    <Button onClick={() => router.push("/dashboard/medico/arquivos/upload")}>
+
+                    <Button
+                        onClick={() => router.push("/dashboard/medico/arquivos/upload")}
+                        aria-label="Ir para tela de upload de novo arquivo"
+                    >
                         <UploadCloudIcon />
                         Novo Upload
                     </Button>
                 </div>
 
-                <div className={styles.card} style={{ marginTop: "2rem" }}>
-                    {status === "empty" ? (
-                        <EmptyState 
-                            title="Nenhum arquivo encontrado"
-                            description="Você ainda não enviou nenhum arquivo."
+                {status === "empty" ? (
+                    <EmptyState
+                        title="Nenhum arquivo enviado ainda"
+                        description="Clique em ‘Novo Upload’ para enviar o primeiro laudo ou exame de um paciente."
+                    />
+                ) : (
+                    <div className={`${styles.card} ${styles.fadeIn}`} style={{ marginTop: "2rem" }}>
+                        <FilesTable
+                            arquivos={arquivos}
+                            viewerRole="medico"
+                            medicoLogadoId={user?.id}
+                            onMutation={carregar}
                         />
-                    ) : (
-                        <FilesTable arquivos={arquivos} viewerRole="medico" />
-                    )}
-                </div>
+                    </div>
+                )}
             </div>
         </main>
     );

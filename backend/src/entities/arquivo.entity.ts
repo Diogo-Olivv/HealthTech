@@ -26,6 +26,9 @@ export class Arquivo {
   @Column({ type: 'int' })
   tamanho!: number;
 
+  @Column({ type: 'varchar', length: 200, nullable: true })
+  descricao?: string | null;
+
   /**
    * @security Campo sensível — guarda o link direto no cloud storage.
    * NUNCA deve ser exposto ao front-end. Use ArquivoResponseDto para
@@ -37,12 +40,9 @@ export class Arquivo {
   @CreateDateColumn()
   dataUpload!: Date;
 
-  // --- RELACIONAMENTOS ---
-
   @Column()
   pacienteId!: string;
 
-  /** Paciente ao qual o arquivo pertence. Removido em cascata. */
   @ManyToOne(() => Paciente, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'pacienteId', referencedColumnName: 'userId' })
   paciente!: Paciente;
@@ -50,7 +50,6 @@ export class Arquivo {
   @Column()
   medicoUploadId!: string;
 
-  /** Médico responsável pelo upload do arquivo. Removido em cascata. */
   @ManyToOne(() => Medico, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'medicoUploadId', referencedColumnName: 'userId' })
   medicoUpload!: Medico;

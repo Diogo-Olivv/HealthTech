@@ -59,26 +59,79 @@
 .actions {
     display: flex;
     flex-direction: column;
-    gap: 0.2rem;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
 }
 
 .button {
+    display: inline-block;
     width: 100%;
-    padding: 0.5rem;
-    background-color: var(--color-secondary-500);
+    padding: 0.65rem 1rem;
 
     border-radius: var(--radius-lg);
-    border: 1px solid var(--color-gray-100);
+    border: 1px solid transparent;
     outline: none;
 
     font-weight: var(--font-weight-medium);
     font-size: var(--text-base);
-    color: var(--color-white);
+    text-align: center;
+    text-decoration: none;
     cursor: pointer;
+    transition: background-color var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast);
 }
 
-.button:hover {
-    background-color: var(--color-secondary-600);
+.buttonPrimary {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+}
+
+.buttonPrimary:hover,
+.buttonPrimary:focus-visible {
+    background-color: var(--color-primary-600);
+}
+
+.buttonSecondary {
+    background-color: transparent;
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+}
+
+.buttonSecondary:hover,
+.buttonSecondary:focus-visible {
+    background-color: var(--color-primary-50);
+}
+
+.button:focus-visible {
+    outline: 2px solid var(--color-secondary-500);
+    outline-offset: 2px;
+}
+
+.logo {
+    align-self: center;
+    margin-bottom: 0.75rem;
+}
+
+@media (max-width: 768px) {
+    .card {
+        padding: 1.5rem 1.25rem;
+        width: 100%;
+        max-width: 100%;
+        box-shadow: none;
+        border-radius: 0;
+    }
+
+    .page {
+        padding: 0;
+        align-items: stretch;
+    }
+
+    .title {
+        font-size: var(--text-xl);
+    }
+
+    .button {
+        min-height: 48px;
+    }
 }
 
 .footer {

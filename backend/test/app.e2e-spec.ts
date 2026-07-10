@@ -12,12 +12,18 @@ const pacientePayload = {
   dataNascimento: '1995-08-20',
 };
 
-const medicoPayload = {
+const medicoPayload: {
+  name: string;
+  email: string;
+  password: string;
+  crm: string;
+  especialidadeIds: string[];
+} = {
   name: 'Medico E2E',
   email: 'medico-e2e@test.com',
   password: 'senha1234',
   crm: 'CRM/RJ 999999',
-  especialidade: 'Neurologia',
+  especialidadeIds: [],
 };
 
 describe('Registro de usuários (E2E)', () => {
@@ -36,6 +42,12 @@ describe('Registro de usuários (E2E)', () => {
     await app.init();
 
     dataSource = moduleFixture.get<DataSource>(DataSource);
+
+    // Especialidades já estão semeadas pela migration; escolhe a primeira ativa.
+    const especialidades = await dataSource.query<{ id: string }[]>(
+      `SELECT id FROM especialidades WHERE ativa = true ORDER BY nome ASC LIMIT 1`,
+    );
+    medicoPayload.especialidadeIds = [especialidades[0].id];
   });
 
   afterAll(async () => {

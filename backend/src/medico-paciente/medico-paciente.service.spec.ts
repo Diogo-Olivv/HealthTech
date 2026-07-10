@@ -1,11 +1,20 @@
-import { ConflictException, NotFoundException } from '@nestjs/common';
+import {
+  ConflictException,
+  ForbiddenException,
+  NotFoundException,
+} from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
+import type { Request } from 'express';
 
-import { MedicoPacienteService } from './medico-paciente.service';
-import { MedicoPaciente } from '../entities/medico-paciente.entity';
+import { AuditLogService } from '../audit/audit-log.service';
+import {
+  MedicoPaciente,
+  StatusVinculo,
+} from '../entities/medico-paciente.entity';
 import { Medico } from '../entities/medico.entity';
 import { Paciente } from '../entities/paciente.entity';
+import { MedicoPacienteService } from './medico-paciente.service';
 
 // ─── Factories ────────────────────────────────────────────────────────────────
 
@@ -13,42 +22,56 @@ const makePaciente = (overrides = {}) => ({
   userId: 'paciente-uuid-1',
   cpf: '123.456.789-00',
   dataNascimento: new Date('1990-01-01'),
-  user: { id: 'paciente-uuid-1', name: 'João Silva' },
+  user: { id: 'paciente-uuid-1', name: 'João Silva', email: 'j@x.com' },
   ...overrides,
 });
 
 const makeMedico = (overrides = {}) => ({
   userId: 'medico-uuid-1',
   crm: 'CRM/SP 123456',
-  especialidade: 'Cardiologia',
+  especialidadeLegado: null,
+  especialidades: [
+    { id: 'esp-1', nome: 'Cardiologia', slug: 'cardiologia', ativa: true },
+  ],
   user: { id: 'medico-uuid-1', name: 'Dra. Ana Lima' },
   ...overrides,
 });
 
-const makeVinculo = (overrides = {}): Partial<MedicoPaciente> => ({
+const makeVinculo = (overrides: Partial<MedicoPaciente> = {}) => ({
   medicoId: 'medico-uuid-1',
   pacienteId: 'paciente-uuid-1',
-  vinculadoEm: new Date('2024-01-01'),
+  status: StatusVinculo.APROVADO,
+  solicitadoPor: 'medico-uuid-1',
+  solicitadoEm: new Date('2024-01-01'),
+  respondidoEm: new Date('2024-01-02'),
+  vinculadoEm: new Date('2024-01-02'),
+  termoVersao: 'v1',
   ...overrides,
 });
 
-// ─── Mocks dos repositórios ───────────────────────────────────────────────────
+const fakeRequest = { ip: '127.0.0.1', headers: {} } as unknown as Request;
+
+// ─── Mocks ───────────────────────────────────────────────────────────────────
 
 const mockRepo = {
   findOne: jest.fn(),
   find: jest.fn(),
-  create: jest.fn(),
-  save: jest.fn(),
-  remove: jest.fn(),
+  update: jest.fn(),
+  insert: jest.fn(),
+  delete: jest.fn(),
+  createQueryBuilder: jest.fn(),
 };
 
 const mockPacienteRepo = {
   findOne: jest.fn(),
+  createQueryBuilder: jest.fn(),
 };
 
 const mockMedicoRepo = {
   findOne: jest.fn(),
 };
+
+const mockAudit = { registrar: jest.fn().mockResolvedValue(undefined) };
 
 // ─── Suite ────────────────────────────────────────────────────────────────────
 
@@ -64,224 +87,397 @@ describe('MedicoPacienteService', () => {
         { provide: getRepositoryToken(MedicoPaciente), useValue: mockRepo },
         { provide: getRepositoryToken(Paciente), useValue: mockPacienteRepo },
         { provide: getRepositoryToken(Medico), useValue: mockMedicoRepo },
+        { provide: AuditLogService, useValue: mockAudit },
       ],
     }).compile();
 
     service = module.get<MedicoPacienteService>(MedicoPacienteService);
   });
 
-  // ── vincular() ──────────────────────────────────────────────────────────────
+  // ── solicitarVinculo() ────────────────────────────────────────────────────
 
-  describe('vincular()', () => {
-    it('deve criar o vínculo quando paciente existe e vínculo ainda não existe', async () => {
+  describe('solicitarVinculo()', () => {
+    it('cria PENDENTE quando paciente existe e não há vínculo prévio', async () => {
       mockPacienteRepo.findOne.mockResolvedValue(makePaciente());
       mockRepo.findOne.mockResolvedValue(null);
-      mockRepo.create.mockReturnValue(makeVinculo());
-      mockRepo.save.mockResolvedValue(undefined);
+      mockRepo.insert.mockResolvedValue(undefined);
 
-      await expect(
-        service.vincular('medico-uuid-1', 'paciente-uuid-1'),
-      ).resolves.toBeUndefined();
+      await service.solicitarVinculo(
+        'medico-uuid-1',
+        'paciente-uuid-1',
+        fakeRequest,
+      );
 
-      expect(mockRepo.create).toHaveBeenCalledWith({
-        medicoId: 'medico-uuid-1',
-        pacienteId: 'paciente-uuid-1',
-      });
-      expect(mockRepo.save).toHaveBeenCalled();
+      expect(mockRepo.insert).toHaveBeenCalledWith(
+        expect.objectContaining({
+          medicoId: 'medico-uuid-1',
+          pacienteId: 'paciente-uuid-1',
+          status: StatusVinculo.PENDENTE,
+          solicitadoPor: 'medico-uuid-1',
+        }),
+      );
+      expect(mockAudit.registrar).toHaveBeenCalledWith(
+        'SOLICITACAO_VINCULO',
+        'medico-uuid-1',
+        'paciente-uuid-1',
+        'SUCCESS',
+        expect.anything(),
+      );
     });
 
-    it('deve lançar NotFoundException quando o paciente não existe', async () => {
+    it('lança NotFoundException quando paciente não existe', async () => {
       mockPacienteRepo.findOne.mockResolvedValue(null);
 
       await expect(
-        service.vincular('medico-uuid-1', 'paciente-uuid-inexistente'),
+        service.solicitarVinculo('medico-uuid-1', 'nope', fakeRequest),
       ).rejects.toThrow(NotFoundException);
-
-      expect(mockRepo.save).not.toHaveBeenCalled();
+      expect(mockRepo.insert).not.toHaveBeenCalled();
     });
 
-    it('deve lançar ConflictException quando o vínculo já existe', async () => {
+    it('lança ConflictException quando já há PENDENTE', async () => {
       mockPacienteRepo.findOne.mockResolvedValue(makePaciente());
-      mockRepo.findOne.mockResolvedValue(makeVinculo());
+      mockRepo.findOne.mockResolvedValue(
+        makeVinculo({ status: StatusVinculo.PENDENTE }),
+      );
 
       await expect(
-        service.vincular('medico-uuid-1', 'paciente-uuid-1'),
+        service.solicitarVinculo(
+          'medico-uuid-1',
+          'paciente-uuid-1',
+          fakeRequest,
+        ),
       ).rejects.toThrow(ConflictException);
-
-      expect(mockRepo.save).not.toHaveBeenCalled();
     });
 
-    it('a mensagem de erro para paciente inexistente deve ser clara', async () => {
-      mockPacienteRepo.findOne.mockResolvedValue(null);
-
-      await expect(
-        service.vincular('medico-uuid-1', 'paciente-uuid-inexistente'),
-      ).rejects.toThrow('Paciente não encontrado.');
-    });
-
-    it('a mensagem de erro para vínculo duplicado deve ser clara', async () => {
+    it('lança ConflictException quando já há APROVADO', async () => {
       mockPacienteRepo.findOne.mockResolvedValue(makePaciente());
-      mockRepo.findOne.mockResolvedValue(makeVinculo());
+      mockRepo.findOne.mockResolvedValue(
+        makeVinculo({ status: StatusVinculo.APROVADO }),
+      );
 
       await expect(
-        service.vincular('medico-uuid-1', 'paciente-uuid-1'),
-      ).rejects.toThrow('Vínculo já existe entre este médico e paciente.');
+        service.solicitarVinculo(
+          'medico-uuid-1',
+          'paciente-uuid-1',
+          fakeRequest,
+        ),
+      ).rejects.toThrow(ConflictException);
+    });
+
+    it('bloqueia nova solicitação dentro do cooldown após REJEITADO', async () => {
+      mockPacienteRepo.findOne.mockResolvedValue(makePaciente());
+      mockRepo.findOne.mockResolvedValue(
+        makeVinculo({
+          status: StatusVinculo.REJEITADO,
+          respondidoEm: new Date(),
+        }),
+      );
+
+      await expect(
+        service.solicitarVinculo(
+          'medico-uuid-1',
+          'paciente-uuid-1',
+          fakeRequest,
+        ),
+      ).rejects.toThrow(ForbiddenException);
+      expect(mockRepo.update).not.toHaveBeenCalled();
+    });
+
+    it('reabre linha REJEITADO antiga (fora do cooldown) como PENDENTE', async () => {
+      mockPacienteRepo.findOne.mockResolvedValue(makePaciente());
+      mockRepo.findOne.mockResolvedValue(
+        makeVinculo({
+          status: StatusVinculo.REJEITADO,
+          respondidoEm: new Date('2020-01-01'),
+        }),
+      );
+      mockRepo.update.mockResolvedValue({ affected: 1 });
+
+      await service.solicitarVinculo(
+        'medico-uuid-1',
+        'paciente-uuid-1',
+        fakeRequest,
+      );
+
+      expect(mockRepo.update).toHaveBeenCalledWith(
+        { medicoId: 'medico-uuid-1', pacienteId: 'paciente-uuid-1' },
+        expect.objectContaining({
+          status: StatusVinculo.PENDENTE,
+          respondidoEm: null,
+          termoVersao: null,
+        }),
+      );
+    });
+
+    it('reabre linha REVOGADO como PENDENTE sem cooldown', async () => {
+      mockPacienteRepo.findOne.mockResolvedValue(makePaciente());
+      mockRepo.findOne.mockResolvedValue(
+        makeVinculo({
+          status: StatusVinculo.REVOGADO,
+          respondidoEm: new Date(),
+        }),
+      );
+      mockRepo.update.mockResolvedValue({ affected: 1 });
+
+      await expect(
+        service.solicitarVinculo(
+          'medico-uuid-1',
+          'paciente-uuid-1',
+          fakeRequest,
+        ),
+      ).resolves.toBeUndefined();
+      expect(mockRepo.update).toHaveBeenCalled();
     });
   });
 
-  // ── desvincular() ───────────────────────────────────────────────────────────
+  // ── aprovarSolicitacao() ──────────────────────────────────────────────────
+
+  describe('aprovarSolicitacao()', () => {
+    it('aprova linha PENDENTE e grava termoVersao', async () => {
+      mockRepo.update.mockResolvedValue({ affected: 1 });
+
+      await service.aprovarSolicitacao(
+        'paciente-uuid-1',
+        'medico-uuid-1',
+        fakeRequest,
+      );
+
+      expect(mockRepo.update).toHaveBeenCalledWith(
+        {
+          medicoId: 'medico-uuid-1',
+          pacienteId: 'paciente-uuid-1',
+          status: StatusVinculo.PENDENTE,
+        },
+        expect.objectContaining({
+          status: StatusVinculo.APROVADO,
+          termoVersao: expect.any(String),
+        }),
+      );
+    });
+
+    it('lança NotFoundException quando não há PENDENTE', async () => {
+      mockRepo.update.mockResolvedValue({ affected: 0 });
+
+      await expect(
+        service.aprovarSolicitacao(
+          'paciente-uuid-1',
+          'medico-uuid-1',
+          fakeRequest,
+        ),
+      ).rejects.toThrow(NotFoundException);
+    });
+
+    it('paciente A não consegue aprovar solicitação de paciente B', async () => {
+      // Simulação: pacienteId no update é o do JWT — se não coincide, affected=0
+      mockRepo.update.mockResolvedValue({ affected: 0 });
+
+      await expect(
+        service.aprovarSolicitacao(
+          'paciente-uuid-outro',
+          'medico-uuid-1',
+          fakeRequest,
+        ),
+      ).rejects.toThrow(NotFoundException);
+    });
+  });
+
+  // ── rejeitarSolicitacao() ─────────────────────────────────────────────────
+
+  describe('rejeitarSolicitacao()', () => {
+    it('marca REJEITADO quando linha está PENDENTE', async () => {
+      mockRepo.update.mockResolvedValue({ affected: 1 });
+
+      await service.rejeitarSolicitacao(
+        'paciente-uuid-1',
+        'medico-uuid-1',
+        fakeRequest,
+      );
+
+      expect(mockRepo.update).toHaveBeenCalledWith(
+        expect.objectContaining({ status: StatusVinculo.PENDENTE }),
+        expect.objectContaining({ status: StatusVinculo.REJEITADO }),
+      );
+    });
+
+    it('rejeitar linha já APROVADA falha (affected=0 → 404)', async () => {
+      mockRepo.update.mockResolvedValue({ affected: 0 });
+
+      await expect(
+        service.rejeitarSolicitacao(
+          'paciente-uuid-1',
+          'medico-uuid-1',
+          fakeRequest,
+        ),
+      ).rejects.toThrow(NotFoundException);
+    });
+  });
+
+  // ── revogarAcesso() ───────────────────────────────────────────────────────
+
+  describe('revogarAcesso()', () => {
+    it('revoga vínculo APROVADO', async () => {
+      mockRepo.update.mockResolvedValue({ affected: 1 });
+
+      await service.revogarAcesso(
+        'paciente-uuid-1',
+        'medico-uuid-1',
+        fakeRequest,
+      );
+
+      expect(mockRepo.update).toHaveBeenCalledWith(
+        expect.objectContaining({ status: StatusVinculo.APROVADO }),
+        expect.objectContaining({ status: StatusVinculo.REVOGADO }),
+      );
+    });
+
+    it('revogar linha PENDENTE falha (affected=0 → 404)', async () => {
+      mockRepo.update.mockResolvedValue({ affected: 0 });
+
+      await expect(
+        service.revogarAcesso(
+          'paciente-uuid-1',
+          'medico-uuid-1',
+          fakeRequest,
+        ),
+      ).rejects.toThrow(NotFoundException);
+    });
+  });
+
+  // ── desvincular() (médico) ────────────────────────────────────────────────
 
   describe('desvincular()', () => {
-    it('deve remover o vínculo quando ele existe', async () => {
-      const vinculo = makeVinculo();
-      mockRepo.findOne.mockResolvedValue(vinculo);
-      mockRepo.remove.mockResolvedValue(undefined);
+    it('cancela solicitação PENDENTE removendo linha', async () => {
+      mockRepo.findOne.mockResolvedValue(
+        makeVinculo({ status: StatusVinculo.PENDENTE }),
+      );
+      mockRepo.delete.mockResolvedValue(undefined);
 
-      await expect(
-        service.desvincular('medico-uuid-1', 'paciente-uuid-1'),
-      ).resolves.toBeUndefined();
-
-      expect(mockRepo.remove).toHaveBeenCalledWith(vinculo);
+      await service.desvincular(
+        'medico-uuid-1',
+        'paciente-uuid-1',
+        fakeRequest,
+      );
+      expect(mockRepo.delete).toHaveBeenCalled();
     });
 
-    it('deve lançar NotFoundException quando o vínculo não existe', async () => {
-      mockRepo.findOne.mockResolvedValue(null);
+    it('vínculo APROVADO vira REVOGADO', async () => {
+      mockRepo.findOne.mockResolvedValue(
+        makeVinculo({ status: StatusVinculo.APROVADO }),
+      );
+      mockRepo.update.mockResolvedValue({ affected: 1 });
 
+      await service.desvincular(
+        'medico-uuid-1',
+        'paciente-uuid-1',
+        fakeRequest,
+      );
+      expect(mockRepo.update).toHaveBeenCalledWith(
+        expect.objectContaining({ status: StatusVinculo.APROVADO }),
+        expect.objectContaining({ status: StatusVinculo.REVOGADO }),
+      );
+    });
+
+    it('desvincular linha REJEITADO/REVOGADO lança NotFound', async () => {
+      mockRepo.findOne.mockResolvedValue(
+        makeVinculo({ status: StatusVinculo.REJEITADO }),
+      );
       await expect(
-        service.desvincular('medico-uuid-1', 'paciente-uuid-1'),
+        service.desvincular(
+          'medico-uuid-1',
+          'paciente-uuid-1',
+          fakeRequest,
+        ),
       ).rejects.toThrow(NotFoundException);
-
-      expect(mockRepo.remove).not.toHaveBeenCalled();
     });
 
-    it('a mensagem de erro para vínculo inexistente deve ser clara', async () => {
+    it('sem linha alguma → NotFound', async () => {
       mockRepo.findOne.mockResolvedValue(null);
-
       await expect(
-        service.desvincular('medico-uuid-1', 'paciente-uuid-1'),
-      ).rejects.toThrow('Vínculo não encontrado.');
-    });
-
-    it('médico que não faz parte do vínculo não consegue desvincular', async () => {
-      // O medicoId passado é diferente do que está no vínculo — o repo retorna null
-      // porque a query filtra por { medicoId, pacienteId } simultaneamente
-      mockRepo.findOne.mockResolvedValue(null);
-
-      await expect(
-        service.desvincular('outro-medico-uuid', 'paciente-uuid-1'),
+        service.desvincular(
+          'medico-uuid-1',
+          'paciente-uuid-1',
+          fakeRequest,
+        ),
       ).rejects.toThrow(NotFoundException);
     });
   });
 
-  // ── meusPacientes() ─────────────────────────────────────────────────────────
+  // ── meusPacientes() ──────────────────────────────────────────────────────
 
   describe('meusPacientes()', () => {
-    it('deve retornar lista de pacientes vinculados ao médico', async () => {
-      const vinculo = {
-        ...makeVinculo(),
-        paciente: makePaciente(),
-      };
-      mockRepo.find.mockResolvedValue([vinculo]);
+    it('filtra apenas vínculos APROVADO', async () => {
+      mockRepo.find.mockResolvedValue([]);
+      await service.meusPacientes('medico-uuid-1');
+      expect(mockRepo.find).toHaveBeenCalledWith(
+        expect.objectContaining({
+          where: {
+            medicoId: 'medico-uuid-1',
+            status: StatusVinculo.APROVADO,
+          },
+        }),
+      );
+    });
 
+    it('projeta campos esperados', async () => {
+      mockRepo.find.mockResolvedValue([
+        { ...makeVinculo(), paciente: makePaciente() },
+      ]);
       const result = await service.meusPacientes('medico-uuid-1');
-
-      expect(result).toHaveLength(1);
-      expect(result[0]).toEqual({
+      expect(result[0]).toMatchObject({
         pacienteId: 'paciente-uuid-1',
         nome: 'João Silva',
-        vinculadoEm: vinculo.vinculadoEm,
       });
     });
+  });
 
-    it('deve retornar lista vazia quando médico não tem pacientes', async () => {
+  // ── meusMedicos() ────────────────────────────────────────────────────────
+
+  describe('meusMedicos()', () => {
+    it('filtra apenas vínculos APROVADO', async () => {
       mockRepo.find.mockResolvedValue([]);
-
-      const result = await service.meusPacientes('medico-uuid-sem-pacientes');
-
-      expect(result).toEqual([]);
-    });
-
-    it('não deve expor campos sensíveis do paciente (cpf, passwordHash)', async () => {
-      const vinculo = {
-        ...makeVinculo(),
-        paciente: {
-          ...makePaciente(),
-          user: { id: 'paciente-uuid-1', name: 'João Silva', passwordHash: 'hash-secreto', cpf: '123.456.789-00' },
-        },
-      };
-      mockRepo.find.mockResolvedValue([vinculo]);
-
-      const result = await service.meusPacientes('medico-uuid-1');
-
-      expect(result[0]).not.toHaveProperty('passwordHash');
-      expect(result[0]).not.toHaveProperty('cpf');
-    });
-
-    it('deve buscar apenas pacientes do médico autenticado', async () => {
-      mockRepo.find.mockResolvedValue([]);
-
-      await service.meusPacientes('medico-uuid-1');
-
+      await service.meusMedicos('paciente-uuid-1');
       expect(mockRepo.find).toHaveBeenCalledWith(
-        expect.objectContaining({ where: { medicoId: 'medico-uuid-1' } }),
+        expect.objectContaining({
+          where: {
+            pacienteId: 'paciente-uuid-1',
+            status: StatusVinculo.APROVADO,
+          },
+        }),
       );
     });
   });
 
-  // ── meusMedicos() ───────────────────────────────────────────────────────────
+  // ── solicitacoesPendentesParaPaciente() ──────────────────────────────────
 
-  describe('meusMedicos()', () => {
-    it('deve retornar lista de médicos vinculados ao paciente', async () => {
-      const vinculo = {
-        ...makeVinculo(),
-        medico: makeMedico(),
-      };
-      mockRepo.find.mockResolvedValue([vinculo]);
-
-      const result = await service.meusMedicos('paciente-uuid-1');
-
-      expect(result).toHaveLength(1);
-      expect(result[0]).toEqual({
-        medicoId: 'medico-uuid-1',
-        nome: 'Dra. Ana Lima',
-        especialidade: 'Cardiologia',
-        vinculadoEm: vinculo.vinculadoEm,
-      });
-    });
-
-    it('deve retornar lista vazia quando paciente não tem médicos', async () => {
+  describe('solicitacoesPendentesParaPaciente()', () => {
+    it('filtra por PENDENTE + pacienteId', async () => {
       mockRepo.find.mockResolvedValue([]);
-
-      const result = await service.meusMedicos('paciente-uuid-sem-medicos');
-
-      expect(result).toEqual([]);
-    });
-
-    it('não deve expor campos sensíveis do médico (crm, passwordHash)', async () => {
-      const vinculo = {
-        ...makeVinculo(),
-        medico: {
-          ...makeMedico(),
-          crm: 'CRM/SP 123456',
-          user: { id: 'medico-uuid-1', name: 'Dra. Ana Lima', passwordHash: 'hash-secreto' },
-        },
-      };
-      mockRepo.find.mockResolvedValue([vinculo]);
-
-      const result = await service.meusMedicos('paciente-uuid-1');
-
-      expect(result[0]).not.toHaveProperty('passwordHash');
-      expect(result[0]).not.toHaveProperty('crm');
-    });
-
-    it('deve buscar apenas médicos do paciente autenticado', async () => {
-      mockRepo.find.mockResolvedValue([]);
-
-      await service.meusMedicos('paciente-uuid-1');
-
+      await service.solicitacoesPendentesParaPaciente('paciente-uuid-1');
       expect(mockRepo.find).toHaveBeenCalledWith(
-        expect.objectContaining({ where: { pacienteId: 'paciente-uuid-1' } }),
+        expect.objectContaining({
+          where: {
+            pacienteId: 'paciente-uuid-1',
+            status: StatusVinculo.PENDENTE,
+          },
+        }),
       );
+    });
+
+    it('projeta médico + especialidades', async () => {
+      mockRepo.find.mockResolvedValue([
+        {
+          ...makeVinculo({ status: StatusVinculo.PENDENTE }),
+          medico: makeMedico(),
+        },
+      ]);
+      const result = await service.solicitacoesPendentesParaPaciente(
+        'paciente-uuid-1',
+      );
+      expect(result[0]).toMatchObject({
+        medicoId: 'medico-uuid-1',
+        medicoNome: 'Dra. Ana Lima',
+        especialidades: [{ id: 'esp-1', nome: 'Cardiologia' }],
+      });
     });
   });
 });

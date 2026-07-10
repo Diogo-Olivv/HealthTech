@@ -1,0 +1,123 @@
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 100%;
+}
+
+.chipsBox {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    padding: 0.5rem;
+    min-height: 44px;
+    border: 1px solid var(--color-gray-300, #c9d2da);
+    border-radius: var(--radius-md, 8px);
+    background: var(--color-white, #fff);
+}
+
+.chipsBox:focus-within {
+    border-color: var(--color-primary, #1e4969);
+    box-shadow: 0 0 0 3px rgba(30, 73, 105, 0.1);
+}
+
+.chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.25rem 0.75rem;
+    background: var(--color-primary-50, #e7eff8);
+    color: var(--color-primary-700, #15354e);
+    border-radius: var(--radius-full, 999px);
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+.chipRemove {
+    background: none;
+    border: none;
+    color: inherit;
+    cursor: pointer;
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    line-height: 1;
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+.chipRemove:hover {
+    color: var(--color-error-600, #dc2626);
+}
+
+.input {
+    flex: 1;
+    min-width: 140px;
+    border: none;
+    outline: none;
+    padding: 0.35rem 0.4rem;
+    font-size: 1rem;
+    color: var(--color-gray-800, #2f373d);
+    background: transparent;
+    font-family: inherit;
+}
+
+.dropdown {
+    position: relative;
+}
+
+.dropdownList {
+    position: absolute;
+    top: 4px;
+    left: 0;
+    right: 0;
+    max-height: 220px;
+    overflow-y: auto;
+    z-index: 30;
+    margin: 0;
+    padding: 0.25rem 0;
+    list-style: none;
+    background: var(--color-white, #fff);
+    border: 1px solid var(--color-gray-200);
+    border-radius: var(--radius-md, 8px);
+    box-shadow: var(--shadow-md);
+}
+
+.option {
+    padding: 0.6rem 1rem;
+    cursor: pointer;
+    color: var(--color-gray-800);
+    transition: background-color 0.15s ease;
+    font-size: 0.95rem;
+}
+
+.option:hover,
+.optionActive {
+    background-color: var(--color-primary-50, #e7eff8);
+}
+
+.optionDisabled {
+    color: var(--color-gray-400);
+    cursor: not-allowed;
+}
+
+.optionDisabled:hover {
+    background: transparent;
+}
+
+.emptyOption {
+    padding: 0.75rem 1rem;
+    color: var(--color-gray-500);
+    font-size: 0.9rem;
+    text-align: center;
+}
+
+.hint {
+    font-size: 0.75rem;
+    color: var(--color-gray-500);
+}
+
+.error {
+    font-size: 0.8rem;
+    color: var(--color-error-600, #dc2626);
+}

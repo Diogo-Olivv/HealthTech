@@ -1,6 +1,7 @@
 export type UploadArquivoDto = {
     file: File;
     pacienteId: string;
+    descricao?: string;
 };
 
 export const UPLOAD_ARQUIVO_LIMITES = {

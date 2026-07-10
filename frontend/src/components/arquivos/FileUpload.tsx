@@ -3,28 +3,29 @@
 import Image from "next/image";
 import { useEffect, useMemo, useRef, useState } from "react";
 import type { ChangeEvent, DragEvent, KeyboardEvent } from "react";
+import { useRouter } from "next/navigation";
 import { uploadArquivo } from "@/services/arquivos.service";
 import { getMyPatients } from "@/services/users.service";
 import type { PacienteVinculadoDto } from "@/dto/paciente-vinculado.dto";
 import { UPLOAD_ARQUIVO_LIMITES } from "@/dto/upload-arquivo.dto";
 import FeedbackMessage from "@/components/ui/FeedbackMessage";
+import CloseButton from "@/components/ui/CloseButton";
+import { mensagemDeErro } from "@/utils/mensagem-de-erro";
+import { errorAlert, confirmAlert } from "@/utils/alerts";
+import type { FileUploadStatus } from "@/types/ui-status";
 import styles from "./FileUpload.module.css";
-
-type Status = "idle" | "loading" | "success" | "error";
 
 const { tamanhoMaximoBytes, formatosPermitidos } = UPLOAD_ARQUIVO_LIMITES;
 
-function mensagemDeErro(erro: unknown, fallback: string): string {
-    return erro instanceof Error && erro.message ? erro.message : fallback;
-}
-
 export default function FileUpload() {
+    const router = useRouter();
     const [file, setFile] = useState<File | null>(null);
     const [pacientes, setPacientes] = useState<PacienteVinculadoDto[]>([]);
     const [pacienteId, setPacienteId] = useState<string>("");
     const [buscaPaciente, setBuscaPaciente] = useState<string>("");
+    const [descricao, setDescricao] = useState<string>("");
     const [dropdownAberto, setDropdownAberto] = useState<boolean>(false);
-    const [status, setStatus] = useState<Status>("idle");
+    const [status, setStatus] = useState<FileUploadStatus>("idle");
     const [feedbackMsg, setFeedbackMsg] = useState<string>("");
     const [isDragging, setIsDragging] = useState<boolean>(false);
 
@@ -36,10 +37,13 @@ export default function FileUpload() {
             try {
                 setPacientes(await getMyPatients());
             } catch (err) {
-                setStatus("error");
-                setFeedbackMsg(
-                    mensagemDeErro(err, "Não foi possível carregar seus pacientes vinculados."),
+                const msg = mensagemDeErro(
+                    err,
+                    "Não foi possível carregar seus pacientes vinculados.",
                 );
+                setStatus("error");
+                setFeedbackMsg(msg);
+                errorAlert("Erro ao carregar pacientes", msg);
             }
         }
         carregarPacientes();
@@ -117,6 +121,15 @@ export default function FileUpload() {
         setDropdownAberto(false);
     };
 
+    const cancelarArquivo = () => {
+        setFile(null);
+        if (dropzoneRef.current) dropzoneRef.current.value = "";
+        if (status === "error") {
+            setStatus("idle");
+            setFeedbackMsg("");
+        }
+    };
+
     const limparSelecaoPaciente = () => {
         setPacienteId("");
         setBuscaPaciente("");
@@ -133,15 +146,31 @@ export default function FileUpload() {
 
         setStatus("loading");
         try {
-            await uploadArquivo({ file, pacienteId });
+            await uploadArquivo({ file, pacienteId, descricao: descricao.trim() || undefined });
             setStatus("success");
-            setFeedbackMsg("Exame enviado e vinculado com sucesso!");
+            setFeedbackMsg("");
             setFile(null);
             setPacienteId("");
             setBuscaPaciente("");
+            setDescricao("");
+
+            const enviarOutro = await confirmAlert({
+                icon: "success",
+                title: "Exame enviado com sucesso!",
+                text: "O arquivo já está disponível para o paciente. Deseja enviar outro exame agora?",
+                confirmButtonText: "Enviar outro",
+                cancelButtonText: "Voltar aos arquivos",
+            });
+
+            setStatus("idle");
+            if (!enviarOutro) {
+                router.push("/dashboard/medico/arquivos");
+            }
         } catch (err) {
+            const msg = mensagemDeErro(err, "Erro ao enviar o arquivo.");
             setStatus("error");
-            setFeedbackMsg(mensagemDeErro(err, "Erro ao enviar o arquivo."));
+            setFeedbackMsg(msg);
+            errorAlert("Falha no upload", msg);
         }
     };
 
@@ -228,6 +257,24 @@ export default function FileUpload() {
             </div>
 
             <div className={styles.formGroup}>
+                <label className={styles.label} htmlFor="descricao-upload">
+                    Descrição do exame (opcional):
+                </label>
+                <input
+                    id="descricao-upload"
+                    type="text"
+                    className={styles.textInput}
+                    placeholder="Ex.: Hemograma completo"
+                    value={descricao}
+                    onChange={(e) => setDescricao(e.target.value)}
+                    maxLength={200}
+                />
+                <span className={styles.charCounter}>
+                    {descricao.trim().length}/200
+                </span>
+            </div>
+
+            <div className={styles.formGroup}>
                 <label
                     className={`${styles.fileInput} ${styles.dropzoneLabel} ${isDragging ? styles.dragging : ""}`}
                     role="button"
@@ -275,9 +322,18 @@ export default function FileUpload() {
             </div>
 
             {file && (
-                <p className={styles.fileInfo}>
-                    Selecionado: {file.name} ({(file.size / (1024 * 1024)).toFixed(2)} MB)
-                </p>
+                <div className={styles.fileInfo}>
+                    <span className={styles.fileInfoTexto}>
+                        Selecionado: {file.name} ({(file.size / (1024 * 1024)).toFixed(2)} MB)
+                    </span>
+                    <CloseButton
+                        onClick={cancelarArquivo}
+                        className={styles.fileInfoClose}
+                        disabled={status === "loading"}
+                        ariaLabel="Cancelar envio do arquivo"
+                        title="Remover arquivo selecionado"
+                    />
+                </div>
             )}
 
             <button

@@ -1,4 +1,4 @@
-import { ConflictException, UnauthorizedException} from '@nestjs/common';
+import { BadRequestException, ConflictException, UnauthorizedException } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { JwtService } from '@nestjs/jwt';
@@ -14,6 +14,7 @@ import { UsersService } from './users.service';
 import { User, UserType } from '../entities/user.entity';
 import { Paciente } from '../entities/paciente.entity';
 import { Medico } from '../entities/medico.entity';
+import { EspecialidadesService } from '../especialidades/especialidades.service';
 import { CreatePacienteDto } from './dto/create-paciente.dto';
 import { CreateMedicoDto } from './dto/create-medico.dto';
 
@@ -31,7 +32,7 @@ const makeMedicoDto = (overrides: Partial<CreateMedicoDto> = {}): CreateMedicoDt
   email: 'ana@email.com',
   password: 'senha123',
   crm: 'CRM/SP 123456',
-  especialidade: 'Cardiologia',
+  especialidadeIds: ['00000000-0000-0000-0000-000000000001'],
   ...overrides,
 });
 
@@ -39,6 +40,7 @@ const mockUserRepo = { findOneBy: jest.fn() };
 const mockPacienteRepo = { findOneBy: jest.fn() };
 const mockMedicoRepo = { findOneBy: jest.fn() };
 const mockJwtService = { signAsync: jest.fn().mockResolvedValue('mock-token') };
+const mockEspecialidadesService = { buscarPorIds: jest.fn(), listarAtivas: jest.fn() };
 
 let mockEntityManager: { create: jest.Mock; save: jest.Mock };
 let mockDataSource: { transaction: jest.Mock };
@@ -67,6 +69,7 @@ describe('UsersService', () => {
         { provide: getRepositoryToken(Medico), useValue: mockMedicoRepo },
         { provide: JwtService, useValue: mockJwtService },
         { provide: DataSource, useValue: mockDataSource },
+        { provide: EspecialidadesService, useValue: mockEspecialidadesService },
       ],
     }).compile();
 
@@ -118,6 +121,9 @@ describe('UsersService', () => {
     it('deve armazenar senha como hash e retornar dados sem passwordHash', async () => {
       mockUserRepo.findOneBy.mockResolvedValue(null);
       mockMedicoRepo.findOneBy.mockResolvedValue(null);
+      mockEspecialidadesService.buscarPorIds.mockResolvedValue([
+        { id: '00000000-0000-0000-0000-000000000001', nome: 'Cardiologia' },
+      ]);
       const savedUser = { id: 'uuid-2', email: 'ana@email.com', name: 'Dra. Ana', tipo: UserType.MEDICO };
       mockEntityManager.save.mockResolvedValueOnce(savedUser);
       mockEntityManager.save.mockResolvedValueOnce({});
@@ -126,6 +132,53 @@ describe('UsersService', () => {
 
       expect(result).toEqual({ id: 'uuid-2', email: 'ana@email.com', name: 'Dra. Ana', tipo: UserType.MEDICO });
       expect(result).not.toHaveProperty('passwordHash');
+    });
+
+    it('deve persistir o vínculo com todas as especialidades informadas', async () => {
+      const especialidades = [
+        { id: '00000000-0000-0000-0000-000000000001', nome: 'Cardiologia' },
+        { id: '00000000-0000-0000-0000-000000000002', nome: 'Clínica médica' },
+      ];
+      mockUserRepo.findOneBy.mockResolvedValue(null);
+      mockMedicoRepo.findOneBy.mockResolvedValue(null);
+      mockEspecialidadesService.buscarPorIds.mockResolvedValue(especialidades);
+      mockEntityManager.save.mockResolvedValueOnce({
+        id: 'uuid-2',
+        email: 'ana@email.com',
+        name: 'Dra. Ana',
+        tipo: UserType.MEDICO,
+      });
+      mockEntityManager.save.mockResolvedValueOnce({});
+
+      await service.createMedico(
+        makeMedicoDto({ especialidadeIds: especialidades.map((e) => e.id) }),
+      );
+
+      const medicoCreatedWith = mockEntityManager.create.mock.calls[1][1] as Record<string, unknown>;
+      expect(medicoCreatedWith.especialidades).toEqual(especialidades);
+      expect(medicoCreatedWith).not.toHaveProperty('especialidade');
+    });
+
+    it('deve lançar BadRequestException quando alguma especialidade não existe', async () => {
+      mockUserRepo.findOneBy.mockResolvedValue(null);
+      mockMedicoRepo.findOneBy.mockResolvedValue(null);
+      // pediu 2 especialidades, mas o repositório só achou 1
+      mockEspecialidadesService.buscarPorIds.mockResolvedValue([
+        { id: '00000000-0000-0000-0000-000000000001', nome: 'Cardiologia' },
+      ]);
+
+      await expect(
+        service.createMedico(
+          makeMedicoDto({
+            especialidadeIds: [
+              '00000000-0000-0000-0000-000000000001',
+              '00000000-0000-0000-0000-000000000999',
+            ],
+          }),
+        ),
+      ).rejects.toThrow(BadRequestException);
+
+      expect(mockDataSource.transaction).not.toHaveBeenCalled();
     });
 
     it('deve lançar ConflictException se o e-mail já existir', async () => {

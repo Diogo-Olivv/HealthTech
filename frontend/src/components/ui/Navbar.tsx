@@ -8,6 +8,7 @@ import { useAuth } from "@/contexts/AuthContext";
 import { UserType } from "@/dto/user-type.enum";
 import type { PublicUser } from "@/dto/public-user";
 import LogoutIcon from "@/components/icons/LogoutIcon";
+import { confirmAlert } from "@/utils/alerts";
 import styles from "./Navbar.module.css";
 
 type NavLinkItem = { label: string; href: string };
@@ -16,10 +17,12 @@ const LINKS_POR_TIPO: Record<UserType, NavLinkItem[]> = {
   [UserType.MEDICO]: [
     { label: "Meus Pacientes", href: "/dashboard/medico" },
     { label: "Arquivos", href: "/dashboard/medico/arquivos" },
+    { label: "Solicitações", href: "/dashboard/medico/solicitacoes" },
   ],
   [UserType.PACIENTE]: [
     { label: "Meus Arquivos", href: "/dashboard/paciente" },
     { label: "Meus Médicos", href: "/dashboard/paciente/medicos" },
+    { label: "Solicitações", href: "/dashboard/paciente/solicitacoes" },
   ],
 };
 
@@ -78,6 +81,17 @@ export default function Navbar() {
   const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
+  const handleLogout = async () => {
+    const confirmado = await confirmAlert({
+      icon: "question",
+      title: "Deseja sair da sua conta?",
+      text: "Você precisará entrar novamente para acessar o painel.",
+      confirmButtonText: "Sim, sair",
+      cancelButtonText: "Cancelar",
+    });
+    if (confirmado) logout();
+  };
+
   useEffect(() => {
     if (!mobileMenuOpen) return;
     const handleKey = (e: KeyboardEvent) => {
@@ -124,7 +138,7 @@ export default function Navbar() {
               })}
 
               <div className={styles.mobileOnly}>
-                <UserBlock user={user} onLogout={logout} layout="mobile" />
+                <UserBlock user={user} onLogout={handleLogout} layout="mobile" />
               </div>
             </div>
           )}
@@ -143,7 +157,7 @@ export default function Navbar() {
         )}
 
         <div className={styles.right}>
-          {user && <UserBlock user={user} onLogout={logout} layout="desktop" />}
+          {user && <UserBlock user={user} onLogout={handleLogout} layout="desktop" />}
         </div>
       </div>
     </nav>

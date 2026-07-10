@@ -11,12 +11,30 @@ export default function RegisterPage() {
                 <span className={styles.textHealth}> HealthTech</span>
             </p>
 
-            <div className={styles.registerOptions}>
-                <Link href="/register/paciente" className={styles.optionCard}>
-                    Sou Paciente
+            <div
+                className={styles.registerOptions}
+                role="group"
+                aria-label="Selecione o tipo de conta"
+            >
+                <Link
+                    href="/register/paciente"
+                    className={styles.optionCard}
+                    aria-label="Cadastrar como paciente"
+                >
+                    <span className={styles.optionTitle}>Sou Paciente</span>
+                    <span className={styles.optionDescription}>
+                        Acompanhe seus exames e laudos enviados pelo seu médico.
+                    </span>
                 </Link>
-                <Link href="/register/medico" className={styles.optionCard}>
-                    Sou Médico
+                <Link
+                    href="/register/medico"
+                    className={styles.optionCard}
+                    aria-label="Cadastrar como médico"
+                >
+                    <span className={styles.optionTitle}>Sou Médico</span>
+                    <span className={styles.optionDescription}>
+                        Vincule pacientes e gerencie seus laudos e exames.
+                    </span>
                 </Link>
             </div>
 

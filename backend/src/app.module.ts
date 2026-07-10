@@ -6,9 +6,11 @@ import { User } from './entities/user.entity';
 import { Paciente } from './entities/paciente.entity';
 import { Medico } from './entities/medico.entity';
 import { Arquivo } from './entities/arquivo.entity';
+import { Especialidade } from './entities/especialidade.entity';
 import { UsersModule } from './users/users.module';
 import { HealthModule } from './health/health.module';
 import { ArquivosModule } from './arquivos/arquivos.module';
+import { EspecialidadesModule } from './especialidades/especialidades.module';
 import { MedicoPaciente } from './entities/medico-paciente.entity';
 import { AuditLog } from './entities/audit-log/audit-log.entity';
 import { MedicoPacienteModule } from './medico-paciente/medico-paciente.module';
@@ -37,9 +39,10 @@ import { AppService } from './app.service';
           username: config.get('DB_USER', 'postgres'),
           password: config.get('DB_PASSWORD', 'postgres'),
           database: config.get('DB_NAME', 'healthtech'),
-          entities: [User, Paciente, Medico, MedicoPaciente, Arquivo, AuditLog],
+          entities: [User, Paciente, Medico, MedicoPaciente, Arquivo, AuditLog, Especialidade],
           migrations: [__dirname + '/migrations/*{.ts,.js}'],
           migrationsTableName: 'migrations',
+          migrationsTransactionMode: 'each',
           synchronize: false,
           migrationsRun: config.get('NODE_ENV') !== 'production',
           logging: config.get('NODE_ENV') !== 'production',
@@ -49,6 +52,7 @@ import { AppService } from './app.service';
     UsersModule,
     HealthModule,
     ArquivosModule,
+    EspecialidadesModule,
     MedicoPacienteModule,
     AuditModule,
   ],
