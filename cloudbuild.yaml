@@ -9,9 +9,86 @@ substitutions:
   _BACKEND_URL: "https://healthtech-backend-515815792390.southamerica-east1.run.app"
   _CLOUDSQL_CONNECTION: "health-tech-ai-lab:southamerica-east1:health-tech-db"
   _MIGRATIONS_JOB: "healthtech-migrations"
+  _NODE_IMAGE: "node:22-alpine"
 
 steps:
-  # Autentica Docker com Artifact Registry antes de qualquer push
+  # ============================================================
+  # ETAPA 1 - Instalação de dependências (paralelo)
+  # node_modules fica em /workspace e é reutilizado pelos steps
+  # seguintes, evitando reinstalar em cada job.
+  # ============================================================
+  - name: "${_NODE_IMAGE}"
+    id: "install-backend"
+    waitFor: ["-"]
+    dir: "backend"
+    entrypoint: "npm"
+    args: ["ci", "--no-audit", "--no-fund", "--prefer-offline"]
+
+  - name: "${_NODE_IMAGE}"
+    id: "install-frontend"
+    waitFor: ["-"]
+    dir: "frontend"
+    entrypoint: "npm"
+    args: ["ci", "--no-audit", "--no-fund", "--prefer-offline"]
+
+  # ============================================================
+  # ETAPA 2 - Lint (auto-fix, NÃO bloqueia) + Testes (bloqueiam)
+  #
+  # Filosofia: lint = estilo, teste = correção.
+  # - Lint roda com --fix e "|| true": tenta consertar o que der,
+  #   reporta o que sobrou no log e SEGUE o pipeline. Não cancela
+  #   o deploy por causa de style/formatting.
+  # - Testes continuam sendo gate: se um teste falhar, o pipeline
+  #   aborta antes de subir imagem para o Artifact Registry.
+  # ============================================================
+  - name: "${_NODE_IMAGE}"
+    id: "lint-backend"
+    waitFor: ["install-backend"]
+    dir: "backend"
+    entrypoint: "sh"
+    args:
+      - "-c"
+      - |
+        echo "::: rodando eslint --fix no backend (não-bloqueante) :::"
+        npx eslint "{src,apps,libs,test}/**/*.ts" --fix || \
+          echo "AVISO: eslint reportou problemas no backend. Deploy segue, mas revise depois."
+        exit 0
+
+  - name: "${_NODE_IMAGE}"
+    id: "test-backend"
+    waitFor: ["install-backend"]
+    dir: "backend"
+    entrypoint: "npm"
+    env:
+      - "CI=true"
+      - "NODE_ENV=test"
+    args: ["test", "--", "--ci", "--passWithNoTests"]
+
+  - name: "${_NODE_IMAGE}"
+    id: "lint-frontend"
+    waitFor: ["install-frontend"]
+    dir: "frontend"
+    entrypoint: "sh"
+    args:
+      - "-c"
+      - |
+        echo "::: rodando eslint --fix no frontend (não-bloqueante) :::"
+        npx eslint . --fix || \
+          echo "AVISO: eslint reportou problemas no frontend. Deploy segue, mas revise depois."
+        exit 0
+
+  - name: "${_NODE_IMAGE}"
+    id: "test-frontend"
+    waitFor: ["install-frontend"]
+    dir: "frontend"
+    entrypoint: "npm"
+    env:
+      - "CI=true"
+    args: ["test", "--", "--ci", "--passWithNoTests"]
+
+  # ============================================================
+  # ETAPA 3 - Autenticação Docker (paralelo ao CI)
+  # ============================================================
   - name: "gcr.io/google.com/cloudsdktool/cloud-sdk"
     id: "auth-docker"
     waitFor: ["-"]
@@ -22,10 +99,13 @@ steps:
       - "${_AR_REGION}-docker.pkg.dev"
       - "--quiet"
 
-  # Build das imagens em paralelo
+  # ============================================================
+  # ETAPA 4 - Build das imagens (só após lint + testes)
+  # ============================================================
   - name: "gcr.io/cloud-builders/docker"
     id: "build-backend"
-    waitFor: ["auth-docker"]
+    # Depende do lint só para esperar o --fix rodar (não bloqueia por falha).
+    waitFor: ["auth-docker", "lint-backend", "test-backend"]
     args:
       - "build"
       - "-t"
@@ -36,7 +116,7 @@ steps:
 
   - name: "gcr.io/cloud-builders/docker"
     id: "build-frontend"
-    waitFor: ["auth-docker"]
+    waitFor: ["auth-docker", "lint-frontend", "test-frontend"]
     args:
       - "build"
       - "-t"
@@ -47,7 +127,9 @@ steps:
       - "NEXT_PUBLIC_API_URL=${_BACKEND_URL}"
       - "./frontend"
 
-  # Push em paralelo
+  # ============================================================
+  # ETAPA 5 - Push em paralelo
+  # ============================================================
   - name: "gcr.io/cloud-builders/docker"
     id: "push-backend"
     waitFor: ["build-backend"]
@@ -64,7 +146,9 @@ steps:
       - "--all-tags"
       - "${_AR_REGION}-docker.pkg.dev/$PROJECT_ID/${_AR_REPO}/frontend"
 
-  # Cloud Run Job que roda as migrations contra o Cloud SQL.
+  # ============================================================
+  # ETAPA 6 - Migrations
+  # ============================================================
   - name: "gcr.io/google.com/cloudsdktool/cloud-sdk"
     id: "deploy-migrations-job"
     waitFor: ["push-backend"]
@@ -86,7 +170,6 @@ steps:
       - "--max-retries=1"
       - "--task-timeout=600s"
 
-  # Executa as migrations
   - name: "gcr.io/google.com/cloudsdktool/cloud-sdk"
     id: "run-migrations"
     waitFor: ["deploy-migrations-job"]
@@ -100,7 +183,9 @@ steps:
       - "--region=${_BACKEND_REGION}"
       - "--wait"
 
-  # Deploy backend
+  # ============================================================
+  # ETAPA 7 - Deploy backend
+  # ============================================================
   - name: "gcr.io/google.com/cloudsdktool/cloud-sdk"
     id: "deploy-backend"
     waitFor: ["run-migrations"]
@@ -124,7 +209,9 @@ steps:
       - "--set-env-vars=NODE_ENV=production,INSTANCE_CONNECTION_NAME=${_CLOUDSQL_CONNECTION}"
       - "--set-secrets=JWT_SECRET=jwt-secret:latest,DB_USER=db-user:latest,DB_PASSWORD=db-password:latest,DB_NAME=db-name:latest,GCS_BUCKET_NAME=gcs-bucket-name:latest,FRONTEND_URL=frontend-url:latest"
 
-  # Deploy frontend
+  # ============================================================
+  # ETAPA 8 - Deploy frontend
+  # ============================================================
   - name: "gcr.io/google.com/cloudsdktool/cloud-sdk"
     id: "deploy-frontend"
     waitFor: ["push-frontend", "deploy-backend"]
@@ -151,3 +238,4 @@ images:
 
 options:
   logging: CLOUD_LOGGING_ONLY
+  machineType: "E2_HIGHCPU_8"
