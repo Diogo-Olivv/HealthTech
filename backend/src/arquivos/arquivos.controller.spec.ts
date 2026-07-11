@@ -1,5 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import {
+  ForbiddenException,
   HttpStatus,
   MaxFileSizeValidator,
   FileTypeValidator,
@@ -10,9 +11,12 @@ import { ArquivosController } from './arquivos.controller';
 import { ArquivosService } from './arquivos.service';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { RolesGuard } from '../auth/roles.guard';
+import { AUDIT_METADATA_KEY, AuditConfig } from '../audit/audit.decorator';
+import { TipoEventoAuditoria } from '../entities/audit-log/audit-log.entity';
 import { UserType } from '../entities/user.entity';
 import { Arquivo } from '../entities/arquivo.entity';
 import { ArquivoResponseDto } from './dto/arquivo-response.dto';
+import type { Request } from 'express';
 
 const makeMulterFile = (overrides: Partial<Express.Multer.File> = {}): Express.Multer.File =>
   ({
@@ -212,6 +216,54 @@ describe('ArquivosController', () => {
         'uuid-arquivo-1',
         'uuid-medico-1',
       );
+    });
+
+    it('deve propagar ForbiddenException para o interceptor registrar FAILURE', async () => {
+      arquivosService.uploadArquivo.mockRejectedValue(
+        new ForbiddenException('Médico não possui vínculo com o paciente informado'),
+      );
+
+      await expect(
+        controller.upload(makeMedicoRequest() as any, makeMulterFile(), 'uuid-paciente-sem-vinculo'),
+      ).rejects.toThrow(ForbiddenException);
+    });
+  });
+
+  describe('@Audit metadata', () => {
+    it('listar() deve ter @Audit com VISUALIZACAO_ARQUIVO e extrair userId do request', () => {
+      const metadata: AuditConfig = Reflect.getMetadata(
+        AUDIT_METADATA_KEY,
+        ArquivosController.prototype.listar,
+      );
+
+      expect(metadata).toBeDefined();
+      expect(metadata.evento).toBe(TipoEventoAuditoria.VISUALIZACAO_ARQUIVO);
+
+      const fakeReq = { user: { id: 'user-abc' } } as unknown as Request;
+      expect(metadata.extractRecursoId!(null, fakeReq)).toBe('user-abc');
+    });
+
+    it('upload() deve ter @Audit com UPLOAD_ARQUIVO e extrair pacienteId do body', () => {
+      const metadata: AuditConfig = Reflect.getMetadata(
+        AUDIT_METADATA_KEY,
+        ArquivosController.prototype.upload,
+      );
+
+      expect(metadata).toBeDefined();
+      expect(metadata.evento).toBe(TipoEventoAuditoria.UPLOAD_ARQUIVO);
+
+      const fakeReq = { body: { pacienteId: 'pac-123' } } as unknown as Request;
+      expect(metadata.extractRecursoId!(null, fakeReq)).toBe('pac-123');
+    });
+
+    it('extractRecursoId do upload deve retornar null quando body não contém pacienteId', () => {
+      const metadata: AuditConfig = Reflect.getMetadata(
+        AUDIT_METADATA_KEY,
+        ArquivosController.prototype.upload,
+      );
+
+      const fakeReq = { body: {} } as unknown as Request;
+      expect(metadata.extractRecursoId!(null, fakeReq)).toBeNull();
     });
   });
 });
