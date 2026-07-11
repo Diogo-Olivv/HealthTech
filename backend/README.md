@@ -57,6 +57,32 @@ $ npm run test:e2e
 $ npm run test:cov
 ```
 
+## Criando o primeiro usuário ADMIN (desenvolvimento)
+
+O tipo de usuário `ADMIN` não pode ser criado pelas rotas públicas de cadastro
+(`POST /users/pacientes` e `POST /users/medicos`) — essas rotas sempre forçam
+`PACIENTE`/`MEDICO` e rejeitam qualquer campo `tipo` enviado no corpo da
+requisição. Para criar o primeiro admin em desenvolvimento, use o seed manual:
+
+1. Defina no seu `.env` local:
+   ```
+   ADMIN_EMAIL=admin@healthtech.dev
+   ADMIN_PASSWORD=uma-senha-forte
+   ```
+2. Rode o seed:
+   ```bash
+   npm run seed:admin
+   ```
+
+O script (`src/users/seeds/admin.seed.ts`) cria o usuário com a senha já em
+hash bcrypt e `tipo: ADMIN`. Ele é idempotente: se já existir um usuário com o
+e-mail informado, nada é alterado.
+
+**Não rode este seed em produção sem aprovação.** Por segurança, se
+`NODE_ENV=production` o script é bloqueado por padrão. Só roda se a variável
+`ADMIN_SEED_ALLOW_PROD=true` for definida explicitamente, o que deve ser
+tratado como uma ação deliberada e aprovada, não automática.
+
 ## Deployment
 
 When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
