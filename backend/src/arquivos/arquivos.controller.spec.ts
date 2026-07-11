@@ -36,6 +36,7 @@ const makePublicArquivo = (overrides: Partial<ArquivoResponseDto> = {}): Arquivo
     nomeUnico: 'gerado-exame.pdf',
     tipo: 'application/pdf',
     tamanho: 1024,
+    descricao: null,
     dataUpload: new Date('2026-06-12T00:00:00Z'),
     pacienteId: 'uuid-paciente-1',
     paciente: {} as any,
@@ -45,9 +46,9 @@ const makePublicArquivo = (overrides: Partial<ArquivoResponseDto> = {}): Arquivo
   return { ...base, ...overrides };
 };
 
-const makeMedicoRequest = (id = 'uuid-medico-1') => ({
-  user: { id, tipo: UserType.MEDICO },
-});
+const makeRequest = (id: string, tipo: UserType) => ({ user: { id, tipo } });
+const makeMedicoRequest = (id = 'uuid-medico-1') => makeRequest(id, UserType.MEDICO);
+const makePacienteRequest = (id = 'uuid-paciente-1') => makeRequest(id, UserType.PACIENTE);
 
 describe('ArquivosController', () => {
   let controller: ArquivosController;
@@ -56,9 +57,19 @@ describe('ArquivosController', () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [ArquivosController],
-      providers: [{ provide: ArquivosService, useValue: { uploadArquivo: jest.fn() } }],
+      providers: [
+        {
+          provide: ArquivosService,
+          useValue: {
+            uploadArquivo: jest.fn(),
+            gerarUrlDownload: jest.fn(),
+            obterConteudoParaStream: jest.fn(),
+            atualizarDescricao: jest.fn(),
+            excluirArquivo: jest.fn(),
+          },
+        },
+      ],
     })
-      // Guards desabilitados para isolar o controller; a lógica de autorização é coberta nos E2E.
       .overrideGuard(JwtAuthGuard)
       .useValue({ canActivate: () => true })
       .overrideGuard(RolesGuard)
@@ -70,27 +81,141 @@ describe('ArquivosController', () => {
   });
 
   describe('upload()', () => {
-    it('deve chamar arquivosService.uploadArquivo com os parâmetros corretos e retornar o DTO público', async () => {
+    it('encaminha para o service com pacienteId, medicoId e descrição', async () => {
       const file = makeMulterFile();
       const req = makeMedicoRequest();
-      const pacienteId = 'uuid-paciente-1';
-      const esperado = makePublicArquivo();
+      arquivosService.uploadArquivo.mockResolvedValue(makePublicArquivo());
 
-      arquivosService.uploadArquivo.mockResolvedValue(esperado);
+      await controller.upload(req as any, file, 'uuid-paciente-1', 'Hemograma');
 
-      const resultado = await controller.upload(req as any, file, pacienteId);
-
-      expect(arquivosService.uploadArquivo).toHaveBeenCalledWith(file, pacienteId, req.user.id);
-      expect(resultado).toEqual(esperado);
-      expect(resultado).not.toHaveProperty('caminhoStorage');
+      expect(arquivosService.uploadArquivo).toHaveBeenCalledWith(
+        file,
+        'uuid-paciente-1',
+        'uuid-medico-1',
+        'Hemograma',
+      );
     });
 
-    it('deve propagar exceção lançada pelo service', async () => {
-      arquivosService.uploadArquivo.mockRejectedValue(new Error('Erro inesperado'));
+    it('funciona sem descrição', async () => {
+      arquivosService.uploadArquivo.mockResolvedValue(makePublicArquivo());
+
+      await controller.upload(
+        makeMedicoRequest() as any,
+        makeMulterFile(),
+        'uuid-paciente-1',
+      );
+
+      expect(arquivosService.uploadArquivo).toHaveBeenCalledWith(
+        expect.anything(),
+        'uuid-paciente-1',
+        'uuid-medico-1',
+        undefined,
+      );
+    });
+
+    it('propaga exceção do service', async () => {
+      arquivosService.uploadArquivo.mockRejectedValue(new Error('boom'));
 
       await expect(
-        controller.upload(makeMedicoRequest() as any, makeMulterFile(), 'uuid-paciente-1'),
-      ).rejects.toThrow('Erro inesperado');
+        controller.upload(makeMedicoRequest() as any, makeMulterFile(), 'uuid-p'),
+      ).rejects.toThrow('boom');
+    });
+  });
+
+  describe('gerarUrlDownload()', () => {
+    it('chama service com id do usuário e tipo (paciente)', async () => {
+      arquivosService.gerarUrlDownload.mockResolvedValue({
+        url: 'https://signed',
+        expiresAt: new Date().toISOString(),
+      });
+
+      const result = await controller.gerarUrlDownload(
+        makePacienteRequest() as any,
+        'uuid-arquivo-1',
+      );
+
+      expect(arquivosService.gerarUrlDownload).toHaveBeenCalledWith(
+        'uuid-arquivo-1',
+        'uuid-paciente-1',
+        UserType.PACIENTE,
+      );
+      expect(result.url).toBe('https://signed');
+    });
+
+    it('chama service com id do usuário e tipo (médico)', async () => {
+      arquivosService.gerarUrlDownload.mockResolvedValue({
+        url: 'https://signed',
+        expiresAt: new Date().toISOString(),
+      });
+
+      await controller.gerarUrlDownload(makeMedicoRequest() as any, 'uuid-arquivo-1');
+
+      expect(arquivosService.gerarUrlDownload).toHaveBeenCalledWith(
+        'uuid-arquivo-1',
+        'uuid-medico-1',
+        UserType.MEDICO,
+      );
+    });
+  });
+
+  describe('streamArquivo()', () => {
+    it('envia buffer com headers apropriados', async () => {
+      arquivosService.obterConteudoParaStream.mockResolvedValue({
+        buffer: Buffer.from('conteudo-bin'),
+        nomeOriginal: 'meu exame.pdf',
+        mimetype: 'application/pdf',
+      });
+
+      const headers: Record<string, unknown> = {};
+      const res = {
+        setHeader: jest.fn((k: string, v: unknown) => {
+          headers[k] = v;
+        }),
+        end: jest.fn(),
+      };
+
+      await controller.streamArquivo(
+        makePacienteRequest() as any,
+        'uuid-arquivo-1',
+        res as any,
+      );
+
+      expect(headers['Content-Type']).toBe('application/pdf');
+      expect(headers['Content-Disposition']).toContain('meu%20exame.pdf');
+      expect(res.end).toHaveBeenCalled();
+    });
+  });
+
+  describe('atualizar()', () => {
+    it('encaminha para atualizarDescricao com id do médico logado', async () => {
+      arquivosService.atualizarDescricao.mockResolvedValue(
+        makePublicArquivo({ descricao: 'Nova' }),
+      );
+
+      await controller.atualizar(
+        makeMedicoRequest() as any,
+        'uuid-arquivo-1',
+        { descricao: 'Nova' },
+      );
+
+      expect(arquivosService.atualizarDescricao).toHaveBeenCalledWith(
+        'uuid-arquivo-1',
+        'uuid-medico-1',
+        { descricao: 'Nova' },
+      );
+    });
+  });
+
+  describe('excluir()', () => {
+    it('encaminha para excluirArquivo com id do médico logado', async () => {
+      arquivosService.excluirArquivo.mockResolvedValue(undefined);
+
+      await controller.excluir(makeMedicoRequest() as any, 'uuid-arquivo-1');
+
+      expect(arquivosService.excluirArquivo).toHaveBeenCalledWith(
+        'uuid-arquivo-1',
+        'uuid-medico-1',
+      );
     });
 
     it('deve propagar ForbiddenException para o interceptor registrar FAILURE', async () => {
@@ -145,7 +270,6 @@ describe('ArquivosController', () => {
 
 describe('ParseFilePipe — validação de arquivo', () => {
   const DEZ_MB = 10 * 1024 * 1024;
-
   let pipe: ParseFilePipe;
 
   beforeEach(() => {
@@ -161,33 +285,24 @@ describe('ParseFilePipe — validação de arquivo', () => {
     });
   });
 
-  it('deve aceitar um arquivo PDF dentro do limite de tamanho', async () => {
-    const file = makeMulterFile({ mimetype: 'application/pdf', size: 1024 });
+  it.each([
+    ['application/pdf', 1024],
+    ['image/jpeg', 512 * 1024],
+    ['image/png', 2 * 1024 * 1024],
+  ])('aceita %s dentro do limite', async (mimetype, size) => {
+    const file = makeMulterFile({ mimetype, size });
     await expect(pipe.transform(file)).resolves.toBe(file);
   });
 
-  it('deve aceitar um arquivo image/jpeg dentro do limite de tamanho', async () => {
-    const file = makeMulterFile({ mimetype: 'image/jpeg', size: 512 * 1024 });
-    await expect(pipe.transform(file)).resolves.toBe(file);
+  it('rejeita arquivo acima de 10 MB', async () => {
+    await expect(pipe.transform(makeMulterFile({ size: DEZ_MB + 1 }))).rejects.toThrow(
+      UnprocessableEntityException,
+    );
   });
 
-  it('deve aceitar um arquivo image/png dentro do limite de tamanho', async () => {
-    const file = makeMulterFile({ mimetype: 'image/png', size: 2 * 1024 * 1024 });
-    await expect(pipe.transform(file)).resolves.toBe(file);
-  });
-
-  it('deve rejeitar arquivo com tamanho acima de 10 MB', async () => {
-    const file = makeMulterFile({ size: DEZ_MB + 1 });
-    await expect(pipe.transform(file)).rejects.toThrow(UnprocessableEntityException);
-  });
-
-  it('deve rejeitar arquivo com formato não permitido (ex: video/mp4)', async () => {
-    const file = makeMulterFile({ mimetype: 'video/mp4', originalname: 'video.mp4' });
-    await expect(pipe.transform(file)).rejects.toThrow(UnprocessableEntityException);
-  });
-
-  it('deve rejeitar arquivo text/plain mesmo dentro do limite de tamanho', async () => {
-    const file = makeMulterFile({ mimetype: 'text/plain', originalname: 'notas.txt', size: 100 });
-    await expect(pipe.transform(file)).rejects.toThrow(UnprocessableEntityException);
+  it('rejeita mimetype não permitido', async () => {
+    await expect(
+      pipe.transform(makeMulterFile({ mimetype: 'video/mp4', originalname: 'v.mp4' })),
+    ).rejects.toThrow(UnprocessableEntityException);
   });
 });

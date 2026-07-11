@@ -1,93 +1,140 @@
-
-
 /* Ordem de estilo:
-layout:     display, flex-direction
-width:      width
-margin:     margin, margin-bottom
-padding:    padding
-background: background-color
-display:    display
+    layout:     display, flex-direction
+    width:      width
+    margin:     margin, margin-bottom
+    padding:    padding
+    background: background-color
+    display:    display
 
-border: border-radius, box-shadow, border
-texto: text-align, font-size, color, font-weight
+    border: border-radius, box-shadow, border
+    texto: text-align, font-size, color, font-weight
 */
 
-
 .page {
-  /* min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 1rem;
-  min-width: 40%; */
-
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    width: 100%;
 }
-
 
 .card {
-  /* margin: auto; */
-  padding: 2rem;
-  display: flex;
-  flex-direction: column;
-  background-color: var(--color-white);
+    /* margin: auto; */
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--color-white);
 
-  border-radius: var(--radius-xl);
-  box-shadow: var(--shadow-lg);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-lg);
 
-  text-align: center;
+    text-align: center;
 }
 
-
-
 .title {
-  margin-bottom: .5rem;
+    margin-bottom: 0.5rem;
 
-  font-size: var(--text-2xl);
-  color: var(--color-primary-600);
+    font-size: var(--text-2xl);
+    color: var(--color-primary-600);
 }
 
 .subtitle {
-  margin-bottom: 1rem;
+    margin-bottom: 1rem;
 
-  font-size: var(--text-sm);
-  color: var(--color-text);  
+    font-size: var(--text-sm);
+    color: var(--color-text);
 }
 
 .textHealth {
-  color: var(--color-primary-600);
-  font-weight: var(--font-weight-medium);
+    color: var(--color-primary-600);
+    font-weight: var(--font-weight-medium);
 }
 
 .textTech {
-  color: var(--color-secondary-500);
-  font-weight: var(--font-weight-regular);
+    color: var(--color-secondary-500);
+    font-weight: var(--font-weight-regular);
 }
 
 .actions {
-  display: flex;
-  flex-direction: column;
-  gap: .2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
 }
 
 .button {
-  width: 100%;
-  padding: .5rem;
-  background-color: var(--color-secondary-500);
+    display: inline-block;
+    width: 100%;
+    padding: 0.65rem 1rem;
 
-  border-radius: var(--radius-lg);
-  border: 1px solid var(--color-gray-100);
-  outline: none;
+    border-radius: var(--radius-lg);
+    border: 1px solid transparent;
+    outline: none;
 
-  font-weight: var(--font-weight-medium);
-  font-size: var(--text-base);
-  color: var(--color-white);
+    font-weight: var(--font-weight-medium);
+    font-size: var(--text-base);
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast);
 }
 
-.button:hover {
-  background-color: var(--color-secondary-600);
+.buttonPrimary {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+}
+
+.buttonPrimary:hover,
+.buttonPrimary:focus-visible {
+    background-color: var(--color-primary-600);
+}
+
+.buttonSecondary {
+    background-color: transparent;
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+}
+
+.buttonSecondary:hover,
+.buttonSecondary:focus-visible {
+    background-color: var(--color-primary-50);
+}
+
+.button:focus-visible {
+    outline: 2px solid var(--color-secondary-500);
+    outline-offset: 2px;
+}
+
+.logo {
+    align-self: center;
+    margin-bottom: 0.75rem;
+}
+
+@media (max-width: 768px) {
+    .card {
+        padding: 1.5rem 1.25rem;
+        width: 100%;
+        max-width: 100%;
+        box-shadow: none;
+        border-radius: 0;
+    }
+
+    .page {
+        padding: 0;
+        align-items: stretch;
+    }
+
+    .title {
+        font-size: var(--text-xl);
+    }
+
+    .button {
+        min-height: 48px;
+    }
 }
 
 .footer {
-  font-size: var(--text-sm);
-  color: var(--color-gray-700);
+    font-size: var(--text-sm);
+    color: var(--color-gray-700);
 }

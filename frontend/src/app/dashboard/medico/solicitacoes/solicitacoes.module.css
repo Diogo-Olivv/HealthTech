@@ -1,0 +1,47 @@
+.list {
+    display: grid;
+    gap: 0.75rem;
+    margin-top: 1rem;
+}
+
+.item {
+    background: var(--color-white, #fff);
+    border: 1px solid var(--color-gray-200, #e5e7eb);
+    border-radius: var(--radius-lg, 12px);
+    padding: 1rem 1.25rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.nome {
+    font-weight: 600;
+    color: var(--color-primary-700, #0d4a8a);
+    margin: 0 0 0.125rem;
+}
+
+.data {
+    font-size: var(--text-xs, 0.75rem);
+    color: var(--color-gray-500, #6b7280);
+}
+
+.badgePendente,
+.badgeRejeitado {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    border-radius: var(--radius-full, 999px);
+    font-size: var(--text-xs, 0.75rem);
+    font-weight: 600;
+}
+
+.badgePendente {
+    background: #fff7e6;
+    color: #b45309;
+}
+
+.badgeRejeitado {
+    background: #fef2f2;
+    color: #b91c1c;
+}

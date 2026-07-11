@@ -1,0 +1,353 @@
+/* Escudo para blindar o formulário contra estilos externos e forçar o padrão esquerdo */
+.uploadContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    text-align: left;
+    width: 100%;
+}
+
+.formGroup {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+
+.label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: var(--color-gray-700, #333);
+    font-size: 0.95rem;
+}
+
+.select {
+    width: 100%;
+    padding: 0.85rem 1rem;
+    border-radius: var(--radius-md, 8px);
+    border: 1px solid var(--color-gray-300, #c9d2da);
+    background-color: var(--color-white, #fff);
+    font-size: 1rem;
+    color: var(--color-gray-800, #2f373d);
+    transition: border-color 0.2s, box-shadow 0.2s;
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    background-size: 1em;
+}
+
+.select:focus {
+    outline: none;
+    border-color: var(--color-primary, #1e4969);
+    box-shadow: 0 0 0 3px rgba(30, 73, 105, 0.1);
+}
+
+.combobox {
+    position: relative;
+    width: 100%;
+}
+
+.comboboxInput {
+    width: 100%;
+    padding: 0.85rem 1rem;
+    border-radius: var(--radius-md, 8px);
+    border: 1px solid var(--color-gray-300, #c9d2da);
+    background-color: var(--color-white, #fff);
+    font-size: 1rem;
+    color: var(--color-gray-800, #2f373d);
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.comboboxInput:focus {
+    outline: none;
+    border-color: var(--color-primary, #1e4969);
+    box-shadow: 0 0 0 3px rgba(30, 73, 105, 0.1);
+}
+
+.comboboxList {
+    position: absolute;
+    top: calc(100% + 4px);
+    left: 0;
+    right: 0;
+    z-index: 20;
+    max-height: 220px;
+    overflow-y: auto;
+    margin: 0;
+    padding: 0.25rem 0;
+    list-style: none;
+    background: var(--color-white, #fff);
+    border: 1px solid var(--color-gray-200);
+    border-radius: var(--radius-md, 8px);
+    box-shadow: var(--shadow-md);
+}
+
+.comboboxOption {
+    display: flex;
+    flex-direction: column;
+    padding: 0.6rem 1rem;
+    cursor: pointer;
+    color: var(--color-gray-800);
+    transition: background-color 0.15s ease;
+}
+
+.comboboxOption:hover,
+.comboboxOption:focus {
+    background-color: var(--color-primary-50, #e7eff8);
+    outline: none;
+}
+
+.comboboxOption small {
+    color: var(--color-gray-500);
+}
+
+.comboboxEmpty {
+    padding: 0.75rem 1rem;
+    color: var(--color-gray-500);
+    font-size: 0.9rem;
+    text-align: center;
+}
+
+.pacienteSelecionado {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.85rem 1rem;
+    border-radius: var(--radius-md, 8px);
+    border: 1px solid var(--color-primary, #1e4969);
+    background-color: var(--color-primary-50, #e7eff8);
+    color: var(--color-gray-800);
+    font-size: 1rem;
+}
+
+.limparBtn {
+    background: none;
+    border: none;
+    color: var(--color-primary, #1e4969);
+    font-weight: 600;
+    cursor: pointer;
+    padding: 0.25rem 0.5rem;
+    font-size: 0.85rem;
+}
+
+.limparBtn:hover {
+    text-decoration: underline;
+}
+
+.textInput {
+    width: 100%;
+    padding: 0.85rem 1rem;
+    border-radius: var(--radius-md, 8px);
+    border: 1px solid var(--color-gray-300, #c9d2da);
+    background-color: var(--color-white, #fff);
+    font-size: 1rem;
+    color: var(--color-gray-800, #2f373d);
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.textInput:focus {
+    outline: none;
+    border-color: var(--color-primary, #1e4969);
+    box-shadow: 0 0 0 3px rgba(30, 73, 105, 0.1);
+}
+
+.charCounter {
+    align-self: flex-end;
+    font-size: 0.75rem;
+    color: var(--color-gray-500);
+    margin-top: 0.25rem;
+}
+
+.fileInput {
+    display: block;
+    width: 100%;
+    padding: 1.5rem;
+    border: 2px dashed var(--color-gray-300, #c9d2da);
+    border-radius: var(--radius-md, 8px);
+    background-color: var(--color-background, #f8fafc);
+    cursor: pointer;
+    color: var(--color-gray-600, #515f67);
+    transition: all 0.2s ease;
+}
+
+.fileInput:hover, .fileInput.dragging {
+    border-color: var(--color-primary, #1e4969);
+    background-color: var(--color-primary-50, #e7eff8);
+}
+
+.fileInput:focus {
+    outline: none;
+    border-color: var(--color-primary, #1e4969);
+    box-shadow: 0 0 0 3px rgba(30, 73, 105, 0.1);
+}
+
+
+.fileInfo {
+    font-size: 0.9rem;
+    color: var(--color-success, #059669);
+    margin-bottom: 1.5rem;
+    background-color: rgba(5, 150, 105, 0.1);
+    padding: 0.75rem;
+    border-radius: var(--radius-sm, 6px);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 500;
+    justify-content: space-between;
+}
+
+.fileInfoTexto {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.fileInfoClose {
+    background: transparent;
+    border: none;
+    color: var(--color-success, #059669);
+    padding: 0.25rem;
+    border-radius: var(--radius-sm, 6px);
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.15s ease, color 0.15s ease;
+    flex-shrink: 0;
+}
+
+.fileInfoClose:hover:not(:disabled) {
+    background: rgba(220, 38, 38, 0.1);
+    color: var(--color-error-600, #dc2626);
+}
+
+.fileInfoClose:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.uploadButton {
+    width: 100%;
+    padding: 0.85rem 1.5rem;
+    background-color: var(--color-primary, #1e4969);
+    color: white;
+    border: none;
+    border-radius: var(--radius-md, 8px);
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: all 0.2s ease;
+    box-shadow: var(--shadow-md);
+}
+
+.uploadButton:hover:not(:disabled) {
+    background-color: var(--color-primary-700, #15354e);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-lg);
+}
+
+.uploadButton:active:not(:disabled) {
+    transform: translateY(0);
+    box-shadow: var(--shadow-sm);
+}
+
+.uploadButton:disabled {
+    background-color: var(--color-gray-300, #c9d2da);
+    color: var(--color-gray-600, #515f67);
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+.dropzoneLabel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 120px;
+}
+
+.hiddenInput {
+    display: none;
+}
+
+.dropzoneText {
+    pointer-events: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.uploadIcon {
+    transition: transform 0.2s ease;
+}
+
+/* Quando estiver arrastando, faz apenas o ícone pular para cima */
+.dragging .uploadIcon {
+    transform: translateY(-4px);
+}
+
+.dropzoneSubText {
+    font-size: 0.8rem;
+    color: var(--color-gray-500, #69747b);
+    margin-top: 0.2rem;
+    text-align: center;
+}
+
+.browseButton {
+    display: inline-block;
+    margin-top: 0.75rem;
+    padding: 0.4rem 1.2rem;
+    background-color: transparent;
+    color: var(--color-primary, #1e4969);
+    border: 1.5px solid var(--color-primary, #1e4969);
+    border-radius: var(--radius-sm, 6px);
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+@media (max-width: 768px) {
+    .uploadContainer {
+        gap: 1rem;
+    }
+
+    .pacienteSelecionado {
+        flex-wrap: wrap;
+        padding: 0.75rem;
+    }
+
+    .limparBtn {
+        min-height: 44px;
+        padding: 0.5rem 0.75rem;
+    }
+
+    .fileInput {
+        padding: 1rem;
+    }
+
+    .dropzoneLabel {
+        min-height: 96px;
+    }
+
+    .fileInfo {
+        flex-wrap: wrap;
+        padding: 0.6rem;
+        font-size: 0.85rem;
+    }
+
+    .fileInfoClose {
+        min-width: 44px;
+        min-height: 44px;
+    }
+
+    .uploadButton {
+        padding: 0.9rem 1rem;
+        min-height: 48px;
+    }
+}
+

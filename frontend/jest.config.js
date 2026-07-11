@@ -18,7 +18,7 @@ const createJestConfig = nextJest({
 });
 
 const customJestConfig = {
-  setupFilesAfterFramework: ['<rootDir>/jest.setup.js'],
+  // jest.setup.js é importado diretamente pelos testes via `import '@testing-library/jest-dom'`
   testEnvironment: 'jest-environment-jsdom',
   moduleNameMapper: {
     // Alias de importação do Next.js
@@ -26,7 +26,8 @@ const customJestConfig = {
     // Mockar CSS Modules
     '\\.module\\.(css|sass|scss)$': '<rootDir>/__mocks__/styleMock.js',
   },
-  testPathPattern: [
+  modulePathIgnorePatterns: ['<rootDir>/.next/'],
+  testMatch: [
     '<rootDir>/src/**/__tests__/**/*.{js,jsx,ts,tsx}',
     '<rootDir>/src/**/*.{spec,test}.{js,jsx,ts,tsx}',
   ],

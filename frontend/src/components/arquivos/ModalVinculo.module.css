@@ -1,0 +1,245 @@
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 50;
+}
+
+.modal {
+    background-color: white;
+    padding: 24px;
+    border-radius: 12px;
+    width: 100%;
+    max-width: 500px;
+    position: relative;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    animation: modal-appear 0.2s ease-out;
+}
+
+@keyframes modal-appear {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.closeButton {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    line-height: 1;
+    color: #666;
+    transition: color 0.2s;
+}
+
+.closeButton:hover {
+    color: #1a1a1a;
+}
+
+.title {
+    margin-top: 0;
+    margin-bottom: 16px;
+    color: #1a1a1a;
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+.content {
+    margin-bottom: 24px;
+}
+
+.description {
+    color: #4b5563;
+    line-height: 1.5;
+    margin: 0;
+}
+
+.feedbackWrapper {
+    margin-bottom: 16px;
+}
+
+
+.footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+}
+
+.btnCancel {
+    padding: 8px 16px;
+    border: 1px solid #e5e7eb;
+    border-radius: 6px;
+    background: #ffffff;
+    color: #374151;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.btnCancel:hover {
+    background-color: #f3f4f6;
+}
+
+.btnConfirm {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 6px;
+    background: var(--color-primary);
+    color: #ffffff;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.btnConfirm:hover {
+    background-color: var(--color-primary-700);
+}
+
+.btnCancel:focus-visible,
+.btnConfirm:focus-visible {
+    outline: 2px solid var(--color-primary-600);
+    outline-offset: 2px;
+}
+
+/* Conteúdo */
+.searchInput {
+    width: 100%;
+    padding: 10px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    border-radius: 6px;
+    border: 1px solid #d1d5db;
+    font-size: 0.95rem;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.searchInput:focus {
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.1);
+}
+
+.patientList {
+    max-height: 250px;
+    overflow-y: auto;
+    border: 1px solid #e5e7eb;
+    border-radius: 6px;
+    padding: 8px;
+    background-color: #f9fafb;
+}
+
+.patientItem {
+    padding: 12px;
+    border-bottom: 1px solid #e5e7eb;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+}
+
+.patientItem:last-child {
+    border-bottom: none;
+}
+
+.patientItem:hover {
+    background-color: #f3f4f6;
+}
+
+.patientItem.selected {
+    background-color: #eff6ff;
+    border-color: #bfdbfe;
+}
+
+.patientItem:focus-visible {
+    outline: 2px solid var(--color-primary-600);
+    outline-offset: 2px;
+}
+
+
+.radioInput {
+    cursor: pointer;
+    width: 18px;
+    height: 18px;
+    accent-color: #2563eb;
+}
+
+.patientName {
+    color: #1f2937;
+    font-size: 0.95rem;
+}
+
+.patientCpf {
+    color: #6b7280;
+    font-size: 0.85rem;
+}
+
+.loadingText, .emptyText {
+    color: #6b7280;
+    text-align: center;
+    padding: 20px 0;
+    font-size: 0.95rem;
+}
+
+/* ===== Mobile ===== */
+@media (max-width: 768px) {
+    .overlay {
+        align-items: flex-end;
+        padding: 0;
+    }
+
+    .modal {
+        max-width: 100%;
+        max-height: 92vh;
+        overflow-y: auto;
+        padding: 20px;
+        border-radius: 16px 16px 0 0;
+        animation: modal-slide-up 0.25s ease-out;
+    }
+
+    @keyframes modal-slide-up {
+        from {
+            transform: translateY(24px);
+            opacity: 0;
+        }
+        to {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+
+    .patientList {
+        max-height: 40vh;
+    }
+
+    .patientItem {
+        min-height: 44px;
+    }
+
+    .footer {
+        flex-direction: column-reverse;
+        gap: 8px;
+    }
+
+    .btnCancel,
+    .btnConfirm {
+        width: 100%;
+        padding: 12px;
+    }
+}
