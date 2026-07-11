@@ -1,6 +1,19 @@
 {
+  "name": "healthtech",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Monorepo HealthTech (NestJS + Next.js). Este package.json raiz existe apenas para orquestrar Husky + lint-staged.",
+  "scripts": {
+    "prepare": "husky",
+    "lint:backend": "npm --prefix backend run lint",
+    "lint:frontend": "npm --prefix frontend run lint",
+    "test:backend": "npm --prefix backend test",
+    "test:frontend": "npm --prefix frontend test"
+  },
   "devDependencies": {
     "@types/react": "^19.2.17",
-    "@types/react-dom": "^19.2.3"
+    "@types/react-dom": "^19.2.3",
+    "husky": "^9.1.7",
+    "lint-staged": "^15.2.10"
   }
 }
