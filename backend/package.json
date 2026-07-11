@@ -23,7 +23,8 @@
     "migration:create": "npm run typeorm -- migration:create",
     "migration:run": "npm run typeorm -- migration:run -d src/data-source.ts",
     "migration:run:prod": "typeorm migration:run -d dist/data-source.js",
-    "migration:revert": "npm run typeorm -- migration:revert -d src/data-source.ts"
+    "migration:revert": "npm run typeorm -- migration:revert -d src/data-source.ts",
+    "seed:admin": "ts-node -r tsconfig-paths/register src/users/seeds/admin.seed.ts"
   },
   "dependencies": {
     "@google-cloud/storage": "^7.19.0",
