@@ -3,6 +3,7 @@ import { config as loadEnv } from 'dotenv';
 import * as bcrypt from 'bcrypt';
 import { DataSource } from 'typeorm';
 import { User, UserType } from '../../entities/user.entity';
+import { AppDataSource } from '../../data-source';
 
 loadEnv();
 
@@ -55,7 +56,6 @@ async function run(): Promise<void> {
     return;
   }
 
-  const { AppDataSource } = await import('../../data-source');
   const dataSource = await AppDataSource.initialize();
 
   try {
