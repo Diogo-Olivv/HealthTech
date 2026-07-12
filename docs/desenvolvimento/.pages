@@ -1,7 +1,8 @@
 nav:
 
-- Infraestrutura: infra
-- Auditoria: auditoria
-- Padrões: padroes
 - Setup Inicial: setup.md
+- Padrões: padroes
+- ADRs: adr
+- Auditoria: auditoria
+- Infraestrutura: infra
 - Roadmap Técnico: roadmap
