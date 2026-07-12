@@ -17,9 +17,11 @@ export default function AuthGuard({ children }: { children: React.ReactNode }) {
 
     const isRotaMedico = pertenceARota(pathname, "/dashboard/medico");
     const isRotaPaciente = pertenceARota(pathname, "/dashboard/paciente");
+    const isRotaAdmin = pertenceARota(pathname, "/admin");
     const tipoNaoAutorizado =
         (isRotaMedico && user?.tipo !== UserType.MEDICO) ||
-        (isRotaPaciente && user?.tipo !== UserType.PACIENTE);
+        (isRotaPaciente && user?.tipo !== UserType.PACIENTE) ||
+        (isRotaAdmin && user?.tipo !== UserType.ADMIN);
 
     useEffect(() => {
         if (loading) return;
@@ -30,14 +32,25 @@ export default function AuthGuard({ children }: { children: React.ReactNode }) {
         }
 
         if (isRotaMedico && user.tipo !== UserType.MEDICO) {
-            router.replace("/dashboard/paciente");
+            router.replace(
+                user.tipo === UserType.ADMIN ? "/admin/auditoria" : "/dashboard/paciente",
+            );
             return;
         }
 
         if (isRotaPaciente && user.tipo !== UserType.PACIENTE) {
-            router.replace("/dashboard/medico");
+            router.replace(
+                user.tipo === UserType.ADMIN ? "/admin/auditoria" : "/dashboard/medico",
+            );
+            return;
         }
-    }, [user, loading, isRotaMedico, isRotaPaciente, router]);
+
+        if (isRotaAdmin && user.tipo !== UserType.ADMIN) {
+            router.replace(
+                user.tipo === UserType.MEDICO ? "/dashboard/medico" : "/dashboard/paciente",
+            );
+        }
+    }, [user, loading, isRotaMedico, isRotaPaciente, isRotaAdmin, router]);
 
     if (loading || !user || tipoNaoAutorizado) {
         return <LoadingState />;
