@@ -1,0 +1,5 @@
+nav:
+
+- Visão Geral: index.md
+- Template: template.md
+- ADR-0001 Migrations via Cloud Run Job: 0001-migrations-via-cloud-run-job.md
