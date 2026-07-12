@@ -1,0 +1,20 @@
+.statusSuccess {
+    color: var(--color-success-600, #16a34a);
+    font-weight: var(--font-weight-medium);
+}
+
+.statusFailure {
+    color: var(--color-error-600, #dc2626);
+    font-weight: var(--font-weight-medium);
+}
+
+.mono {
+    font-family: var(--font-mono, ui-monospace, SFMono-Regular, Menlo, monospace);
+    font-size: 0.75rem;
+    color: var(--color-gray-700);
+    white-space: nowrap;
+}
+
+.dash {
+    color: var(--color-gray-400);
+}
