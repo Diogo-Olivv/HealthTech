@@ -48,7 +48,11 @@ export async function POST(request: Request) {
 
         return NextResponse.json(profile);
     } catch (err) {
-        console.error("[/api/auth/login] proxy failed", err);
+        console.error("[/api/auth/login] proxy failed", {
+            target: `${API_INTERNAL_URL}/users/login`,
+            error: err instanceof Error ? err.message : String(err),
+            cause: err instanceof Error ? (err as { cause?: unknown }).cause : undefined,
+        });
         return NextResponse.json(
             { message: "Serviço indisponível. Tente novamente em instantes." },
             { status: 502 },
