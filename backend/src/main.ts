@@ -15,7 +15,9 @@ async function bootstrap() {
     credentials: true,
   });
 
-  app.useGlobalPipes(new ValidationPipe({ whitelist: true, transform: true }));
+  app.useGlobalPipes(
+    new ValidationPipe({ whitelist: true, forbidNonWhitelisted: true, transform: true }),
+  );
 
   const nodeEnv = (process.env.NODE_ENV ?? 'development').toLowerCase();
   const swaggerEnabled = ['development', 'dev', 'staging', 'test'].includes(

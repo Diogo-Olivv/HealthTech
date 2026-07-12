@@ -12,6 +12,7 @@ import { Paciente } from './paciente.entity';
 export enum UserType {
   PACIENTE = 'PACIENTE',
   MEDICO = 'MEDICO',
+  ADMIN = 'ADMIN',
 }
 
 @Entity('users')

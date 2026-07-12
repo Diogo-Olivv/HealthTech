@@ -57,6 +57,60 @@ $ npm run test:e2e
 $ npm run test:cov
 ```
 
+## Criando o primeiro usuário ADMIN (desenvolvimento)
+
+O tipo de usuário `ADMIN` não pode ser criado pelas rotas públicas de cadastro
+(`POST /users/pacientes` e `POST /users/medicos`) — essas rotas sempre forçam
+`PACIENTE`/`MEDICO` e rejeitam qualquer campo `tipo` enviado no corpo da
+requisição. Para criar o primeiro admin em desenvolvimento, use o seed manual:
+
+1. Defina no seu `.env` local:
+   ```
+   ADMIN_EMAIL=admin@healthtech.dev
+   ADMIN_PASSWORD=uma-senha-forte
+   ```
+2. Rode o seed:
+   ```bash
+   npm run seed:admin
+   ```
+
+O script (`src/users/seeds/admin.seed.ts`) cria o usuário com a senha já em
+hash bcrypt e `tipo: ADMIN`. Ele é idempotente: se já existir um usuário com o
+e-mail informado, nada é alterado.
+
+**Não rode este seed em produção sem aprovação.** Por segurança, se
+`NODE_ENV=production` o script é bloqueado por padrão. Só roda se a variável
+`ADMIN_SEED_ALLOW_PROD=true` for definida explicitamente, o que deve ser
+tratado como uma ação deliberada e aprovada, não automática.
+
+## Consulta de logs de auditoria (admin)
+
+`GET /audit/logs` retorna a lista paginada de eventos auditados. Rota
+restrita a usuários com `tipo: ADMIN` (protegida por `JwtAuthGuard` +
+`RolesGuard`). Um médico ou paciente autenticado recebe `403`.
+
+Query params suportados (todos opcionais):
+
+| Param        | Tipo          | Observação                                     |
+|--------------|---------------|------------------------------------------------|
+| `userId`     | UUID          | Filtra logs de um usuário específico           |
+| `tipoEvento` | enum          | Um de `TipoEventoAuditoria` (`LOGIN`, ...)     |
+| `dataInicio` | ISO 8601      | Limite inferior de `timestamp` (inclusivo)     |
+| `dataFim`    | ISO 8601      | Limite superior; precisa ser ≥ `dataInicio`    |
+| `page`       | inteiro ≥ 1   | Padrão `1`                                     |
+| `limit`      | inteiro ≥ 1   | Padrão `50`, truncado silenciosamente em `200` |
+
+Resposta: `{ items, total, page, limit }`, ordenada por `timestamp DESC`. A
+própria rota **não** é auditada, por decisão da issue #57, para evitar
+ruído.
+
+Exemplo:
+
+```bash
+curl -H "Authorization: Bearer $ADMIN_TOKEN" \
+  "http://localhost:3001/audit/logs?tipoEvento=LOGIN&page=1&limit=50"
+```
+
 ## Deployment
 
 When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
