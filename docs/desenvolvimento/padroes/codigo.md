@@ -1,79 +1,79 @@
 # Padrões de Código
 
-## Princípios gerais
+Regras práticas que valem tanto para backend quanto para frontend. O objetivo é reduzir surpresas em code review e manter o repositório coerente sem depender de um `CODEOWNERS` extenso.
 
-- Código deve ser legível antes de tudo, abordagens mais complexas devem ter comentários explicando o que foi feito.
-- Simplicidade >>> Complexidade.
-- Toda alteração deve manter ou melhorar o do projeto.
-- Em caso de remoção de código, justificar no relatório e commit.
-- Nomes de variáveis, funções e arquivos devem ser claros e descritivos.
+## Regras gerais
 
-## Organização
+- **TypeScript estrito.** Nada de `any` sem motivo registrado (comentário curto ou tipo específico do domínio).
+- **ESLint + Prettier** já configurados. `npm run lint` corrige a maioria dos problemas de estilo.
+- **Nomes em português para conceitos de domínio** (`paciente`, `vincular`, `arquivo`). Nomes técnicos de framework seguem o inglês do próprio framework (`controller`, `guard`, `service`).
+- **Sem segredos no repositório.** Use `.env` localmente (gitignored) e Secret Manager em produção.
+- **Sem `console.log` no código final.** Use o `Logger` do NestJS no backend e apagar debug prints antes do commit no frontend.
+- **Sem `TODO` órfão.** Se o comentário `TODO` não aponta para uma issue, ele é dívida invisível. Ou vira issue, ou é resolvido no PR.
 
-- Separar responsabilidades por camada:
-  - Backend: rotas, serviços, repositórios, middlewares
-  - Frontend: páginas, componentes, serviços de API, estados
-  - DevOps: scripts, manifests, pipelines, variáveis de ambiente
-- Evitar arquivos muito grandes e funções longas.
-- Priorizar modularidade, confeccionando funções e arquivos para reutilização de funcionalidades.
+## Backend (NestJS)
 
-## Estilo
+### Camadas
 
-- Manter padrão único de indentação, nomenclatura e estrutura.
-- Comentários devem explicar o que a seção faz, não repetir o que o código já mostra.
+Cada módulo segue a separação clássica: `controller` recebe HTTP, delega ao `service`; `service` concentra regra de negócio e usa `Repository` do TypeORM.
 
-## Segurança
+- **Controller** não conhece SQL, TypeORM ou banco. Só orquestra input, guards e response.
+- **Service** não conhece `Request`, `Response` nem `Query`. Recebe dados já validados e retorna objetos.
+- **DTO** com decorators `class-validator` e `class-transformer`. O `ValidationPipe` global está com `whitelist: true` e `forbidNonWhitelisted: true`, portanto payload com campo não declarado retorna `400`.
 
-- Senhas implementadas sempre com hash, nunca salvo em string pura.
-- Nunca salvar variáveis sensíveis no repositório.
-- **Sempre** utilizar o .env para variáveis sensíveis (colocar no .gitignore para nunca subir ao repositório).
-- Validar entrada de dados no backend (Utilizar Postman/Insomnia ou similares).
-- Garantir isolamento por usuário em todas as rotas protegidas (Testar manualmente).
-- Logs nunca devem expor senha, token ou dados sensíveis.
+### Guards e roles
+
+- Toda rota autenticada declara `@UseGuards(JwtAuthGuard)`.
+- Toda rota restrita a perfil declara também `@UseGuards(RolesGuard)` e `@Roles(UserType.X, ...)`.
+- Rotas de admin usam `@Roles(UserType.ADMIN)`.
+
+### Auditoria
+
+Rotas de negócio sensíveis (login, cadastro, upload, vínculo, etc.) usam o decorator `@Audit(...)`. O `AuditInterceptor` global registra `SUCCESS` no `tap` e `FAILURE` no `catchError`. Consulte [Arquitetura do Backend](../../arquitetura/backend.md) para o catálogo de eventos.
+
+### Migrations
+
+`synchronize` está desligado em todos os ambientes. Toda alteração em entidade exige migration commitada no mesmo PR. Veja [Setup Inicial](../setup.md) e o [ADR-0001](../adr/0001-migrations-via-cloud-run-job.md).
+
+## Frontend (Next.js)
+
+### App Router
+
+Rotas de aplicação vivem em `frontend/src/app`. Cada pasta é uma rota; `page.tsx` é a página. Componentes que precisam de hooks começam com `"use client"`.
+
+### Camadas
+
+- **Página (`page.tsx`)** monta layout, seleciona hooks e delega ao componente cliente quando necessário. Não faz `fetch` direto.
+- **Hook (`src/hooks/**/*.ts`)** encapsula estado, cache e chamadas ao service. Padrão único: `useFetchData` para leituras, hooks específicos por domínio (`useMeusPacientes`, `useArquivos`) para regras.
+- **Service (`src/services/*.service.ts`)** faz o `fetch` HTTP. Nunca chama a API externa direto: usa o proxy `/api/proxy/[...path]`, que injeta o token httpOnly.
+- **DTO (`src/dto/*.ts`)** espelha os DTOs do backend. Tipos de resposta ficam explícitos.
+
+### Estilos
+
+- CSS Modules por componente (`Componente.module.css`) para escopo local.
+- Tailwind CSS 4 disponível globalmente para utilities de layout e responsividade.
+- Cores, tipografia e espaçamento seguem a [Identidade Visual](../../projeto/identidade_visual.md).
+
+### Autenticação
+
+- Após login, o backend retorna JWT, e o frontend armazena via cookie httpOnly `accessToken` gerenciado nas rotas `route.ts` de `/api/auth/*`.
+- Página cliente recupera o usuário via `AuthContext`.
+- `AuthGuard` protege rotas por tipo de usuário.
 
 ## Testes
 
-- Funcionalidades críticas devem ter testes.
-- Fluxos mínimos que devem estar testáveis:
-  - Cadastro e Login
-  - Acesso a Rotas protegidas
-- Correção de bug deve vir acompanhada de teste quando aplicável.
+- Nenhum PR de feature ou fix entra sem teste correspondente. Bug fix acompanha teste de regressão.
+- Backend: `Jest` + `@nestjs/testing` para unit, `Supertest` para E2E.
+- Frontend: `Jest` + `React Testing Library` para componentes.
+- Cobertura mínima esperada por camada está em [Testes Automatizados](../../projeto/tecnologias/testes.md).
 
-## Backend
+## Convenções de arquivo
 
-- Controllers enxutos; regras de negócio em services.
-- Acesso a banco centralizado.
-- Tratar erros com padrão único de resposta (APIs REST).
-- Validar autenticação e autorização em middleware.
+- Arquivos por camada usam o sufixo do papel: `*.controller.ts`, `*.service.ts`, `*.module.ts`, `*.entity.ts`, `*.dto.ts`.
+- Componente React: `PascalCase` (`FeedbackMessage.tsx`, `AuthGuard.tsx`).
+- Utilitário: `kebab-case` (`format-tamanho.ts`, `mensagem-de-erro.ts`).
 
-## Frontend
+## Regra de ouro do PR
 
-- Componentes pequenos e reutilizáveis (Modularização).
-- Estados e chamadas HTTP organizados fora da camada visual.
-- Tratar loading, erro e sucesso explicitamente (Feedback pro suário).
-- Nunca confiar apenas na validação do frontend (Checar os logs e verificar o fluxo completo com o backend).
-
-## Logs e auditoria
-
-- Todo evento auditável deve registrar:
-  - timestamp (dd/mm/yyyy)
-  - usuario
-  - evento
-  - status
-- Padronizar nomes de eventos:
-  - `LOGIN_SUCCESS`
-  - `LOGIN_FAILURE`
-  - `UPLOAD_SUCCESS`
-  - `DOWNLOAD_SUCCESS`
-  - `DELETE_SUCCESS`
-  - `ACCESS_DENIED`
-
-## Definição de Pronto
-
-Uma tarefa só é considerada pronta quando:
-
-- código funciona localmente
-- passou por review de outro membro ou do líder técnico
-- atende ao padrão de segurança definido anteriormente
-- tem documentação atualizada
-- não quebrou testes existentes
+- **Diff pequeno.** Um PR é um objeto de comunicação; se ele não cabe na cabeça do revisor, provavelmente também não cabia na sua.
+- Se sua branch acumulou refactors não relacionados, quebre em PRs separados.

@@ -1,67 +1,68 @@
 # Fluxo de Code Review
 
-## Objetivo
+## Papéis
 
-O code review existe para garantir qualidade, compartilhamento de conhecimento e evolução saudável do projeto.
+- **Autor:** abre o PR, garante CI verde, responde comentários.
+- **Revisor(a):** revisa o diff em profundidade, valida o "porquê", e é responsável pelo merge quando aprovar.
+- **Mantenedor(a):** integrantes com permissão de merge nas branches protegidas (`develop`, `main`, `docs`).
 
-## Quando abrir um PR
+Um PR precisa de **pelo menos uma aprovação** de outro integrante antes do merge. Auto-merge não é permitido.
 
-Abrir Pull Request somente quando:
+## Checklist do autor antes de abrir o PR
 
-- A funcionalidade estiver funcional
-- O escopo estiver claro
-- O PR estiver pequeno o suficiente para ser revisado com qualidade
+- [ ] `npm run lint` sem erros bloqueantes na camada tocada.
+- [ ] `npm test` verde (unit e componente).
+- [ ] `npm run test:e2e` verde quando o PR toca em rotas HTTP (backend).
+- [ ] Migrations geradas e revisadas quando alterou entidade.
+- [ ] Nenhum `console.log`, `TODO` sem issue, ou credencial no diff.
+- [ ] Documentação atualizada (README, MkDocs, ADR, docstrings) quando aplicável.
+- [ ] Preenche o [template de PR](template_PR.md) com o "porquê" da mudança.
+- [ ] Marca a issue relacionada com `Closes #NN` quando o PR encerra a issue.
 
-## Tamanho do PR
+## O que o revisor procura
 
-- Preferir PRs pequenos e objetivos.
-- Se um PR misturar muitas responsabilidades, ele deve ser dividido.
+**Correção**
 
-## [Estrutura obrigatória do PR](template_PR.md)
+- A regra de negócio está correta e testada?
+- Há caso de erro tratado no controller e/ou service?
+- Guards e roles cobrem os cenários do endpoint?
+- Auditoria (`@Audit`) foi aplicada onde deveria?
 
-Todo PR deve conter:
+**Segurança**
 
-- Contexto da tarefa
-- O que foi feito
-- Como testar
-- Evidencias visuais, quando houver frontend
-- Riscos ou pontos de atenção
-- Checklist de segurança e logs, quando aplicável
+- Nenhum campo sensível vaza para o response (ex.: `passwordHash`, `caminhoStorage`).
+- Nenhum input passa direto para queries sem validação.
+- Nenhuma nova rota escapa do `JwtAuthGuard` quando deveria estar protegida.
 
-Clique [aqui](template_PR.md) para visualizar o template
+**Manutenção**
 
-## O que o Revisor deve verificar
+- Nomes claros no domínio do problema.
+- Sem duplicação óbvia. Sem abstração prematura.
+- Testes se leem como especificação e cobrem a intenção do PR.
 
-- Design: a solução se encaixa bem na arquitetura?
-- Funcionalidade: faz o que deveria fazer?
-- Complexidade: está simples o bastante?
-- Testes: há cobertura adequada?
-- Nomes: estão claros?
-- Comentários: explicam o necessário?
-- Estilo: segue o padrão do projeto?
-- Documentação: precisa atualizar MkDocs ou diagramas?
+**Impacto operacional**
 
-## Como comentar
+- Precisa de migration? Ela é backward-compatible (ver [ADR-0001](../adr/0001-migrations-via-cloud-run-job.md))?
+- Precisa de novo secret? Está no `.env.example` e será provisionado no Secret Manager?
+- O deploy exige ação manual? Está documentado no PR?
 
-- Criticar o código, não a pessoa.
-- Explicar o motivo da sugestão.
+## Tom do review
 
-## Aprovação
+- **Foque no problema, não na pessoa.** "Este método está acumulando responsabilidades" em vez de "você misturou tudo".
+- **Sugestões concretas.** Peça alterações com um caminho, mesmo que curto: "Prefiro extrair para `pacientesDisponiveis(medicoId)` porque separa a leitura da lista da regra de vínculo".
+- **Reconheça o que ficou bom.** Um review que só aponta problemas cansa e desincentiva.
 
-- Mínimo de 1 aprovacao de outro integrante.
-- PR com impacto em arquitetura, segurança ou deploy deve ser revisado pelo líder técnico.
+## Categorias de comentário
 
-## Checklist antes do merge
+| Prefixo    | Significado                                                                 |
+| ---------- | --------------------------------------------------------------------------- |
+| `nit:`     | Preferência menor. Não bloqueia o merge.                                    |
+| `question:`| Pergunta genuína para entender o "porquê" da escolha.                       |
+| `suggestion:`| Proposta concreta que o autor pode acatar ou justificar.                  |
+| `blocker:` | Precisa ser resolvido antes do merge (bug, segurança, quebra de contrato).  |
 
-- Branch atualizada
-- Conflitos resolvidos
-- Testes executados
-- Padrões respeitados
-- Documentação atualizada
-- Logs implementados quando exigido
+## Merge
 
-## Pós-merge
-
-- Deletar branch da tarefa
-- Atualizar quadro da sprint
-- Registrar decisão importante na documentação, se necessário
+- Prefira **Squash and merge** para features pequenas. O histórico de `develop` fica limpo.
+- Use **Merge commit** para PRs de release entre `develop` e `main`, para preservar o histórico.
+- **Nunca faça force push em `main`, `develop` ou `docs`.**

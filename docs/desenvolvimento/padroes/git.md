@@ -1,66 +1,93 @@
-# Commits e Branches
+# Git e Branches
 
-## Branch principal
+Esta página consolida as convenções de branch, commits e Pull Requests do HealthTech. O objetivo é manter o histórico legível e o fluxo previsível para todos os integrantes.
 
-- A branch `main` é protegida.
-- Ninguém faz commit direto na `main`.
-- Toda alteração entra por Pull Request.
+## Modelo de branches
 
-## Estrutura de branches
+O projeto usa três tipos de branch, com papéis claros:
 
-Padrão de nome:
+| Branch     | Papel                                                                              |
+| ---------- | ---------------------------------------------------------------------------------- |
+| `main`     | Última versão estável e passível de deploy. Só recebe merge via PR aprovado.       |
+| `develop`  | Integração contínua das features do ciclo atual. Base de todo trabalho novo.       |
+| `docs`     | Documentação MkDocs publicada via GitHub Pages. Isolada do código de aplicação.    |
+| `feat/*`, `fix/*`, `refactor/*`, `chore/*` | Branches de trabalho de curto prazo, sempre criadas a partir de `develop`. |
 
-- `feature/<descricao-curta>`
-- `fix/<descricao-curta>`
-- `docs/<descricao-curta>`
-- `refactor/<descricao-curta>`
-- `hotfix/<descricao-curta>`
+**Push direto em `main`, `develop` ou `docs` não é permitido.** Toda mudança entra por Pull Request.
 
-Exemplos:
+## Nomenclatura de branches
 
-- `feature/auth-jwt`
-- `fix/upload-validacao-arquivo`
-- `docs/padrao-code-review`
+Use o padrão `tipo/descricao-curta`, tudo em kebab-case:
 
-## Regra de criação
+```
+feat/upload-arquivos
+fix/login-cors
+refactor/vinculo-medico-paciente
+chore/governance-adrs
+docs/atas-semana-13
+```
 
-- Cada tarefa do backlog deve gerar sua própria branch.
-- Branch deve sair da `main` atualizada.
-- Ao terminar, abrir Pull Request para `main`.
+Se a branch resolve uma issue, mencione-a nos commits ou no PR, não no nome da branch.
 
-## Commits
+## Padrão de commits (Conventional Commits)
 
-Padrão obrigatório:
-`<tipo>(escopo opcional): <descricao curta>`
+Seguimos [Conventional Commits](https://www.conventionalcommits.org/pt-br/). Cada commit tem a forma `tipo(escopo): mensagem curta no imperativo`.
 
-Tipos permitidos:
+| Tipo       | Quando usar                                                    |
+| ---------- | -------------------------------------------------------------- |
+| `feat`     | Nova funcionalidade visível ao usuário ou nova API             |
+| `fix`      | Correção de bug                                                |
+| `refactor` | Reorganização sem mudança de comportamento observável          |
+| `test`     | Adição ou ajuste de testes                                     |
+| `docs`     | Mudança somente em documentação                                |
+| `chore`    | Tarefas auxiliares (deps, scripts, infra de dev)               |
+| `style`    | Formatação, espaços, ponto e vírgula (sem lógica)              |
+| `ci`       | Ajustes em pipeline (`cloudbuild.yaml`, GitHub Actions)        |
 
-- `feat`: nova funcionalidade
-- `fix`: correção de bug
-- `docs`: documentação
-- `refactor`: refatoração sem alterar comportamento
-- `test`: criação ou ajuste de testes
-- `chore`: manutenção técnica
-- `ci`: pipeline, automação e deploy
-- `build`: dependências e empacotamento
+Exemplos reais do histórico:
 
-Exemplos:
+```
+feat(arquivos): adiciona auditoria de rotas, testes e refatora tipagem AuthRequest (Resolve #54)
+fix(vinculo): fecha modal antes alert
+refactor(auth): centraliza interface AuthRequest e remove casts inseguros (Resolve #54)
+docs(audit): documenta GET /audit/logs no README do backend
+ci: adiciona workflow CodeQL
+```
 
-- `feat(auth): adicionar login com JWT`
-- `fix(upload): corrigir associação de arquivo ao usuario`
-- `docs(mkdocs): atualizar arquitetura da semana 7`
-- `ci(cloud-run): ajustar deploy automatico`
+## Commits atômicos
 
-## Regras para commits
+Cada commit deve representar uma mudança coesa e revisar sozinho. Regra prática:
 
-- Um commit deve representar uma mudança lógica única.
-- Evitar commit misturando frontend, backend e documentação sem necessidade.
-- Mensagem sempre no imperativo.
-- Descrição curta e objetiva.
-- Commits temporários como `teste`, `ajustes`, `wip` e `final` não são permitidos.
+- Um commit por ideia. Não misture "corrigir bug de login" com "adicionar seed de admin".
+- A mensagem descreve **por que**, não somente **o quê**. O diff mostra o "o quê".
+- Se você precisa de `e` na mensagem, provavelmente são dois commits.
 
-## Pull Request
+## Vinculando commits a issues
 
-- PR pequeno e conciso.
-- Antes de abrir um PR, atualizar a branch com a `main`.
-- Se houver muitos commits confusos, fazer squash antes de abrir o PR.
+Use `Resolve #NN`, `Closes #NN` ou `Refs #NN` no corpo do commit ou do PR. O GitHub fecha a issue automaticamente ao mergear o PR.
+
+## Pre-commit e lint-staged
+
+Toda contribuição passa pelo hook do Husky antes de virar commit. O script `pre-commit` roda `npx --no-install lint-staged`, que executa o ESLint (com `--fix`) apenas nos arquivos em stage:
+
+```js
+// lint-staged.config.js
+module.exports = {
+  "backend/**/*.ts": scoped("backend"),
+  "frontend/**/*.{ts,tsx,js,jsx,mjs}": scoped("frontend"),
+};
+```
+
+Não use `--no-verify` para pular o hook, exceto em situação excepcional documentada no PR. Se o hook está falhando por conta de configuração, corrija a raiz do problema.
+
+## Fluxo padrão de contribuição
+
+1. `git checkout develop && git pull` para partir da base atualizada.
+2. `git checkout -b feat/descricao-curta`.
+3. Commits pequenos, mensagens em Conventional Commits.
+4. `npm run lint` e `npm test` na camada (backend ou frontend) que você tocou.
+5. `git push -u origin <branch>` e abra o Pull Request contra `develop` usando o [template](template_PR.md).
+6. Revisão por pelo menos um outro integrante. CI verde.
+7. Merge por um mantenedor. A branch é apagada após o merge.
+
+`main` só recebe merge a partir de `develop` em pontos de release, através de PR próprio.
