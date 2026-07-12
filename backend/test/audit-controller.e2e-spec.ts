@@ -109,4 +109,26 @@ describe('GET /audit/logs (E2E)', () => {
     );
     expect(contemLoginDoAdmin).toBe(true);
   });
+
+  it('rejeita com 400 quando dataFim é anterior a dataInicio', async () => {
+    await request(app.getHttpServer())
+      .get('/audit/logs')
+      .query({
+        dataInicio: '2026-02-01T00:00:00.000Z',
+        dataFim: '2026-01-01T00:00:00.000Z',
+      })
+      .set('Authorization', `Bearer ${tokenAdmin}`)
+      .expect(400);
+  });
+
+  it('trunca limit acima do máximo (200) sem falhar a requisição', async () => {
+    const res = await request(app.getHttpServer())
+      .get('/audit/logs')
+      .query({ limit: 500 })
+      .set('Authorization', `Bearer ${tokenAdmin}`)
+      .expect(200);
+
+    expect(res.body).toHaveProperty('limit', 200);
+    expect(res.body.items.length).toBeLessThanOrEqual(200);
+  });
 });
