@@ -1,6 +1,6 @@
 # Setup Inicial
 
-Guia completo para rodar o projeto do zero após clonar o repositório.
+Guia completo para rodar o projeto do zero após clonar o repositório. Cobre o caminho "tudo em Docker" (recomendado) e o caminho híbrido (banco em Docker, backend e frontend fora).
 
 ---
 
@@ -8,46 +8,43 @@ Guia completo para rodar o projeto do zero após clonar o repositório.
 
 ### Node.js
 
-O projeto requer **Node.js v18 ou superior**.
+O projeto usa Node.js **v22** nas imagens do Docker. Localmente, qualquer LTS acima de v20 costuma funcionar, mas se algo divergir, alinhe com a versão do container.
 
-**Verificar se já está instalado:**
+**Verificar se já está instalado**
 
 ```bash
-node --version   # deve mostrar v18.x.x ou superior
+node --version
 npm --version
 ```
 
-**Instalar (caso não tenha):**
+**Instalar (caso não tenha)**
 
-- Acesse [https://nodejs.org](https://nodejs.org) e baixe a versão **LTS**
-- No Linux, é recomendado usar o [nvm](https://github.com/nvm-sh/nvm):
+- Baixe a versão LTS em [https://nodejs.org](https://nodejs.org).
+- No Linux, prefira o [nvm](https://github.com/nvm-sh/nvm):
   ```bash
   curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
-  # Reinicie o terminal, depois:
   nvm install --lts
   nvm use --lts
   ```
 
 ### Docker
 
-O Docker é usado para rodar o banco de dados PostgreSQL localmente.
+Usado para PostgreSQL, Adminer, backend e frontend.
 
-**Windows:**
+**Windows**
 
-1. Acesse [https://www.docker.com/products/docker-desktop](https://www.docker.com/products/docker-desktop)
-2. Baixe e instale o **Docker Desktop para Windows**
-3. Durante a instalação, mantenha a opção **WSL 2** marcada
-4. Após instalar, abra o Docker Desktop e aguarde o ícone ficar verde na bandeja do sistema
-5. Verifique no terminal:
+1. Baixe o [Docker Desktop para Windows](https://www.docker.com/products/docker-desktop).
+2. Mantenha a opção **WSL 2** marcada durante a instalação.
+3. Abra o Docker Desktop e aguarde o ícone ficar verde na bandeja do sistema.
+4. Verifique:
    ```bash
    docker --version
    docker compose version
    ```
 
-**Linux (Ubuntu/Debian):**
+**Linux (Ubuntu/Debian)**
 
 ```bash
-# Instalar Docker Engine
 sudo apt-get update
 sudo apt-get install -y ca-certificates curl
 sudo install -m 0755 -d /etc/apt/keyrings
@@ -62,20 +59,18 @@ echo \
 sudo apt-get update
 sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 
-# Permitir rodar Docker sem sudo
 sudo usermod -aG docker $USER
 newgrp docker
 
-# Verificar
 docker --version
 docker compose version
 ```
 
 ### Git
 
-**Windows:** Baixe em [https://git-scm.com](https://git-scm.com) e instale com as opções padrão.
+**Windows**: instale em [https://git-scm.com](https://git-scm.com) com as opções padrão.
 
-**Linux:**
+**Linux**:
 
 ```bash
 sudo apt-get install -y git
@@ -86,7 +81,7 @@ sudo apt-get install -y git
 ## 1. Clonar o repositório
 
 ```bash
-git clone <URL_DO_REPOSITÓRIO>
+git clone https://github.com/Diogo-Olivv/HealthTech.git
 cd HealthTech
 ```
 
@@ -96,21 +91,21 @@ cd HealthTech
 
 ### Backend
 
-Na **raiz** do repositório rode:
-
 ```bash
 cd backend
 cp .env.example .env
+cd ..
 ```
 
-O arquivo `.env` criado já vem com os valores corretos para desenvolvimento local. **Não altere nada por enquanto.**
-
-Conteúdo padrão do `.env` para dev:
+O `.env` já vem com valores padrão para desenvolvimento. Ajuste apenas se for necessário. Exemplo de conteúdo relevante:
 
 ```
 PORT=3001
 NODE_ENV=development
 FRONTEND_URL=http://localhost:3000
+
+JWT_SECRET=dev-secret-change-me
+JWT_EXPIRES_IN=1d
 
 DB_HOST=localhost
 DB_PORT=5433
@@ -118,96 +113,128 @@ DB_USER=postgres
 DB_PASSWORD=postgres
 DB_NAME=healthtech
 
-INSTANCE_CONNECTION_NAME=
+STORAGE_DRIVER=local
+LOCAL_STORAGE_DIR=uploads
 ```
 
-### Frontend
+Se você rodar o backend **dentro do Docker Compose**, o `docker-compose.yml` sobrescreve `DB_HOST=postgres` automaticamente.
 
-Na **raiz** do repositório rode:
+### Frontend
 
 ```bash
 cd frontend
 cp .env.example .env
+cd ..
 ```
+
+Conteúdo padrão:
+
+```
+NEXT_PUBLIC_API_URL=http://localhost:3001
+```
+
+Nunca commite `backend/.env` ou `frontend/.env`. Em produção, tudo entra pelo Secret Manager.
 
 ---
 
-## 3. Instalar dependências
+## 3. Subir a aplicação com Docker Compose (recomendado)
 
-Execute a partir da raiz do projeto:
-
-**Backend:**
+Da raiz do repositório:
 
 ```bash
-cd backend
-npm install
+docker compose up --build
 ```
 
-**Frontend:**
+Isso constrói e sobe banco, backend e frontend juntos. As migrations do TypeORM rodam automaticamente no boot do backend (`migrationsRun: true` fora de produção).
 
-```bash
-cd frontend
-npm install
-```
-
----
-
-## 4. Subir a aplicação
-
-A partir da **raiz do projeto** (pasta `HealthTech`):
-
-```bash
-docker compose up -d
-```
-
-Verifique se os containers estão rodando:
+Verifique os containers:
 
 ```bash
 docker compose ps
 ```
 
-> **Windows:** se o comando `docker compose` não funcionar, verifique se o Docker Desktop está aberto e com o ícone verde na bandeja do sistema.
+URLs padrão:
+
+| Serviço  | URL                    |
+| -------- | ---------------------- |
+| Frontend | http://localhost:3000  |
+| Backend  | http://localhost:3001  |
+| Swagger  | http://localhost:3001/docs |
+| Adminer  | http://localhost:8080  |
+
+Para parar:
+
+```bash
+docker compose down       # mantém volumes
+docker compose down -v    # apaga banco e uploads (reset completo)
+```
+
+---
+
+## 4. Rodar sem Docker (opcional, para hot-reload isolado)
+
+Se preferir rodar backend ou frontend fora do container para debug e hot-reload:
+
+```bash
+# Sobe apenas banco e Adminer
+docker compose up postgres adminer -d
+```
+
+Backend em outro terminal:
+
+```bash
+cd backend
+npm install
+npm run start:dev
+```
+
+Frontend em outro terminal:
+
+```bash
+cd frontend
+npm install
+npm run dev
+```
 
 ---
 
 ## 5. Verificar que tudo está funcionando
 
-Com backend e banco rodando, teste a API:
-
-**Linux / macOS / Windows (PowerShell 7+):**
+Cadastro de paciente:
 
 ```bash
-curl -X POST http://localhost:3001/api/users/register \
+curl -i -X POST http://localhost:3001/users/pacientes \
   -H "Content-Type: application/json" \
-  -d '{"name":"Teste","email":"teste@healthtech.com","password":"senha123"}'
+  -d '{
+    "name": "Ana Paciente",
+    "email": "ana@email.com",
+    "password": "senha123",
+    "cpf": "000.000.000-00",
+    "dataNascimento": "1990-01-01"
+  }'
 ```
 
-**Windows (PowerShell padrão):**
+Login:
 
-```powershell
-Invoke-RestMethod -Uri "http://localhost:3001/api/users/register" `
-  -Method POST `
-  -ContentType "application/json" `
-  -Body '{"name":"Teste","email":"teste@healthtech.com","password":"senha123"}'
+```bash
+curl -i -X POST http://localhost:3001/users/login \
+  -H "Content-Type: application/json" \
+  -d '{"email": "ana@email.com", "password": "senha123"}'
 ```
 
-Resposta esperada:
+Health check:
 
-```json
-{
-  "id": "...",
-  "email": "teste@healthtech.com",
-  "name": "Teste"
-}
+```bash
+curl http://localhost:3001/health
 ```
 
-Acesse também `http://localhost:3000/register` para ver o formulário de cadastro.
+Você pode inspecionar as rotas disponíveis no Swagger em `http://localhost:3001/docs`.
 
 ---
 
-## 6. Visualizar o banco de dados
+## 6. Visualizar o banco no Adminer
 
-Acesse o **Adminer** em `http://localhost:8080` e preencha:
+Abra `http://localhost:8080` e preencha:
 
 | Campo         | Valor        |
 | ------------- | ------------ |
@@ -217,27 +244,51 @@ Acesse o **Adminer** em `http://localhost:8080` e preencha:
 | Senha         | `postgres`   |
 | Base de dados | `healthtech` |
 
-Navegue até **healthtech > Schemas > public > Tables > users** para ver os registros cadastrados.
+Navegue até **healthtech > Schemas > public > Tables** para ver `users`, `pacientes`, `medicos`, `especialidades`, `medico_paciente`, `arquivos`, `audit_logs` e a tabela de controle `migrations`.
+
+---
+
+## 7. Criar o primeiro usuário ADMIN (opcional)
+
+Necessário para acessar `GET /audit/logs`. Não existe rota pública que crie um ADMIN.
+
+1. Preencha em `backend/.env`:
+   ```
+   ADMIN_EMAIL=admin@healthtech.dev
+   ADMIN_PASSWORD=uma-senha-forte
+   ```
+2. Execute o seed:
+   ```bash
+   cd backend
+   npm run seed:admin
+   ```
+
+O script é idempotente: se já existir usuário com o e-mail informado, nada muda. Em `NODE_ENV=production` o seed é bloqueado, a menos que `ADMIN_SEED_ALLOW_PROD=true` seja definido explicitamente.
 
 ---
 
 ## Comandos úteis do dia a dia
 
-### Parar a execução do projeto
-
-````bash
-
+```bash
+# Parar tudo
 docker compose down
 
-### Resetar o banco (apaga todos os dados)
-
-```bash
+# Resetar banco e uploads
 docker compose down -v && docker compose up -d
-````
 
-### Porta 3001 travada ao reiniciar o backend
+# Rodar apenas o backend (sem Docker), matando processo travado na porta 3001
+cd backend && npm run start:dev
 
-No caso de reinicio do backend, caso ele não inicie corretamente pela rota não ter sido liberada corretamente, rode:
+# Gerar nova migration a partir do diff de entidades
+cd backend && npm run migration:generate -- src/migrations/NomeDescritivo
+
+# Testes
+cd backend && npm test
+cd backend && npm run test:e2e
+cd frontend && npm test
+```
+
+Se a porta 3001 travar ao reiniciar o backend fora do Docker:
 
 ```bash
 # Linux/macOS
@@ -251,32 +302,30 @@ Stop-Process -Id (Get-NetTCPConnection -LocalPort 3001).OwningProcess -Force
 
 ## Problemas comuns
 
-### `Cannot connect to the Docker daemon`
+**`Cannot connect to the Docker daemon`**
+Docker Desktop não está aberto. Abra e aguarde o ícone ficar verde.
 
-O Docker Desktop não está aberto. Abra o aplicativo e aguarde o ícone ficar verde.
+**`Error: connect ECONNREFUSED 127.0.0.1:5433`**
+O banco não está rodando. Execute `docker compose up postgres -d` na raiz.
 
-### `Error: connect ECONNREFUSED 127.0.0.1:5433`
+**`Error: listen EADDRINUSE :::3001`**
+Porta 3001 ocupada. Use o comando de liberar porta acima.
 
-O banco não está rodando. Execute `docker compose up -d` na raiz do projeto.
+**Tabelas não aparecem no Adminer**
+O backend precisa ter subido ao menos uma vez para que as migrations rodem. Suba com `npm run start:dev` ou via Docker Compose.
 
-### `Error: listen EADDRINUSE :::3001`
-
-A porta 3001 está em uso. Use o comando de liberar porta acima.
-
-### Tabelas não aparecem no Adminer/DBeaver
-
-O backend precisa estar rodando ao menos uma vez para o TypeORM criar as tabelas. Suba o backend com `npm run start:dev` e tente novamente.
+**`400 Bad Request` no cadastro por causa do campo `tipo`**
+O `ValidationPipe` está com `forbidNonWhitelisted: true`. Envie somente os campos declarados no DTO.
 
 ---
 
 ## Referências
 
-- [Node.js - Downloads](https://nodejs.org/en/download)
-- [nvm - Node Version Manager](https://github.com/nvm-sh/nvm)
-- [Docker Desktop - Windows](https://docs.docker.com/desktop/install/windows-install/)
-- [Docker Engine - Ubuntu](https://docs.docker.com/engine/install/ubuntu/)
-- [Docker Compose - Getting Started](https://docs.docker.com/compose/gettingstarted/)
-- [NestJS - Installation](https://docs.nestjs.com/first-steps)
-- [Next.js - Installation](https://nextjs.org/docs/getting-started/installation)
-- [Adminer - Documentação](https://www.adminer.org/)
-- [DBeaver - Download](https://dbeaver.io/download/)
+- [Node.js, downloads](https://nodejs.org/en/download)
+- [nvm, Node Version Manager](https://github.com/nvm-sh/nvm)
+- [Docker Desktop, Windows](https://docs.docker.com/desktop/install/windows-install/)
+- [Docker Engine, Ubuntu](https://docs.docker.com/engine/install/ubuntu/)
+- [Docker Compose, primeiros passos](https://docs.docker.com/compose/gettingstarted/)
+- [NestJS, instalação](https://docs.nestjs.com/first-steps)
+- [Next.js, instalação](https://nextjs.org/docs/getting-started/installation)
+- [Adminer](https://www.adminer.org/)
