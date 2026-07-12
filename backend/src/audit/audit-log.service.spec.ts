@@ -9,6 +9,7 @@ import {
   StatusAuditoria,
   TipoEventoAuditoria,
 } from '../entities/audit-log/audit-log.entity';
+import { User } from '../entities/user.entity';
 
 const makeRequest = (
   overrides: Partial<{ ip: string; userAgent: string }> = {},
@@ -24,6 +25,10 @@ const mockRepo = {
   findAndCount: jest.fn(),
 };
 
+const mockUserRepo = {
+  find: jest.fn(),
+};
+
 describe('AuditLogService', () => {
   let service: AuditLogService;
 
@@ -34,6 +39,7 @@ describe('AuditLogService', () => {
       providers: [
         AuditLogService,
         { provide: getRepositoryToken(AuditLog), useValue: mockRepo },
+        { provide: getRepositoryToken(User), useValue: mockUserRepo },
       ],
     }).compile();
 

@@ -3,8 +3,10 @@ import { InjectRepository } from '@nestjs/typeorm';
 import {
   Between,
   FindOptionsWhere,
+  In,
   LessThanOrEqual,
   MoreThanOrEqual,
+  Raw,
   Repository,
 } from 'typeorm';
 import type { Request } from 'express';
@@ -13,9 +15,11 @@ import {
   StatusAuditoria,
   TipoEventoAuditoria,
 } from '../entities/audit-log/audit-log.entity';
+import { User } from '../entities/user.entity';
 
 export interface AuditLogFiltros {
   userId?: string;
+  usuario?: string;
   tipoEvento?: TipoEventoAuditoria;
   dataInicio?: string;
   dataFim?: string;
@@ -44,6 +48,8 @@ export class AuditLogService {
   constructor(
     @InjectRepository(AuditLog)
     private readonly auditRepo: Repository<AuditLog>,
+    @InjectRepository(User)
+    private readonly userRepo: Repository<User>,
   ) {}
 
   async listar(
@@ -60,6 +66,23 @@ export class AuditLogService {
     const where: FindOptionsWhere<AuditLog> = {};
     if (filtros.userId) where.userId = filtros.userId;
     if (filtros.tipoEvento) where.tipoEvento = filtros.tipoEvento;
+
+    if (filtros.usuario) {
+      const termo = `%${filtros.usuario}%`;
+      const usuarios = await this.userRepo.find({
+        select: ['id'],
+        where: [
+          { email: Raw((alias) => `${alias} ILIKE :termo`, { termo }) },
+          { name: Raw((alias) => `${alias} ILIKE :termo`, { termo }) },
+        ],
+        take: 500,
+      });
+
+      if (usuarios.length === 0) {
+        return { items: [], total: 0, page, limit };
+      }
+      where.userId = In(usuarios.map((u) => u.id));
+    }
 
     if (filtros.dataInicio && filtros.dataFim) {
       where.timestamp = Between(

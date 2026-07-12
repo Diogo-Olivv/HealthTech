@@ -1,11 +1,14 @@
-import { Type } from 'class-transformer';
+import { Transform, Type } from 'class-transformer';
 import {
   IsEnum,
   IsInt,
   IsISO8601,
   IsOptional,
+  IsString,
   IsUUID,
+  MaxLength,
   Min,
+  MinLength,
   Validate,
   ValidationArguments,
   ValidatorConstraint,
@@ -30,6 +33,13 @@ export class AuditLogQueryDto {
   @IsOptional()
   @IsUUID()
   userId?: string;
+
+  @IsOptional()
+  @Transform(({ value }) => (typeof value === 'string' ? value.trim() : value))
+  @IsString()
+  @MinLength(1)
+  @MaxLength(120)
+  usuario?: string;
 
   @IsOptional()
   @IsEnum(TipoEventoAuditoria)

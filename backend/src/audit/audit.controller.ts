@@ -17,6 +17,7 @@ export class AuditController {
     return this.auditLogService.listar(
       {
         userId: query.userId,
+        usuario: query.usuario,
         tipoEvento: query.tipoEvento,
         dataInicio: query.dataInicio,
         dataFim: query.dataFim,
