@@ -1,0 +1,114 @@
+.toolbar {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.filterGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 0;
+}
+
+.filterLabel {
+    font-size: var(--text-xs);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-gray-700);
+}
+
+.filterInput {
+    padding: 8px 12px;
+    border: 1px solid var(--color-gray-300);
+    border-radius: var(--radius-md);
+    font-size: var(--text-sm);
+    color: var(--color-gray-800);
+    outline: none;
+    background: var(--color-white);
+    transition: border-color 0.2s, box-shadow 0.2s;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.filterInput:focus-visible {
+    border-color: var(--color-primary-500);
+    outline: 2px solid var(--color-primary-600);
+    outline-offset: 2px;
+}
+
+.footerBar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin-top: 1.25rem;
+    flex-wrap: wrap;
+}
+
+.pagination {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.paginationText {
+    font-size: var(--text-sm);
+    color: var(--color-gray-600);
+}
+
+.paginationBtn {
+    border: 1px solid var(--color-gray-300);
+    padding: 0.4rem 1rem;
+    background: transparent;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    font-size: var(--text-sm);
+    transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.paginationBtn:hover:not(:disabled) {
+    background-color: var(--color-primary-50);
+    border-color: var(--color-primary-200, var(--color-primary-500));
+}
+
+.paginationBtn:focus-visible {
+    outline: 2px solid var(--color-primary-600);
+    outline-offset: 2px;
+}
+
+.paginationBtn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.totalInfo {
+    font-size: var(--text-sm);
+    color: var(--color-gray-600);
+}
+
+@media (max-width: 900px) {
+    .toolbar {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 560px) {
+    .toolbar {
+        grid-template-columns: 1fr;
+    }
+
+    .footerBar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .pagination {
+        justify-content: space-between;
+    }
+
+    .paginationBtn {
+        min-height: 44px;
+        min-width: 44px;
+    }
+}

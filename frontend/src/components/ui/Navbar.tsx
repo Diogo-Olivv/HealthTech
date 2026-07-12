@@ -24,11 +24,15 @@ const LINKS_POR_TIPO: Record<UserType, NavLinkItem[]> = {
     { label: "Meus Médicos", href: "/dashboard/paciente/medicos" },
     { label: "Solicitações", href: "/dashboard/paciente/solicitacoes" },
   ],
+  [UserType.ADMIN]: [
+    { label: "Auditoria", href: "/admin/auditoria" },
+  ],
 };
 
 const ROTULO_TIPO: Record<UserType, string> = {
   [UserType.MEDICO]: "Médico",
   [UserType.PACIENTE]: "Paciente",
+  [UserType.ADMIN]: "Admin",
 };
 
 function capitalizarNome(nome: string) {
@@ -102,7 +106,11 @@ export default function Navbar() {
   }, [mobileMenuOpen]);
 
   const links = user ? (LINKS_POR_TIPO[user.tipo] ?? []) : [];
-  const homeHref = user ? `/dashboard/${user.tipo.toLowerCase()}` : "/";
+  const homeHref = user
+    ? user.tipo === UserType.ADMIN
+      ? "/admin/auditoria"
+      : `/dashboard/${user.tipo.toLowerCase()}`
+    : "/";
 
   return (
     <nav className={styles.navbar} aria-label="Navegação principal">
