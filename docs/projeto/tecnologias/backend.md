@@ -2,70 +2,102 @@
 
 ## NestJS + TypeScript
 
-**O que é:**
-NestJS é um framework para construção de APIs em Node.js, inspirado na arquitetura do Angular. Ele organiza o código em **módulos**, **controllers** e **services**, forçando uma separação clara de responsabilidades.
+**O que é**
 
-**Como funciona:**
+NestJS é um framework para construção de APIs em Node.js, inspirado na arquitetura do Angular. Organiza o código em **módulos**, **controllers** e **services**, forçando uma separação clara de responsabilidades.
 
-- **Module:** declara o que existe em um domínio (ex: `UsersModule` registra o controller e o service de usuários)
-- **Controller:** recebe as requisições HTTP e delega para o service. Não contém regras de negócio
-- **Service:** contém toda a lógica de negócio (validações, transformações, persistência)
-- **DTO + ValidationPipe:** valida automaticamente os dados que chegam na requisição antes de chegarem ao controller
+**Como funciona**
+
+- **Module**: declara o que existe em um domínio (ex.: `UsersModule` registra o controller e o service de usuários).
+- **Controller**: recebe requisições HTTP e delega ao service. Sem regra de negócio.
+- **Service**: concentra toda a lógica (validações, transformações, persistência).
+- **DTO + ValidationPipe**: valida cada campo com `class-validator` antes de chegar ao controller. O pipe global usa `whitelist: true` e `forbidNonWhitelisted: true`, portanto campo extra vira `400 Bad Request`.
 
 ```
 Requisição HTTP
-    1. Controller (recebe, delega)
-    2. Service (processa, persiste)
-    3. Resposta
+    1. ValidationPipe (DTO)
+    2. Guards (JwtAuthGuard, RolesGuard)
+    3. AuditInterceptor (leitura do @Audit)
+    4. Controller
+    5. Service
+    6. TypeORM Repository
+    7. Response
 ```
 
-**Por que foi escolhido:**
+**Por que foi escolhido**
 
-- Arquitetura requisitada, o documento de padrão do projeto definiu esse fluxo, as tecnologias foram escolhidas de acordo.
-- Suporte nativo a TypeScript
-- Integração fácil com TypeORM, JWT, class-validator
-- Muito usado em projetos corporativos brasileiros e internacionais
-- Documentação de alta qualidade
+- Arquitetura solicitada no plano do projeto.
+- Suporte nativo a TypeScript.
+- Integração fácil com TypeORM, JWT, class-validator, Swagger.
+- Muito usado em projetos corporativos brasileiros e internacionais.
 
 ---
 
 ## TypeORM
 
-**O que é:**
-TypeORM é um ORM (Object-Relational Mapper) para TypeScript. Ele permite trabalhar com o banco de dados usando classes TypeScript (chamadas de **entities** ou **models** em outras arquiteturas) em vez de escrever SQL diretamente.
+**O que é**
 
-**Como funciona:**
+ORM para TypeScript. Permite trabalhar com o banco usando classes TypeScript (entities) em vez de escrever SQL manualmente. Suporta migrations versionadas.
 
-Você define uma entity com decorators:
+**Como funciona**
 
 ```typescript
-@Entity("users")
+@Entity('users')
 export class User {
-  @PrimaryGeneratedColumn("uuid")
-  id: string;
+  @PrimaryGeneratedColumn('uuid')
+  id!: string;
 
   @Column({ unique: true })
-  email: string;
+  email!: string;
 }
 ```
 
-E o TypeORM traduz isso para SQL:
+`synchronize` está **desligado** em todos os ambientes. Qualquer alteração em entidade exige migration. Comandos em `backend/package.json`:
 
-```sql
-CREATE TABLE users (
-  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-  email VARCHAR UNIQUE NOT NULL
-);
+```bash
+npm run migration:generate -- src/migrations/NomeDescritivo
+npm run migration:create -- src/migrations/NomeVazio
+npm run migration:run
+npm run migration:revert
 ```
 
-O modo `synchronize: true` (usado apenas em desenvolvimento) cria e atualiza as tabelas automaticamente. Em produção, usa-se **migrations**, arquivos versionados que descrevem mudanças no banco de forma controlada.
+Em desenvolvimento, o backend aplica migrations pendentes no boot (`migrationsRun` fora de produção). Em produção, quem aplica é o Cloud Run Job `healthtech-migrations`, conforme o [ADR-0001](../../desenvolvimento/adr/0001-migrations-via-cloud-run-job.md).
 
-**Por que foi escolhido:**
+---
 
-- Integração nativa com NestJS
-- Suporte excelente a TypeScript
-- Compatível com PostgreSQL, MySQL, SQLite e outros
-- Abstrai diferenças entre banco local (Docker) e produção (Cloud SQL) sem mudanças no código
+## Multer (upload)
+
+Multer é integrado ao Nest via `@nestjs/platform-express` e usado para receber uploads multipart. No `POST /arquivos/upload` combinamos `FileInterceptor('arquivo')` com `ParseFilePipe`:
+
+```typescript
+new ParseFilePipe({
+  validators: [
+    new MaxFileSizeValidator({ maxSize: 10 * 1024 * 1024 }),
+    new FileTypeValidator({
+      fileType: /^(application\/pdf|image\/(jpeg|png))$/,
+      fallbackToMimetype: true,
+    }),
+  ],
+  errorHttpStatusCode: HttpStatus.UNPROCESSABLE_ENTITY,
+});
+```
+
+Limite de 10 MB e apenas PDF, JPEG e PNG.
+
+---
+
+## Swagger
+
+Documentação interativa habilitada em ambientes que não sejam `production`. Configurada em `main.ts` via `@nestjs/swagger` com Bearer Auth persistido:
+
+- URL: `http://localhost:3001/docs`
+- Decorators nos controllers: `@ApiTags`, `@ApiOperation`, `@ApiBody`, `@ApiResponse`, `@ApiBearerAuth('access-token')`, `@ApiForbiddenResponse`, `@ApiUnauthorizedResponse`.
+
+---
+
+## Auditoria
+
+`AuditInterceptor` global + decorator `@Audit({ evento, extractRecursoId? })`. Persiste em `audit_logs` (tabela quente) e loga via `Logger` do Nest. Consulta ADMIN em `GET /audit/logs` com filtros e paginação (padrão `limit=50`, cap silencioso em `200`).
 
 ---
 
@@ -73,13 +105,14 @@ O modo `synchronize: true` (usado apenas em desenvolvimento) cria e atualiza as 
 
 ### NestJS
 
-- [Documentação oficial - NestJS](https://docs.nestjs.com/)
-- [Controllers - NestJS](https://docs.nestjs.com/controllers)
-- [Providers/Services - NestJS](https://docs.nestjs.com/providers)
-- [Validation - NestJS](https://docs.nestjs.com/techniques/validation)
+- [Documentação oficial](https://docs.nestjs.com/)
+- [Controllers](https://docs.nestjs.com/controllers)
+- [Providers e Services](https://docs.nestjs.com/providers)
+- [Validation](https://docs.nestjs.com/techniques/validation)
+- [OpenAPI (Swagger)](https://docs.nestjs.com/openapi/introduction)
 
 ### TypeORM
 
-- [Documentação oficial - TypeORM](https://typeorm.io/)
-- [Entities - TypeORM](https://typeorm.io/entities)
-- [Migrations - TypeORM](https://typeorm.io/migrations)
+- [Documentação oficial](https://typeorm.io/)
+- [Entities](https://typeorm.io/entities)
+- [Migrations](https://typeorm.io/migrations)
