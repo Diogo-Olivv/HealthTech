@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { getProfile, loginUser, saveToken } from "@/services/users.service";
+import { loginUser } from "@/services/users.service";
 import { UserType } from "@/dto/user-type.enum";
 import AuthCard from "@/components/ui/AuthCard";
 import FeedbackMessage from "@/components/ui/FeedbackMessage";
@@ -34,9 +34,7 @@ export default function LoginPage() {
         setErrorMsg("");
 
         try {
-            const { accessToken } = await loginUser(form);
-            saveToken(accessToken);
-            const profile = await getProfile();
+            const profile = await loginUser(form);
             const destino =
                 profile.tipo === UserType.MEDICO
                     ? "/dashboard/medico"

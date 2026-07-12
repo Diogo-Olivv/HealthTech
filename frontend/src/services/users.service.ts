@@ -1,7 +1,6 @@
 import type { CreateMedicoDto } from "@/dto/create-medico.dto";
 import type { CreatePacienteDto } from "@/dto/create-paciente.dto";
 import type { LoginUserDto } from "@/dto/login-user.dto";
-import type { LoginResponse } from "@/dto/login-response";
 import type { PublicUser } from "@/dto/public-user";
 import type { PacienteDisponivelDto } from "@/dto/paciente-disponivel.dto";
 import type { PacienteVinculadoDto } from "@/dto/paciente-vinculado.dto";
@@ -13,10 +12,8 @@ import type {
 import { API_URL } from "@/lib/api-config";
 import { authHeaders, throwFromResponse } from "@/lib/http";
 
-export { saveToken, getToken, clearToken } from "@/lib/auth-token";
-
 export async function registerPaciente(dto: CreatePacienteDto): Promise<PublicUser> {
-  const res = await fetch(`${API_URL}/users/pacientes`, {
+  const res = await fetch(`/api/auth/register/paciente`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(dto),
@@ -27,7 +24,7 @@ export async function registerPaciente(dto: CreatePacienteDto): Promise<PublicUs
 }
 
 export async function registerMedico(dto: CreateMedicoDto): Promise<PublicUser> {
-  const res = await fetch(`${API_URL}/users/medicos`, {
+  const res = await fetch(`/api/auth/register/medico`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(dto),
@@ -37,8 +34,8 @@ export async function registerMedico(dto: CreateMedicoDto): Promise<PublicUser> 
   return res.json();
 }
 
-export async function loginUser(dto: LoginUserDto): Promise<LoginResponse> {
-  const res = await fetch(`${API_URL}/users/login`, {
+export async function loginUser(dto: LoginUserDto): Promise<PublicUser> {
+  const res = await fetch(`/api/auth/login`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(dto),

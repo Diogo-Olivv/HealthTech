@@ -1,20 +1,20 @@
 "use client";
 
 import React, { createContext, useContext, useState, useEffect } from "react";
-import { getProfile, clearToken } from "@/services/users.service";
+import { getProfile } from "@/services/users.service";
 import type { PublicUser } from "@/dto/public-user";
 import { useRouter } from "next/navigation";
 
 interface AuthContextType {
     user: PublicUser | null;
     loading: boolean;
-    logout: () => void;
+    logout: () => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType>({
     user: null,
     loading: true,
-    logout: () => {},
+    logout: async () => {},
 });
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
@@ -28,7 +28,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
                 const profile = await getProfile();
                 setUser(profile);
             } catch {
-                clearToken();
                 router.push("/login");
             } finally {
                 setLoading(false);
@@ -38,10 +37,13 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    const logout = () => {
-        clearToken();
-        setUser(null);
-        router.push("/login");
+    const logout = async () => {
+        try {
+            await fetch("/api/auth/logout", { method: "POST" });
+        } finally {
+            setUser(null);
+            router.push("/login");
+        }
     };
 
     return (
