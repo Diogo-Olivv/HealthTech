@@ -2,201 +2,192 @@
 
 ## Visão Geral
 
-O diagrama de classes representa a estrutura do sistema HealthTech, organizando entidades de domínio, tabelas associativas e serviços. O modelo cobre autenticação, gerenciamento de arquivos médicos e auditoria, com estratégia híbrida de armazenamento para logs.
+O diagrama de classes representa a estrutura do sistema HealthTech, organizando entidades de domínio, tabelas associativas e serviços. O modelo cobre autenticação, gerenciamento de arquivos, especialidades, vínculo médico-paciente com workflow de aprovação e auditoria.
 
-![Diagrama_Classes](../assets/diagramas/diagrama_classe.jpg)
+![Diagrama de Classes](../assets/diagramas/diagrama_classe.jpg)
 [Visualização da Imagem](../assets/diagramas/diagrama_classe.jpg)
 
 ---
 
 ## Entidades
 
-### Usuario
+### Usuario (`users`)
 
 Classe base que centraliza autenticação e dados comuns a todos os usuários da plataforma.
 
-**Atributos:**
+**Atributos**
 
 - `id: UUID`: identificador único
 - `nome: string`: nome completo
 - `email: string`: email único de autenticação
-- `senha: bycrypt(string)`: senha armazenada como hash bcrypt
-- `tipo: enum(PACIENTE, MEDICO)`: diferencia o perfil do usuário
+- `passwordHash: string`: hash bcrypt (10 rounds)
+- `tipo: enum(PACIENTE, MEDICO, ADMIN)`: perfil operacional
+- `createdAt, updatedAt: timestamp`
 
-**Métodos:**
+**Métodos (serviço)**
 
-- `createMedico(dtoMedico): Medico`: cria perfil de médico vinculado
-- `createPaciente(dtoPaciente): Paciente`: cria perfil de paciente vinculado
-- `autenticar(email: string, senha: string): bool`: valida credenciais
-- `alterarSenha(novaSenha: string): bool`: atualiza senha com novo hash
-
----
-
-### Paciente
-
-Especialização de Usuario que representa pacientes da plataforma. Herda atributos de autenticação e adiciona dados específicos.
-
-**Atributos:**
-
-- `userId: UUID`: FK para Usuario
-- `cpf: string`: CPF único do paciente
-- `dataNascimento: string`: data de nascimento
-
-**Métodos:**
-
-- `listarArquivos(): List<Arquivo>`: retorna arquivos vinculados ao paciente
-- `baixarArquivo(arquivoId: UUID): Arquivo`: realiza download de arquivo autorizado
+- `createMedico(dto)`: cria perfil de médico e vincula às especialidades escolhidas
+- `createPaciente(dto)`: cria perfil de paciente
+- `login(dto)`: valida credenciais e retorna `{ accessToken, user }`
+- `me(req)`: retorna dados do usuário autenticado
 
 ---
 
-### Medico
+### Paciente (`pacientes`)
 
-Especialização de Usuario que representa médicos da plataforma. Herda atributos de autenticação e adiciona dados profissionais.
+Especialização de `Usuario`. Herda `id` e adiciona dados do paciente.
 
-**Atributos:**
+**Atributos**
 
-- `userId: UUID`: FK para Usuario
-- `crm: string`: registro profissional único
-- `especialidade: string`: área de atuação
+- `userId: UUID`: FK para `Usuario`
+- `cpf: string`: único
+- `dataNascimento: date`
 
-**Métodos:**
+**Interações**
 
-- `fazerUploadArquivo(arquivo: File, pacienteId: UUID): bool`: envia novo arquivo vinculado a um paciente
-- `listarArquivosDoPaciente(pacienteId: UUID): List<Arquivo>`: lista arquivos de um paciente vinculado
-
----
-
-### MedicoPaciente (tabela associativa)
-
-Resolve o relacionamento N: N entre médicos e pacientes. Um médico pode atender vários pacientes e um paciente pode ser atendido por vários médicos.
-
-**Atributos:**
-
-- `medicoId: Medico.userId`: FK composta
-- `pacienteId: Paciente.userId`: FK composta
-
-**Métodos:**
-
-- `vincular(medicoId: UUID, pacienteId: UUID): bool`: cria vínculo
-- `desvincular(medicoId: UUID, pacienteId: UUID): bool`: remove vínculo
+- Consulta arquivos ligados a si (`GET /arquivos`).
+- Aprova, rejeita ou revoga vínculos com médicos.
 
 ---
 
-### Arquivo
+### Medico (`medicos`)
 
-Representa metadados de exames e documentos médicos. O binário real é armazenado no Google Cloud Storage; esta entidade guarda apenas referências e metadados.
+Especialização de `Usuario`. Adiciona `crm` e a relação N:N com `Especialidade`.
 
-**Atributos:**
+**Atributos**
 
-- `id: UUID`: identificador único
-- `medicoId: Medico.userId`: FK para o médico que fez o upload
-- `pacienteId: Paciente.userId`: FK para o paciente vinculado
-- `nomeOriginal: string`: nome do arquivo enviado pelo usuário
-- `nomeUnico: string`: nome interno utilizado no storage
-- `tipo: string`: extensão (pdf, jpg, jpeg, png)
-- `tamanho: number`: tamanho do arquivo em bytes
-- `dataUpload: timestamp`: momento do upload
+- `userId: UUID`: FK para `Usuario`
+- `crm: string`: único
+- `especialidade_legado: string?`: coluna legada mantida por um release para permitir rollback
 
-**Métodos:**
+**Interações**
 
-- `validarFormato(): bool`: verifica se o tipo do arquivo é permitido
-- `validarTamanho(): bool`: verifica se o tamanho está dentro do limite
-- `deletar(): bool`: remove o arquivo do storage e os metadados do banco
+- Solicita vínculos (`POST /medico-paciente/vincular`).
+- Faz upload, edita e exclui arquivos.
+- Consulta o prontuário de pacientes vinculados.
 
 ---
 
-## Auditoria: Estratégia Híbrida
+### Especialidade (`especialidades`)
 
-A auditoria utiliza dois níveis de armazenamento para combinar desempenho e economia de recursos.
+**Atributos**
 
-### AuditLog (entity)
+- `id: UUID`
+- `nome: string`
+- `slug: string`: único
+- `ativa: boolean`
 
-Tabela de logs no banco que armazena eventos recentes. Permite consulta rápida via SQL para o período ativo.
+Relação N:N com `Medico` via tabela `medico_especialidades`.
 
-**Atributos:**
+---
 
-- `id: UUID`: identificador único do log
-- `userId: Usuario.userId`: FK para o usuário que gerou o evento
-- `evento: enum`: tipo do evento (LOGIN_SUCCESS, UPLOAD_SUCCESS, ACCESS_DENIED, etc.)
-- `status: string`: resultado do evento
-- `ipOrigem: string`: endereço IP da requisição
-- `timestamp: timestamp`: momento exato do evento
+### MedicoPaciente (`medico_paciente`)
 
-### AuditLogService (service)
+Tabela associativa com workflow de consentimento (LGPD art. 8).
 
-Serviço responsável por toda a lógica de auditoria. Não é uma tabela do banco, mas uma classe de comportamento que orquestra escrita, leitura e arquivamento de logs.
+**Atributos**
 
-**Atributos:**
+- `medicoId: UUID` (PK + FK)
+- `pacienteId: UUID` (PK + FK)
+- `status: enum(PENDENTE, APROVADO, REJEITADO, REVOGADO)`
+- `solicitadoPor: UUID`
+- `solicitadoEm: timestamp`
+- `respondidoEm: timestamp?`
+- `termoVersao: string?`: versão do termo aceito na aprovação
+- `vinculadoEm: timestamp`
 
-- `caminhoArquivo: string`: diretório onde os arquivos `.txt` arquivados são salvos
-- `periodoRetencao: enum(DAILY, WEEKLY, MONTHLY)`: frequência da rotação de arquivos
+**Métodos (serviço)**
 
-**Métodos:**
+- `solicitarVinculo(medicoId, pacienteId)`
+- `aprovarSolicitacao(pacienteId, medicoId)`
+- `rejeitarSolicitacao(pacienteId, medicoId)`
+- `revogarAcesso(pacienteId, medicoId)`
+- `desvincular(medicoId, pacienteId)`
 
-- `registrar(AuditLog.id): bool`: insere novo log na tabela
-- `consultar(periodo): List<AuditLog>`: consulta logs (banco para recentes, arquivo para antigos)
-- `arquivar(): bool`: exporta logs antigos do banco para arquivo `.txt`
-- `moverArquivos(): bool`: limpa logs já arquivados da tabela
+---
 
-### Fluxo da estratégia híbrida
+### Arquivo (`arquivos`)
 
-1. Cada evento do sistema invoca `AuditLogService.registrar()`.
-2. O service insere o registro na tabela `AuditLog` (hot storage).
-3. Periodicamente, um job agendado chama `arquivar()`.
-4. Logs antigos são exportados para arquivo `.txt` separado por período (cold storage).
-5. Após o arquivamento, `moverArquivos()` remove da tabela os logs já persistidos em arquivo.
-6. Consultas para períodos recentes leem do banco; consultas para períodos antigos leem do arquivo.
+Metadados de exames e documentos médicos. O binário fica no storage.
+
+**Atributos**
+
+- `id: UUID`
+- `nomeOriginal: string`
+- `nomeUnico: string`
+- `tipo: string`: MIME (`application/pdf`, `image/jpeg`, `image/png`)
+- `tamanho: number`
+- `descricao: string?`
+- `caminhoStorage: string`: campo sensível, jamais serializado na API
+- `dataUpload: timestamp`
+- `pacienteId, medicoUploadId: UUID`
+
+**Métodos (serviço)**
+
+- `uploadArquivo(file, pacienteId, medicoId, descricao?)`
+- `listarParaMedico(medicoId)`, `listarParaPaciente(pacienteId)`
+- `listarProntuarioPaciente(medicoId, pacienteId)`
+- `gerarUrlDownload(id, userId, tipo)`
+- `obterConteudoParaStream(id, userId, tipo)`
+- `atualizarDescricao(id, medicoId, dto)`
+- `excluirArquivo(id, medicoId)`
+
+---
+
+## Auditoria
+
+### AuditLog (`audit_logs`)
+
+**Atributos**
+
+- `id: UUID`
+- `userId: UUID?`: pode ser nulo em tentativas de login inválidas
+- `tipoEvento: enum(TipoEventoAuditoria)`
+- `recursoId: UUID?`
+- `status: enum(SUCCESS, FAILURE)`
+- `ipOrigem: string`
+- `userAgent: string?`
+- `timestamp: timestamp`
+
+### TipoEventoAuditoria
+
+`LOGIN`, `LOGOUT`, `CRIACAO_USUARIO`, `ATUALIZACAO_USUARIO`, `EXCLUSAO_USUARIO`, `UPLOAD_ARQUIVO`, `DOWNLOAD_ARQUIVO`, `VISUALIZACAO_ARQUIVO`, `EXCLUSAO_ARQUIVO`, `VINCULO_MEDICO_PACIENTE`, `DESVINCULO_MEDICO_PACIENTE`, `SOLICITACAO_VINCULO`, `APROVACAO_VINCULO`, `REJEICAO_VINCULO`, `REVOGACAO_VINCULO`, `ACESSO_NEGADO`, `TENTATIVA_ESCALONAMENTO_PRIVILEGIO`.
+
+> `LOGIN_FALHA` foi removido do enum (issue #57): a consulta equivalente passa a ser `WHERE tipoEvento = 'LOGIN' AND status = 'FAILURE'`.
+
+### AuditInterceptor + @Audit
+
+Interceptor global registrado em `AppModule`. Lê a metadata do decorator `@Audit({...})` no handler, registra `SUCCESS` no `tap` e `FAILURE` no `catchError`, sempre re-lançando a exceção original. Detalhes em [Arquitetura do Backend](../arquitetura/backend.md).
 
 ---
 
 ## Relacionamentos e Cardinalidades
 
-| Origem          | Destino        | Cardinalidade | Tipo        | Descrição                                             |
-| --------------- | -------------- | ------------- | ----------- | ----------------------------------------------------- |
-| Usuario         | Paciente       | 1: 1          | Herança     | Paciente é especialização de Usuario                  |
-| Usuario         | Medico         | 1: 1          | Herança     | Medico é especialização de Usuario                    |
-| Medico          | MedicoPaciente | 1: (0, N)     | Associação  | Um médico possui vários vínculos                      |
-| Paciente        | MedicoPaciente | 1: (0, N)     | Associação  | Um paciente possui vários vínculos                    |
-| Medico          | Arquivo        | 1: (0, N)     | Associação  | Um médico faz upload de vários arquivos               |
-| Paciente        | Arquivo        | 1: (0, N)     | Associação  | Um paciente possui vários arquivos vinculados         |
-| Usuario         | AuditLog       | 1: (0, N)     | Associação  | Um usuário gera vários eventos de log                 |
-| AuditLogService | AuditLog       | :             | Dependência | Service cria e consulta registros de AuditLog         |
-| AuditLogService | Arquivo txt    | :             | Dependência | Service escreve logs antigos em arquivos rotacionados |
+| Origem     | Destino          | Cardinalidade | Descrição                                             |
+| ---------- | ---------------- | ------------- | ----------------------------------------------------- |
+| Usuario    | Paciente         | 1:1           | Paciente é especialização de Usuario                  |
+| Usuario    | Medico           | 1:1           | Medico é especialização de Usuario                    |
+| Medico     | Especialidade    | N:N           | Via `medico_especialidades`                           |
+| Medico     | MedicoPaciente   | 1:N           | Um médico possui várias solicitações e vínculos       |
+| Paciente   | MedicoPaciente   | 1:N           | Um paciente possui vários vínculos                    |
+| Medico     | Arquivo          | 1:N           | Um médico envia vários arquivos (`medicoUploadId`)    |
+| Paciente   | Arquivo          | 1:N           | Um paciente possui vários arquivos                    |
+| Usuario    | AuditLog         | 1:N           | Um usuário gera vários eventos de auditoria           |
 
-### Resolução do N: N
-
-O relacionamento N: N entre Medico e Paciente é resolvido pela tabela associativa `MedicoPaciente`. Cada par (medicoId, pacienteId) representa um vínculo único na plataforma.
-
----
-
-## Convenções Visuais
-
-| Grupo                                            | Cor           | Estereótipo                  |
-| ------------------------------------------------ | ------------- | ---------------------------- |
-| Entidades de usuário (Usuario, Paciente, Medico) | Azul claro    | (entity implícito)           |
-| Tabela associativa (MedicoPaciente)              | Cinza         | (associative)                |
-| Entidade de domínio (Arquivo)                    | Verde         | (entity implícito)           |
-| Auditoria (AuditLog, AuditLogService)            | Amarelo       | `<<entity>>` e `<<service>>` |
-| Nota explicativa (Arquivo txt)                   | Amarelo claro | (sticky note)                |
-
-**Tipos de conexão:**
-
-- Linha sólida com cardinalidade: associação entre entidades
-- Linha sólida com triângulo vazado: herança (Usuario → Paciente, Usuario → Medico)
-- Linha sólida com seta: dependência funcional do service (cria, escreve)
+O relacionamento N:N entre Medico e Paciente é resolvido pela tabela associativa `medico_paciente`. Cada par (`medicoId`, `pacienteId`) representa um vínculo único, com histórico de status.
 
 ---
 
 ## Considerações Técnicas
 
-### Sobre o tipo File no upload
+### Sobre o tipo `File` no upload
 
-O parâmetro `arquivo: File` no método `fazerUploadArquivo` representa o binário recebido na requisição multipart/form-data. Não é uma entidade persistida, apenas um tipo nativo do framework que será processado pelo backend e transformado em metadados na entidade `Arquivo`. O conteúdo binário em si vai para o Google Cloud Storage.
+O parâmetro `arquivo: Express.Multer.File` no `POST /arquivos/upload` representa o binário recebido em multipart/form-data. Não é uma entidade persistida: só o metadado (`Arquivo`) e o binário no storage.
 
-### Sobre armazenamento de logs em produção
+### Sobre armazenamento em produção
 
-Em ambiente de produção (Cloud Run), `caminhoArquivo` deve apontar para um bucket no Google Cloud Storage, já que o Cloud Run não possui disco persistente. Em desenvolvimento local, pode apontar para um diretório no projeto.
+Em produção o `StorageService` usa o driver `gcs` (Google Cloud Storage). Em desenvolvimento usa o driver `local`, gravando em `LOCAL_STORAGE_DIR` (`uploads` por padrão).
 
-### Sobre o formato dos arquivos de log
+### Sobre a coluna `especialidade_legado`
 
-Recomenda-se utilizar JSON Lines (`.jsonl`) em vez de texto puro, pois cada linha se torna um objeto JSON parseável independente, facilitando consultas e processamento automatizado.
+A coluna existe apenas para permitir rollback do deploy que introduziu `especialidades`/`medico_especialidades`. Será removida em migration posterior.
