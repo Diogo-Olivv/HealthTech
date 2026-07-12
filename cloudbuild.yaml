@@ -231,6 +231,7 @@ steps:
       - "--cpu=1"
       - "--min-instances=0"
       - "--max-instances=5"
+      - "--set-env-vars=NODE_ENV=production,API_INTERNAL_URL=${_BACKEND_URL}"
 
 images:
   - "${_AR_REGION}-docker.pkg.dev/$PROJECT_ID/${_AR_REPO}/backend:$BUILD_ID"
