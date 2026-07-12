@@ -334,7 +334,7 @@ export class MedicoPacienteService {
     return pacientes.map((p) => ({
       id: p.userId,
       nome: p.user.name,
-      cpf: p.cpf,
+      dataNascimento: p.dataNascimento,
       email: p.user.email,
     }));
   }
