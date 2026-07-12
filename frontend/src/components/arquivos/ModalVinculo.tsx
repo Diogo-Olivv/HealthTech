@@ -75,14 +75,15 @@ export function ModalVinculo({ isOpen, onClose, onSuccess }: ModalVinculoProps) 
         setConfirmando(true);
         try {
             await linkPatient(selecionado);
+            const nomePaciente = pacienteSelecionado?.nome ?? "O paciente";
             setConfirmando(false);
-            await successAlert(
-                "Solicitação enviada!",
-                `${pacienteSelecionado?.nome ?? "O paciente"} precisa aprovar a solicitação antes que você tenha acesso aos exames.`,
-                "Continuar",
-            );
             onSuccess();
             onClose();
+            await successAlert(
+                "Solicitação enviada!",
+                `${nomePaciente} precisa aprovar a solicitação antes que você tenha acesso aos exames.`,
+                "Continuar",
+            );
         } catch (error) {
             const msg = mensagemDeErro(error, "Erro ao solicitar vínculo.");
             setFeedback({ type: "error", msg });
