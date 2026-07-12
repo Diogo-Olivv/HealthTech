@@ -19,7 +19,7 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
-import type { Request, Response } from 'express';
+import type { Response } from 'express';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { Roles } from '../auth/roles.decorator';
 import { RolesGuard } from '../auth/roles.guard';
@@ -29,7 +29,6 @@ import { UserType } from '../entities/user.entity';
 import { ArquivosService } from './arquivos.service';
 import { AtualizarArquivoDto } from './dto/atualizar-arquivo.dto';
 import { ArquivoResponseDto } from './dto/arquivo-response.dto';
-import { DownloadArquivoResponseDto } from './dto/download-arquivo-response.dto';
 import { ListarArquivosResponseDto } from './dto/listar-arquivos-response.dto';
 import type { AuthRequest } from '../auth/models/AuthRequest';
 
@@ -101,17 +100,15 @@ export class ArquivosController {
     );
   }
 
-  @Get(':id/download')
-  @Roles(UserType.PACIENTE, UserType.MEDICO)
-  gerarUrlDownload(
-    @Req() req: AuthRequest,
-    @Param('id', ParseUUIDPipe) id: string,
-  ): Promise<DownloadArquivoResponseDto> {
-    return this.arquivosService.gerarUrlDownload(id, req.user.id, req.user.tipo);
-  }
-
   @Get(':id/raw')
   @Roles(UserType.PACIENTE, UserType.MEDICO)
+  @Audit({
+    evento: TipoEventoAuditoria.DOWNLOAD_ARQUIVO,
+    extractRecursoId: (_res, req: AuthRequest) => {
+      const id = req.params?.id;
+      return typeof id === 'string' ? id : null;
+    },
+  })
   async streamArquivo(
     @Req() req: AuthRequest,
     @Param('id', ParseUUIDPipe) id: string,

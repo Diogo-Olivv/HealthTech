@@ -1,6 +1,5 @@
 import type { ArquivoDto } from "@/dto/arquivo.dto";
 import type { AtualizarArquivoDto } from "@/dto/atualizar-arquivo.dto";
-import type { DownloadArquivoResponseDto } from "@/dto/download-arquivo-response.dto";
 import type { UploadArquivoDto } from "@/dto/upload-arquivo.dto";
 import { API_URL } from "@/lib/api-config";
 import { authHeaders, throwFromResponse } from "@/lib/http";
@@ -44,16 +43,6 @@ export async function getProntuarioPaciente(
   });
 
   if (!res.ok) await throwFromResponse(res, "Erro ao buscar prontuário do paciente.");
-  return res.json();
-}
-
-export async function getDownloadUrl(id: string): Promise<DownloadArquivoResponseDto> {
-  const res = await fetch(`${API_URL}/arquivos/${id}/download`, {
-    method: "GET",
-    headers: authHeaders(),
-  });
-
-  if (!res.ok) await throwFromResponse(res, "Erro ao gerar link de download.");
   return res.json();
 }
 

@@ -7,12 +7,10 @@ const mockSave = jest.fn();
 const mockDownload = jest.fn();
 const mockGcsDelete = jest.fn();
 const mockExists = jest.fn();
-const mockGetSignedUrl = jest.fn();
 const mockFile = jest.fn(() => ({
   save: mockSave,
   download: mockDownload,
   delete: mockGcsDelete,
-  getSignedUrl: mockGetSignedUrl,
 }));
 const mockBucket = jest.fn(() => ({ file: mockFile, exists: mockExists }));
 
@@ -135,45 +133,6 @@ describe('StorageService', () => {
       mockGcsDelete.mockRejectedValue(new Error('permission denied'));
 
       await expect(service.delete('uuid-123.jpg')).rejects.toThrow(
-        InternalServerErrorException,
-      );
-    });
-  });
-
-  describe('getSignedUrl()', () => {
-    it('deve gerar URL assinada com TTL padrão de 900s', async () => {
-      const service = await makeService();
-      const fakeUrl = 'https://signed.example/uuid-123.jpg?sig=abc';
-      mockGetSignedUrl.mockResolvedValue([fakeUrl]);
-      const before = Date.now();
-
-      const url = await service.getSignedUrl('uuid-123.jpg');
-
-      expect(mockFile).toHaveBeenCalledWith('uuid-123.jpg');
-      const args = mockGetSignedUrl.mock.calls[0][0];
-      expect(args.action).toBe('read');
-      expect(args.expires).toBeGreaterThanOrEqual(before + 900 * 1000);
-      expect(args.expires).toBeLessThanOrEqual(Date.now() + 900 * 1000 + 50);
-      expect(url).toBe(fakeUrl);
-    });
-
-    it('deve respeitar TTL customizado', async () => {
-      const service = await makeService();
-      mockGetSignedUrl.mockResolvedValue(['url']);
-      const before = Date.now();
-
-      await service.getSignedUrl('x.jpg', 60);
-
-      const args = mockGetSignedUrl.mock.calls[0][0];
-      expect(args.expires).toBeGreaterThanOrEqual(before + 60 * 1000);
-      expect(args.expires).toBeLessThanOrEqual(Date.now() + 60 * 1000 + 50);
-    });
-
-    it('deve lançar InternalServerErrorException em falha do GCS', async () => {
-      const service = await makeService();
-      mockGetSignedUrl.mockRejectedValue(new Error('iam denied'));
-
-      await expect(service.getSignedUrl('x.jpg')).rejects.toThrow(
         InternalServerErrorException,
       );
     });

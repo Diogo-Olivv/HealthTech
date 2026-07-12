@@ -152,30 +152,6 @@ export class StorageService implements OnModuleInit {
     }
   }
 
-  async getSignedUrl(uniqueName: string, ttlSeconds = 900): Promise<string> {
-    if (this.driver === 'local') {
-      // Driver local não tem URL assinada — devolve o caminho local.
-      return join(this.localDir!, uniqueName);
-    }
-
-    try {
-      const [url] = await this.bucket!.file(uniqueName).getSignedUrl({
-        action: 'read',
-        expires: Date.now() + ttlSeconds * 1000,
-      });
-      return url;
-    } catch (err) {
-      const e = err as Error;
-      this.logger.error(
-        `GCS signed URL falhou (${uniqueName}): ${e.message}`,
-        e.stack,
-      );
-      throw new InternalServerErrorException(
-        'Falha ao gerar URL de acesso ao arquivo',
-      );
-    }
-  }
-
   getPublicUrl(uniqueName: string): string {
     if (this.driver === 'local') {
       return `local://${uniqueName}`;

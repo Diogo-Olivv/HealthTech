@@ -7,10 +7,10 @@ import { StorageService } from '../src/storage/storage.service';
 
 /**
  * E2E CRUD dos arquivos:
- *   POST /arquivos/upload       (com descrição opcional)
- *   GET  /arquivos/:id/download (paciente dono e médico com vínculo)
- *   PATCH /arquivos/:id         (só médico dono do upload)
- *   DELETE /arquivos/:id        (só médico dono do upload; remove no storage antes do banco)
+ *   POST /arquivos/upload   (com descrição opcional)
+ *   GET  /arquivos/:id/raw  (paciente dono e médico com vínculo)
+ *   PATCH /arquivos/:id     (só médico dono do upload)
+ *   DELETE /arquivos/:id    (só médico dono do upload; remove no storage antes do banco)
  *
  * O StorageService é mockado para não depender de GCS/disco.
  */
@@ -20,7 +20,6 @@ const mockStorageService = {
   upload: jest.fn().mockResolvedValue(undefined),
   download: jest.fn().mockResolvedValue(Buffer.from('binario')),
   delete: jest.fn().mockResolvedValue(undefined),
-  getSignedUrl: jest.fn().mockResolvedValue('https://mock-signed-url'),
   getPublicUrl: jest.fn((name: string) => `https://mock-bucket/${name}`),
   isConnected: jest.fn().mockResolvedValue(true),
 };
@@ -182,56 +181,6 @@ describe('CRUD /arquivos (E2E)', () => {
   afterAll(async () => {
     await limparDados(dataSource);
     await app.close();
-  });
-
-  describe('GET /arquivos/:id/download (signed URL)', () => {
-    it('paciente dono recebe URL assinada + expiresAt', async () => {
-      const res = await request(app.getHttpServer())
-        .get(`/arquivos/${arquivoId}/download`)
-        .set('Authorization', `Bearer ${tokenPacienteA}`)
-        .expect(200);
-
-      expect(res.body.url).toBe('https://mock-signed-url');
-      expect(new Date(res.body.expiresAt).getTime()).toBeGreaterThan(Date.now());
-      expect(mockStorageService.getSignedUrl).toHaveBeenCalledWith(
-        expect.any(String),
-        15 * 60,
-      );
-    });
-
-    it('paciente de outro cadastro recebe 403', async () => {
-      await request(app.getHttpServer())
-        .get(`/arquivos/${arquivoId}/download`)
-        .set('Authorization', `Bearer ${tokenPacienteB}`)
-        .expect(403);
-    });
-
-    it('médico com vínculo consegue baixar', async () => {
-      await request(app.getHttpServer())
-        .get(`/arquivos/${arquivoId}/download`)
-        .set('Authorization', `Bearer ${tokenMedicoDono}`)
-        .expect(200);
-    });
-
-    it('médico sem vínculo recebe 403', async () => {
-      await request(app.getHttpServer())
-        .get(`/arquivos/${arquivoId}/download`)
-        .set('Authorization', `Bearer ${tokenMedicoOutro}`)
-        .expect(403);
-    });
-
-    it('id inexistente retorna 404', async () => {
-      await request(app.getHttpServer())
-        .get(`/arquivos/00000000-0000-0000-0000-000000000000/download`)
-        .set('Authorization', `Bearer ${tokenPacienteA}`)
-        .expect(404);
-    });
-
-    it('sem token retorna 401', async () => {
-      await request(app.getHttpServer())
-        .get(`/arquivos/${arquivoId}/download`)
-        .expect(401);
-    });
   });
 
   describe('GET /arquivos/:id/raw (stream)', () => {

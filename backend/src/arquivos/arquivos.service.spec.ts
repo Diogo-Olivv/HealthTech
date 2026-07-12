@@ -53,7 +53,6 @@ const mockStorage = () => ({
   upload: jest.fn(),
   download: jest.fn(),
   delete: jest.fn(),
-  getSignedUrl: jest.fn(),
   getPublicUrl: jest.fn(),
 });
 
@@ -258,74 +257,6 @@ describe('ArquivosService — listagens', () => {
     await expect(
       service.listarProntuarioPaciente('uuid-m', 'uuid-p'),
     ).rejects.toThrow(ForbiddenException);
-  });
-});
-
-describe('ArquivosService.gerarUrlDownload()', () => {
-  let service: ArquivosService;
-  let arquivosRepo: ReturnType<typeof mockRepo<Arquivo>>;
-  let medicoPacienteRepo: ReturnType<typeof mockRepo<MedicoPaciente>>;
-  let storage: ReturnType<typeof mockStorage>;
-
-  beforeEach(() => {
-    arquivosRepo = mockRepo<Arquivo>();
-    medicoPacienteRepo = mockRepo<MedicoPaciente>();
-    storage = mockStorage();
-    service = new ArquivosService(arquivosRepo, medicoPacienteRepo, storage as any);
-  });
-
-  it('paciente dono do arquivo recebe URL assinada', async () => {
-    (arquivosRepo.findOne as jest.Mock).mockResolvedValue(
-      makeArquivoEntity({ pacienteId: 'uuid-p-1', nomeUnico: 'gcs.pdf' }),
-    );
-    storage.getSignedUrl.mockResolvedValue('https://signed.url');
-
-    const result = await service.gerarUrlDownload('uuid-a', 'uuid-p-1', UserType.PACIENTE);
-
-    expect(storage.getSignedUrl).toHaveBeenCalledWith('gcs.pdf', 15 * 60);
-    expect(result.url).toBe('https://signed.url');
-    expect(new Date(result.expiresAt).getTime()).toBeGreaterThan(Date.now());
-  });
-
-  it('paciente de outro cadastro é bloqueado com 403', async () => {
-    (arquivosRepo.findOne as jest.Mock).mockResolvedValue(
-      makeArquivoEntity({ pacienteId: 'uuid-p-1' }),
-    );
-
-    await expect(
-      service.gerarUrlDownload('uuid-a', 'uuid-p-2', UserType.PACIENTE),
-    ).rejects.toThrow(ForbiddenException);
-
-    expect(storage.getSignedUrl).not.toHaveBeenCalled();
-  });
-
-  it('médico com vínculo consegue baixar (mesmo sem ser dono do upload)', async () => {
-    (arquivosRepo.findOne as jest.Mock).mockResolvedValue(
-      makeArquivoEntity({ pacienteId: 'uuid-p-1', medicoUploadId: 'outro-medico' }),
-    );
-    (medicoPacienteRepo.findOne as jest.Mock).mockResolvedValue({});
-    storage.getSignedUrl.mockResolvedValue('https://signed.url');
-
-    const result = await service.gerarUrlDownload('uuid-a', 'uuid-m-1', UserType.MEDICO);
-
-    expect(result.url).toBe('https://signed.url');
-  });
-
-  it('médico sem vínculo é bloqueado com 403', async () => {
-    (arquivosRepo.findOne as jest.Mock).mockResolvedValue(makeArquivoEntity());
-    (medicoPacienteRepo.findOne as jest.Mock).mockResolvedValue(null);
-
-    await expect(
-      service.gerarUrlDownload('uuid-a', 'uuid-m-2', UserType.MEDICO),
-    ).rejects.toThrow(ForbiddenException);
-  });
-
-  it('id inexistente lança 404', async () => {
-    (arquivosRepo.findOne as jest.Mock).mockResolvedValue(null);
-
-    await expect(
-      service.gerarUrlDownload('uuid-inexistente', 'uuid-p', UserType.PACIENTE),
-    ).rejects.toThrow(NotFoundException);
   });
 });
 

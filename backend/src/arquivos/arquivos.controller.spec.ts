@@ -62,7 +62,6 @@ describe('ArquivosController', () => {
           provide: ArquivosService,
           useValue: {
             uploadArquivo: jest.fn(),
-            gerarUrlDownload: jest.fn(),
             obterConteudoParaStream: jest.fn(),
             atualizarDescricao: jest.fn(),
             excluirArquivo: jest.fn(),
@@ -119,42 +118,6 @@ describe('ArquivosController', () => {
       await expect(
         controller.upload(makeMedicoRequest() as any, makeMulterFile(), 'uuid-p'),
       ).rejects.toThrow('boom');
-    });
-  });
-
-  describe('gerarUrlDownload()', () => {
-    it('chama service com id do usuário e tipo (paciente)', async () => {
-      arquivosService.gerarUrlDownload.mockResolvedValue({
-        url: 'https://signed',
-        expiresAt: new Date().toISOString(),
-      });
-
-      const result = await controller.gerarUrlDownload(
-        makePacienteRequest() as any,
-        'uuid-arquivo-1',
-      );
-
-      expect(arquivosService.gerarUrlDownload).toHaveBeenCalledWith(
-        'uuid-arquivo-1',
-        'uuid-paciente-1',
-        UserType.PACIENTE,
-      );
-      expect(result.url).toBe('https://signed');
-    });
-
-    it('chama service com id do usuário e tipo (médico)', async () => {
-      arquivosService.gerarUrlDownload.mockResolvedValue({
-        url: 'https://signed',
-        expiresAt: new Date().toISOString(),
-      });
-
-      await controller.gerarUrlDownload(makeMedicoRequest() as any, 'uuid-arquivo-1');
-
-      expect(arquivosService.gerarUrlDownload).toHaveBeenCalledWith(
-        'uuid-arquivo-1',
-        'uuid-medico-1',
-        UserType.MEDICO,
-      );
     });
   });
 

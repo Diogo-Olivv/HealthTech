@@ -16,7 +16,6 @@ const mockStorageService = {
   upload: jest.fn().mockResolvedValue(undefined),
   download: jest.fn().mockResolvedValue(Buffer.from('')),
   delete: jest.fn().mockResolvedValue(undefined),
-  getSignedUrl: jest.fn().mockResolvedValue('https://mock-signed-url'),
   getPublicUrl: jest.fn((name: string) => `https://mock-bucket/${name}`),
   isConnected: jest.fn().mockResolvedValue(true),
 };

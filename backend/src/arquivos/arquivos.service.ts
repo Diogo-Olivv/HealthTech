@@ -18,15 +18,12 @@ import {
   ArquivoResponseDto,
   toArquivoResponse,
 } from './dto/arquivo-response.dto';
-import { DownloadArquivoResponseDto } from './dto/download-arquivo-response.dto';
 import { ListarArquivosResponseDto } from './dto/listar-arquivos-response.dto';
 
 const LISTAGEM_RELATIONS = {
   paciente: { user: true },
   medicoUpload: { user: true },
 } as const;
-
-const DOWNLOAD_TTL_SECONDS = 15 * 60;
 
 function toListagemDto(arquivo: Arquivo): ListarArquivosResponseDto {
   return {
@@ -149,26 +146,6 @@ export class ArquivosService {
     const salvo = await this.arquivosRepository.save(arquivo);
 
     return this.toPublicArquivo(salvo);
-  }
-
-  async gerarUrlDownload(
-    arquivoId: string,
-    usuarioId: string,
-    tipoUsuario: UserType,
-  ): Promise<DownloadArquivoResponseDto> {
-    const arquivo = await this.buscarArquivoOuFalhar(arquivoId);
-    await this.garantirAcessoDeLeitura(arquivo, usuarioId, tipoUsuario);
-
-    const expiraEm = new Date(Date.now() + DOWNLOAD_TTL_SECONDS * 1000);
-    const url = await this.storageService.getSignedUrl(
-      arquivo.nomeUnico,
-      DOWNLOAD_TTL_SECONDS,
-    );
-
-    return {
-      url,
-      expiresAt: expiraEm.toISOString(),
-    };
   }
 
   async obterConteudoParaStream(
