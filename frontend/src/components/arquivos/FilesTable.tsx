@@ -14,7 +14,7 @@ import VisualizadorArquivo from "./VisualizadorArquivo";
 import {
     atualizarArquivo,
     deleteArquivo,
-    getDownloadUrl,
+    getArquivoBlob,
 } from "@/services/arquivos.service";
 import { formatDate } from "@/utils/date";
 import { formatTamanho } from "@/utils/format-tamanho";
@@ -75,8 +75,15 @@ export default function FilesTable({
         setErro("");
         setDownloadingId(arquivo.id);
         try {
-            const { url } = await getDownloadUrl(arquivo.id);
-            window.open(url, "_blank", "noopener,noreferrer");
+            const blob = await getArquivoBlob(arquivo.id);
+            const objectUrl = URL.createObjectURL(blob);
+            const link = document.createElement("a");
+            link.href = objectUrl;
+            link.download = arquivo.nomeOriginal;
+            document.body.appendChild(link);
+            link.click();
+            link.remove();
+            URL.revokeObjectURL(objectUrl);
         } catch (err) {
             setErro(mensagemDeErro(err, "Erro ao baixar o arquivo."));
         } finally {

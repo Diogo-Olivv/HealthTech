@@ -32,26 +32,28 @@ describe("FilesTable — viewerRole=paciente", () => {
         expect(screen.queryByLabelText(/excluir/i)).not.toBeInTheDocument();
     });
 
-    it("chama getDownloadUrl e abre a URL retornada em nova aba", async () => {
-        const spy = jest.spyOn(arquivosService, "getDownloadUrl").mockResolvedValue({
-            url: "https://signed.example/f",
-            expiresAt: new Date(Date.now() + 60_000).toISOString(),
-        });
-        const openSpy = jest.spyOn(window, "open").mockImplementation(() => null);
+    it("chama getArquivoBlob e dispara download com o nome original", async () => {
+        const blob = new Blob(["conteudo"], { type: "application/pdf" });
+        const spy = jest.spyOn(arquivosService, "getArquivoBlob").mockResolvedValue(blob);
+        const createUrlMock = jest.fn().mockReturnValue("blob:mock-url");
+        const revokeUrlMock = jest.fn();
+        (URL as unknown as { createObjectURL: typeof createUrlMock }).createObjectURL = createUrlMock;
+        (URL as unknown as { revokeObjectURL: typeof revokeUrlMock }).revokeObjectURL = revokeUrlMock;
+        const clickSpy = jest
+            .spyOn(HTMLAnchorElement.prototype, "click")
+            .mockImplementation(() => undefined);
 
         render(<FilesTable arquivos={[makeArquivo()]} viewerRole="paciente" />);
         fireEvent.click(screen.getByLabelText(/baixar exame.pdf/i));
 
         await waitFor(() => expect(spy).toHaveBeenCalledWith("arquivo-1"));
-        expect(openSpy).toHaveBeenCalledWith(
-            "https://signed.example/f",
-            "_blank",
-            "noopener,noreferrer",
-        );
+        expect(createUrlMock).toHaveBeenCalledWith(blob);
+        expect(clickSpy).toHaveBeenCalledTimes(1);
+        expect(revokeUrlMock).toHaveBeenCalledWith("blob:mock-url");
     });
 
     it("exibe mensagem de erro quando o service falha", async () => {
-        jest.spyOn(arquivosService, "getDownloadUrl").mockRejectedValue(
+        jest.spyOn(arquivosService, "getArquivoBlob").mockRejectedValue(
             new Error("Boom!"),
         );
 
