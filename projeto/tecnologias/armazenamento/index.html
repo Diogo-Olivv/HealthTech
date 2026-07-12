@@ -6,6 +6,8 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
+        <meta name="description" content="Plataforma SaaS de arquivos médicos para clínicas e profissionais de saúde, com vínculo médico-paciente controlado e auditoria.">
+      
       
       
       
@@ -286,15 +288,8 @@
   
     
     
-      
-  
-  
-  
-  
-    
-    
       <li class="md-tabs__item">
-        <a href="../../../desenvolvimento/infra/cloud_sql/" class="md-tabs__link">
+        <a href="../../../desenvolvimento/setup/" class="md-tabs__link">
           
   
   
@@ -304,9 +299,6 @@
 
         </a>
       </li>
-    
-  
-
     
   
 
@@ -727,10 +719,32 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#driver-dual-local-ou-gcs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Driver dual (local ou GCS)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#google-cloud-storage" class="md-nav__link">
     <span class="md-ellipsis">
       
         Google Cloud Storage
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#driver-local-desenvolvimento" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Driver local (desenvolvimento)
       
     </span>
   </a>
@@ -1095,6 +1109,8 @@
       
         
       
+        
+      
     
     
     
@@ -1144,8 +1160,38 @@
   
   
   
+    <li class="md-nav__item">
+      <a href="../../../desenvolvimento/setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Setup Inicial
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
     
     
+      
+        
       
         
       
@@ -1166,17 +1212,17 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_1" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" >
         
           
-          <label class="md-nav__link" for="__nav_4_1" id="__nav_4_1_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
             
   
   
   <span class="md-ellipsis">
     
   
-    Infraestrutura
+    Padrões
   
 
     
@@ -1187,12 +1233,12 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_1_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_4_1">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2">
             <span class="md-nav__icon md-icon"></span>
             
   
-    Infraestrutura
+    Padrões
   
 
           </label>
@@ -1205,14 +1251,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../desenvolvimento/infra/cloud_sql/" class="md-nav__link">
+      <a href="../../../desenvolvimento/padroes/git/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Cloud SQL
+    Git e Branches
   
 
     
@@ -1233,14 +1279,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../desenvolvimento/infra/contas_de_servico/" class="md-nav__link">
+      <a href="../../../desenvolvimento/padroes/codigo/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Contas de Serviço
+    Padrões de Código
   
 
     
@@ -1261,14 +1307,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../desenvolvimento/infra/gcs/" class="md-nav__link">
+      <a href="../../../desenvolvimento/padroes/review/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Google Cloud Storage
+    Code Review
   
 
     
@@ -1289,14 +1335,175 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../desenvolvimento/infra/secrets/" class="md-nav__link">
+      <a href="../../../desenvolvimento/padroes/template_PR/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Secret Manager
+    Template de Pull Request
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../desenvolvimento/padroes/templates_issues/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Templates de Issue
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../desenvolvimento/adr/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ADRs
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4_3" id="__nav_4_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    ADRs
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../desenvolvimento/adr/template/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Template
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../desenvolvimento/adr/0001-migrations-via-cloud-run-job/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ADR-0001 Migrations via Cloud Run Job
   
 
     
@@ -1348,7 +1555,7 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4" >
         
           
           <div class="md-nav__link md-nav__container">
@@ -1370,14 +1577,14 @@
             </a>
             
               
-              <label class="md-nav__link " for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+              <label class="md-nav__link " for="__nav_4_4" id="__nav_4_4_label" tabindex="0">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_4_2">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_4">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -1491,7 +1698,7 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2_4" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4_4" >
         
           
           <div class="md-nav__link md-nav__container">
@@ -1513,14 +1720,14 @@
             </a>
             
               
-              <label class="md-nav__link " for="__nav_4_2_4" id="__nav_4_2_4_label" tabindex="0">
+              <label class="md-nav__link " for="__nav_4_4_4" id="__nav_4_4_4_label" tabindex="0">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_2_4_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_4_2_4">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_4_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_4_4">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -1884,17 +2091,17 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_5" >
         
           
-          <label class="md-nav__link" for="__nav_4_3" id="__nav_4_3_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_4_5" id="__nav_4_5_label" tabindex="0">
             
   
   
   <span class="md-ellipsis">
     
   
-    Padrões
+    Infraestrutura
   
 
     
@@ -1905,12 +2112,12 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_4_3">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_5">
             <span class="md-nav__icon md-icon"></span>
             
   
-    Padrões
+    Infraestrutura
   
 
           </label>
@@ -1923,14 +2130,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../desenvolvimento/padroes/codigo/" class="md-nav__link">
+      <a href="../../../desenvolvimento/infra/cloud_sql/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Padrões de Código
+    Cloud SQL
   
 
     
@@ -1951,14 +2158,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../desenvolvimento/padroes/git/" class="md-nav__link">
+      <a href="../../../desenvolvimento/infra/contas_de_servico/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Commits e Branches
+    Contas de Serviço
   
 
     
@@ -1979,14 +2186,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../desenvolvimento/padroes/review/" class="md-nav__link">
+      <a href="../../../desenvolvimento/infra/gcs/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Fluxo de Code Review
+    Google Cloud Storage
   
 
     
@@ -2007,14 +2214,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../desenvolvimento/padroes/template_PR/" class="md-nav__link">
+      <a href="../../../desenvolvimento/infra/secrets/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Template do Pull Request
+    Secret Manager
   
 
     
@@ -2031,34 +2238,6 @@
           </ul>
         </nav>
       
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../../desenvolvimento/setup/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Setup Inicial
-  
-
-    
-  </span>
-  
-  
-
-      </a>
     </li>
   
 
@@ -2098,7 +2277,7 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_5" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_6" >
         
           
           <div class="md-nav__link md-nav__container">
@@ -2120,14 +2299,14 @@
             </a>
             
               
-              <label class="md-nav__link " for="__nav_4_5" id="__nav_4_5_label" tabindex="0">
+              <label class="md-nav__link " for="__nav_4_6" id="__nav_4_6_label" tabindex="0">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_5_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_4_5">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_6">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -2715,7 +2894,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../gestao/atas_reuniao/%202026-05-25/" class="md-nav__link">
+      <a href="../../../gestao/atas_reuniao/2026-05-25/" class="md-nav__link">
         
   
   
@@ -2811,6 +2990,8 @@
       
         
           
+        
+      
         
       
         
@@ -3092,6 +3273,34 @@
     
   
     Semana 13
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../gestao/entregas/entrega_semanal/semana-14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Semana 14
   
 
     
@@ -4552,10 +4761,32 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#driver-dual-local-ou-gcs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Driver dual (local ou GCS)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#google-cloud-storage" class="md-nav__link">
     <span class="md-ellipsis">
       
         Google Cloud Storage
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#driver-local-desenvolvimento" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Driver local (desenvolvimento)
       
     </span>
   </a>
@@ -4594,16 +4825,52 @@
 
 
 <h1 id="armazenamento-de-arquivos">Armazenamento de Arquivos</h1>
+<h2 id="driver-dual-local-ou-gcs">Driver dual (local ou GCS)</h2>
+<p>O backend usa um <code>StorageService</code> com dois drivers, selecionados pela variável <code>STORAGE_DRIVER</code>:</p>
+<table>
+<thead>
+<tr>
+<th>Ambiente</th>
+<th><code>STORAGE_DRIVER</code></th>
+<th>Onde os arquivos ficam</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Desenvolvimento</td>
+<td><code>local</code></td>
+<td>Filesystem do container em <code>LOCAL_STORAGE_DIR</code> (<code>uploads</code> por padrão)</td>
+</tr>
+<tr>
+<td>Produção</td>
+<td><code>gcs</code></td>
+<td>Google Cloud Storage no bucket <code>GCS_BUCKET_NAME</code></td>
+</tr>
+</tbody>
+</table>
+<p>O banco armazena apenas metadados (<code>nomeOriginal</code>, <code>nomeUnico</code>, <code>tipo</code>, <code>tamanho</code>, <code>caminhoStorage</code>). O binário nunca fica junto do metadado. <code>caminhoStorage</code> é sensível e <strong>nunca</strong> é serializado na API (o <code>ArquivoResponseDto</code> remove o campo).</p>
 <h2 id="google-cloud-storage">Google Cloud Storage</h2>
-<p><strong>O que é:</strong>
-Cloud Storage é o serviço de armazenamento de objetos do Google Cloud. Permite guardar arquivos de qualquer tamanho (imagens, PDFs, exames) com alta durabilidade e disponibilidade.</p>
-<p><strong>Como funcionará no projeto:</strong>
-Arquivos enviados pelos usuários (exames, documentos médicos) serão armazenados no GCS. O banco de dados armazenará apenas os <strong>metadados</strong> (nome, caminho, tipo, tamanho) não o arquivo em si.</p>
-<p><strong>Biblioteca:</strong> <code>@google-cloud/storage</code></p>
-<hr />
+<p><strong>O que é</strong></p>
+<p>Serviço de armazenamento de objetos do Google Cloud. Guarda arquivos de qualquer tamanho com alta durabilidade e disponibilidade, com controle de acesso via IAM.</p>
+<p><strong>Como funciona no projeto</strong></p>
+<ul>
+<li>Bucket privado. Nenhum acesso público.</li>
+<li>Backend acessa via <code>@google-cloud/storage</code> usando credenciais da service account do Cloud Run.</li>
+<li>Downloads sensíveis usam <strong>Signed URLs</strong> com expiração curta (<code>GET /arquivos/:id/download</code>), evitando expor o objeto diretamente.</li>
+<li>Uma rota alternativa (<code>GET /arquivos/:id/raw</code>) faz stream do binário via backend quando visualização inline é necessária.</li>
+</ul>
+<p><strong>Biblioteca</strong>: <code>@google-cloud/storage</code>.</p>
+<h2 id="driver-local-desenvolvimento">Driver local (desenvolvimento)</h2>
+<ul>
+<li>Grava arquivos em <code>LOCAL_STORAGE_DIR</code> no container do backend.</li>
+<li>Volume <code>uploads_data</code> do Docker Compose persiste os dados entre reinícios (<code>docker compose down -v</code> limpa tudo).</li>
+<li>Não usar em produção. Cloud Run não tem disco persistente, e o filesystem some a cada reinício.</li>
+</ul>
 <h2 id="referencias">Referências</h2>
 <ul>
-<li><a href="https://cloud.google.com/storage/docs">Cloud Storage - Documentação</a></li>
+<li><a href="https://cloud.google.com/storage/docs">Cloud Storage, documentação</a></li>
+<li><a href="https://cloud.google.com/storage/docs/access-control/signed-urls">Signed URLs</a></li>
+<li><a href="https://www.npmjs.com/package/@google-cloud/storage"><code>@google-cloud/storage</code> no npm</a></li>
 </ul>
 
 

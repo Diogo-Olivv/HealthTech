@@ -6,13 +6,15 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
+        <meta name="description" content="Plataforma SaaS de arquivos médicos para clínicas e profissionais de saúde, com vínculo médico-paciente controlado e auditoria.">
       
       
       
-        <link rel="prev" href="../../auditoria/issues/11-retencao-logs-cron/">
+      
+        <link rel="prev" href="../git/">
       
       
-        <link rel="next" href="../git/">
+        <link rel="next" href="../review/">
       
       
         
@@ -284,17 +286,8 @@
   
     
     
-      
-  
-  
-  
-    
-  
-  
-    
-    
       <li class="md-tabs__item md-tabs__item--active">
-        <a href="../../infra/cloud_sql/" class="md-tabs__link">
+        <a href="../../setup/" class="md-tabs__link">
           
   
   
@@ -304,9 +297,6 @@
 
         </a>
       </li>
-    
-  
-
     
   
 
@@ -1021,6 +1011,8 @@
       
         
       
+        
+      
     
     
     
@@ -1073,11 +1065,464 @@
   
   
   
+    <li class="md-nav__item">
+      <a href="../../setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Setup Inicial
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
     
     
       
         
       
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Padrões
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Padrões
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../git/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Git e Branches
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Padrões de Código
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Padrões de Código
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#regras-gerais" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Regras gerais
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#backend-nestjs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Backend (NestJS)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Backend (NestJS)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#camadas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Camadas
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#guards-e-roles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Guards e roles
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#auditoria" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Auditoria
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#migrations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Migrations
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#frontend-nextjs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Frontend (Next.js)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Frontend (Next.js)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#app-router" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        App Router
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#camadas_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Camadas
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#estilos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Estilos
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#autenticacao" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Autenticação
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#testes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Testes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#convencoes-de-arquivo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Convenções de arquivo
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#regra-de-ouro-do-pr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Regra de ouro do PR
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../review/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Code Review
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../template_PR/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Template de Pull Request
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../templates_issues/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Templates de Issue
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
         
       
         
@@ -1095,17 +1540,18 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_1" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3" >
         
           
-          <label class="md-nav__link" for="__nav_4_1" id="__nav_4_1_label" tabindex="0">
-            
+          <div class="md-nav__link md-nav__container">
+            <a href="../../adr/" class="md-nav__link ">
+              
   
   
   <span class="md-ellipsis">
     
   
-    Infraestrutura
+    ADRs
   
 
     
@@ -1113,35 +1559,43 @@
   
   
 
-            <span class="md-nav__icon md-icon"></span>
-          </label>
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4_3" id="__nav_4_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_1_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_4_1">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_3">
             <span class="md-nav__icon md-icon"></span>
             
   
-    Infraestrutura
+    ADRs
   
 
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
               
+            
+              
                 
   
   
   
   
     <li class="md-nav__item">
-      <a href="../../infra/cloud_sql/" class="md-nav__link">
+      <a href="../../adr/template/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Cloud SQL
+    Template
   
 
     
@@ -1162,70 +1616,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../infra/contas_de_servico/" class="md-nav__link">
+      <a href="../../adr/0001-migrations-via-cloud-run-job/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Contas de Serviço
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../infra/gcs/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Google Cloud Storage
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../infra/secrets/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Secret Manager
+    ADR-0001 Migrations via Cloud Run Job
   
 
     
@@ -1277,7 +1675,7 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4" >
         
           
           <div class="md-nav__link md-nav__container">
@@ -1299,14 +1697,14 @@
             </a>
             
               
-              <label class="md-nav__link " for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+              <label class="md-nav__link " for="__nav_4_4" id="__nav_4_4_label" tabindex="0">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_4_2">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_4">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -1420,7 +1818,7 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2_4" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4_4" >
         
           
           <div class="md-nav__link md-nav__container">
@@ -1442,14 +1840,14 @@
             </a>
             
               
-              <label class="md-nav__link " for="__nav_4_2_4" id="__nav_4_2_4_label" tabindex="0">
+              <label class="md-nav__link " for="__nav_4_4_4" id="__nav_4_4_4_label" tabindex="0">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_2_4_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_4_2_4">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_4_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_4_4">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -1789,10 +2187,8 @@
                 
   
   
-    
   
   
-  
     
     
       
@@ -1811,21 +2207,21 @@
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_5" >
         
           
-          <label class="md-nav__link" for="__nav_4_3" id="__nav_4_3_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_4_5" id="__nav_4_5_label" tabindex="0">
             
   
   
   <span class="md-ellipsis">
     
   
-    Padrões
+    Infraestrutura
   
 
     
@@ -1836,12 +2232,12 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="true">
-          <label class="md-nav__title" for="__nav_4_3">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_5">
             <span class="md-nav__icon md-icon"></span>
             
   
-    Padrões
+    Infraestrutura
   
 
           </label>
@@ -1851,191 +2247,17 @@
                 
   
   
-    
-  
-  
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Padrões de Código
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Padrões de Código
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#principios-gerais" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Princípios gerais
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#organizacao" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Organização
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#estilo" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Estilo
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#seguranca" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Segurança
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#testes" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Testes
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#backend" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Backend
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#frontend" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Frontend
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#logs-e-auditoria" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Logs e auditoria
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#definicao-de-pronto" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Definição de Pronto
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
   
   
     <li class="md-nav__item">
-      <a href="../git/" class="md-nav__link">
+      <a href="../../infra/cloud_sql/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Commits e Branches
+    Cloud SQL
   
 
     
@@ -2056,14 +2278,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../review/" class="md-nav__link">
+      <a href="../../infra/contas_de_servico/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Fluxo de Code Review
+    Contas de Serviço
   
 
     
@@ -2084,14 +2306,42 @@
   
   
     <li class="md-nav__item">
-      <a href="../template_PR/" class="md-nav__link">
+      <a href="../../infra/gcs/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Template do Pull Request
+    Google Cloud Storage
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../infra/secrets/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Secret Manager
   
 
     
@@ -2108,34 +2358,6 @@
           </ul>
         </nav>
       
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../setup/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Setup Inicial
-  
-
-    
-  </span>
-  
-  
-
-      </a>
     </li>
   
 
@@ -2175,7 +2397,7 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_5" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_6" >
         
           
           <div class="md-nav__link md-nav__container">
@@ -2197,14 +2419,14 @@
             </a>
             
               
-              <label class="md-nav__link " for="__nav_4_5" id="__nav_4_5_label" tabindex="0">
+              <label class="md-nav__link " for="__nav_4_6" id="__nav_4_6_label" tabindex="0">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_5_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_4_5">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_6">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -2792,7 +3014,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../gestao/atas_reuniao/%202026-05-25/" class="md-nav__link">
+      <a href="../../../gestao/atas_reuniao/2026-05-25/" class="md-nav__link">
         
   
   
@@ -2888,6 +3110,8 @@
       
         
           
+        
+      
         
       
         
@@ -3169,6 +3393,34 @@
     
   
     Semana 13
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../gestao/entregas/entrega_semanal/semana-14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Semana 14
   
 
     
@@ -4629,10 +4881,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#principios-gerais" class="md-nav__link">
+  <a href="#regras-gerais" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Princípios gerais
+        Regras gerais
       
     </span>
   </a>
@@ -4640,35 +4892,124 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#organizacao" class="md-nav__link">
+  <a href="#backend-nestjs" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Organização
+        Backend (NestJS)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Backend (NestJS)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#camadas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Camadas
       
     </span>
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#estilo" class="md-nav__link">
+        
+          <li class="md-nav__item">
+  <a href="#guards-e-roles" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Estilo
+        Guards e roles
       
     </span>
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#seguranca" class="md-nav__link">
+        
+          <li class="md-nav__item">
+  <a href="#auditoria" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Segurança
+        Auditoria
       
     </span>
   </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#migrations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Migrations
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#frontend-nextjs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Frontend (Next.js)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Frontend (Next.js)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#app-router" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        App Router
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#camadas_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Camadas
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#estilos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Estilos
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#autenticacao" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Autenticação
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -4684,10 +5025,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#backend" class="md-nav__link">
+  <a href="#convencoes-de-arquivo" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Backend
+        Convenções de arquivo
       
     </span>
   </a>
@@ -4695,32 +5036,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#frontend" class="md-nav__link">
+  <a href="#regra-de-ouro-do-pr" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Frontend
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#logs-e-auditoria" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Logs e auditoria
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#definicao-de-pronto" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Definição de Pronto
+        Regra de ouro do PR
       
     </span>
   </a>
@@ -4748,82 +5067,73 @@
 
 
 <h1 id="padroes-de-codigo">Padrões de Código</h1>
-<h2 id="principios-gerais">Princípios gerais</h2>
+<p>Regras práticas que valem tanto para backend quanto para frontend. O objetivo é reduzir surpresas em code review e manter o repositório coerente sem depender de um <code>CODEOWNERS</code> extenso.</p>
+<h2 id="regras-gerais">Regras gerais</h2>
 <ul>
-<li>Código deve ser legível antes de tudo, abordagens mais complexas devem ter comentários explicando o que foi feito.</li>
-<li>Simplicidade &gt;&gt;&gt; Complexidade.</li>
-<li>Toda alteração deve manter ou melhorar o do projeto.</li>
-<li>Em caso de remoção de código, justificar no relatório e commit.</li>
-<li>Nomes de variáveis, funções e arquivos devem ser claros e descritivos.</li>
+<li><strong>TypeScript estrito.</strong> Nada de <code>any</code> sem motivo registrado (comentário curto ou tipo específico do domínio).</li>
+<li><strong>ESLint + Prettier</strong> já configurados. <code>npm run lint</code> corrige a maioria dos problemas de estilo.</li>
+<li><strong>Nomes em português para conceitos de domínio</strong> (<code>paciente</code>, <code>vincular</code>, <code>arquivo</code>). Nomes técnicos de framework seguem o inglês do próprio framework (<code>controller</code>, <code>guard</code>, <code>service</code>).</li>
+<li><strong>Sem segredos no repositório.</strong> Use <code>.env</code> localmente (gitignored) e Secret Manager em produção.</li>
+<li><strong>Sem <code>console.log</code> no código final.</strong> Use o <code>Logger</code> do NestJS no backend e apagar debug prints antes do commit no frontend.</li>
+<li><strong>Sem <code>TODO</code> órfão.</strong> Se o comentário <code>TODO</code> não aponta para uma issue, ele é dívida invisível. Ou vira issue, ou é resolvido no PR.</li>
 </ul>
-<h2 id="organizacao">Organização</h2>
+<h2 id="backend-nestjs">Backend (NestJS)</h2>
+<h3 id="camadas">Camadas</h3>
+<p>Cada módulo segue a separação clássica: <code>controller</code> recebe HTTP, delega ao <code>service</code>; <code>service</code> concentra regra de negócio e usa <code>Repository</code> do TypeORM.</p>
 <ul>
-<li>Separar responsabilidades por camada:</li>
-<li>Backend: rotas, serviços, repositórios, middlewares</li>
-<li>Frontend: páginas, componentes, serviços de API, estados</li>
-<li>DevOps: scripts, manifests, pipelines, variáveis de ambiente</li>
-<li>Evitar arquivos muito grandes e funções longas.</li>
-<li>Priorizar modularidade, confeccionando funções e arquivos para reutilização de funcionalidades.</li>
+<li><strong>Controller</strong> não conhece SQL, TypeORM ou banco. Só orquestra input, guards e response.</li>
+<li><strong>Service</strong> não conhece <code>Request</code>, <code>Response</code> nem <code>Query</code>. Recebe dados já validados e retorna objetos.</li>
+<li><strong>DTO</strong> com decorators <code>class-validator</code> e <code>class-transformer</code>. O <code>ValidationPipe</code> global está com <code>whitelist: true</code> e <code>forbidNonWhitelisted: true</code>, portanto payload com campo não declarado retorna <code>400</code>.</li>
 </ul>
-<h2 id="estilo">Estilo</h2>
+<h3 id="guards-e-roles">Guards e roles</h3>
 <ul>
-<li>Manter padrão único de indentação, nomenclatura e estrutura.</li>
-<li>Comentários devem explicar o que a seção faz, não repetir o que o código já mostra.</li>
+<li>Toda rota autenticada declara <code>@UseGuards(JwtAuthGuard)</code>.</li>
+<li>Toda rota restrita a perfil declara também <code>@UseGuards(RolesGuard)</code> e <code>@Roles(UserType.X, ...)</code>.</li>
+<li>Rotas de admin usam <code>@Roles(UserType.ADMIN)</code>.</li>
 </ul>
-<h2 id="seguranca">Segurança</h2>
+<h3 id="auditoria">Auditoria</h3>
+<p>Rotas de negócio sensíveis (login, cadastro, upload, vínculo, etc.) usam o decorator <code>@Audit(...)</code>. O <code>AuditInterceptor</code> global registra <code>SUCCESS</code> no <code>tap</code> e <code>FAILURE</code> no <code>catchError</code>. Consulte <a href="../../../arquitetura/backend/">Arquitetura do Backend</a> para o catálogo de eventos.</p>
+<h3 id="migrations">Migrations</h3>
+<p><code>synchronize</code> está desligado em todos os ambientes. Toda alteração em entidade exige migration commitada no mesmo PR. Veja <a href="../../setup/">Setup Inicial</a> e o <a href="../../adr/0001-migrations-via-cloud-run-job/">ADR-0001</a>.</p>
+<h2 id="frontend-nextjs">Frontend (Next.js)</h2>
+<h3 id="app-router">App Router</h3>
+<p>Rotas de aplicação vivem em <code>frontend/src/app</code>. Cada pasta é uma rota; <code>page.tsx</code> é a página. Componentes que precisam de hooks começam com <code>"use client"</code>.</p>
+<h3 id="camadas_1">Camadas</h3>
 <ul>
-<li>Senhas implementadas sempre com hash, nunca salvo em string pura.</li>
-<li>Nunca salvar variáveis sensíveis no repositório.</li>
-<li><strong>Sempre</strong> utilizar o .env para variáveis sensíveis (colocar no .gitignore para nunca subir ao repositório).</li>
-<li>Validar entrada de dados no backend (Utilizar Postman/Insomnia ou similares).</li>
-<li>Garantir isolamento por usuário em todas as rotas protegidas (Testar manualmente).</li>
-<li>Logs nunca devem expor senha, token ou dados sensíveis.</li>
+<li><strong>Página (<code>page.tsx</code>)</strong> monta layout, seleciona hooks e delega ao componente cliente quando necessário. Não faz <code>fetch</code> direto.</li>
+<li><strong>Hook (<code>src/hooks/**/*.ts</code>)</strong> encapsula estado, cache e chamadas ao service. Padrão único: <code>useFetchData</code> para leituras, hooks específicos por domínio (<code>useMeusPacientes</code>, <code>useArquivos</code>) para regras.</li>
+<li><strong>Service (<code>src/services/*.service.ts</code>)</strong> faz o <code>fetch</code> HTTP. Nunca chama a API externa direto: usa o proxy <code>/api/proxy/[...path]</code>, que injeta o token httpOnly.</li>
+<li><strong>DTO (<code>src/dto/*.ts</code>)</strong> espelha os DTOs do backend. Tipos de resposta ficam explícitos.</li>
+</ul>
+<h3 id="estilos">Estilos</h3>
+<ul>
+<li>CSS Modules por componente (<code>Componente.module.css</code>) para escopo local.</li>
+<li>Tailwind CSS 4 disponível globalmente para utilities de layout e responsividade.</li>
+<li>Cores, tipografia e espaçamento seguem a <a href="../../../projeto/identidade_visual/">Identidade Visual</a>.</li>
+</ul>
+<h3 id="autenticacao">Autenticação</h3>
+<ul>
+<li>Após login, o backend retorna JWT, e o frontend armazena via cookie httpOnly <code>accessToken</code> gerenciado nas rotas <code>route.ts</code> de <code>/api/auth/*</code>.</li>
+<li>Página cliente recupera o usuário via <code>AuthContext</code>.</li>
+<li><code>AuthGuard</code> protege rotas por tipo de usuário.</li>
 </ul>
 <h2 id="testes">Testes</h2>
 <ul>
-<li>Funcionalidades críticas devem ter testes.</li>
-<li>Fluxos mínimos que devem estar testáveis:</li>
-<li>Cadastro e Login</li>
-<li>Acesso a Rotas protegidas</li>
-<li>Correção de bug deve vir acompanhada de teste quando aplicável.</li>
+<li>Nenhum PR de feature ou fix entra sem teste correspondente. Bug fix acompanha teste de regressão.</li>
+<li>Backend: <code>Jest</code> + <code>@nestjs/testing</code> para unit, <code>Supertest</code> para E2E.</li>
+<li>Frontend: <code>Jest</code> + <code>React Testing Library</code> para componentes.</li>
+<li>Cobertura mínima esperada por camada está em <a href="../../../projeto/tecnologias/testes/">Testes Automatizados</a>.</li>
 </ul>
-<h2 id="backend">Backend</h2>
+<h2 id="convencoes-de-arquivo">Convenções de arquivo</h2>
 <ul>
-<li>Controllers enxutos; regras de negócio em services.</li>
-<li>Acesso a banco centralizado.</li>
-<li>Tratar erros com padrão único de resposta (APIs REST).</li>
-<li>Validar autenticação e autorização em middleware.</li>
+<li>Arquivos por camada usam o sufixo do papel: <code>*.controller.ts</code>, <code>*.service.ts</code>, <code>*.module.ts</code>, <code>*.entity.ts</code>, <code>*.dto.ts</code>.</li>
+<li>Componente React: <code>PascalCase</code> (<code>FeedbackMessage.tsx</code>, <code>AuthGuard.tsx</code>).</li>
+<li>Utilitário: <code>kebab-case</code> (<code>format-tamanho.ts</code>, <code>mensagem-de-erro.ts</code>).</li>
 </ul>
-<h2 id="frontend">Frontend</h2>
+<h2 id="regra-de-ouro-do-pr">Regra de ouro do PR</h2>
 <ul>
-<li>Componentes pequenos e reutilizáveis (Modularização).</li>
-<li>Estados e chamadas HTTP organizados fora da camada visual.</li>
-<li>Tratar loading, erro e sucesso explicitamente (Feedback pro suário).</li>
-<li>Nunca confiar apenas na validação do frontend (Checar os logs e verificar o fluxo completo com o backend).</li>
-</ul>
-<h2 id="logs-e-auditoria">Logs e auditoria</h2>
-<ul>
-<li>Todo evento auditável deve registrar:</li>
-<li>timestamp (dd/mm/yyyy)</li>
-<li>usuario</li>
-<li>evento</li>
-<li>status</li>
-<li>Padronizar nomes de eventos:</li>
-<li><code>LOGIN_SUCCESS</code></li>
-<li><code>LOGIN_FAILURE</code></li>
-<li><code>UPLOAD_SUCCESS</code></li>
-<li><code>DOWNLOAD_SUCCESS</code></li>
-<li><code>DELETE_SUCCESS</code></li>
-<li><code>ACCESS_DENIED</code></li>
-</ul>
-<h2 id="definicao-de-pronto">Definição de Pronto</h2>
-<p>Uma tarefa só é considerada pronta quando:</p>
-<ul>
-<li>código funciona localmente</li>
-<li>passou por review de outro membro ou do líder técnico</li>
-<li>atende ao padrão de segurança definido anteriormente</li>
-<li>tem documentação atualizada</li>
-<li>não quebrou testes existentes</li>
+<li><strong>Diff pequeno.</strong> Um PR é um objeto de comunicação; se ele não cabe na cabeça do revisor, provavelmente também não cabia na sua.</li>
+<li>Se sua branch acumulou refactors não relacionados, quebre em PRs separados.</li>
 </ul>
 
 

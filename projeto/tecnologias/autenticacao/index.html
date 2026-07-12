@@ -6,6 +6,8 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
+        <meta name="description" content="Plataforma SaaS de arquivos médicos para clínicas e profissionais de saúde, com vínculo médico-paciente controlado e auditoria.">
+      
       
       
       
@@ -286,15 +288,8 @@
   
     
     
-      
-  
-  
-  
-  
-    
-    
       <li class="md-tabs__item">
-        <a href="../../../desenvolvimento/infra/cloud_sql/" class="md-tabs__link">
+        <a href="../../../desenvolvimento/setup/" class="md-tabs__link">
           
   
   
@@ -304,9 +299,6 @@
 
         </a>
       </li>
-    
-  
-
     
   
 
@@ -702,7 +694,18 @@
   <a href="#jwt-json-web-tokens" class="md-nav__link">
     <span class="md-ellipsis">
       
-        JWT - JSON Web Tokens
+        JWT (JSON Web Tokens)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cookie-httponly" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cookie httpOnly
       
     </span>
   </a>
@@ -714,6 +717,17 @@
     <span class="md-ellipsis">
       
         bcrypt
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#roles-e-perfis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Roles e perfis
       
     </span>
   </a>
@@ -1106,6 +1120,8 @@
       
         
       
+        
+      
     
     
     
@@ -1155,8 +1171,38 @@
   
   
   
+    <li class="md-nav__item">
+      <a href="../../../desenvolvimento/setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Setup Inicial
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
     
     
+      
+        
       
         
       
@@ -1177,17 +1223,17 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_1" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" >
         
           
-          <label class="md-nav__link" for="__nav_4_1" id="__nav_4_1_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
             
   
   
   <span class="md-ellipsis">
     
   
-    Infraestrutura
+    Padrões
   
 
     
@@ -1198,12 +1244,12 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_1_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_4_1">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2">
             <span class="md-nav__icon md-icon"></span>
             
   
-    Infraestrutura
+    Padrões
   
 
           </label>
@@ -1216,14 +1262,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../desenvolvimento/infra/cloud_sql/" class="md-nav__link">
+      <a href="../../../desenvolvimento/padroes/git/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Cloud SQL
+    Git e Branches
   
 
     
@@ -1244,14 +1290,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../desenvolvimento/infra/contas_de_servico/" class="md-nav__link">
+      <a href="../../../desenvolvimento/padroes/codigo/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Contas de Serviço
+    Padrões de Código
   
 
     
@@ -1272,14 +1318,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../desenvolvimento/infra/gcs/" class="md-nav__link">
+      <a href="../../../desenvolvimento/padroes/review/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Google Cloud Storage
+    Code Review
   
 
     
@@ -1300,14 +1346,175 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../desenvolvimento/infra/secrets/" class="md-nav__link">
+      <a href="../../../desenvolvimento/padroes/template_PR/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Secret Manager
+    Template de Pull Request
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../desenvolvimento/padroes/templates_issues/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Templates de Issue
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../desenvolvimento/adr/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ADRs
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4_3" id="__nav_4_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    ADRs
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../desenvolvimento/adr/template/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Template
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../desenvolvimento/adr/0001-migrations-via-cloud-run-job/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ADR-0001 Migrations via Cloud Run Job
   
 
     
@@ -1359,7 +1566,7 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4" >
         
           
           <div class="md-nav__link md-nav__container">
@@ -1381,14 +1588,14 @@
             </a>
             
               
-              <label class="md-nav__link " for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+              <label class="md-nav__link " for="__nav_4_4" id="__nav_4_4_label" tabindex="0">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_4_2">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_4">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -1502,7 +1709,7 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2_4" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4_4" >
         
           
           <div class="md-nav__link md-nav__container">
@@ -1524,14 +1731,14 @@
             </a>
             
               
-              <label class="md-nav__link " for="__nav_4_2_4" id="__nav_4_2_4_label" tabindex="0">
+              <label class="md-nav__link " for="__nav_4_4_4" id="__nav_4_4_4_label" tabindex="0">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_2_4_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_4_2_4">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_4_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_4_4">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -1895,17 +2102,17 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_5" >
         
           
-          <label class="md-nav__link" for="__nav_4_3" id="__nav_4_3_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_4_5" id="__nav_4_5_label" tabindex="0">
             
   
   
   <span class="md-ellipsis">
     
   
-    Padrões
+    Infraestrutura
   
 
     
@@ -1916,12 +2123,12 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_4_3">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_5">
             <span class="md-nav__icon md-icon"></span>
             
   
-    Padrões
+    Infraestrutura
   
 
           </label>
@@ -1934,14 +2141,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../desenvolvimento/padroes/codigo/" class="md-nav__link">
+      <a href="../../../desenvolvimento/infra/cloud_sql/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Padrões de Código
+    Cloud SQL
   
 
     
@@ -1962,14 +2169,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../desenvolvimento/padroes/git/" class="md-nav__link">
+      <a href="../../../desenvolvimento/infra/contas_de_servico/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Commits e Branches
+    Contas de Serviço
   
 
     
@@ -1990,14 +2197,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../desenvolvimento/padroes/review/" class="md-nav__link">
+      <a href="../../../desenvolvimento/infra/gcs/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Fluxo de Code Review
+    Google Cloud Storage
   
 
     
@@ -2018,14 +2225,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../desenvolvimento/padroes/template_PR/" class="md-nav__link">
+      <a href="../../../desenvolvimento/infra/secrets/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Template do Pull Request
+    Secret Manager
   
 
     
@@ -2042,34 +2249,6 @@
           </ul>
         </nav>
       
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../../desenvolvimento/setup/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Setup Inicial
-  
-
-    
-  </span>
-  
-  
-
-      </a>
     </li>
   
 
@@ -2109,7 +2288,7 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_5" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_6" >
         
           
           <div class="md-nav__link md-nav__container">
@@ -2131,14 +2310,14 @@
             </a>
             
               
-              <label class="md-nav__link " for="__nav_4_5" id="__nav_4_5_label" tabindex="0">
+              <label class="md-nav__link " for="__nav_4_6" id="__nav_4_6_label" tabindex="0">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_5_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_4_5">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_6">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -2726,7 +2905,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../gestao/atas_reuniao/%202026-05-25/" class="md-nav__link">
+      <a href="../../../gestao/atas_reuniao/2026-05-25/" class="md-nav__link">
         
   
   
@@ -2822,6 +3001,8 @@
       
         
           
+        
+      
         
       
         
@@ -3103,6 +3284,34 @@
     
   
     Semana 13
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../gestao/entregas/entrega_semanal/semana-14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Semana 14
   
 
     
@@ -4566,7 +4775,18 @@
   <a href="#jwt-json-web-tokens" class="md-nav__link">
     <span class="md-ellipsis">
       
-        JWT - JSON Web Tokens
+        JWT (JSON Web Tokens)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cookie-httponly" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cookie httpOnly
       
     </span>
   </a>
@@ -4578,6 +4798,17 @@
     <span class="md-ellipsis">
       
         bcrypt
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#roles-e-perfis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Roles e perfis
       
     </span>
   </a>
@@ -4616,32 +4847,49 @@
 
 
 <h1 id="autenticacao">Autenticação</h1>
-<h2 id="jwt-json-web-tokens">JWT - JSON Web Tokens</h2>
-<p><strong>O que é:</strong>
-JWT é um padrão para transmissão segura de informações entre partes como um token assinado. Após o login, o servidor gera um token que o cliente envia em todas as requisições subsequentes para provar sua identidade.</p>
-<p><strong>Biblioteca:</strong> <code>@nestjs/jwt</code> + <code>passport-jwt</code></p>
+<h2 id="jwt-json-web-tokens">JWT (JSON Web Tokens)</h2>
+<p><strong>O que é</strong></p>
+<p>JWT é um padrão para transmissão segura de informações entre partes como um token assinado. Após o login, o servidor gera um token que o cliente envia em todas as requisições subsequentes para provar identidade.</p>
+<p><strong>Como funciona no projeto</strong></p>
+<ul>
+<li><code>POST /users/login</code> valida credenciais e retorna <code>{ accessToken, user }</code>.</li>
+<li>O token inclui <code>id</code> e <code>tipo</code> no payload, evitando lookup no banco por requisição.</li>
+<li>Toda rota protegida usa <code>@UseGuards(JwtAuthGuard)</code>; rotas por perfil usam também <code>@UseGuards(RolesGuard)</code> com <code>@Roles(...)</code>.</li>
+<li>Expiração padrão: <code>JWT_EXPIRES_IN=1d</code>.</li>
+</ul>
+<p><strong>Biblioteca</strong>: <code>@nestjs/jwt</code> + <code>passport-jwt</code>.</p>
+<hr />
+<h2 id="cookie-httponly">Cookie httpOnly</h2>
+<p>O frontend não guarda o token em <code>localStorage</code>. Após o login, o <strong>route handler</strong> de Next.js (<code>POST /api/auth/login</code>) grava um cookie <strong>httpOnly</strong> chamado <code>accessToken</code>, invisível para o JavaScript do cliente. A cada chamada, o proxy <code>/api/proxy/[...path]</code> lê o cookie e injeta <code>Authorization: Bearer &lt;token&gt;</code> no request encaminhado ao backend.</p>
+<ul>
+<li>Reduz o vetor de ataque XSS: token não é exfiltrável via <code>document.cookie</code> no cliente.</li>
+<li>Elimina CORS entre o navegador e o backend: o navegador vê apenas o Next.</li>
+</ul>
 <hr />
 <h2 id="bcrypt">bcrypt</h2>
-<p><strong>O que é:</strong>
-bcrypt é um algoritmo de hashing especialmente projetado para senhas. Diferente de MD5 ou SHA, ele é intencionalmente lento e usa um "salt" aleatório, o que torna ataques de força bruta computacionalmente inviáveis.</p>
-<p><strong>Como funciona no projeto:</strong></p>
-<pre><code class="language-typescript">// Cadastro: gera o hash da senha e guarda no banco
+<p><strong>O que é</strong></p>
+<p>Algoritmo de hashing projetado para senhas. É intencionalmente lento e usa salt aleatório, o que torna ataques de força bruta computacionalmente inviáveis.</p>
+<p><strong>Como funciona no projeto</strong></p>
+<pre><code class="language-typescript">// Cadastro: gera o hash e persiste
 const passwordHash = await bcrypt.hash(password, 10);
 
-// Login: compara senha digitada com hash armazenado
+// Login: compara senha com o hash
 const isValid = await bcrypt.compare(password, user.passwordHash);
 </code></pre>
-<p><strong>Por que foi escolhido:</strong></p>
+<p>Salt rounds fixados em <code>10</code>.</p>
+<hr />
+<h2 id="roles-e-perfis">Roles e perfis</h2>
 <ul>
-<li>Padrão da indústria para hashing de senhas</li>
-<li>Resistente a ataques de rainbow table (salt automático)</li>
+<li><code>PACIENTE</code>: usuário final. Vê seus arquivos, aprova ou rejeita solicitações de vínculo.</li>
+<li><code>MEDICO</code>: profissional de saúde. Solicita vínculos, faz upload e listagem de arquivos, consulta prontuário de pacientes vinculados.</li>
+<li><code>ADMIN</code>: perfil operacional. Único autorizado a consultar <code>GET /audit/logs</code>. Só pode ser criado via <code>npm run seed:admin</code>.</li>
 </ul>
 <hr />
 <h2 id="referencias">Referências</h2>
 <ul>
-<li><a href="https://jwt.io/introduction">JWT - Introdução</a></li>
-<li><a href="https://www.npmjs.com/package/bcrypt">bcrypt - npm</a></li>
-<li><a href="https://www.passportjs.org/">Passport.js - Documentação</a></li>
+<li><a href="https://jwt.io/introduction">JWT, introdução</a></li>
+<li><a href="https://www.npmjs.com/package/bcrypt">bcrypt no npm</a></li>
+<li><a href="https://www.passportjs.org/">Passport.js, documentação</a></li>
 </ul>
 
 

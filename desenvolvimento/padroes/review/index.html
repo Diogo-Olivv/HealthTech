@@ -6,10 +6,12 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
+        <meta name="description" content="Plataforma SaaS de arquivos médicos para clínicas e profissionais de saúde, com vínculo médico-paciente controlado e auditoria.">
       
       
       
-        <link rel="prev" href="../git/">
+      
+        <link rel="prev" href="../codigo/">
       
       
         <link rel="next" href="../template_PR/">
@@ -23,7 +25,7 @@
     
     
       
-        <title>Fluxo de Code Review - HealthTech</title>
+        <title>Code Review - HealthTech</title>
       
     
     
@@ -109,7 +111,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Fluxo de Code Review
+              Code Review
             
           </span>
         </div>
@@ -284,17 +286,8 @@
   
     
     
-      
-  
-  
-  
-    
-  
-  
-    
-    
       <li class="md-tabs__item md-tabs__item--active">
-        <a href="../../infra/cloud_sql/" class="md-tabs__link">
+        <a href="../../setup/" class="md-tabs__link">
           
   
   
@@ -304,9 +297,6 @@
 
         </a>
       </li>
-    
-  
-
     
   
 
@@ -1021,6 +1011,8 @@
       
         
       
+        
+      
     
     
     
@@ -1073,11 +1065,364 @@
   
   
   
+    <li class="md-nav__item">
+      <a href="../../setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Setup Inicial
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
     
     
       
         
       
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Padrões
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Padrões
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../git/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Git e Branches
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../codigo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Padrões de Código
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Code Review
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Code Review
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#papeis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Papéis
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#checklist-do-autor-antes-de-abrir-o-pr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Checklist do autor antes de abrir o PR
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#o-que-o-revisor-procura" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O que o revisor procura
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tom-do-review" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tom do review
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#categorias-de-comentario" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Categorias de comentário
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#merge" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Merge
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../template_PR/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Template de Pull Request
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../templates_issues/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Templates de Issue
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
         
       
         
@@ -1095,17 +1440,18 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_1" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3" >
         
           
-          <label class="md-nav__link" for="__nav_4_1" id="__nav_4_1_label" tabindex="0">
-            
+          <div class="md-nav__link md-nav__container">
+            <a href="../../adr/" class="md-nav__link ">
+              
   
   
   <span class="md-ellipsis">
     
   
-    Infraestrutura
+    ADRs
   
 
     
@@ -1113,35 +1459,43 @@
   
   
 
-            <span class="md-nav__icon md-icon"></span>
-          </label>
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4_3" id="__nav_4_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_1_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_4_1">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_3">
             <span class="md-nav__icon md-icon"></span>
             
   
-    Infraestrutura
+    ADRs
   
 
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
               
+            
+              
                 
   
   
   
   
     <li class="md-nav__item">
-      <a href="../../infra/cloud_sql/" class="md-nav__link">
+      <a href="../../adr/template/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Cloud SQL
+    Template
   
 
     
@@ -1162,70 +1516,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../infra/contas_de_servico/" class="md-nav__link">
+      <a href="../../adr/0001-migrations-via-cloud-run-job/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Contas de Serviço
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../infra/gcs/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Google Cloud Storage
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../infra/secrets/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Secret Manager
+    ADR-0001 Migrations via Cloud Run Job
   
 
     
@@ -1277,7 +1575,7 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4" >
         
           
           <div class="md-nav__link md-nav__container">
@@ -1299,14 +1597,14 @@
             </a>
             
               
-              <label class="md-nav__link " for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+              <label class="md-nav__link " for="__nav_4_4" id="__nav_4_4_label" tabindex="0">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_4_2">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_4">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -1420,7 +1718,7 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2_4" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4_4" >
         
           
           <div class="md-nav__link md-nav__container">
@@ -1442,14 +1740,14 @@
             </a>
             
               
-              <label class="md-nav__link " for="__nav_4_2_4" id="__nav_4_2_4_label" tabindex="0">
+              <label class="md-nav__link " for="__nav_4_4_4" id="__nav_4_4_4_label" tabindex="0">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_2_4_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_4_2_4">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_4_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_4_4">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -1789,10 +2087,8 @@
                 
   
   
-    
   
   
-  
     
     
       
@@ -1811,21 +2107,21 @@
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_5" >
         
           
-          <label class="md-nav__link" for="__nav_4_3" id="__nav_4_3_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_4_5" id="__nav_4_5_label" tabindex="0">
             
   
   
   <span class="md-ellipsis">
     
   
-    Padrões
+    Infraestrutura
   
 
     
@@ -1836,12 +2132,12 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="true">
-          <label class="md-nav__title" for="__nav_4_3">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_5">
             <span class="md-nav__icon md-icon"></span>
             
   
-    Padrões
+    Infraestrutura
   
 
           </label>
@@ -1854,14 +2150,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../codigo/" class="md-nav__link">
+      <a href="../../infra/cloud_sql/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Padrões de Código
+    Cloud SQL
   
 
     
@@ -1882,14 +2178,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../git/" class="md-nav__link">
+      <a href="../../infra/contas_de_servico/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Commits e Branches
+    Contas de Serviço
   
 
     
@@ -1898,180 +2194,6 @@
   
 
       </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-    
-  
-  
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Fluxo de Code Review
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Fluxo de Code Review
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#objetivo" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Objetivo
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#quando-abrir-um-pr" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Quando abrir um PR
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#tamanho-do-pr" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Tamanho do PR
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#estrutura-obrigatoria-do-pr" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Estrutura obrigatória do PR
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#o-que-o-revisor-deve-verificar" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        O que o Revisor deve verificar
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#como-comentar" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Como comentar
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#aprovacao" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Aprovação
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#checklist-antes-do-merge" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Checklist antes do merge
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#pos-merge" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Pós-merge
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -2084,14 +2206,42 @@
   
   
     <li class="md-nav__item">
-      <a href="../template_PR/" class="md-nav__link">
+      <a href="../../infra/gcs/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Template do Pull Request
+    Google Cloud Storage
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../infra/secrets/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Secret Manager
   
 
     
@@ -2108,34 +2258,6 @@
           </ul>
         </nav>
       
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../setup/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Setup Inicial
-  
-
-    
-  </span>
-  
-  
-
-      </a>
     </li>
   
 
@@ -2175,7 +2297,7 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_5" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_6" >
         
           
           <div class="md-nav__link md-nav__container">
@@ -2197,14 +2319,14 @@
             </a>
             
               
-              <label class="md-nav__link " for="__nav_4_5" id="__nav_4_5_label" tabindex="0">
+              <label class="md-nav__link " for="__nav_4_6" id="__nav_4_6_label" tabindex="0">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_5_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_4_5">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_6">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -2792,7 +2914,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../gestao/atas_reuniao/%202026-05-25/" class="md-nav__link">
+      <a href="../../../gestao/atas_reuniao/2026-05-25/" class="md-nav__link">
         
   
   
@@ -2888,6 +3010,8 @@
       
         
           
+        
+      
         
       
         
@@ -3169,6 +3293,34 @@
     
   
     Semana 13
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../gestao/entregas/entrega_semanal/semana-14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Semana 14
   
 
     
@@ -4629,10 +4781,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#objetivo" class="md-nav__link">
+  <a href="#papeis" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Objetivo
+        Papéis
       
     </span>
   </a>
@@ -4640,10 +4792,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#quando-abrir-um-pr" class="md-nav__link">
+  <a href="#checklist-do-autor-antes-de-abrir-o-pr" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Quando abrir um PR
+        Checklist do autor antes de abrir o PR
       
     </span>
   </a>
@@ -4651,10 +4803,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#tamanho-do-pr" class="md-nav__link">
+  <a href="#o-que-o-revisor-procura" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Tamanho do PR
+        O que o revisor procura
       
     </span>
   </a>
@@ -4662,10 +4814,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#estrutura-obrigatoria-do-pr" class="md-nav__link">
+  <a href="#tom-do-review" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Estrutura obrigatória do PR
+        Tom do review
       
     </span>
   </a>
@@ -4673,10 +4825,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#o-que-o-revisor-deve-verificar" class="md-nav__link">
+  <a href="#categorias-de-comentario" class="md-nav__link">
     <span class="md-ellipsis">
       
-        O que o Revisor deve verificar
+        Categorias de comentário
       
     </span>
   </a>
@@ -4684,43 +4836,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#como-comentar" class="md-nav__link">
+  <a href="#merge" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Como comentar
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#aprovacao" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Aprovação
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#checklist-antes-do-merge" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Checklist antes do merge
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#pos-merge" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Pós-merge
+        Merge
       
     </span>
   </a>
@@ -4748,66 +4867,88 @@
 
 
 <h1 id="fluxo-de-code-review">Fluxo de Code Review</h1>
-<h2 id="objetivo">Objetivo</h2>
-<p>O code review existe para garantir qualidade, compartilhamento de conhecimento e evolução saudável do projeto.</p>
-<h2 id="quando-abrir-um-pr">Quando abrir um PR</h2>
-<p>Abrir Pull Request somente quando:</p>
+<h2 id="papeis">Papéis</h2>
 <ul>
-<li>A funcionalidade estiver funcional</li>
-<li>O escopo estiver claro</li>
-<li>O PR estiver pequeno o suficiente para ser revisado com qualidade</li>
+<li><strong>Autor:</strong> abre o PR, garante CI verde, responde comentários.</li>
+<li><strong>Revisor(a):</strong> revisa o diff em profundidade, valida o "porquê", e é responsável pelo merge quando aprovar.</li>
+<li><strong>Mantenedor(a):</strong> integrantes com permissão de merge nas branches protegidas (<code>develop</code>, <code>main</code>, <code>docs</code>).</li>
 </ul>
-<h2 id="tamanho-do-pr">Tamanho do PR</h2>
+<p>Um PR precisa de <strong>pelo menos uma aprovação</strong> de outro integrante antes do merge. Auto-merge não é permitido.</p>
+<h2 id="checklist-do-autor-antes-de-abrir-o-pr">Checklist do autor antes de abrir o PR</h2>
 <ul>
-<li>Preferir PRs pequenos e objetivos.</li>
-<li>Se um PR misturar muitas responsabilidades, ele deve ser dividido.</li>
+<li>[ ] <code>npm run lint</code> sem erros bloqueantes na camada tocada.</li>
+<li>[ ] <code>npm test</code> verde (unit e componente).</li>
+<li>[ ] <code>npm run test:e2e</code> verde quando o PR toca em rotas HTTP (backend).</li>
+<li>[ ] Migrations geradas e revisadas quando alterou entidade.</li>
+<li>[ ] Nenhum <code>console.log</code>, <code>TODO</code> sem issue, ou credencial no diff.</li>
+<li>[ ] Documentação atualizada (README, MkDocs, ADR, docstrings) quando aplicável.</li>
+<li>[ ] Preenche o <a href="../template_PR/">template de PR</a> com o "porquê" da mudança.</li>
+<li>[ ] Marca a issue relacionada com <code>Closes #NN</code> quando o PR encerra a issue.</li>
 </ul>
-<h2 id="estrutura-obrigatoria-do-pr"><a href="../template_PR/">Estrutura obrigatória do PR</a></h2>
-<p>Todo PR deve conter:</p>
+<h2 id="o-que-o-revisor-procura">O que o revisor procura</h2>
+<p><strong>Correção</strong></p>
 <ul>
-<li>Contexto da tarefa</li>
-<li>O que foi feito</li>
-<li>Como testar</li>
-<li>Evidencias visuais, quando houver frontend</li>
-<li>Riscos ou pontos de atenção</li>
-<li>Checklist de segurança e logs, quando aplicável</li>
+<li>A regra de negócio está correta e testada?</li>
+<li>Há caso de erro tratado no controller e/ou service?</li>
+<li>Guards e roles cobrem os cenários do endpoint?</li>
+<li>Auditoria (<code>@Audit</code>) foi aplicada onde deveria?</li>
 </ul>
-<p>Clique <a href="../template_PR/">aqui</a> para visualizar o template</p>
-<h2 id="o-que-o-revisor-deve-verificar">O que o Revisor deve verificar</h2>
+<p><strong>Segurança</strong></p>
 <ul>
-<li>Design: a solução se encaixa bem na arquitetura?</li>
-<li>Funcionalidade: faz o que deveria fazer?</li>
-<li>Complexidade: está simples o bastante?</li>
-<li>Testes: há cobertura adequada?</li>
-<li>Nomes: estão claros?</li>
-<li>Comentários: explicam o necessário?</li>
-<li>Estilo: segue o padrão do projeto?</li>
-<li>Documentação: precisa atualizar MkDocs ou diagramas?</li>
+<li>Nenhum campo sensível vaza para o response (ex.: <code>passwordHash</code>, <code>caminhoStorage</code>).</li>
+<li>Nenhum input passa direto para queries sem validação.</li>
+<li>Nenhuma nova rota escapa do <code>JwtAuthGuard</code> quando deveria estar protegida.</li>
 </ul>
-<h2 id="como-comentar">Como comentar</h2>
+<p><strong>Manutenção</strong></p>
 <ul>
-<li>Criticar o código, não a pessoa.</li>
-<li>Explicar o motivo da sugestão.</li>
+<li>Nomes claros no domínio do problema.</li>
+<li>Sem duplicação óbvia. Sem abstração prematura.</li>
+<li>Testes se leem como especificação e cobrem a intenção do PR.</li>
 </ul>
-<h2 id="aprovacao">Aprovação</h2>
+<p><strong>Impacto operacional</strong></p>
 <ul>
-<li>Mínimo de 1 aprovacao de outro integrante.</li>
-<li>PR com impacto em arquitetura, segurança ou deploy deve ser revisado pelo líder técnico.</li>
+<li>Precisa de migration? Ela é backward-compatible (ver <a href="../../adr/0001-migrations-via-cloud-run-job/">ADR-0001</a>)?</li>
+<li>Precisa de novo secret? Está no <code>.env.example</code> e será provisionado no Secret Manager?</li>
+<li>O deploy exige ação manual? Está documentado no PR?</li>
 </ul>
-<h2 id="checklist-antes-do-merge">Checklist antes do merge</h2>
+<h2 id="tom-do-review">Tom do review</h2>
 <ul>
-<li>Branch atualizada</li>
-<li>Conflitos resolvidos</li>
-<li>Testes executados</li>
-<li>Padrões respeitados</li>
-<li>Documentação atualizada</li>
-<li>Logs implementados quando exigido</li>
+<li><strong>Foque no problema, não na pessoa.</strong> "Este método está acumulando responsabilidades" em vez de "você misturou tudo".</li>
+<li><strong>Sugestões concretas.</strong> Peça alterações com um caminho, mesmo que curto: "Prefiro extrair para <code>pacientesDisponiveis(medicoId)</code> porque separa a leitura da lista da regra de vínculo".</li>
+<li><strong>Reconheça o que ficou bom.</strong> Um review que só aponta problemas cansa e desincentiva.</li>
 </ul>
-<h2 id="pos-merge">Pós-merge</h2>
+<h2 id="categorias-de-comentario">Categorias de comentário</h2>
+<table>
+<thead>
+<tr>
+<th>Prefixo</th>
+<th>Significado</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>nit:</code></td>
+<td>Preferência menor. Não bloqueia o merge.</td>
+</tr>
+<tr>
+<td><code>question:</code></td>
+<td>Pergunta genuína para entender o "porquê" da escolha.</td>
+</tr>
+<tr>
+<td><code>suggestion:</code></td>
+<td>Proposta concreta que o autor pode acatar ou justificar.</td>
+</tr>
+<tr>
+<td><code>blocker:</code></td>
+<td>Precisa ser resolvido antes do merge (bug, segurança, quebra de contrato).</td>
+</tr>
+</tbody>
+</table>
+<h2 id="merge">Merge</h2>
 <ul>
-<li>Deletar branch da tarefa</li>
-<li>Atualizar quadro da sprint</li>
-<li>Registrar decisão importante na documentação, se necessário</li>
+<li>Prefira <strong>Squash and merge</strong> para features pequenas. O histórico de <code>develop</code> fica limpo.</li>
+<li>Use <strong>Merge commit</strong> para PRs de release entre <code>develop</code> e <code>main</code>, para preservar o histórico.</li>
+<li><strong>Nunca faça force push em <code>main</code>, <code>develop</code> ou <code>docs</code>.</strong></li>
 </ul>
 
 

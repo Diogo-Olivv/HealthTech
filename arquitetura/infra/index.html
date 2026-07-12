@@ -6,13 +6,15 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
+        <meta name="description" content="Plataforma SaaS de arquivos médicos para clínicas e profissionais de saúde, com vínculo médico-paciente controlado e auditoria.">
+      
       
       
       
         <link rel="prev" href="../banco-de-dados/">
       
       
-        <link rel="next" href="../../desenvolvimento/infra/cloud_sql/">
+        <link rel="next" href="../../desenvolvimento/setup/">
       
       
         
@@ -284,15 +286,8 @@
   
     
     
-      
-  
-  
-  
-  
-    
-    
       <li class="md-tabs__item">
-        <a href="../../desenvolvimento/infra/cloud_sql/" class="md-tabs__link">
+        <a href="../../desenvolvimento/setup/" class="md-tabs__link">
           
   
   
@@ -302,9 +297,6 @@
 
         </a>
       </li>
-    
-  
-
     
   
 
@@ -1046,6 +1038,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#pipeline-de-cicd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pipeline de CI/CD
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#cloud-run" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1090,6 +1093,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#governanca-e-seguranca" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Governança e segurança
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#diagrama-de-infraestrutura" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1124,6 +1138,8 @@
   
     
     
+      
+        
       
         
       
@@ -1184,8 +1200,38 @@
   
   
   
+    <li class="md-nav__item">
+      <a href="../../desenvolvimento/setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Setup Inicial
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
     
     
+      
+        
       
         
       
@@ -1206,17 +1252,17 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_1" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" >
         
           
-          <label class="md-nav__link" for="__nav_4_1" id="__nav_4_1_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
             
   
   
   <span class="md-ellipsis">
     
   
-    Infraestrutura
+    Padrões
   
 
     
@@ -1227,12 +1273,12 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_1_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_4_1">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2">
             <span class="md-nav__icon md-icon"></span>
             
   
-    Infraestrutura
+    Padrões
   
 
           </label>
@@ -1245,14 +1291,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../desenvolvimento/infra/cloud_sql/" class="md-nav__link">
+      <a href="../../desenvolvimento/padroes/git/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Cloud SQL
+    Git e Branches
   
 
     
@@ -1273,14 +1319,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../desenvolvimento/infra/contas_de_servico/" class="md-nav__link">
+      <a href="../../desenvolvimento/padroes/codigo/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Contas de Serviço
+    Padrões de Código
   
 
     
@@ -1301,14 +1347,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../desenvolvimento/infra/gcs/" class="md-nav__link">
+      <a href="../../desenvolvimento/padroes/review/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Google Cloud Storage
+    Code Review
   
 
     
@@ -1329,14 +1375,175 @@
   
   
     <li class="md-nav__item">
-      <a href="../../desenvolvimento/infra/secrets/" class="md-nav__link">
+      <a href="../../desenvolvimento/padroes/template_PR/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Secret Manager
+    Template de Pull Request
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../desenvolvimento/padroes/templates_issues/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Templates de Issue
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../desenvolvimento/adr/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ADRs
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4_3" id="__nav_4_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    ADRs
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../desenvolvimento/adr/template/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Template
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../desenvolvimento/adr/0001-migrations-via-cloud-run-job/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ADR-0001 Migrations via Cloud Run Job
   
 
     
@@ -1388,7 +1595,7 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4" >
         
           
           <div class="md-nav__link md-nav__container">
@@ -1410,14 +1617,14 @@
             </a>
             
               
-              <label class="md-nav__link " for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+              <label class="md-nav__link " for="__nav_4_4" id="__nav_4_4_label" tabindex="0">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_4_2">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_4">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -1531,7 +1738,7 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2_4" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4_4" >
         
           
           <div class="md-nav__link md-nav__container">
@@ -1553,14 +1760,14 @@
             </a>
             
               
-              <label class="md-nav__link " for="__nav_4_2_4" id="__nav_4_2_4_label" tabindex="0">
+              <label class="md-nav__link " for="__nav_4_4_4" id="__nav_4_4_4_label" tabindex="0">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_2_4_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_4_2_4">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_4_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_4_4">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -1924,17 +2131,17 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_5" >
         
           
-          <label class="md-nav__link" for="__nav_4_3" id="__nav_4_3_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_4_5" id="__nav_4_5_label" tabindex="0">
             
   
   
   <span class="md-ellipsis">
     
   
-    Padrões
+    Infraestrutura
   
 
     
@@ -1945,12 +2152,12 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_4_3">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_5">
             <span class="md-nav__icon md-icon"></span>
             
   
-    Padrões
+    Infraestrutura
   
 
           </label>
@@ -1963,14 +2170,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../desenvolvimento/padroes/codigo/" class="md-nav__link">
+      <a href="../../desenvolvimento/infra/cloud_sql/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Padrões de Código
+    Cloud SQL
   
 
     
@@ -1991,14 +2198,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../desenvolvimento/padroes/git/" class="md-nav__link">
+      <a href="../../desenvolvimento/infra/contas_de_servico/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Commits e Branches
+    Contas de Serviço
   
 
     
@@ -2019,14 +2226,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../desenvolvimento/padroes/review/" class="md-nav__link">
+      <a href="../../desenvolvimento/infra/gcs/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Fluxo de Code Review
+    Google Cloud Storage
   
 
     
@@ -2047,14 +2254,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../desenvolvimento/padroes/template_PR/" class="md-nav__link">
+      <a href="../../desenvolvimento/infra/secrets/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Template do Pull Request
+    Secret Manager
   
 
     
@@ -2071,34 +2278,6 @@
           </ul>
         </nav>
       
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../desenvolvimento/setup/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Setup Inicial
-  
-
-    
-  </span>
-  
-  
-
-      </a>
     </li>
   
 
@@ -2138,7 +2317,7 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_5" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_6" >
         
           
           <div class="md-nav__link md-nav__container">
@@ -2160,14 +2339,14 @@
             </a>
             
               
-              <label class="md-nav__link " for="__nav_4_5" id="__nav_4_5_label" tabindex="0">
+              <label class="md-nav__link " for="__nav_4_6" id="__nav_4_6_label" tabindex="0">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_5_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_4_5">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_6">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -2755,7 +2934,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../gestao/atas_reuniao/%202026-05-25/" class="md-nav__link">
+      <a href="../../gestao/atas_reuniao/2026-05-25/" class="md-nav__link">
         
   
   
@@ -2851,6 +3030,8 @@
       
         
           
+        
+      
         
       
         
@@ -3132,6 +3313,34 @@
     
   
     Semana 13
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../gestao/entregas/entrega_semanal/semana-14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Semana 14
   
 
     
@@ -4603,6 +4812,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#pipeline-de-cicd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pipeline de CI/CD
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#cloud-run" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -4647,6 +4867,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#governanca-e-seguranca" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Governança e segurança
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#diagrama-de-infraestrutura" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -4679,7 +4910,7 @@
 
 <h1 id="infraestrutura">Infraestrutura</h1>
 <h2 id="visao-geral">Visão Geral</h2>
-<p>Toda a infraestrutura de produção roda no <strong>Google Cloud Platform (GCP)</strong>. O projeto utiliza os seguintes serviços:</p>
+<p>Toda a infraestrutura de produção roda no <strong>Google Cloud Platform (GCP)</strong>. O pipeline de CI/CD é o <strong>Cloud Build</strong>, definido em <code>cloudbuild.yaml</code> na raiz.</p>
 <table>
 <thead>
 <tr>
@@ -4689,97 +4920,181 @@
 </thead>
 <tbody>
 <tr>
-<td>Cloud Run</td>
-<td>Hospedagem do backend (NestJS containerizado)</td>
+<td>Cloud Run (backend)</td>
+<td>Serviço <code>healthtech-backend</code> na região <code>southamerica-east1</code></td>
+</tr>
+<tr>
+<td>Cloud Run (frontend)</td>
+<td>Serviço <code>healthtech-frontend-us</code> na região <code>us-central1</code></td>
+</tr>
+<tr>
+<td>Cloud Run Job</td>
+<td><code>healthtech-migrations</code>, aplica migrations antes do deploy (ver ADR-0001)</td>
 </tr>
 <tr>
 <td>Cloud SQL</td>
-<td>Banco de dados PostgreSQL gerenciado</td>
+<td>Instância <code>health-tech-db</code> (PostgreSQL 16)</td>
 </tr>
 <tr>
 <td>Cloud Storage (GCS)</td>
-<td>Armazenamento dos arquivos médicos</td>
+<td>Bucket para upload de arquivos dos pacientes</td>
 </tr>
 <tr>
 <td>Secret Manager</td>
-<td>Armazenamento seguro de credenciais</td>
+<td>Credenciais e configuração sensível</td>
 </tr>
 <tr>
 <td>Cloud Build</td>
-<td>Pipeline de CI/CD</td>
+<td>Pipeline <code>cloudbuild.yaml</code> disparado a cada push relevante</td>
 </tr>
 <tr>
 <td>Cloud Logging</td>
 <td>Logs estruturados e auditoria</td>
 </tr>
+<tr>
+<td>Artifact Registry</td>
+<td>Repositório <code>healthtech</code> com imagens <code>backend:*</code> e <code>frontend:*</code></td>
+</tr>
 </tbody>
 </table>
 <hr />
+<h2 id="pipeline-de-cicd">Pipeline de CI/CD</h2>
+<p>O <code>cloudbuild.yaml</code> está dividido em etapas nomeadas com <code>id</code>, para leitura direta no Cloud Build. Resumo:</p>
+<ol>
+<li><strong>Install</strong> (paralelo): <code>npm ci</code> em backend e frontend.</li>
+<li><strong>Lint (não bloqueante) + Testes (bloqueiam)</strong>: <code>eslint --fix</code> reporta e segue; testes falhando abortam o build.</li>
+<li><strong>Auth Docker</strong>: <code>gcloud auth configure-docker</code>.</li>
+<li><strong>Build</strong>: constrói <code>backend</code> e <code>frontend</code> como imagens Docker.</li>
+<li><strong>Push</strong>: envia imagens para o Artifact Registry (<code>--all-tags</code>).</li>
+<li><strong>Migrations</strong>: cria ou atualiza o Cloud Run Job <code>healthtech-migrations</code> e executa com <code>--wait</code>. Se a migration falhar, o pipeline aborta antes de trocar a revisão do backend em produção.</li>
+<li><strong>Deploy backend</strong> no Cloud Run (<code>southamerica-east1</code>).</li>
+<li><strong>Deploy frontend</strong> no Cloud Run (<code>us-central1</code>).</li>
+</ol>
+<p>O motivo de separar migrations num Job dedicado está descrito no <a href="../../desenvolvimento/adr/0001-migrations-via-cloud-run-job/">ADR-0001</a>.</p>
+<hr />
 <h2 id="cloud-run">Cloud Run</h2>
-<p>O backend é empacotado em uma imagem Docker e implantado no Cloud Run, que gerencia escalabilidade e disponibilidade automaticamente.</p>
+<p>Duas revisões independentes rodam no Cloud Run:</p>
+<p><strong>Backend (<code>healthtech-backend</code>)</strong></p>
 <ul>
-<li><strong>Porta:</strong> <code>3001</code> (definida via variável de ambiente <code>PORT</code>)</li>
-<li><strong>Conexão com banco:</strong> via Unix socket do Cloud SQL (<code>/cloudsql/PROJECT:REGION:INSTANCE</code>)</li>
-<li><strong>Deploy:</strong> acionado pelo <code>cloudbuild.yaml</code> a cada push na branch <code>main</code></li>
+<li>Região: <code>southamerica-east1</code></li>
+<li>Porta: <code>3001</code> (via <code>PORT</code>)</li>
+<li>Conexão com banco: Unix socket do Cloud SQL (<code>/cloudsql/PROJECT:REGION:INSTANCE</code>) via <code>INSTANCE_CONNECTION_NAME</code></li>
+<li>Service account: <code>healthtech-cloudrun@…</code></li>
+</ul>
+<p><strong>Frontend (<code>healthtech-frontend-us</code>)</strong></p>
+<ul>
+<li>Região: <code>us-central1</code> (menor latência para a demo)</li>
+<li>Recebe <code>NEXT_PUBLIC_API_URL</code> no build arg apontando para a URL pública do backend</li>
+<li>Recebe <code>API_INTERNAL_URL</code> no ambiente para o proxy <code>/api/proxy/[...path]</code></li>
 </ul>
 <hr />
 <h2 id="google-cloud-storage-gcs">Google Cloud Storage (GCS)</h2>
-<p>Os arquivos médicos (PDF, imagens) nunca são armazenados no servidor da aplicação. O fluxo é:</p>
+<p>Os arquivos médicos (PDF e imagens) nunca são armazenados no filesystem do container do backend em produção. Fluxo:</p>
 <pre><code>Médico faz upload
+  → Backend valida (tipo MIME, tamanho até 10 MB)
   → Backend gera nome único (UUID + extensão)
-  → Arquivo enviado ao bucket GCS via StorageService
-  → Metadados salvos na tabela arquivo (banco)
-  → Resposta retorna metadados, nunca o caminho interno
+  → StorageService envia ao bucket GCS
+  → Metadados salvos em `arquivos`
+  → Resposta retorna metadados via ArquivoResponseDto (sem `caminhoStorage`)
 </code></pre>
-<p>O bucket é configurado como <strong>privado</strong> — nenhum acesso público. O backend acessa o GCS usando credenciais da conta de serviço injetadas via Secret Manager.</p>
+<p>Em desenvolvimento local, o backend usa o driver <code>local</code> (<code>STORAGE_DRIVER=local</code>, <code>LOCAL_STORAGE_DIR=uploads</code>) para gravar no filesystem do container.</p>
 <hr />
 <h2 id="secret-manager">Secret Manager</h2>
-<p>Nenhuma credencial é armazenada em código ou em arquivos <code>.env</code> commitados. Todos os segredos são gerenciados pelo Secret Manager e injetados como variáveis de ambiente no Cloud Run:</p>
+<p>Nenhuma credencial fica no código ou em arquivos <code>.env</code> versionados. Todos os segredos são gerenciados pelo Secret Manager e injetados no Cloud Run:</p>
 <table>
 <thead>
 <tr>
-<th>Variável</th>
-<th>Conteúdo</th>
+<th>Segredo</th>
+<th>Uso</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><code>DATABASE_URL</code></td>
-<td>String de conexão com o Cloud SQL</td>
+<td><code>db-user</code></td>
+<td>Usuário do PostgreSQL</td>
 </tr>
 <tr>
-<td><code>JWT_SECRET</code></td>
+<td><code>db-password</code></td>
+<td>Senha</td>
+</tr>
+<tr>
+<td><code>db-name</code></td>
+<td>Nome do banco</td>
+</tr>
+<tr>
+<td><code>jwt-secret</code></td>
 <td>Chave de assinatura dos tokens JWT</td>
 </tr>
 <tr>
-<td><code>GCS_BUCKET_NAME</code></td>
-<td>Nome do bucket de arquivos</td>
+<td><code>gcs-bucket-name</code></td>
+<td>Nome do bucket para uploads</td>
 </tr>
 <tr>
-<td><code>GCS_CREDENTIALS</code></td>
-<td>JSON da conta de serviço do GCS</td>
-</tr>
-<tr>
-<td><code>FRONTEND_URL</code></td>
-<td>URL do frontend (CORS)</td>
+<td><code>frontend-url</code></td>
+<td>Origens permitidas pelo CORS</td>
 </tr>
 </tbody>
 </table>
+<p>O Cloud Run Job de migrations reusa <code>db-user</code>, <code>db-password</code> e <code>db-name</code>.</p>
 <hr />
 <h2 id="desenvolvimento-local">Desenvolvimento Local</h2>
-<p>O arquivo <code>docker-compose.yml</code> na raiz do projeto sobe o banco e o Adminer localmente:</p>
-<pre><code class="language-bash">docker compose up -d      # inicia PostgreSQL na porta 5433 e Adminer na 8080
-docker compose down -v    # para e apaga os dados (reset completo)
+<p>O <code>docker-compose.yml</code> na raiz sobe banco, backend e frontend de uma vez:</p>
+<pre><code class="language-bash">docker compose up --build     # sobe tudo
+docker compose ps             # verifica o status
+docker compose down           # para os containers
+docker compose down -v        # para e apaga volumes (banco e uploads)
 </code></pre>
-<p>As variáveis de ambiente locais ficam em <code>backend/.env</code> (não commitado), seguindo o template <code>backend/.env.example</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Serviço</th>
+<th>URL local</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Frontend</td>
+<td>http://localhost:3000</td>
+</tr>
+<tr>
+<td>Backend</td>
+<td>http://localhost:3001</td>
+</tr>
+<tr>
+<td>Adminer</td>
+<td>http://localhost:8080</td>
+</tr>
+</tbody>
+</table>
+<p>Variáveis locais ficam em <code>backend/.env</code> e <code>frontend/.env</code> (não versionados), copiados de <code>.env.example</code>.</p>
+<p>Para hot-reload sem Docker, suba apenas o banco (<code>docker compose up postgres adminer -d</code>) e rode <code>npm run start:dev</code> no backend e <code>npm run dev</code> no frontend.</p>
+<hr />
+<h2 id="governanca-e-seguranca">Governança e segurança</h2>
+<ul>
+<li><strong>Husky + lint-staged</strong>: hook <code>pre-commit</code> roda ESLint apenas nos arquivos em stage. Documentado em <a href="../../desenvolvimento/padroes/git/">Git e Branches</a>.</li>
+<li><strong>CodeQL</strong>: workflow <code>.github/workflows/codeql.yml</code> roda em pushes para <code>main</code>, PRs e semanalmente às segundas 06:00 UTC.</li>
+<li><strong>Dependabot</strong>: <code>.github/dependabot.yml</code> abre PRs semanais agrupados por família (<code>@nestjs/*</code>, <code>next+eslint-config-next</code>, <code>react</code>), com bump automático apenas em minor/patch (evita quebras).</li>
+</ul>
 <hr />
 <h2 id="diagrama-de-infraestrutura">Diagrama de Infraestrutura</h2>
 <pre><code>Internet
-  └── Cloud Run (NestJS)
-        ├── Cloud SQL (PostgreSQL) — via Unix socket
-        ├── Cloud Storage         — upload/download de arquivos
-        ├── Secret Manager        — leitura de credenciais na inicialização
-        └── Cloud Logging         — emissão de logs estruturados
+  ├── Cloud Run (healthtech-frontend-us)  [us-central1]
+  │     └── Proxy /api/proxy/*  →  Cloud Run backend
+  │
+  └── Cloud Run (healthtech-backend)      [southamerica-east1]
+        ├── Cloud SQL (PostgreSQL)        via Unix socket
+        ├── Cloud Storage                  upload e download de arquivos
+        ├── Secret Manager                 credenciais e configuração
+        └── Cloud Logging                  logs estruturados
+                       ▲
+                       │
+                Cloud Run Job (healthtech-migrations)
+                       ▲
+                       │
+                 Cloud Build (cloudbuild.yaml)
+                       ▲
+                       │
+                    GitHub push
 </code></pre>
 
 

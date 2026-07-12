@@ -6,6 +6,8 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
+        <meta name="description" content="Plataforma SaaS de arquivos médicos para clínicas e profissionais de saúde, com vínculo médico-paciente controlado e auditoria.">
+      
       
       
       
@@ -286,15 +288,8 @@
   
     
     
-      
-  
-  
-  
-  
-    
-    
       <li class="md-tabs__item">
-        <a href="../../desenvolvimento/infra/cloud_sql/" class="md-tabs__link">
+        <a href="../../desenvolvimento/setup/" class="md-tabs__link">
           
   
   
@@ -304,9 +299,6 @@
 
         </a>
       </li>
-    
-  
-
     
   
 
@@ -820,12 +812,12 @@
   <a href="#abordagem-escolhida-tabela-base-tabelas-filhas-11" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Abordagem Escolhida: Tabela base + tabelas filhas (1:1)
+        Abordagem Escolhida: tabela base + tabelas filhas (1:1)
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Abordagem Escolhida: Tabela base + tabelas filhas (1:1)">
+    <nav class="md-nav" aria-label="Abordagem Escolhida: tabela base + tabelas filhas (1:1)">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -883,6 +875,17 @@
     <span class="md-ellipsis">
       
         medicos (tabela filha)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#provisionamento-do-admin" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Provisionamento do ADMIN
       
     </span>
   </a>
@@ -1160,6 +1163,8 @@
       
         
       
+        
+      
     
     
     
@@ -1209,8 +1214,38 @@
   
   
   
+    <li class="md-nav__item">
+      <a href="../../desenvolvimento/setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Setup Inicial
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
     
     
+      
+        
       
         
       
@@ -1231,17 +1266,17 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_1" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" >
         
           
-          <label class="md-nav__link" for="__nav_4_1" id="__nav_4_1_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
             
   
   
   <span class="md-ellipsis">
     
   
-    Infraestrutura
+    Padrões
   
 
     
@@ -1252,12 +1287,12 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_1_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_4_1">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2">
             <span class="md-nav__icon md-icon"></span>
             
   
-    Infraestrutura
+    Padrões
   
 
           </label>
@@ -1270,14 +1305,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../desenvolvimento/infra/cloud_sql/" class="md-nav__link">
+      <a href="../../desenvolvimento/padroes/git/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Cloud SQL
+    Git e Branches
   
 
     
@@ -1298,14 +1333,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../desenvolvimento/infra/contas_de_servico/" class="md-nav__link">
+      <a href="../../desenvolvimento/padroes/codigo/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Contas de Serviço
+    Padrões de Código
   
 
     
@@ -1326,14 +1361,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../desenvolvimento/infra/gcs/" class="md-nav__link">
+      <a href="../../desenvolvimento/padroes/review/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Google Cloud Storage
+    Code Review
   
 
     
@@ -1354,14 +1389,175 @@
   
   
     <li class="md-nav__item">
-      <a href="../../desenvolvimento/infra/secrets/" class="md-nav__link">
+      <a href="../../desenvolvimento/padroes/template_PR/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Secret Manager
+    Template de Pull Request
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../desenvolvimento/padroes/templates_issues/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Templates de Issue
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../desenvolvimento/adr/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ADRs
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4_3" id="__nav_4_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    ADRs
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../desenvolvimento/adr/template/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Template
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../desenvolvimento/adr/0001-migrations-via-cloud-run-job/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ADR-0001 Migrations via Cloud Run Job
   
 
     
@@ -1413,7 +1609,7 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4" >
         
           
           <div class="md-nav__link md-nav__container">
@@ -1435,14 +1631,14 @@
             </a>
             
               
-              <label class="md-nav__link " for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+              <label class="md-nav__link " for="__nav_4_4" id="__nav_4_4_label" tabindex="0">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_4_2">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_4">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -1556,7 +1752,7 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2_4" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4_4" >
         
           
           <div class="md-nav__link md-nav__container">
@@ -1578,14 +1774,14 @@
             </a>
             
               
-              <label class="md-nav__link " for="__nav_4_2_4" id="__nav_4_2_4_label" tabindex="0">
+              <label class="md-nav__link " for="__nav_4_4_4" id="__nav_4_4_4_label" tabindex="0">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_2_4_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_4_2_4">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_4_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_4_4">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -1949,17 +2145,17 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_5" >
         
           
-          <label class="md-nav__link" for="__nav_4_3" id="__nav_4_3_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_4_5" id="__nav_4_5_label" tabindex="0">
             
   
   
   <span class="md-ellipsis">
     
   
-    Padrões
+    Infraestrutura
   
 
     
@@ -1970,12 +2166,12 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_4_3">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_5">
             <span class="md-nav__icon md-icon"></span>
             
   
-    Padrões
+    Infraestrutura
   
 
           </label>
@@ -1988,14 +2184,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../desenvolvimento/padroes/codigo/" class="md-nav__link">
+      <a href="../../desenvolvimento/infra/cloud_sql/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Padrões de Código
+    Cloud SQL
   
 
     
@@ -2016,14 +2212,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../desenvolvimento/padroes/git/" class="md-nav__link">
+      <a href="../../desenvolvimento/infra/contas_de_servico/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Commits e Branches
+    Contas de Serviço
   
 
     
@@ -2044,14 +2240,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../desenvolvimento/padroes/review/" class="md-nav__link">
+      <a href="../../desenvolvimento/infra/gcs/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Fluxo de Code Review
+    Google Cloud Storage
   
 
     
@@ -2072,14 +2268,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../desenvolvimento/padroes/template_PR/" class="md-nav__link">
+      <a href="../../desenvolvimento/infra/secrets/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Template do Pull Request
+    Secret Manager
   
 
     
@@ -2096,34 +2292,6 @@
           </ul>
         </nav>
       
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../desenvolvimento/setup/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Setup Inicial
-  
-
-    
-  </span>
-  
-  
-
-      </a>
     </li>
   
 
@@ -2163,7 +2331,7 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_5" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_6" >
         
           
           <div class="md-nav__link md-nav__container">
@@ -2185,14 +2353,14 @@
             </a>
             
               
-              <label class="md-nav__link " for="__nav_4_5" id="__nav_4_5_label" tabindex="0">
+              <label class="md-nav__link " for="__nav_4_6" id="__nav_4_6_label" tabindex="0">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_5_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_4_5">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_6">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -2780,7 +2948,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../gestao/atas_reuniao/%202026-05-25/" class="md-nav__link">
+      <a href="../../gestao/atas_reuniao/2026-05-25/" class="md-nav__link">
         
   
   
@@ -2876,6 +3044,8 @@
       
         
           
+        
+      
         
       
         
@@ -3157,6 +3327,34 @@
     
   
     Semana 13
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../gestao/entregas/entrega_semanal/semana-14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Semana 14
   
 
     
@@ -4620,12 +4818,12 @@
   <a href="#abordagem-escolhida-tabela-base-tabelas-filhas-11" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Abordagem Escolhida: Tabela base + tabelas filhas (1:1)
+        Abordagem Escolhida: tabela base + tabelas filhas (1:1)
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Abordagem Escolhida: Tabela base + tabelas filhas (1:1)">
+    <nav class="md-nav" aria-label="Abordagem Escolhida: tabela base + tabelas filhas (1:1)">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -4689,6 +4887,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#provisionamento-do-admin" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Provisionamento do ADMIN
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -4726,14 +4935,14 @@
 
 
 <h1 id="modelagem-de-usuarios">Modelagem de Usuários</h1>
-<h2 id="abordagem-escolhida-tabela-base-tabelas-filhas-11">Abordagem Escolhida: Tabela base + tabelas filhas (1:1)</h2>
-<p>Todos os usuários compartilham uma tabela central <code>users</code> para autenticação e dados comuns. Cada usuário possui uma relação 1:1 com a tabela específica do seu perfil (<code>pacientes</code> ou <code>medicos</code>).</p>
+<h2 id="abordagem-escolhida-tabela-base-tabelas-filhas-11">Abordagem Escolhida: tabela base + tabelas filhas (1:1)</h2>
+<p>Todos os usuários compartilham a tabela central <code>users</code> para autenticação e dados comuns. Cada perfil de negócio (paciente ou médico) possui uma relação 1:1 com a tabela específica. <code>ADMIN</code> não tem tabela filha porque não é um papel de negócio: é um perfil operacional criado apenas via seed.</p>
 <h3 id="justificativas">Justificativas</h3>
 <ul>
-<li><strong>Unicidade de e-mail garantida pelo banco:</strong> a constraint <code>UNIQUE</code> em <code>users.email</code> impede nativamente colisões entre médicos e pacientes.</li>
-<li><strong>Login simples:</strong> o endpoint <code>/users/login</code> consulta apenas <code>users</code> para validar credenciais e identificar o tipo de perfil via coluna <code>tipo</code>.</li>
-<li><strong>JWT centralizado:</strong> um único UUID por usuário facilita autorização via Guards no NestJS.</li>
-<li><strong>Sem duplicação de lógica:</strong> autenticação, hash de senha e geração de token ficam em um único serviço.</li>
+<li><strong>Unicidade de e-mail garantida pelo banco</strong>: a constraint <code>UNIQUE</code> em <code>users.email</code> impede colisões entre médicos, pacientes e administradores.</li>
+<li><strong>Login simples</strong>: o endpoint <code>/users/login</code> consulta apenas <code>users</code> para validar credenciais e identificar o perfil pela coluna <code>tipo</code>.</li>
+<li><strong>JWT centralizado</strong>: um único UUID por usuário facilita autorização via Guards no NestJS. O payload já inclui <code>tipo</code>, evitando consultas extras em cada requisição.</li>
+<li><strong>Sem duplicação de lógica</strong>: autenticação, hash de senha e geração de token ficam em um único serviço.</li>
 </ul>
 <hr />
 <h2 id="estrutura-de-atributos">Estrutura de Atributos</h2>
@@ -4754,32 +4963,32 @@
 </tr>
 <tr>
 <td><code>email</code></td>
-<td>String</td>
+<td>VARCHAR</td>
 <td>UNIQUE</td>
 </tr>
 <tr>
 <td><code>passwordHash</code></td>
-<td>String</td>
-<td></td>
+<td>VARCHAR</td>
+<td>NOT NULL</td>
 </tr>
 <tr>
 <td><code>name</code></td>
-<td>String</td>
-<td></td>
+<td>VARCHAR</td>
+<td>NOT NULL</td>
 </tr>
 <tr>
 <td><code>tipo</code></td>
-<td>Enum</td>
-<td>PACIENTE | MEDICO</td>
+<td>ENUM</td>
+<td><code>PACIENTE</code>, <code>MEDICO</code> ou <code>ADMIN</code></td>
 </tr>
 <tr>
 <td><code>createdAt</code></td>
-<td>Timestamp</td>
+<td>TIMESTAMP</td>
 <td>auto</td>
 </tr>
 <tr>
 <td><code>updatedAt</code></td>
-<td>Timestamp</td>
+<td>TIMESTAMP</td>
 <td>auto</td>
 </tr>
 </tbody>
@@ -4801,13 +5010,13 @@
 </tr>
 <tr>
 <td><code>cpf</code></td>
-<td>String</td>
+<td>VARCHAR</td>
 <td>UNIQUE</td>
 </tr>
 <tr>
 <td><code>dataNascimento</code></td>
-<td>Date</td>
-<td></td>
+<td>DATE</td>
+<td>NOT NULL</td>
 </tr>
 </tbody>
 </table>
@@ -4828,28 +5037,32 @@
 </tr>
 <tr>
 <td><code>crm</code></td>
-<td>String</td>
+<td>VARCHAR</td>
 <td>UNIQUE</td>
 </tr>
 <tr>
-<td><code>especialidade</code></td>
-<td>String</td>
-<td></td>
+<td><code>especialidade_legado</code></td>
+<td>VARCHAR</td>
+<td>NULL (dívida técnica, será removida em migration posterior)</td>
 </tr>
 </tbody>
 </table>
+<p>A relação N:N do médico com especialidades é modelada nas tabelas <code>especialidades</code> e <code>medico_especialidades</code>. Veja <a href="../../arquitetura/banco-de-dados/">Banco de Dados</a>.</p>
+<h3 id="provisionamento-do-admin">Provisionamento do <code>ADMIN</code></h3>
+<p>O <code>ADMIN</code> só pode ser criado por meio do seed manual <code>npm run seed:admin</code>, que exige <code>ADMIN_EMAIL</code> e <code>ADMIN_PASSWORD</code> no ambiente. As rotas públicas de cadastro (<code>POST /users/pacientes</code>, <code>POST /users/medicos</code>) rejeitam qualquer campo <code>tipo</code> extra (<code>forbidNonWhitelisted: true</code>).</p>
 <hr />
 <h2 id="diagrama-entidade-relacionamento">Diagrama Entidade-Relacionamento</h2>
 <pre><code class="language-mermaid">erDiagram
     users ||--o| pacientes : &quot;&quot;
     users ||--o| medicos : &quot;&quot;
+    medicos }o--o{ especialidades : &quot;medico_especialidades&quot;
 
     users {
         uuid id PK
         string email UK
         string passwordHash
         string name
-        enum tipo &quot;PACIENTE | MEDICO&quot;
+        enum tipo &quot;PACIENTE | MEDICO | ADMIN&quot;
         timestamp createdAt
         timestamp updatedAt
     }
@@ -4863,7 +5076,14 @@
     medicos {
         uuid userId PK, FK
         string crm UK
-        string especialidade
+        string especialidade_legado &quot;dívida técnica&quot;
+    }
+
+    especialidades {
+        uuid id PK
+        string nome
+        string slug UK
+        bool ativa
     }
 </code></pre>
 

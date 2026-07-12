@@ -6,6 +6,8 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
+        <meta name="description" content="Plataforma SaaS de arquivos médicos para clínicas e profissionais de saúde, com vínculo médico-paciente controlado e auditoria.">
+      
       
       
       
@@ -286,15 +288,8 @@
   
     
     
-      
-  
-  
-  
-  
-    
-    
       <li class="md-tabs__item">
-        <a href="../../../desenvolvimento/infra/cloud_sql/" class="md-tabs__link">
+        <a href="../../../desenvolvimento/setup/" class="md-tabs__link">
           
   
   
@@ -304,9 +299,6 @@
 
         </a>
       </li>
-    
-  
-
     
   
 
@@ -658,6 +650,39 @@
     <span class="md-ellipsis">
       
         TypeORM
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#multer-upload" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Multer (upload)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#swagger" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Swagger
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#auditoria" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Auditoria
       
     </span>
   </a>
@@ -1134,6 +1159,8 @@
       
         
       
+        
+      
     
     
     
@@ -1183,8 +1210,38 @@
   
   
   
+    <li class="md-nav__item">
+      <a href="../../../desenvolvimento/setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Setup Inicial
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
     
     
+      
+        
       
         
       
@@ -1205,17 +1262,17 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_1" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" >
         
           
-          <label class="md-nav__link" for="__nav_4_1" id="__nav_4_1_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
             
   
   
   <span class="md-ellipsis">
     
   
-    Infraestrutura
+    Padrões
   
 
     
@@ -1226,12 +1283,12 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_1_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_4_1">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2">
             <span class="md-nav__icon md-icon"></span>
             
   
-    Infraestrutura
+    Padrões
   
 
           </label>
@@ -1244,14 +1301,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../desenvolvimento/infra/cloud_sql/" class="md-nav__link">
+      <a href="../../../desenvolvimento/padroes/git/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Cloud SQL
+    Git e Branches
   
 
     
@@ -1272,14 +1329,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../desenvolvimento/infra/contas_de_servico/" class="md-nav__link">
+      <a href="../../../desenvolvimento/padroes/codigo/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Contas de Serviço
+    Padrões de Código
   
 
     
@@ -1300,14 +1357,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../desenvolvimento/infra/gcs/" class="md-nav__link">
+      <a href="../../../desenvolvimento/padroes/review/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Google Cloud Storage
+    Code Review
   
 
     
@@ -1328,14 +1385,175 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../desenvolvimento/infra/secrets/" class="md-nav__link">
+      <a href="../../../desenvolvimento/padroes/template_PR/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Secret Manager
+    Template de Pull Request
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../desenvolvimento/padroes/templates_issues/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Templates de Issue
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../desenvolvimento/adr/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ADRs
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4_3" id="__nav_4_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    ADRs
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../desenvolvimento/adr/template/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Template
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../desenvolvimento/adr/0001-migrations-via-cloud-run-job/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ADR-0001 Migrations via Cloud Run Job
   
 
     
@@ -1387,7 +1605,7 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4" >
         
           
           <div class="md-nav__link md-nav__container">
@@ -1409,14 +1627,14 @@
             </a>
             
               
-              <label class="md-nav__link " for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+              <label class="md-nav__link " for="__nav_4_4" id="__nav_4_4_label" tabindex="0">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_4_2">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_4">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -1530,7 +1748,7 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2_4" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4_4" >
         
           
           <div class="md-nav__link md-nav__container">
@@ -1552,14 +1770,14 @@
             </a>
             
               
-              <label class="md-nav__link " for="__nav_4_2_4" id="__nav_4_2_4_label" tabindex="0">
+              <label class="md-nav__link " for="__nav_4_4_4" id="__nav_4_4_4_label" tabindex="0">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_2_4_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_4_2_4">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_4_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_4_4">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -1923,17 +2141,17 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_5" >
         
           
-          <label class="md-nav__link" for="__nav_4_3" id="__nav_4_3_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_4_5" id="__nav_4_5_label" tabindex="0">
             
   
   
   <span class="md-ellipsis">
     
   
-    Padrões
+    Infraestrutura
   
 
     
@@ -1944,12 +2162,12 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_4_3">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_5">
             <span class="md-nav__icon md-icon"></span>
             
   
-    Padrões
+    Infraestrutura
   
 
           </label>
@@ -1962,14 +2180,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../desenvolvimento/padroes/codigo/" class="md-nav__link">
+      <a href="../../../desenvolvimento/infra/cloud_sql/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Padrões de Código
+    Cloud SQL
   
 
     
@@ -1990,14 +2208,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../desenvolvimento/padroes/git/" class="md-nav__link">
+      <a href="../../../desenvolvimento/infra/contas_de_servico/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Commits e Branches
+    Contas de Serviço
   
 
     
@@ -2018,14 +2236,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../desenvolvimento/padroes/review/" class="md-nav__link">
+      <a href="../../../desenvolvimento/infra/gcs/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Fluxo de Code Review
+    Google Cloud Storage
   
 
     
@@ -2046,14 +2264,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../desenvolvimento/padroes/template_PR/" class="md-nav__link">
+      <a href="../../../desenvolvimento/infra/secrets/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Template do Pull Request
+    Secret Manager
   
 
     
@@ -2070,34 +2288,6 @@
           </ul>
         </nav>
       
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../../desenvolvimento/setup/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Setup Inicial
-  
-
-    
-  </span>
-  
-  
-
-      </a>
     </li>
   
 
@@ -2137,7 +2327,7 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_5" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_6" >
         
           
           <div class="md-nav__link md-nav__container">
@@ -2159,14 +2349,14 @@
             </a>
             
               
-              <label class="md-nav__link " for="__nav_4_5" id="__nav_4_5_label" tabindex="0">
+              <label class="md-nav__link " for="__nav_4_6" id="__nav_4_6_label" tabindex="0">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_5_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_4_5">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_6">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -2754,7 +2944,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../gestao/atas_reuniao/%202026-05-25/" class="md-nav__link">
+      <a href="../../../gestao/atas_reuniao/2026-05-25/" class="md-nav__link">
         
   
   
@@ -2850,6 +3040,8 @@
       
         
           
+        
+      
         
       
         
@@ -3131,6 +3323,34 @@
     
   
     Semana 13
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../gestao/entregas/entrega_semanal/semana-14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Semana 14
   
 
     
@@ -4613,6 +4833,39 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#multer-upload" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Multer (upload)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#swagger" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Swagger
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#auditoria" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Auditoria
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#referencias" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -4673,71 +4926,92 @@
 
 <h1 id="backend">Backend</h1>
 <h2 id="nestjs-typescript">NestJS + TypeScript</h2>
-<p><strong>O que é:</strong>
-NestJS é um framework para construção de APIs em Node.js, inspirado na arquitetura do Angular. Ele organiza o código em <strong>módulos</strong>, <strong>controllers</strong> e <strong>services</strong>, forçando uma separação clara de responsabilidades.</p>
-<p><strong>Como funciona:</strong></p>
+<p><strong>O que é</strong></p>
+<p>NestJS é um framework para construção de APIs em Node.js, inspirado na arquitetura do Angular. Organiza o código em <strong>módulos</strong>, <strong>controllers</strong> e <strong>services</strong>, forçando uma separação clara de responsabilidades.</p>
+<p><strong>Como funciona</strong></p>
 <ul>
-<li><strong>Module:</strong> declara o que existe em um domínio (ex: <code>UsersModule</code> registra o controller e o service de usuários)</li>
-<li><strong>Controller:</strong> recebe as requisições HTTP e delega para o service. Não contém regras de negócio</li>
-<li><strong>Service:</strong> contém toda a lógica de negócio (validações, transformações, persistência)</li>
-<li><strong>DTO + ValidationPipe:</strong> valida automaticamente os dados que chegam na requisição antes de chegarem ao controller</li>
+<li><strong>Module</strong>: declara o que existe em um domínio (ex.: <code>UsersModule</code> registra o controller e o service de usuários).</li>
+<li><strong>Controller</strong>: recebe requisições HTTP e delega ao service. Sem regra de negócio.</li>
+<li><strong>Service</strong>: concentra toda a lógica (validações, transformações, persistência).</li>
+<li><strong>DTO + ValidationPipe</strong>: valida cada campo com <code>class-validator</code> antes de chegar ao controller. O pipe global usa <code>whitelist: true</code> e <code>forbidNonWhitelisted: true</code>, portanto campo extra vira <code>400 Bad Request</code>.</li>
 </ul>
 <pre><code>Requisição HTTP
-    1. Controller (recebe, delega)
-    2. Service (processa, persiste)
-    3. Resposta
+    1. ValidationPipe (DTO)
+    2. Guards (JwtAuthGuard, RolesGuard)
+    3. AuditInterceptor (leitura do @Audit)
+    4. Controller
+    5. Service
+    6. TypeORM Repository
+    7. Response
 </code></pre>
-<p><strong>Por que foi escolhido:</strong></p>
+<p><strong>Por que foi escolhido</strong></p>
 <ul>
-<li>Arquitetura requisitada, o documento de padrão do projeto definiu esse fluxo, as tecnologias foram escolhidas de acordo.</li>
-<li>Suporte nativo a TypeScript</li>
-<li>Integração fácil com TypeORM, JWT, class-validator</li>
-<li>Muito usado em projetos corporativos brasileiros e internacionais</li>
-<li>Documentação de alta qualidade</li>
+<li>Arquitetura solicitada no plano do projeto.</li>
+<li>Suporte nativo a TypeScript.</li>
+<li>Integração fácil com TypeORM, JWT, class-validator, Swagger.</li>
+<li>Muito usado em projetos corporativos brasileiros e internacionais.</li>
 </ul>
 <hr />
 <h2 id="typeorm">TypeORM</h2>
-<p><strong>O que é:</strong>
-TypeORM é um ORM (Object-Relational Mapper) para TypeScript. Ele permite trabalhar com o banco de dados usando classes TypeScript (chamadas de <strong>entities</strong> ou <strong>models</strong> em outras arquiteturas) em vez de escrever SQL diretamente.</p>
-<p><strong>Como funciona:</strong></p>
-<p>Você define uma entity com decorators:</p>
-<pre><code class="language-typescript">@Entity(&quot;users&quot;)
+<p><strong>O que é</strong></p>
+<p>ORM para TypeScript. Permite trabalhar com o banco usando classes TypeScript (entities) em vez de escrever SQL manualmente. Suporta migrations versionadas.</p>
+<p><strong>Como funciona</strong></p>
+<pre><code class="language-typescript">@Entity('users')
 export class User {
-  @PrimaryGeneratedColumn(&quot;uuid&quot;)
-  id: string;
+  @PrimaryGeneratedColumn('uuid')
+  id!: string;
 
   @Column({ unique: true })
-  email: string;
+  email!: string;
 }
 </code></pre>
-<p>E o TypeORM traduz isso para SQL:</p>
-<pre><code class="language-sql">CREATE TABLE users (
-  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-  email VARCHAR UNIQUE NOT NULL
-);
+<p><code>synchronize</code> está <strong>desligado</strong> em todos os ambientes. Qualquer alteração em entidade exige migration. Comandos em <code>backend/package.json</code>:</p>
+<pre><code class="language-bash">npm run migration:generate -- src/migrations/NomeDescritivo
+npm run migration:create -- src/migrations/NomeVazio
+npm run migration:run
+npm run migration:revert
 </code></pre>
-<p>O modo <code>synchronize: true</code> (usado apenas em desenvolvimento) cria e atualiza as tabelas automaticamente. Em produção, usa-se <strong>migrations</strong>, arquivos versionados que descrevem mudanças no banco de forma controlada.</p>
-<p><strong>Por que foi escolhido:</strong></p>
+<p>Em desenvolvimento, o backend aplica migrations pendentes no boot (<code>migrationsRun</code> fora de produção). Em produção, quem aplica é o Cloud Run Job <code>healthtech-migrations</code>, conforme o <a href="../../../desenvolvimento/adr/0001-migrations-via-cloud-run-job/">ADR-0001</a>.</p>
+<hr />
+<h2 id="multer-upload">Multer (upload)</h2>
+<p>Multer é integrado ao Nest via <code>@nestjs/platform-express</code> e usado para receber uploads multipart. No <code>POST /arquivos/upload</code> combinamos <code>FileInterceptor('arquivo')</code> com <code>ParseFilePipe</code>:</p>
+<pre><code class="language-typescript">new ParseFilePipe({
+  validators: [
+    new MaxFileSizeValidator({ maxSize: 10 * 1024 * 1024 }),
+    new FileTypeValidator({
+      fileType: /^(application\/pdf|image\/(jpeg|png))$/,
+      fallbackToMimetype: true,
+    }),
+  ],
+  errorHttpStatusCode: HttpStatus.UNPROCESSABLE_ENTITY,
+});
+</code></pre>
+<p>Limite de 10 MB e apenas PDF, JPEG e PNG.</p>
+<hr />
+<h2 id="swagger">Swagger</h2>
+<p>Documentação interativa habilitada em ambientes que não sejam <code>production</code>. Configurada em <code>main.ts</code> via <code>@nestjs/swagger</code> com Bearer Auth persistido:</p>
 <ul>
-<li>Integração nativa com NestJS</li>
-<li>Suporte excelente a TypeScript</li>
-<li>Compatível com PostgreSQL, MySQL, SQLite e outros</li>
-<li>Abstrai diferenças entre banco local (Docker) e produção (Cloud SQL) sem mudanças no código</li>
+<li>URL: <code>http://localhost:3001/docs</code></li>
+<li>Decorators nos controllers: <code>@ApiTags</code>, <code>@ApiOperation</code>, <code>@ApiBody</code>, <code>@ApiResponse</code>, <code>@ApiBearerAuth('access-token')</code>, <code>@ApiForbiddenResponse</code>, <code>@ApiUnauthorizedResponse</code>.</li>
 </ul>
+<hr />
+<h2 id="auditoria">Auditoria</h2>
+<p><code>AuditInterceptor</code> global + decorator <code>@Audit({ evento, extractRecursoId? })</code>. Persiste em <code>audit_logs</code> (tabela quente) e loga via <code>Logger</code> do Nest. Consulta ADMIN em <code>GET /audit/logs</code> com filtros e paginação (padrão <code>limit=50</code>, cap silencioso em <code>200</code>).</p>
 <hr />
 <h2 id="referencias">Referências</h2>
 <h3 id="nestjs">NestJS</h3>
 <ul>
-<li><a href="https://docs.nestjs.com/">Documentação oficial - NestJS</a></li>
-<li><a href="https://docs.nestjs.com/controllers">Controllers - NestJS</a></li>
-<li><a href="https://docs.nestjs.com/providers">Providers/Services - NestJS</a></li>
-<li><a href="https://docs.nestjs.com/techniques/validation">Validation - NestJS</a></li>
+<li><a href="https://docs.nestjs.com/">Documentação oficial</a></li>
+<li><a href="https://docs.nestjs.com/controllers">Controllers</a></li>
+<li><a href="https://docs.nestjs.com/providers">Providers e Services</a></li>
+<li><a href="https://docs.nestjs.com/techniques/validation">Validation</a></li>
+<li><a href="https://docs.nestjs.com/openapi/introduction">OpenAPI (Swagger)</a></li>
 </ul>
 <h3 id="typeorm_1">TypeORM</h3>
 <ul>
-<li><a href="https://typeorm.io/">Documentação oficial - TypeORM</a></li>
-<li><a href="https://typeorm.io/entities">Entities - TypeORM</a></li>
-<li><a href="https://typeorm.io/migrations">Migrations - TypeORM</a></li>
+<li><a href="https://typeorm.io/">Documentação oficial</a></li>
+<li><a href="https://typeorm.io/entities">Entities</a></li>
+<li><a href="https://typeorm.io/migrations">Migrations</a></li>
 </ul>
 
 
