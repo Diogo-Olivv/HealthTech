@@ -1,5 +1,7 @@
 site_name: HealthTech
+site_description: Plataforma SaaS de arquivos médicos para clínicas e profissionais de saúde, com vínculo médico-paciente controlado e auditoria.
 repo_url: https://github.com/Diogo-Olivv/HealthTech.git
+edit_uri: edit/docs/docs/
 
 theme:
   name: material
