@@ -27,7 +27,7 @@
     "seed:admin": "ts-node -r tsconfig-paths/register src/users/seeds/admin.seed.ts"
   },
   "dependencies": {
-    "@google-cloud/storage": "^7.19.0",
+    "@google-cloud/storage": "^7.21.0",
     "@nestjs/common": "^11.0.1",
     "@nestjs/config": "^4.0.4",
     "@nestjs/core": "^11.0.1",
