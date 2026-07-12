@@ -35,7 +35,11 @@ export class MedicoPacienteController {
     extractRecursoId: (_res, req) => req.body.pacienteId,
   })
   vincular(@Req() req: AuthRequest, @Body() dto: MedicoPacienteDto) {
-    return this.medicoPacienteService.vincular(req.user.id, dto.pacienteId);
+    return this.medicoPacienteService.solicitarVinculo(
+      req.user.id,
+      dto.pacienteId,
+      req,
+    );
   }
 
   @Delete('desvincular')
@@ -72,7 +76,9 @@ export class MedicoPacienteController {
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(UserType.MEDICO)
   solicitacoesEnviadas(@Req() req: AuthRequest) {
-    return this.medicoPacienteService.solicitacoesEnviadasPorMedico(req.user.id);
+    return this.medicoPacienteService.solicitacoesEnviadasPorMedico(
+      req.user.id,
+    );
   }
 
   @Get('meus-medicos')
