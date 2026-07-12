@@ -6,7 +6,7 @@ substitutions:
   _BACKEND_SERVICE: "healthtech-backend"
   _FRONTEND_SERVICE: "healthtech-frontend-us"
   _CR_SA: "healthtech-cloudrun@health-tech-ai-lab.iam.gserviceaccount.com"
-  _BACKEND_URL: "https://healthtech-backend-515815792390.southamerica-east1.run.app"
+  _BACKEND_URL: "https://healthtech-backend-fc4ag5x3oq-rj.a.run.app"
   _CLOUDSQL_CONNECTION: "health-tech-ai-lab:southamerica-east1:health-tech-db"
   _MIGRATIONS_JOB: "healthtech-migrations"
   _NODE_IMAGE: "node:22-alpine"
