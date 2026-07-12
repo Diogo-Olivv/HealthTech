@@ -1,20 +1,21 @@
 # HealthTech
 
-Plataforma SaaS para clínicas e profissionais de saúde independentes, onde médicos fazem upload de documentos e exames, e pacientes acessam seus arquivos com segurança através de vínculos médico-paciente controlados.
+Plataforma SaaS para clínicas e profissionais de saúde independentes. Médicos fazem upload de documentos e exames, e pacientes acessam seus arquivos com segurança por meio de vínculos médico-paciente controlados e auditáveis.
 
-**Contexto:** Projeto de extensão da UnB (FCTE), ministrado pelo Prof. Nilton. Ciclo 2 com duração de 8 semanas (Semanas 7–14). Leia o documento completo da [Fase 2](assets/Fase2.pdf) antes de iniciar.
+**Contexto:** projeto de extensão da UnB (FCTE), ministrado pelo Prof. Nilton e pelo Prof. Fabrício, no laboratório AILAB Makers. Ciclo 2 com duração de 8 semanas (Semanas 7 a 14). Leia o documento completo da [Fase 2](assets/Fase2.pdf) antes de iniciar.
 
 ---
 
 ## Stack
 
-| Área            | Tecnologias                                                  |
-| --------------- | ------------------------------------------------------------ |
-| Frontend        | Next.js 16, TypeScript, CSS Modules                          |
-| Backend         | NestJS 11, TypeScript, TypeORM, JWT + bcrypt                 |
-| Banco de Dados  | PostgreSQL 16 · Docker (dev) · Cloud SQL (prod)              |
-| Infraestrutura  | Google Cloud Run, Cloud Storage, Secret Manager              |
-| Testes          | Jest, Supertest, React Testing Library, Playwright           |
+| Área            | Tecnologias                                                                     |
+| --------------- | ------------------------------------------------------------------------------- |
+| Frontend        | Next.js 16, React 19, TypeScript, CSS Modules, Tailwind CSS 4, SweetAlert2      |
+| Backend         | NestJS 11, TypeScript, TypeORM, JWT, bcrypt, Multer, Swagger                    |
+| Banco de Dados  | PostgreSQL 16 (Docker no ambiente local, Cloud SQL em produção)                 |
+| Infraestrutura  | Google Cloud Run, Cloud Storage, Cloud SQL, Secret Manager, Cloud Build         |
+| Qualidade       | Husky + lint-staged, ESLint, Prettier, Dependabot, CodeQL                       |
+| Testes          | Jest, Supertest, @nestjs/testing, React Testing Library                         |
 
 ---
 
@@ -25,13 +26,17 @@ Plataforma SaaS para clínicas e profissionais de saúde independentes, onde mé
     <strong>Projeto</strong>
     <span>Identidade visual, tecnologias e modelagem</span>
   </a>
-  <a class="nav-card" href="desenvolvimento/arquitetura/">
+  <a class="nav-card" href="arquitetura/">
+    <strong>Arquitetura</strong>
+    <span>Backend, frontend, banco de dados e infraestrutura</span>
+  </a>
+  <a class="nav-card" href="desenvolvimento/setup/">
     <strong>Desenvolvimento</strong>
-    <span>Arquitetura, infra, padrões e roadmap</span>
+    <span>Setup, padrões de trabalho e ADRs</span>
   </a>
   <a class="nav-card" href="gestao/cronograma/">
     <strong>Gestão</strong>
-    <span>Cronograma, atas de reunião e entregas</span>
+    <span>Cronograma, atas de reunião e entregas semanais</span>
   </a>
 </div>
 
@@ -39,7 +44,7 @@ Plataforma SaaS para clínicas e profissionais de saúde independentes, onde mé
 
 ## Equipe
 
-6 integrantes sem papel fixo. A cada semana, cada pessoa escolhe as issues que vai desenvolver e registra suas contribuições via commits e PRs vinculados à issue correspondente.
+Seis integrantes sem papel fixo. A cada semana, cada pessoa escolhe as issues que vai desenvolver e registra suas contribuições via commits e PRs vinculados à issue correspondente.
 
 <div class="team-grid">
   <a class="team-member" href="https://github.com/Diogo-Olivv" target="_blank" rel="noopener">
@@ -74,24 +79,26 @@ Plataforma SaaS para clínicas e profissionais de saúde independentes, onde mé
 
 ## Timeline
 
-| Semana    | Fase                | Entregáveis principais                                        |
-| --------- | ------------------- | ------------------------------------------------------------- |
-| **7**     | Arquitetura & Setup | Diagrama de arquitetura, ADRs, Docker funcional, CI/CD básico |
-| **8–12**  | Desenvolvimento     | Features iterativas: auth, upload, GCS, isolamento e logs     |
-| **13–14** | Deploy & Demo       | URL pública no Cloud Run e apresentação final                 |
+| Semana    | Fase                | Entregáveis principais                                                          |
+| --------- | ------------------- | ------------------------------------------------------------------------------- |
+| **7**     | Arquitetura e Setup | Diagrama de arquitetura, ADRs iniciais, Docker funcional, CI/CD básico          |
+| **8 a 12**| Desenvolvimento     | Features iterativas: auth, upload, GCS, isolamento por usuário e auditoria      |
+| **13 e 14**| Deploy e Demo      | URL pública no Cloud Run, painel de admin, apresentação final                   |
 
-> Detalhamento semana a semana em [Cronograma](gestao/cronograma.md)
+> Detalhamento semana a semana em [Cronograma](gestao/cronograma.md).
 
 ---
 
 ## Padrões de Trabalho
 
-| Área             | Documento                                                           |
-| ---------------- | ------------------------------------------------------------------- |
-| Git e branches   | [Commits e Branches](desenvolvimento/padroes/git.md)               |
-| Padrão de código | [Padrões de Código](desenvolvimento/padroes/codigo.md)             |
-| Code review      | [Fluxo de Code Review](desenvolvimento/padroes/review.md)          |
-| Template de PR   | [Template do Pull Request](desenvolvimento/padroes/template_PR.md) |
+| Área             | Documento                                                                     |
+| ---------------- | ----------------------------------------------------------------------------- |
+| Git e branches   | [Commits e Branches](desenvolvimento/padroes/git.md)                          |
+| Padrão de código | [Padrões de Código](desenvolvimento/padroes/codigo.md)                        |
+| Code review      | [Fluxo de Code Review](desenvolvimento/padroes/review.md)                     |
+| Template de PR   | [Template do Pull Request](desenvolvimento/padroes/template_PR.md)            |
+| Templates de issue | [Templates de Issue](desenvolvimento/padroes/templates_issues.md)           |
+| Decisões técnicas | [Índice de ADRs](desenvolvimento/adr/index.md)                               |
 
 ---
 
