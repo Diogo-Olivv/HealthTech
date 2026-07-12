@@ -83,6 +83,34 @@ e-mail informado, nada é alterado.
 `ADMIN_SEED_ALLOW_PROD=true` for definida explicitamente, o que deve ser
 tratado como uma ação deliberada e aprovada, não automática.
 
+## Consulta de logs de auditoria (admin)
+
+`GET /audit/logs` retorna a lista paginada de eventos auditados. Rota
+restrita a usuários com `tipo: ADMIN` (protegida por `JwtAuthGuard` +
+`RolesGuard`). Um médico ou paciente autenticado recebe `403`.
+
+Query params suportados (todos opcionais):
+
+| Param        | Tipo          | Observação                                     |
+|--------------|---------------|------------------------------------------------|
+| `userId`     | UUID          | Filtra logs de um usuário específico           |
+| `tipoEvento` | enum          | Um de `TipoEventoAuditoria` (`LOGIN`, ...)     |
+| `dataInicio` | ISO 8601      | Limite inferior de `timestamp` (inclusivo)     |
+| `dataFim`    | ISO 8601      | Limite superior; precisa ser ≥ `dataInicio`    |
+| `page`       | inteiro ≥ 1   | Padrão `1`                                     |
+| `limit`      | inteiro ≥ 1   | Padrão `50`, truncado silenciosamente em `200` |
+
+Resposta: `{ items, total, page, limit }`, ordenada por `timestamp DESC`. A
+própria rota **não** é auditada, por decisão da issue #57, para evitar
+ruído.
+
+Exemplo:
+
+```bash
+curl -H "Authorization: Bearer $ADMIN_TOKEN" \
+  "http://localhost:3001/audit/logs?tipoEvento=LOGIN&page=1&limit=50"
+```
+
 ## Deployment
 
 When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
