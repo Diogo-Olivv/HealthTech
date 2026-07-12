@@ -1,47 +1,23 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { getArquivos } from "@/services/arquivos.service";
-import type { ArquivoDto } from "@/dto/arquivo.dto";
 import LoadingState from "@/components/arquivos/LoadingState";
 import ErrorState from "@/components/arquivos/ErrorState";
 import EmptyState from "@/components/arquivos/EmptyState";
 import FilesTable from "@/components/arquivos/FilesTable";
 import styles from "@/components/arquivos/ArquivosPage.module.css";
 import Button from "@/components/ui/Button";
-import type { UiStatus } from "@/types/ui-status";
-import { mensagemDeErro } from "@/utils/mensagem-de-erro";
 import UploadCloudIcon from "@/components/icons/UploadCloudIcon";
 import { useAuth } from "@/contexts/AuthContext";
-
+import { useArquivos } from "@/hooks/arquivos/useArquivos";
 
 export default function ArquivosMedicoPage() {
-    const [arquivos, setArquivos] = useState<ArquivoDto[]>([]);
-    const [status, setStatus] = useState<UiStatus>("loading");
-    const [errorMsg, setErrorMsg] = useState("");
     const router = useRouter();
     const { user } = useAuth();
-
-    const carregar = useCallback(async () => {
-        setStatus("loading");
-        try {
-            const dados = await getArquivos();
-            setArquivos(dados);
-            setStatus(dados.length === 0 ? "empty" : "success");
-        } catch (err) {
-            setErrorMsg(mensagemDeErro(err, "Erro ao carregar os arquivos."));
-            setStatus("error");
-        }
-    }, []);
-
-    useEffect(() => {
-        carregar();
-    }, [carregar]);
+    const { data: arquivos, status, error, refetch } = useArquivos();
 
     if (status === "loading") return <LoadingState />;
-    if (status === "error")
-        return <ErrorState msg={errorMsg} onRetry={carregar} />;
+    if (status === "error") return <ErrorState msg={error} onRetry={refetch} />;
 
     return (
         <main>
@@ -71,10 +47,10 @@ export default function ArquivosMedicoPage() {
                 ) : (
                     <div className={`${styles.card} ${styles.fadeIn}`} style={{ marginTop: "2rem" }}>
                         <FilesTable
-                            arquivos={arquivos}
+                            arquivos={arquivos ?? []}
                             viewerRole="medico"
                             medicoLogadoId={user?.id}
-                            onMutation={carregar}
+                            onMutation={refetch}
                         />
                     </div>
                 )}

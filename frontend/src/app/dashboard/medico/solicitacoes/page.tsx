@@ -1,8 +1,5 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
-import { getSentRequests } from "@/services/users.service";
-import type { SolicitacaoEnviadaDto } from "@/dto/solicitacao-vinculo.dto";
 import LoadingState from "@/components/arquivos/LoadingState";
 import ErrorState from "@/components/arquivos/ErrorState";
 import EmptyState from "@/components/arquivos/EmptyState";
@@ -10,35 +7,14 @@ import UserIcon from "@/components/icons/UserIcon";
 import pageStyles from "@/components/arquivos/ArquivosPage.module.css";
 import styles from "./solicitacoes.module.css";
 import { formatDate } from "@/utils/date";
-import { mensagemDeErro } from "@/utils/mensagem-de-erro";
-import type { UiStatus } from "@/types/ui-status";
+import { useSolicitacoesEnviadas } from "@/hooks/solicitacoes/useSolicitacoesEnviadas";
 
 export default function SolicitacoesEnviadasPage() {
-    const [solicitacoes, setSolicitacoes] = useState<SolicitacaoEnviadaDto[]>([]);
-    const [status, setStatus] = useState<UiStatus>("loading");
-    const [errorMsg, setErrorMsg] = useState("");
-
-    const carregar = useCallback(async () => {
-        setStatus("loading");
-        try {
-            const dados = await getSentRequests();
-            setSolicitacoes(dados);
-            setStatus(dados.length === 0 ? "empty" : "success");
-        } catch (err) {
-            setErrorMsg(
-                mensagemDeErro(err, "Erro ao carregar suas solicitações."),
-            );
-            setStatus("error");
-        }
-    }, []);
-
-    useEffect(() => {
-        carregar();
-    }, [carregar]);
+    const { data: solicitacoes, status, error, refetch } = useSolicitacoesEnviadas();
 
     if (status === "loading") return <LoadingState />;
     if (status === "error")
-        return <ErrorState msg={errorMsg} onRetry={carregar} />;
+        return <ErrorState msg={error} onRetry={refetch} />;
 
     const header = (
         <div className={pageStyles.header}>
@@ -72,7 +48,7 @@ export default function SolicitacoesEnviadasPage() {
                 {header}
 
                 <ul className={styles.list} aria-label="Solicitações enviadas">
-                    {solicitacoes.map((s) => (
+                    {(solicitacoes ?? []).map((s) => (
                         <li
                             key={`${s.pacienteId}-${s.status}`}
                             className={styles.item}
