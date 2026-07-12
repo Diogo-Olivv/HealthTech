@@ -19,7 +19,7 @@ responsável até a sexta-feira da semana correspondente.
 | [Semana 11](semana-11.md) | 16/06 - 22/06 | Desenvolvimento     | Concluída    |
 | [Semana 12](semana-12.md) | 23/06 - 29/06 | Desenvolvimento     | Concluída    |
 | [Semana 13](semana-13.md) | 30/06 - 06/07 | Deploy & Demo       | Concluída    |
-| Semana 14                 | 07/07 - 13/07 | Deploy & Demo       | Pendente     |
+| [Semana 14](semana-14.md) | 07/07 - 13/07 | Deploy & Demo       | Em andamento |
 
 > Adicione um novo arquivo para cada semana copiando o
 > [template](entrega_template.md) e nomeando como `semana-NN.md`.
