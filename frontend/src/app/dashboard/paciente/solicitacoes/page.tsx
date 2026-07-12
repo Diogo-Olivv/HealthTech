@@ -1,12 +1,7 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
-import {
-    approveRequest,
-    getPendingRequests,
-    rejectRequest,
-} from "@/services/users.service";
-import type { SolicitacaoVinculoDto } from "@/dto/solicitacao-vinculo.dto";
+import { useState } from "react";
+import { approveRequest, rejectRequest } from "@/services/users.service";
 import LoadingState from "@/components/arquivos/LoadingState";
 import ErrorState from "@/components/arquivos/ErrorState";
 import EmptyState from "@/components/arquivos/EmptyState";
@@ -14,37 +9,13 @@ import UserIcon from "@/components/icons/UserIcon";
 import pageStyles from "@/components/arquivos/ArquivosPage.module.css";
 import styles from "./solicitacoes.module.css";
 import { mensagemDeErro } from "@/utils/mensagem-de-erro";
-import {
-    confirmAlert,
-    errorAlert,
-    successAlert,
-} from "@/utils/alerts";
+import { confirmAlert, errorAlert, successAlert } from "@/utils/alerts";
 import { formatDate } from "@/utils/date";
-import type { UiStatus } from "@/types/ui-status";
+import { usePendingRequests } from "@/hooks/solicitacoes/usePendingRequests";
 
 export default function SolicitacoesPacientePage() {
-    const [solicitacoes, setSolicitacoes] = useState<SolicitacaoVinculoDto[]>([]);
-    const [status, setStatus] = useState<UiStatus>("loading");
-    const [errorMsg, setErrorMsg] = useState("");
+    const { data: solicitacoes, status, error, refetch } = usePendingRequests();
     const [processando, setProcessando] = useState<string | null>(null);
-
-    const carregar = useCallback(async () => {
-        setStatus("loading");
-        try {
-            const dados = await getPendingRequests();
-            setSolicitacoes(dados);
-            setStatus(dados.length === 0 ? "empty" : "success");
-        } catch (err) {
-            setErrorMsg(
-                mensagemDeErro(err, "Erro ao carregar suas solicitações."),
-            );
-            setStatus("error");
-        }
-    }, []);
-
-    useEffect(() => {
-        carregar();
-    }, [carregar]);
 
     const handleAprovar = async (medicoId: string, medicoNome: string) => {
         const confirmado = await confirmAlert({
@@ -63,7 +34,7 @@ export default function SolicitacoesPacientePage() {
                 "Solicitação aprovada",
                 `${medicoNome} agora tem acesso aos seus exames.`,
             );
-            carregar();
+            refetch();
         } catch (err) {
             errorAlert(
                 "Não foi possível aprovar",
@@ -88,7 +59,7 @@ export default function SolicitacoesPacientePage() {
         try {
             await rejectRequest(medicoId);
             await successAlert("Solicitação rejeitada");
-            carregar();
+            refetch();
         } catch (err) {
             errorAlert(
                 "Não foi possível rejeitar",
@@ -100,8 +71,7 @@ export default function SolicitacoesPacientePage() {
     };
 
     if (status === "loading") return <LoadingState />;
-    if (status === "error")
-        return <ErrorState msg={errorMsg} onRetry={carregar} />;
+    if (status === "error") return <ErrorState msg={error} onRetry={refetch} />;
 
     const header = (
         <div className={pageStyles.header}>
@@ -135,7 +105,7 @@ export default function SolicitacoesPacientePage() {
                 {header}
 
                 <div className={styles.list}>
-                    {solicitacoes.map((s) => (
+                    {(solicitacoes ?? []).map((s) => (
                         <div key={s.medicoId} className={styles.card}>
                             <div className={styles.cardHeader}>
                                 <h2 className={styles.medicoNome}>{s.medicoNome}</h2>

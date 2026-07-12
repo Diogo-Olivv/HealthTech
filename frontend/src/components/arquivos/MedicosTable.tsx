@@ -1,4 +1,5 @@
 import styles from "./PatientsTable.module.css";
+import btnStyles from "./MedicosTable.module.css";
 import { formatDate } from "@/utils/date";
 import { useState, useMemo } from "react";
 import type { MedicosTableProps } from "@/types/tables";
@@ -118,12 +119,21 @@ export default function MedicosTable({ medicos, onRevogar, revogandoId }: Medico
                                         <td>
                                             <button
                                                 type="button"
+                                                className={btnStyles.btnRevogar}
                                                 onClick={() => onRevogar(medico.medicoId, medico.nome)}
                                                 disabled={revogandoId === medico.medicoId}
                                                 aria-busy={revogandoId === medico.medicoId}
                                                 aria-label={`Revogar acesso de ${medico.nome}`}
                                             >
-                                                {revogandoId === medico.medicoId ? "Revogando..." : "Revogar acesso"}
+                                                {revogandoId === medico.medicoId && (
+                                                    <span
+                                                        className={btnStyles.spinner}
+                                                        aria-hidden="true"
+                                                    />
+                                                )}
+                                                {revogandoId === medico.medicoId
+                                                    ? "Revogando..."
+                                                    : "Revogar acesso"}
                                             </button>
                                         </td>
                                     )}

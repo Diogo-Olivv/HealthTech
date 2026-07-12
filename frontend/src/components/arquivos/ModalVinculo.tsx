@@ -6,6 +6,7 @@ import FeedbackMessage from "@/components/ui/FeedbackMessage";
 import CloseButton from "@/components/ui/CloseButton";
 import { mensagemDeErro } from "@/utils/mensagem-de-erro";
 import { errorAlert, successAlert } from "@/utils/alerts";
+import { formatDate } from "@/utils/date";
 import type { ModalVinculoProps } from "@/types/modal-vinculo";
 
 export function ModalVinculo({ isOpen, onClose, onSuccess }: ModalVinculoProps) {
@@ -52,11 +53,13 @@ export function ModalVinculo({ isOpen, onClose, onSuccess }: ModalVinculoProps) 
         return () => window.removeEventListener("keydown", handleKey);
     }, [isOpen, confirmando, onClose]);
 
-    const pacientesFiltrados = pacientes.filter(
-        (p) =>
-            p.nome?.toLowerCase().includes(busca.toLowerCase()) ||
-            p.cpf?.includes(busca),
-    );
+    const pacientesFiltrados = pacientes.filter((p) => {
+        const termo = busca.toLowerCase();
+        return (
+            p.nome?.toLowerCase().includes(termo) ||
+            p.email?.toLowerCase().includes(termo)
+        );
+    });
 
     const pacienteSelecionado = pacientes.find((p) => p.id === selecionado);
 
@@ -72,14 +75,15 @@ export function ModalVinculo({ isOpen, onClose, onSuccess }: ModalVinculoProps) 
         setConfirmando(true);
         try {
             await linkPatient(selecionado);
+            const nomePaciente = pacienteSelecionado?.nome ?? "O paciente";
             setConfirmando(false);
-            await successAlert(
-                "Solicitação enviada!",
-                `${pacienteSelecionado?.nome ?? "O paciente"} precisa aprovar a solicitação antes que você tenha acesso aos exames.`,
-                "Continuar",
-            );
             onSuccess();
             onClose();
+            await successAlert(
+                "Solicitação enviada!",
+                `${nomePaciente} precisa aprovar a solicitação antes que você tenha acesso aos exames.`,
+                "Continuar",
+            );
         } catch (error) {
             const msg = mensagemDeErro(error, "Erro ao solicitar vínculo.");
             setFeedback({ type: "error", msg });
@@ -124,12 +128,12 @@ export function ModalVinculo({ isOpen, onClose, onSuccess }: ModalVinculoProps) 
                     )}
 
                     <label htmlFor="modal-vinculo-busca" className="sr-only">
-                        Pesquisar por nome ou CPF
+                        Pesquisar por nome ou e-mail
                     </label>
                     <input
                         id="modal-vinculo-busca"
                         type="search"
-                        placeholder="Pesquisar por nome ou CPF..."
+                        placeholder="Pesquisar por nome ou e-mail..."
                         value={busca}
                         onChange={(e) => setBusca(e.target.value)}
                         className={styles.searchInput}
@@ -182,7 +186,9 @@ export function ModalVinculo({ isOpen, onClose, onSuccess }: ModalVinculoProps) 
                                             <div>
                                                 <strong className={styles.patientName}>{p.nome}</strong>
                                                 <br />
-                                                <small className={styles.patientCpf}>CPF: {p.cpf}</small>
+                                                <small className={styles.patientCpf}>
+                                                    Nascimento: {formatDate(p.dataNascimento)} · {p.email}
+                                                </small>
                                             </div>
                                         </div>
                                     );

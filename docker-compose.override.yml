@@ -27,6 +27,7 @@ services:
       - frontend_next_cache:/app/.next
     environment:
       NEXT_PUBLIC_API_URL: http://localhost:3001
+      API_INTERNAL_URL: http://backend:3001
       CHOKIDAR_USEPOLLING: "true"
       WATCHPACK_POLLING: "true"
 

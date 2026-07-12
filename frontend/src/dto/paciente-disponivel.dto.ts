@@ -1,6 +1,6 @@
 export interface PacienteDisponivelDto {
     id: string;
     nome: string;
-    cpf: string;
+    dataNascimento: string;
     email: string;
 }

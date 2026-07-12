@@ -1,0 +1,45 @@
+.btnRevogar {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    padding: 0.45rem 0.9rem;
+    min-height: 36px;
+    background: transparent;
+    color: var(--color-error-600, #dc2626);
+    border: 1px solid var(--color-error-200, #fecaca);
+    border-radius: var(--radius-md, 8px);
+    font-weight: 600;
+    font-size: var(--text-sm, 0.875rem);
+    cursor: pointer;
+    transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+.btnRevogar:hover:not(:disabled) {
+    background: var(--color-error-600, #dc2626);
+    border-color: var(--color-error-600, #dc2626);
+    color: #fff;
+}
+
+.btnRevogar:focus-visible {
+    outline: 2px solid var(--color-error-600, #dc2626);
+    outline-offset: 2px;
+}
+
+.btnRevogar:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.spinner {
+    width: 0.85rem;
+    height: 0.85rem;
+    border: 2px solid currentColor;
+    border-top-color: transparent;
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
