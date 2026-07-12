@@ -1,21 +1,21 @@
 # Cronograma
 
-Este documento detalha o planejamento, as etapas de desenvolvimento e as entregas para o **Ciclo 1** do Projeto Aplicado. O objetivo é a construção e implantação de uma aplicação web robusta na infraestrutura do Google Cloud.
+Este documento detalha o planejamento, as etapas de desenvolvimento e as entregas do **Ciclo 2** do Projeto Aplicado. O objetivo é construir e implantar uma aplicação web robusta na infraestrutura do Google Cloud, com foco em segurança, auditoria e disponibilidade.
 
-- Clique [aqui](../assets/ciclo_01.pdf) para acessar o PDF do Ciclo 1, incluindo o cronograma da Fase 2 do projeto aplicado.
+- Clique [aqui](../assets/ciclo_01.pdf) para acessar o PDF do Ciclo 1 e [aqui](../assets/Fase2.pdf) para o documento da Fase 2.
 
 ## 📅 Cronograma Semanal e Entregas
 
-| Semana | Foco                       | Entrega Esperada                                 |
-| ------ | -------------------------- | ------------------------------------------------ |
-| **7**  | Planejamento e Arquitetura | Documento de arquitetura e Roadmap técnico       |
-| **8**  | Estrutura Inicial          | Aplicação rodando localmente com estrutura base  |
-| **9**  | Autenticação e Acesso      | Usuário autenticado acessando rotas protegidas   |
-| **10** | Upload e Listagem          | Upload funcional e listagem filtrada por usuário |
-| **11** | Storage e Persistência     | Integração com GCS e banco de dados sincronizado |
-| **12** | Logging e Auditoria        | Sistema de logs persistido e consultável         |
-| **13** | Deploy (Google Cloud)      | URL pública funcional (Cloud Run/App Engine)     |
-| **14** | Demonstração Final         | Apresentação do projeto e da arquitetura         |
+| Semana  | Foco                          | Entrega Esperada                                                       |
+| ------- | ----------------------------- | ---------------------------------------------------------------------- |
+| **7**   | Planejamento e Arquitetura    | Documento de arquitetura, ADRs iniciais e roadmap técnico              |
+| **8**   | Estrutura Inicial             | Aplicação rodando localmente com estrutura base e Docker Compose       |
+| **9**   | Autenticação e Acesso         | Usuário autenticado acessando rotas protegidas (JWT + Guards)          |
+| **10**  | Upload e Listagem             | Upload funcional e listagem filtrada por usuário                       |
+| **11**  | Storage e Persistência        | Integração com Cloud Storage e schema versionado por migrations        |
+| **12**  | Logging e Auditoria           | Camada de auditoria com interceptor global e catálogo de eventos       |
+| **13**  | Deploy (Google Cloud)         | URL pública funcional no Cloud Run e vínculo médico-paciente ponta a ponta |
+| **14**  | Painel Admin e Demonstração   | Painel de logs para ADMIN, revisão de docs e apresentação final        |
 
 ---
 
@@ -23,62 +23,69 @@ Este documento detalha o planejamento, as etapas de desenvolvimento e as entrega
 
 ### Semana 7: Planejamento
 
-- **Formação de Grupos:** Grupos de 5 alunos.
-- **Papéis:** Definição de Líder Técnico, Backend, Frontend, DevOps e Documentação/Logs.
-- **Arquitetura:** Criação do diagrama de arquitetura, escolha do _stack_ tecnológico e inicialização do repositório.
+- Formação do time (seis integrantes sem papel fixo).
+- Diagrama de arquitetura, escolha do stack e inicialização do repositório.
+- Primeiros ADRs.
 
 ### Semana 8: Estrutura Inicial
 
-- Setup completo do ambiente de desenvolvimento (Backend/Frontend).
-- Configuração do banco de dados e padronização da estrutura do projeto.
+- Setup completo do ambiente de desenvolvimento (backend e frontend).
+- Docker Compose para banco, backend e frontend, com healthcheck.
+- Padronização do repositório e templates de issue/PR.
 
 ### Semana 9: Autenticação e Controle de Acesso
 
-- Implementação de Cadastro e Login.
-- Segurança: Hashing de senhas (ex: `bcrypt`) e implementação de autenticação via **JWT** ou sessão segura.
+- Cadastro e login.
+- Hashing de senhas com `bcrypt` e autenticação via JWT.
+- Guards `JwtAuthGuard` e `RolesGuard`.
 
 ### Semana 10: Upload e Listagem
 
-- Desenvolvimento das rotas de upload de arquivos.
-- Garantia de isolamento: Associação estrita do arquivo ao ID do usuário autenticado.
+- Rotas de upload multipart com validação de tipo MIME e tamanho.
+- Isolamento: cada arquivo pertence a um paciente e a um médico específicos.
 
 ### Semana 11: Storage e Persistência
 
-- Integração com **Google Cloud Storage (GCS)** para armazenamento de arquivos.
-- Sincronização dos metadados dos arquivos com o banco de dados.
+- Integração com Google Cloud Storage (`STORAGE_DRIVER=gcs`) e driver `local` para desenvolvimento.
+- Metadados sincronizados na tabela `arquivos`.
+- Migrations TypeORM versionadas (`synchronize: false`).
 
 ### Semana 12: Logging e Auditoria
 
-- Implementação de logs de eventos: Login, Logout, Upload, Download, Exclusão e tentativas de acesso inválidas.
-- **Estrutura do Log:** Timestamp, ID do usuário, Tipo do evento e Status.
+- `AuditInterceptor` global + decorator `@Audit`.
+- Catálogo de eventos em `TipoEventoAuditoria`.
+- Rotas de negócio sensíveis (login, cadastro, upload, vínculo) auditadas.
 
 ### Semana 13: Deploy em Google Cloud
 
-- Publicação da aplicação via **Cloud Run** ou **App Engine**.
-- Utilização de serviços gerenciados: **Cloud SQL** ou **Firestore** para persistência.
+- Publicação via Cloud Run (backend em `southamerica-east1`, frontend em `us-central1`).
+- Cloud Run Job de migrations no pre-deploy (ver [ADR-0001](../desenvolvimento/adr/0001-migrations-via-cloud-run-job.md)).
+- Fluxo completo de vínculo médico-paciente com workflow de aprovação.
 
-### Semana 14: Demonstração Final
+### Semana 14: Painel Admin e Demonstração
 
-- Apresentação técnica focada em: Arquitetura, Código, Demonstração do fluxo completo, Sistema de Logs e Segurança aplicada.
+- Rota `GET /audit/logs` (ADMIN) e tela de consulta.
+- Seed manual do primeiro ADMIN.
+- Revisão da documentação MkDocs, ADRs e ata de fechamento.
+- Apresentação técnica: arquitetura, código, demo do fluxo, sistema de logs e segurança.
 
 ---
 
 ## Requisitos Funcionais da Aplicação
 
-- Cadastro
+- Cadastro (paciente e médico)
 - Login
-- Upload
-- Listagem
-- Download
-- Exclusão
+- Upload de arquivos (com validação)
+- Listagem por perfil
+- Download (URL assinada) e stream inline
+- Exclusão de arquivos pelo médico responsável
+- Vínculo médico-paciente com workflow de aprovação
+- Consulta de logs por ADMIN
 
 ## Requisitos Não Funcionais
 
-- Segurança
-- Hash de senha
-- Isolamento por usuário
-- Rotas protegidas
-- Logging
-- Eventos auditáveis e persistidos.
-- Disponibilidade
-- Implantação em Google Cloud obrigatória 9. Critérios de Avaliação
+- Segurança: hash de senha, cookies httpOnly, guards por papel, `ValidationPipe` com `forbidNonWhitelisted`.
+- Isolamento por usuário (médico só vê seus pacientes vinculados; paciente só vê seus arquivos).
+- Rotas protegidas por JWT + Roles.
+- Logging e auditoria: eventos auditáveis e persistidos em `audit_logs`.
+- Disponibilidade: implantação em Google Cloud com pipeline automatizado (Cloud Build) e migrations executadas em Job dedicado.
