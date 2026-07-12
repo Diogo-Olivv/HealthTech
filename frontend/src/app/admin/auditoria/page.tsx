@@ -20,23 +20,23 @@ function dateInputToIso(value: string, endOfDay = false): string | undefined {
 
 export default function AuditoriaPage() {
     const [page, setPage] = useState(1);
-    const [userIdInput, setUserIdInput] = useState("");
+    const [usuarioInput, setUsuarioInput] = useState("");
     const [tipoEvento, setTipoEvento] = useState<TipoEventoAuditoria | "">("");
     const [dataInicio, setDataInicio] = useState("");
     const [dataFim, setDataFim] = useState("");
 
-    const debouncedUserId = useDebouncedValue(userIdInput.trim(), 400);
+    const debouncedUsuario = useDebouncedValue(usuarioInput.trim(), 400);
 
     const query = useMemo(
         () => ({
             page,
             limit: LIMITE_POR_PAGINA,
-            userId: debouncedUserId || undefined,
+            usuario: debouncedUsuario || undefined,
             tipoEvento: tipoEvento || undefined,
             dataInicio: dateInputToIso(dataInicio),
             dataFim: dateInputToIso(dataFim, true),
         }),
-        [page, debouncedUserId, tipoEvento, dataInicio, dataFim],
+        [page, debouncedUsuario, tipoEvento, dataInicio, dataFim],
     );
 
     const { data, status, error, refetch } = useAuditLogs(query);
@@ -55,17 +55,17 @@ export default function AuditoriaPage() {
     const renderFiltros = () => (
         <div className={pageStyles.toolbar}>
             <div className={pageStyles.filterGroup}>
-                <label htmlFor="filtro-userid" className={pageStyles.filterLabel}>
-                    User ID
+                <label htmlFor="filtro-usuario" className={pageStyles.filterLabel}>
+                    Usuário
                 </label>
                 <input
-                    id="filtro-userid"
+                    id="filtro-usuario"
                     type="text"
-                    placeholder="UUID do usuário"
+                    placeholder="Nome ou e-mail"
                     className={pageStyles.filterInput}
-                    value={userIdInput}
+                    value={usuarioInput}
                     onChange={(e) => {
-                        setUserIdInput(e.target.value);
+                        setUsuarioInput(e.target.value);
                         setPage(1);
                     }}
                 />

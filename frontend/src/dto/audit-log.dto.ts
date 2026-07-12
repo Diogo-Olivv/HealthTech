@@ -39,6 +39,7 @@ export interface AuditLogQuery {
   page?: number;
   limit?: number;
   userId?: string;
+  usuario?: string;
   tipoEvento?: TipoEventoAuditoria;
   dataInicio?: string;
   dataFim?: string;

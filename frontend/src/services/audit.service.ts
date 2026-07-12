@@ -7,6 +7,7 @@ function buildQuery(params: AuditLogQuery): string {
   if (params.page) qp.append("page", String(params.page));
   if (params.limit) qp.append("limit", String(params.limit));
   if (params.userId) qp.append("userId", params.userId);
+  if (params.usuario) qp.append("usuario", params.usuario);
   if (params.tipoEvento) qp.append("tipoEvento", params.tipoEvento);
   if (params.dataInicio) qp.append("dataInicio", params.dataInicio);
   if (params.dataFim) qp.append("dataFim", params.dataFim);
