@@ -3307,10 +3307,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#infraestrutura-cicd-e-governanca" class="md-nav__link">
+  <a href="#testes-automatizados" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Infraestrutura, CI/CD e Governança
+        Testes Automatizados
       
     </span>
   </a>
@@ -3318,10 +3318,21 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#documentacao" class="md-nav__link">
+  <a href="#infraestrutura-ci-cd" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Documentação
+        Infraestrutura / CI-CD
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#documentacao-e-governanca" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Documentação e Governança
       
     </span>
   </a>
@@ -3330,6 +3341,28 @@
         
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#participacao-por-integrante" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Participação por Integrante
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bloqueios-e-riscos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bloqueios e Riscos
+      
+    </span>
+  </a>
   
 </li>
       
@@ -4845,10 +4878,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#infraestrutura-cicd-e-governanca" class="md-nav__link">
+  <a href="#testes-automatizados" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Infraestrutura, CI/CD e Governança
+        Testes Automatizados
       
     </span>
   </a>
@@ -4856,10 +4889,21 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#documentacao" class="md-nav__link">
+  <a href="#infraestrutura-ci-cd" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Documentação
+        Infraestrutura / CI-CD
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#documentacao-e-governanca" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Documentação e Governança
       
     </span>
   </a>
@@ -4868,6 +4912,28 @@
         
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#participacao-por-integrante" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Participação por Integrante
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bloqueios-e-riscos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bloqueios e Riscos
+      
+    </span>
+  </a>
   
 </li>
       
@@ -4905,24 +4971,28 @@
 <h1 id="semana-14">Semana 14</h1>
 <blockquote>
 <p><strong>Status:</strong> Em andamento</p>
-<p><strong>Período:</strong> 07/07/2026 a 13/07/2026
+<p><strong>Período:</strong> 07/07/2026 – 13/07/2026
 <strong>Semana do ciclo:</strong> 14 / 14
-<strong>Fase atual:</strong> Fase 3 (Deploy e Demo)
+<strong>Fase atual:</strong> Fase 3 (Deploy &amp; Demo)
 <strong>Responsável pelo preenchimento:</strong> Diogo</p>
 </blockquote>
 <hr />
 <h2 id="objetivo-da-semana">Objetivo da Semana</h2>
-<p>Fechar o ciclo com o painel de admin ponta a ponta (rota de logs de auditoria e seed manual do ADMIN), consolidar a arquitetura do frontend em torno do proxy <code>/api/proxy/[...path]</code> com cookie httpOnly, publicar o Swagger da API, endurecer o pipeline de CI (lint e testes bloqueantes, CodeQL, Dependabot e husky), e concluir a governança do repositório (ADR-0001, templates de PR e issue, refatoração completa da documentação MkDocs).</p>
+<p>Fechar o ciclo com o painel de administração ponta a ponta (endpoint + tela de logs de auditoria e seed manual do <code>ADMIN</code>), consolidar a arquitetura do frontend em torno do proxy <code>/api/proxy/[...path]</code> com cookie httpOnly, entregar o CRUD completo de arquivos, formalizar o fluxo de solicitação/aprovação/rejeição/revogação do vínculo médico-paciente, publicar o Swagger da API, endurecer o pipeline de CI (lint e testes bloqueantes, CodeQL, Dependabot e husky) e concluir a governança do repositório (ADR-0001, templates de PR/issue e refatoração completa da documentação MkDocs).</p>
 <hr />
 <h2 id="entregas-realizadas">Entregas Realizadas</h2>
 <h3 id="backend">Backend</h3>
 <ul>
-<li>Rota <code>GET /audit/logs</code> (ADMIN) implementada com filtros (<code>userId</code>, <code>tipoEvento</code>, <code>dataInicio</code>, <code>dataFim</code>), paginação (<code>page</code>, <code>limit</code>, cap silencioso em <code>200</code>) e ordenação por <code>timestamp DESC</code> (#57).</li>
-<li><code>UserType.ADMIN</code> adicionado ao enum via migration; cadastro público rejeita <code>tipo</code> extra por <code>forbidNonWhitelisted</code> (#56).</li>
-<li>Seed manual <code>npm run seed:admin</code>, idempotente e bloqueado em produção por padrão.</li>
-<li>Swagger habilitado em <code>/docs</code> (fora de <code>production</code>) com Bearer Auth persistido, decorators em <code>UsersController</code> e DTOs de users como classes (#71).</li>
-<li>Auditoria estendida para arquivos (upload, visualização, download, exclusão) e para o novo fluxo de vínculo (<code>SOLICITACAO_VINCULO</code>, <code>APROVACAO_VINCULO</code>, <code>REJEICAO_VINCULO</code>, <code>REVOGACAO_VINCULO</code>, <code>VINCULO_MEDICO_PACIENTE</code>, <code>DESVINCULO_MEDICO_PACIENTE</code>) (#54, #55).</li>
-<li>Refactor da tipagem <code>AuthRequest</code> para eliminar casts inseguros nos controllers.</li>
+<li>Rota <code>GET /audit/logs</code> (ADMIN) com filtros (<code>userId</code>, <code>usuario</code> — busca livre por nome/email, <code>tipoEvento</code>, <code>dataInicio</code>, <code>dataFim</code>), paginação (<code>page</code>, <code>limit</code>, cap silencioso em <code>200</code>) e ordenação por <code>timestamp DESC</code> (#57).</li>
+<li><code>UserType.ADMIN</code> adicionado ao enum via migration; cadastro público passa a rejeitar campos não declarados (ex.: <code>tipo</code>) por <code>forbidNonWhitelisted</code> no <code>ValidationPipe</code> (#56).</li>
+<li>Seed manual <code>npm run seed:admin</code>, idempotente e bloqueado em produção por padrão (destrave via <code>ADMIN_SEED_ALLOW_PROD</code>).</li>
+<li>Swagger habilitado em <code>/docs</code> (fora de <code>production</code>) com Bearer Auth persistido, decorators em <code>UsersController</code>, DTOs de <code>users</code> convertidos em classes e <code>PublicUser</code> como classe (#71).</li>
+<li>CRUD completo de arquivos: upload com validação (PDF/JPEG/PNG, ≤10 MB), download por stream (<code>/raw</code> via blob), edição de descrição e exclusão. Endpoint <code>/arquivos/:id/download</code> + <code>getSignedUrl</code> removidos como código morto (resolve o erro <code>iam.serviceAccounts.signBlob</code> bloqueado no Cloud Run).</li>
+<li>Vínculo médico-paciente ganhou fluxo de <strong>solicitação/aprovação/rejeição/revogação</strong> com campo <code>status</code> e consentimento no schema. Só vínculo <code>APROVADO</code> libera leitura/edição de arquivos.</li>
+<li>Especialidades médicas em relação N:N com médico, incluindo seed com a lista oficial do CFM e migration <code>ZerarMedicos</code> para reset controlado.</li>
+<li>Auditoria estendida para arquivos (<code>UPLOAD_ARQUIVO</code>, <code>VISUALIZACAO_ARQUIVO</code>, <code>DOWNLOAD_ARQUIVO</code>, <code>EXCLUSAO_ARQUIVO</code>) e para o novo fluxo de vínculo (<code>SOLICITACAO_VINCULO</code>, <code>APROVACAO_VINCULO</code>, <code>REJEICAO_VINCULO</code>, <code>REVOGACAO_VINCULO</code>, <code>VINCULO_MEDICO_PACIENTE</code>, <code>DESVINCULO_MEDICO_PACIENTE</code>) (#54, #55).</li>
+<li>Interface <code>AuthRequest</code> centralizada e casts inseguros removidos nos controllers.</li>
+<li>Correção do <code>data-source</code> desatualizado; <code>migrationsTransactionMode=each</code> para permitir migrations que não podem rodar em transação única.</li>
 </ul>
 <p><strong>Commits relacionados:</strong></p>
 <table>
@@ -4948,6 +5018,18 @@
 <td style="text-align: left;">test(audit): cobre 400 em dataFim<dataInicio e cap silencioso de limit>200</td>
 </tr>
 <tr>
+<td style="text-align: left;"><a href="https://github.com/Diogo-Olivv/HealthTech/commit/504c8d0"><code>504c8d0</code></a></td>
+<td style="text-align: left;">12/07</td>
+<td style="text-align: left;">Diogo</td>
+<td style="text-align: left;">chore(arquivos): remove signed URL / getSignedUrl</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="https://github.com/Diogo-Olivv/HealthTech/commit/326f4bd"><code>326f4bd</code></a></td>
+<td style="text-align: left;">12/07</td>
+<td style="text-align: left;">Diogo</td>
+<td style="text-align: left;">fix(arquivos): download via /raw</td>
+</tr>
+<tr>
 <td style="text-align: left;"><a href="https://github.com/Diogo-Olivv/HealthTech/commit/bc07fc2"><code>bc07fc2</code></a></td>
 <td style="text-align: left;">11/07</td>
 <td style="text-align: left;">Diogo</td>
@@ -4964,6 +5046,18 @@
 <td style="text-align: left;">11/07</td>
 <td style="text-align: left;">Diogo</td>
 <td style="text-align: left;">feat(swagger): setup em main.ts</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="https://github.com/Diogo-Olivv/HealthTech/commit/0fbb3ff"><code>0fbb3ff</code></a></td>
+<td style="text-align: left;">11/07</td>
+<td style="text-align: left;">Diogo</td>
+<td style="text-align: left;">refactor(users): PublicUser vira classe</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="https://github.com/Diogo-Olivv/HealthTech/commit/07db123"><code>07db123</code></a></td>
+<td style="text-align: left;">11/07</td>
+<td style="text-align: left;">Diogo</td>
+<td style="text-align: left;">chore: add @nestjs/swagger</td>
 </tr>
 <tr>
 <td style="text-align: left;"><a href="https://github.com/Diogo-Olivv/HealthTech/commit/b85d313"><code>b85d313</code></a></td>
@@ -5007,20 +5101,83 @@
 <td style="text-align: left;">Martin</td>
 <td style="text-align: left;">refactor(auth): centraliza interface AuthRequest e remove casts inseguros (Resolve #54)</td>
 </tr>
+<tr>
+<td style="text-align: left;"><a href="https://github.com/Diogo-Olivv/HealthTech/commit/43abe1e"><code>43abe1e</code></a></td>
+<td style="text-align: left;">09/07</td>
+<td style="text-align: left;">Martin</td>
+<td style="text-align: left;">feat(medico-paciente): aplica auditoria na criacao</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="https://github.com/Diogo-Olivv/HealthTech/commit/222c9d4"><code>222c9d4</code></a></td>
+<td style="text-align: left;">09/07</td>
+<td style="text-align: left;">Diogo</td>
+<td style="text-align: left;">feat(arquivos): exige vinculo APROVADO para acesso e edicao</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="https://github.com/Diogo-Olivv/HealthTech/commit/095ac66"><code>095ac66</code></a></td>
+<td style="text-align: left;">09/07</td>
+<td style="text-align: left;">Diogo</td>
+<td style="text-align: left;">feat(medico-paciente): fluxo de aprovacao de vinculo</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="https://github.com/Diogo-Olivv/HealthTech/commit/d647fa5"><code>d647fa5</code></a></td>
+<td style="text-align: left;">09/07</td>
+<td style="text-align: left;">Diogo</td>
+<td style="text-align: left;">feat(audit): eventos de solicitacao/aprovacao/rejeicao/revogacao</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="https://github.com/Diogo-Olivv/HealthTech/commit/540029d"><code>540029d</code></a></td>
+<td style="text-align: left;">09/07</td>
+<td style="text-align: left;">Diogo</td>
+<td style="text-align: left;">db: usa migrationsTransactionMode=each</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="https://github.com/Diogo-Olivv/HealthTech/commit/f43ab23"><code>f43ab23</code></a></td>
+<td style="text-align: left;">09/07</td>
+<td style="text-align: left;">Diogo</td>
+<td style="text-align: left;">db(medico-paciente): add status/consentimento no schema</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="https://github.com/Diogo-Olivv/HealthTech/commit/2859cb7"><code>2859cb7</code></a></td>
+<td style="text-align: left;">09/07</td>
+<td style="text-align: left;">Diogo</td>
+<td style="text-align: left;">fix: data-source desatualizado</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="https://github.com/Diogo-Olivv/HealthTech/commit/b450eaa"><code>b450eaa</code></a></td>
+<td style="text-align: left;">08/07</td>
+<td style="text-align: left;">Diogo</td>
+<td style="text-align: left;">feat(backend): CRUD completo de arquivos com download, edição e exclusão</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="https://github.com/Diogo-Olivv/HealthTech/commit/40573d5"><code>40573d5</code></a></td>
+<td style="text-align: left;">08/07</td>
+<td style="text-align: left;">Diogo</td>
+<td style="text-align: left;">feat(backend): normaliza especialidades em N:N com médico usando lista CFM</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="https://github.com/Diogo-Olivv/HealthTech/commit/6569750"><code>6569750</code></a></td>
+<td style="text-align: left;">08/07</td>
+<td style="text-align: left;">Diogo</td>
+<td style="text-align: left;">feat(backend): migration para zerar médicos existentes</td>
+</tr>
 </tbody>
 </table>
-<p><strong>Branches:</strong> <code>feat/auditoria-arquivos</code>, <code>feat/user-admin</code>, <code>feat/backend-swagger</code>
+<p><strong>Branches:</strong> <code>feat/auditoria-arquivos</code>, <code>feat/user-admin</code>, <code>feat/backend-swagger</code>, <code>refactor/vinculo-medico-paciente</code>
 <strong>Issue(s):</strong> #54, #55, #56, #57
-<strong>PRs:</strong> <a href="https://github.com/Diogo-Olivv/HealthTech/pull/68">#68</a>, <a href="https://github.com/Diogo-Olivv/HealthTech/pull/69">#69</a>, <a href="https://github.com/Diogo-Olivv/HealthTech/pull/71">#71</a> (merged)</p>
+<strong>PRs:</strong> <a href="https://github.com/Diogo-Olivv/HealthTech/pull/67">#67</a>, <a href="https://github.com/Diogo-Olivv/HealthTech/pull/68">#68</a>, <a href="https://github.com/Diogo-Olivv/HealthTech/pull/69">#69</a>, <a href="https://github.com/Diogo-Olivv/HealthTech/pull/71">#71</a> (merged)</p>
 <hr />
 <h3 id="frontend">Frontend</h3>
 <ul>
 <li>Refatoração completa da arquitetura: route handlers de auth em <code>app/api/auth/*</code>, proxy catch-all <code>app/api/proxy/[...path]</code>, <code>serverFetch</code> para Server Components, <code>AuthContext</code> e <code>AuthGuard</code> (#72).</li>
 <li><code>lib/api-config.ts</code> centraliza <code>API_INTERNAL_URL</code>, <code>API_URL</code> e <code>AUTH_COOKIE</code>; helpers <code>http.ts</code> e <code>server-http.ts</code> para consumo tipado.</li>
-<li>Novo padrão de hooks: <code>useFetchData</code> genérico + hooks por domínio (<code>useMeusPacientes</code>, <code>useMeusMedicos</code>, <code>useArquivos</code>, <code>useProntuarioPaciente</code>, <code>usePendingRequests</code>, <code>useSolicitacoesEnviadas</code>).</li>
-<li>Vínculo médico-paciente ponta a ponta na UI: solicitações enviadas, solicitações pendentes, aprovação, rejeição, revogação, esconde CPF de pacientes disponíveis.</li>
-<li>Fix do fluxo de download e ConfirmDialog em <code>files</code>; ajustes visuais no botão de revogar acesso.</li>
-<li>Correções de deploy: <code>API_INTERNAL_URL</code> no compose e no build do frontend.</li>
+<li>Padrão de hooks: <code>useFetchData</code> genérico + hooks por domínio (<code>useMeusPacientes</code>, <code>useMeusMedicos</code>, <code>useArquivos</code>, <code>useProntuarioPaciente</code>, <code>usePendingRequests</code>, <code>useSolicitacoesEnviadas</code>, <code>useAuditLogs</code>, <code>useDebouncedValue</code>).</li>
+<li>Vínculo médico-paciente ponta a ponta na UI: solicitações enviadas (médico), pendentes (paciente), aprovação, rejeição, revogação em <code>MedicosTable</code>, esconde CPF de pacientes disponíveis, modal pesquisável, feedback inline.</li>
+<li>CRUD de arquivos: <code>FilesTable</code> com busca, ordenação e ações contextuais por papel; visualização inline (<code>VisualizadorArquivo</code>); prontuário do paciente com listagem de exames; fluxo de download refeito para consumir <code>/raw</code> via blob (resolve <code>Falha ao gerar URL de acesso ao arquivo</code> em produção).</li>
+<li>Painel administrativo: layout e index <code>/admin</code>, tela <code>/admin/auditoria</code> com tabela, filtros (<code>userId</code>/<code>usuario</code>, <code>tipoEvento</code>, período) e paginação; <code>useAuditLogs</code>, DTO e service consumindo o proxy; link admin na navbar; proteção da rota via <code>AuthGuard</code>.</li>
+<li>Design system: adoção do <code>sweetalert2</code> como padrão de feedback (tema HealthTech), helpers de alerta reutilizáveis (<code>utils/alerts.ts</code>), login/cadastro com confirmação de sucesso, tabs de tipo (paciente/médico), spinner e slot de feedback, navbar com confirmação de logout, landing com polish visual e <code>next/image</code>.</li>
+<li>Responsividade mobile: <code>viewport</code> meta correto e <code>lang=pt-BR</code>, prevenção de zoom em input iOS, bottom-sheet em modais, touch targets, dashboards e tabelas fluidas, painel lateral do auth ocultado em telas pequenas, <code>FileUpload</code> responsivo.</li>
+<li>Toolbars de pesquisa e ordenação nas tabelas; A11y de teclado; ícones nos botões de vínculo e upload; ícone de logout; ConfirmDialog em <code>files</code>.</li>
 </ul>
 <p><strong>Commits relacionados:</strong></p>
 <table>
@@ -5034,16 +5191,76 @@
 </thead>
 <tbody>
 <tr>
-<td style="text-align: left;"><a href="https://github.com/Diogo-Olivv/HealthTech/commit/f5f3b9d"><code>f5f3b9d</code></a></td>
+<td style="text-align: left;"><a href="https://github.com/Diogo-Olivv/HealthTech/commit/f976352"><code>f976352</code></a></td>
 <td style="text-align: left;">12/07</td>
 <td style="text-align: left;">Diogo</td>
-<td style="text-align: left;">fix(deploy): API_INTERNAL_URL no front</td>
+<td style="text-align: left;">feat(admin): busca por usuário</td>
 </tr>
 <tr>
-<td style="text-align: left;"><a href="https://github.com/Diogo-Olivv/HealthTech/commit/e711e6c"><code>e711e6c</code></a></td>
+<td style="text-align: left;"><a href="https://github.com/Diogo-Olivv/HealthTech/commit/e7bf117"><code>e7bf117</code></a></td>
 <td style="text-align: left;">12/07</td>
 <td style="text-align: left;">Diogo</td>
-<td style="text-align: left;">test(users): payload usa especialidadeIds</td>
+<td style="text-align: left;">feat(audit): filtro por usuário</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="https://github.com/Diogo-Olivv/HealthTech/commit/03a9fb4"><code>03a9fb4</code></a></td>
+<td style="text-align: left;">12/07</td>
+<td style="text-align: left;">Diogo</td>
+<td style="text-align: left;">feat(admin): tela /admin/auditoria</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="https://github.com/Diogo-Olivv/HealthTech/commit/8684d25"><code>8684d25</code></a></td>
+<td style="text-align: left;">12/07</td>
+<td style="text-align: left;">Diogo</td>
+<td style="text-align: left;">feat(admin): layout e index /admin</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="https://github.com/Diogo-Olivv/HealthTech/commit/6646f5e"><code>6646f5e</code></a></td>
+<td style="text-align: left;">12/07</td>
+<td style="text-align: left;">Diogo</td>
+<td style="text-align: left;">feat(audit-table): componente da tabela</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="https://github.com/Diogo-Olivv/HealthTech/commit/6aca337"><code>6aca337</code></a></td>
+<td style="text-align: left;">12/07</td>
+<td style="text-align: left;">Diogo</td>
+<td style="text-align: left;">feat(hook): useAuditLogs</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="https://github.com/Diogo-Olivv/HealthTech/commit/fd2f77d"><code>fd2f77d</code></a></td>
+<td style="text-align: left;">12/07</td>
+<td style="text-align: left;">Diogo</td>
+<td style="text-align: left;">feat(hook): useDebouncedValue</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="https://github.com/Diogo-Olivv/HealthTech/commit/65ad4b5"><code>65ad4b5</code></a></td>
+<td style="text-align: left;">12/07</td>
+<td style="text-align: left;">Diogo</td>
+<td style="text-align: left;">feat(audit-svc): getAuditLogs via proxy</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="https://github.com/Diogo-Olivv/HealthTech/commit/2fceb57"><code>2fceb57</code></a></td>
+<td style="text-align: left;">12/07</td>
+<td style="text-align: left;">Diogo</td>
+<td style="text-align: left;">feat(audit-dto): dto de logs de auditoria</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="https://github.com/Diogo-Olivv/HealthTech/commit/a2fce07"><code>a2fce07</code></a></td>
+<td style="text-align: left;">12/07</td>
+<td style="text-align: left;">Diogo</td>
+<td style="text-align: left;">feat(navbar): link admin</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="https://github.com/Diogo-Olivv/HealthTech/commit/d25fa80"><code>d25fa80</code></a></td>
+<td style="text-align: left;">12/07</td>
+<td style="text-align: left;">Diogo</td>
+<td style="text-align: left;">feat(auth-guard): protege rota /admin</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="https://github.com/Diogo-Olivv/HealthTech/commit/a6abfe8"><code>a6abfe8</code></a></td>
+<td style="text-align: left;">12/07</td>
+<td style="text-align: left;">Diogo</td>
+<td style="text-align: left;">feat(user-type): add ADMIN role</td>
 </tr>
 <tr>
 <td style="text-align: left;"><a href="https://github.com/Diogo-Olivv/HealthTech/commit/47b7b45"><code>47b7b45</code></a></td>
@@ -5117,19 +5334,212 @@
 <td style="text-align: left;">Diogo</td>
 <td style="text-align: left;">feat(api): route handlers de auth</td>
 </tr>
+<tr>
+<td style="text-align: left;"><a href="https://github.com/Diogo-Olivv/HealthTech/commit/89ba2c4"><code>89ba2c4</code></a></td>
+<td style="text-align: left;">09/07</td>
+<td style="text-align: left;">Diogo</td>
+<td style="text-align: left;">feat: atualiza navbar com novas rotas</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="https://github.com/Diogo-Olivv/HealthTech/commit/2f6d98a"><code>2f6d98a</code></a></td>
+<td style="text-align: left;">09/07</td>
+<td style="text-align: left;">Diogo</td>
+<td style="text-align: left;">refactor(frontend): textos do ModalVinculo p/ solicitacao</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="https://github.com/Diogo-Olivv/HealthTech/commit/153307d"><code>153307d</code></a></td>
+<td style="text-align: left;">09/07</td>
+<td style="text-align: left;">Diogo</td>
+<td style="text-align: left;">feat(frontend/paciente): revogar acesso em MedicosTable</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="https://github.com/Diogo-Olivv/HealthTech/commit/cf9f57a"><code>cf9f57a</code></a></td>
+<td style="text-align: left;">09/07</td>
+<td style="text-align: left;">Diogo</td>
+<td style="text-align: left;">feat(frontend/medico): pagina de solicitacoes enviadas</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="https://github.com/Diogo-Olivv/HealthTech/commit/59656a2"><code>59656a2</code></a></td>
+<td style="text-align: left;">09/07</td>
+<td style="text-align: left;">Diogo</td>
+<td style="text-align: left;">feat(frontend/paciente): pagina de solicitacoes pendentes</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="https://github.com/Diogo-Olivv/HealthTech/commit/7c0a663"><code>7c0a663</code></a></td>
+<td style="text-align: left;">09/07</td>
+<td style="text-align: left;">Diogo</td>
+<td style="text-align: left;">feat(frontend): DTOs e services de solicitacao de vinculo</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="https://github.com/Diogo-Olivv/HealthTech/commit/43e4bae"><code>43e4bae</code></a></td>
+<td style="text-align: left;">09/07</td>
+<td style="text-align: left;">Diogo</td>
+<td style="text-align: left;">fix(frontend): download de arquivo agora usa endpoint /raw via blob</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="https://github.com/Diogo-Olivv/HealthTech/commit/c220fde"><code>c220fde</code></a></td>
+<td style="text-align: left;">09/07</td>
+<td style="text-align: left;">Diogo</td>
+<td style="text-align: left;">style(frontend): touch targets e ajustes mobile em navbar, senha e home</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="https://github.com/Diogo-Olivv/HealthTech/commit/7f8b9ea"><code>7f8b9ea</code></a></td>
+<td style="text-align: left;">09/07</td>
+<td style="text-align: left;">Diogo</td>
+<td style="text-align: left;">style(frontend): responsividade mobile no FileUpload</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="https://github.com/Diogo-Olivv/HealthTech/commit/952e0b9"><code>952e0b9</code></a></td>
+<td style="text-align: left;">09/07</td>
+<td style="text-align: left;">Diogo</td>
+<td style="text-align: left;">style(frontend): modais viram bottom-sheet e botoes empilham no mobile</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="https://github.com/Diogo-Olivv/HealthTech/commit/0698924"><code>0698924</code></a></td>
+<td style="text-align: left;">09/07</td>
+<td style="text-align: left;">Diogo</td>
+<td style="text-align: left;">style(frontend): responsividade mobile em dashboards e tabelas</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="https://github.com/Diogo-Olivv/HealthTech/commit/32126a3"><code>32126a3</code></a></td>
+<td style="text-align: left;">09/07</td>
+<td style="text-align: left;">Diogo</td>
+<td style="text-align: left;">style(frontend): esconde painel lateral do auth em telas menores</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="https://github.com/Diogo-Olivv/HealthTech/commit/79176ae"><code>79176ae</code></a></td>
+<td style="text-align: left;">09/07</td>
+<td style="text-align: left;">Diogo</td>
+<td style="text-align: left;">feat(frontend): viewport meta, lang pt-BR e evita zoom em input iOS</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="https://github.com/Diogo-Olivv/HealthTech/commit/d4aaaba"><code>d4aaaba</code></a></td>
+<td style="text-align: left;">09/07</td>
+<td style="text-align: left;">Diogo</td>
+<td style="text-align: left;">refactor(frontend): padroniza empty state e retry nos dashboards</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="https://github.com/Diogo-Olivv/HealthTech/commit/450e206"><code>450e206</code></a></td>
+<td style="text-align: left;">09/07</td>
+<td style="text-align: left;">Diogo</td>
+<td style="text-align: left;">refactor(frontend): FileUpload com sweetalert e opcao "enviar outro"</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="https://github.com/Diogo-Olivv/HealthTech/commit/2c9dac9"><code>2c9dac9</code></a></td>
+<td style="text-align: left;">09/07</td>
+<td style="text-align: left;">Diogo</td>
+<td style="text-align: left;">refactor(frontend): ModalVinculo com sweetalert e melhorias de a11y</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="https://github.com/Diogo-Olivv/HealthTech/commit/fef685c"><code>fef685c</code></a></td>
+<td style="text-align: left;">09/07</td>
+<td style="text-align: left;">Diogo</td>
+<td style="text-align: left;">feat(frontend): sucesso confirma com sweetalert antes do redirect</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="https://github.com/Diogo-Olivv/HealthTech/commit/2616f7d"><code>2616f7d</code></a></td>
+<td style="text-align: left;">09/07</td>
+<td style="text-align: left;">Diogo</td>
+<td style="text-align: left;">feat(frontend): tabs para trocar entre cadastro paciente/medico</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="https://github.com/Diogo-Olivv/HealthTech/commit/921bb0b"><code>921bb0b</code></a></td>
+<td style="text-align: left;">09/07</td>
+<td style="text-align: left;">Diogo</td>
+<td style="text-align: left;">feat(frontend): navbar confirma logout com sweetalert2</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="https://github.com/Diogo-Olivv/HealthTech/commit/312fad4"><code>312fad4</code></a></td>
+<td style="text-align: left;">08/07</td>
+<td style="text-align: left;">Diogo</td>
+<td style="text-align: left;">style(frontend): tema HealthTech para popups do sweetalert2</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="https://github.com/Diogo-Olivv/HealthTech/commit/d022e82"><code>d022e82</code></a></td>
+<td style="text-align: left;">08/07</td>
+<td style="text-align: left;">Diogo</td>
+<td style="text-align: left;">feat(frontend): helpers de alerta usando sweetalert2</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="https://github.com/Diogo-Olivv/HealthTech/commit/5588e9d"><code>5588e9d</code></a></td>
+<td style="text-align: left;">08/07</td>
+<td style="text-align: left;">Diogo</td>
+<td style="text-align: left;">chore(frontend): adiciona sweetalert2 como dependência</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="https://github.com/Diogo-Olivv/HealthTech/commit/71db6f9"><code>71db6f9</code></a></td>
+<td style="text-align: left;">08/07</td>
+<td style="text-align: left;">Diogo</td>
+<td style="text-align: left;">feat(frontend): CRUD de arquivos com visualização, edição e exclusão</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="https://github.com/Diogo-Olivv/HealthTech/commit/bafca36"><code>bafca36</code></a></td>
+<td style="text-align: left;">08/07</td>
+<td style="text-align: left;">Diogo</td>
+<td style="text-align: left;">feat(frontend): seletor multi de especialidades e chips no listar médicos</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="https://github.com/Diogo-Olivv/HealthTech/commit/8c19437"><code>8c19437</code></a></td>
+<td style="text-align: left;">08/07</td>
+<td style="text-align: left;">Diogo</td>
+<td style="text-align: left;">refactor(frontend): centraliza helpers HTTP, API_URL e token em src/lib</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="https://github.com/Diogo-Olivv/HealthTech/commit/2744cb3"><code>2744cb3</code></a></td>
+<td style="text-align: left;">08/07</td>
+<td style="text-align: left;">Diogo</td>
+<td style="text-align: left;">feat(frontend): validações e feedback de UX no login e cadastros</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="https://github.com/Diogo-Olivv/HealthTech/commit/860a5bd"><code>860a5bd</code></a></td>
+<td style="text-align: left;">07/07</td>
+<td style="text-align: left;">Diogo</td>
+<td style="text-align: left;">feat(frontend): navbar dinamica + modal pesquisavel + DTO de upload</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="https://github.com/Diogo-Olivv/HealthTech/commit/03d7fc0"><code>03d7fc0</code></a></td>
+<td style="text-align: left;">07/07</td>
+<td style="text-align: left;">Lucas</td>
+<td style="text-align: left;">feat(frontend): cria pagina Meus médicos para o paciente</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="https://github.com/Diogo-Olivv/HealthTech/commit/6efdc27"><code>6efdc27</code></a></td>
+<td style="text-align: left;">07/07</td>
+<td style="text-align: left;">Lucas</td>
+<td style="text-align: left;">feat(frontend): adicionar toolbars de pesquisa e ordenacao</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="https://github.com/Diogo-Olivv/HealthTech/commit/477108f"><code>477108f</code></a></td>
+<td style="text-align: left;">07/07</td>
+<td style="text-align: left;">Lucas</td>
+<td style="text-align: left;">feat(frontend): adiciona icones nos botões de vinculo e upload</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="https://github.com/Diogo-Olivv/HealthTech/commit/274e17b"><code>274e17b</code></a></td>
+<td style="text-align: left;">07/07</td>
+<td style="text-align: left;">Lucas</td>
+<td style="text-align: left;">style(frontend): melhorar acessibilidade de teclado (A11y)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="https://github.com/Diogo-Olivv/HealthTech/commit/56801e2"><code>56801e2</code></a></td>
+<td style="text-align: left;">07/07</td>
+<td style="text-align: left;">Lucas</td>
+<td style="text-align: left;">refactor(frontend): extrair duplicacoes para utils e tipagens globais</td>
+</tr>
 </tbody>
 </table>
-<p><strong>Branch:</strong> <code>refactor/frontend-architecture</code>
-<strong>Issue(s):</strong> relacionadas ao fechamento do frontend (auth, vínculo, arquivos)
-<strong>PRs:</strong> <a href="https://github.com/Diogo-Olivv/HealthTech/pull/72">#72</a> (merged)</p>
+<p><strong>Branches:</strong> <code>refactor/frontend-architecture</code>, <code>refactor/vinculo-medico-paciente</code>, <code>feat/tela-auditoria</code>, <code>feat/integracao-funcionalidade-arquivos</code>
+<strong>Issue(s):</strong> #29, #30, #58, além das relacionadas ao fechamento do frontend (auth, vínculo, arquivos)
+<strong>PRs:</strong> <a href="https://github.com/Diogo-Olivv/HealthTech/pull/64">#64</a>, <a href="https://github.com/Diogo-Olivv/HealthTech/pull/72">#72</a>, <a href="https://github.com/Diogo-Olivv/HealthTech/pull/79">#79</a> (merged)</p>
 <hr />
-<h3 id="infraestrutura-cicd-e-governanca">Infraestrutura, CI/CD e Governança</h3>
+<h3 id="testes-automatizados">Testes Automatizados</h3>
 <ul>
-<li><code>cloudbuild.yaml</code> agora executa lint (não bloqueante com <code>--fix</code>) e testes (bloqueantes) antes do build, com steps nomeados e paralelismo por camada.</li>
-<li>Workflow CodeQL semanal e em PRs (<code>.github/workflows/codeql.yml</code>).</li>
-<li>Dependabot semanal, agrupado por família (<code>@nestjs/*</code>, <code>next</code>, <code>react</code>, testing), com bloqueio de bumps major (<code>.github/dependabot.yml</code>).</li>
-<li>Husky + lint-staged: pre-commit roda ESLint apenas nos arquivos em stage.</li>
-<li>ADR-0001 escrito e aceito: migrations do TypeORM via Cloud Run Job (<code>healthtech-migrations</code>), documentando trade-offs vs. rodar no boot ou direto do Cloud Build.</li>
+<li><code>audit</code>: cobertura de <code>400</code> quando <code>dataFim &lt; dataInicio</code> e cap silencioso de <code>limit &gt; 200</code>.</li>
+<li><code>arquivos</code>: bloqueio de leitura/edição quando o vínculo não está <code>APROVADO</code>; specs de CRUD.</li>
+<li><code>medico-paciente</code>: novos fluxos e edge cases de solicitação, aprovação, rejeição e revogação.</li>
+<li><code>users</code>: payload de cadastro passa a usar <code>especialidadeIds</code>.</li>
+<li><code>audit-log</code>: remove referência obsoleta a <code>LOGIN_FALHA</code>.</li>
+<li>Resultado atual: <strong>116 testes passando no backend</strong> e <strong>38 no frontend</strong>.</li>
 </ul>
 <p><strong>Commits relacionados:</strong></p>
 <table>
@@ -5142,6 +5552,97 @@
 </tr>
 </thead>
 <tbody>
+<tr>
+<td style="text-align: left;"><a href="https://github.com/Diogo-Olivv/HealthTech/commit/131fecb"><code>131fecb</code></a></td>
+<td style="text-align: left;">12/07</td>
+<td style="text-align: left;">Diogo</td>
+<td style="text-align: left;">test(audit): cobre 400 em dataFim&lt;dataInicio e cap silencioso</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="https://github.com/Diogo-Olivv/HealthTech/commit/e711e6c"><code>e711e6c</code></a></td>
+<td style="text-align: left;">12/07</td>
+<td style="text-align: left;">Diogo</td>
+<td style="text-align: left;">test(users): payload usa especialidadeIds</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="https://github.com/Diogo-Olivv/HealthTech/commit/7c99568"><code>7c99568</code></a></td>
+<td style="text-align: left;">09/07</td>
+<td style="text-align: left;">Diogo</td>
+<td style="text-align: left;">test(audit-log): remove referencia obsoleta a LOGIN_FALHA</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="https://github.com/Diogo-Olivv/HealthTech/commit/5db557a"><code>5db557a</code></a></td>
+<td style="text-align: left;">09/07</td>
+<td style="text-align: left;">Diogo</td>
+<td style="text-align: left;">test(arquivos): cobre bloqueio quando vinculo nao aprovado</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="https://github.com/Diogo-Olivv/HealthTech/commit/f229e11"><code>f229e11</code></a></td>
+<td style="text-align: left;">09/07</td>
+<td style="text-align: left;">Diogo</td>
+<td style="text-align: left;">test(medico-paciente): cobre novos fluxos e edge cases</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="https://github.com/Diogo-Olivv/HealthTech/commit/c0062e5"><code>c0062e5</code></a></td>
+<td style="text-align: left;">11/07</td>
+<td style="text-align: left;">Hugo</td>
+<td style="text-align: left;">test: testes adicionados</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="https://github.com/Diogo-Olivv/HealthTech/commit/b58df1c"><code>b58df1c</code></a></td>
+<td style="text-align: left;">11/07</td>
+<td style="text-align: left;">Hugo</td>
+<td style="text-align: left;">test: testes adicionados</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Branches:</strong> <code>feat/auditoria-arquivos</code>, <code>feat/user-admin</code>, <code>refactor/vinculo-medico-paciente</code></p>
+<hr />
+<h3 id="infraestrutura-ci-cd">Infraestrutura / CI-CD</h3>
+<ul>
+<li><code>cloudbuild.yaml</code>: lint (não bloqueante com <code>--fix</code>) + testes (bloqueantes) antes do build, com steps nomeados e paralelismo por camada.</li>
+<li>Workflow <strong>CodeQL</strong> semanal e em PRs (<code>.github/workflows/codeql.yml</code>).</li>
+<li><strong>Dependabot</strong> semanal, agrupado por família (<code>@nestjs/*</code>, <code>typeorm</code>, <code>next</code>, <code>react</code>, <code>dev-dependencies</code>), com ignore de bumps <em>major</em> para npm (<code>.github/dependabot.yml</code>).</li>
+<li><strong>Husky + lint-staged</strong> no monorepo: pre-commit roda ESLint apenas nos arquivos em stage.</li>
+<li>Fixes de deploy: <code>_BACKEND_URL</code> alinhado ao hostname atual do Cloud Run, <code>API_INTERNAL_URL</code> no build e no compose do frontend, remoção do VPC egress direto do frontend a cada deploy, log de <code>target</code> e <code>err.cause</code> em falhas do proxy de login.</li>
+<li><code>docker-compose.override.yml</code> para hot reload em dev.</li>
+<li>Correção do <code>data-source</code> do TypeORM.</li>
+</ul>
+<p><strong>Commits relacionados:</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Hash</th>
+<th style="text-align: left;">Data</th>
+<th style="text-align: left;">Autor</th>
+<th style="text-align: left;">Descrição</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><a href="https://github.com/Diogo-Olivv/HealthTech/commit/02f1dec"><code>02f1dec</code></a></td>
+<td style="text-align: left;">12/07</td>
+<td style="text-align: left;">Diogo</td>
+<td style="text-align: left;">fix(deploy): remove direct VPC egress do frontend</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="https://github.com/Diogo-Olivv/HealthTech/commit/8d48013"><code>8d48013</code></a></td>
+<td style="text-align: left;">12/07</td>
+<td style="text-align: left;">Diogo</td>
+<td style="text-align: left;">fix(deploy): atualiza _BACKEND_URL para hostname atual</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="https://github.com/Diogo-Olivv/HealthTech/commit/bcedb6f"><code>bcedb6f</code></a></td>
+<td style="text-align: left;">12/07</td>
+<td style="text-align: left;">Diogo</td>
+<td style="text-align: left;">chore(auth): loga target e err.cause em falha do proxy</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="https://github.com/Diogo-Olivv/HealthTech/commit/f5f3b9d"><code>f5f3b9d</code></a></td>
+<td style="text-align: left;">12/07</td>
+<td style="text-align: left;">Diogo</td>
+<td style="text-align: left;">fix(deploy): API_INTERNAL_URL no front</td>
+</tr>
 <tr>
 <td style="text-align: left;"><a href="https://github.com/Diogo-Olivv/HealthTech/commit/4a6f7f3"><code>4a6f7f3</code></a></td>
 <td style="text-align: left;">12/07</td>
@@ -5172,20 +5673,140 @@
 <td style="text-align: left;">Diogo</td>
 <td style="text-align: left;">ci: adiciona lint/testes ao cloudbuild</td>
 </tr>
+<tr>
+<td style="text-align: left;"><a href="https://github.com/Diogo-Olivv/HealthTech/commit/0c768ce"><code>0c768ce</code></a></td>
+<td style="text-align: left;">09/07</td>
+<td style="text-align: left;">Diogo</td>
+<td style="text-align: left;">fix: muda "-us" no cloudbuild</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="https://github.com/Diogo-Olivv/HealthTech/commit/59cc7ad"><code>59cc7ad</code></a></td>
+<td style="text-align: left;">08/07</td>
+<td style="text-align: left;">Diogo</td>
+<td style="text-align: left;">chore: docker compose override para hot reload em dev</td>
+</tr>
 </tbody>
 </table>
-<p><strong>Branches:</strong> <code>fix/ci-pipeline-security</code>, <code>chore/governance-adrs</code>
+<p><strong>Branches:</strong> <code>fix/ci-pipeline-security</code>, <code>develop</code>
 <strong>PRs:</strong> <a href="https://github.com/Diogo-Olivv/HealthTech/pull/70">#70</a> (merged)</p>
 <hr />
-<h3 id="documentacao">Documentação</h3>
+<h3 id="documentacao-e-governanca">Documentação e Governança</h3>
 <ul>
-<li>Refatoração completa da documentação MkDocs para refletir o estado atual do <code>develop</code>: arquitetura (frontend, backend, banco, infra), tecnologias (Swagger, Tailwind, migrations, Multer, SweetAlert2), modelagem (ADMIN, especialidades N:N, workflow de vínculo), gestão (cronograma real, metodologia).</li>
-<li>Nova seção <code>desenvolvimento/adr/</code> com índice, template e ADR-0001.</li>
-<li>Nova seção <code>desenvolvimento/padroes/</code> com Git, código, review, template de PR e templates de issue.</li>
-<li>Correção de links quebrados no <code>docs/index.md</code>.</li>
-<li>Ajuste de <code>.pages</code> em <code>desenvolvimento</code> e <code>gestao/entregas</code>.</li>
+<li>Refatoração completa da documentação MkDocs para refletir o estado atual do <code>develop</code>: arquitetura (frontend, backend, banco, infra), tecnologias (Swagger, Tailwind, migrations, Multer, SweetAlert2), modelagem (ADMIN, especialidades N:N, workflow de vínculo) e gestão (cronograma real, metodologia).</li>
+<li>Nova seção <code>desenvolvimento/adr/</code> com índice, template e <strong>ADR-0001</strong> (migrations do TypeORM via Cloud Run Job <code>healthtech-migrations</code>, documentando trade-offs vs. rodar no boot ou direto do Cloud Build).</li>
+<li>Nova seção <code>desenvolvimento/padroes/</code> com padrões de Git, código, review, template de PR e templates de issue.</li>
+<li>Documentação da rota <code>GET /audit/logs</code> no README do backend.</li>
+<li>Documentação da criação do primeiro usuário ADMIN em desenvolvimento.</li>
+<li>Correção de links quebrados no <code>docs/index.md</code>; ajuste de <code>.pages</code> em <code>desenvolvimento</code> e <code>gestao/entregas</code>.</li>
 </ul>
-<p><strong>Branch:</strong> <code>docs</code></p>
+<p><strong>Commits relacionados:</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Hash</th>
+<th style="text-align: left;">Data</th>
+<th style="text-align: left;">Autor</th>
+<th style="text-align: left;">Descrição</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><a href="https://github.com/Diogo-Olivv/HealthTech/commit/4e06cd6"><code>4e06cd6</code></a></td>
+<td style="text-align: left;">12/07</td>
+<td style="text-align: left;">Diogo</td>
+<td style="text-align: left;">docs(audit): documenta GET /audit/logs no README do backend</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="https://github.com/Diogo-Olivv/HealthTech/commit/3779384"><code>3779384</code></a></td>
+<td style="text-align: left;">11/07</td>
+<td style="text-align: left;">Hugo</td>
+<td style="text-align: left;">docs: documenta criação do primeiro usuário ADMIN em desenvolvimento</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Branch:</strong> <code>docs</code>, <code>chore/governance-adrs</code></p>
+<hr />
+<h2 id="participacao-por-integrante">Participação por Integrante</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Integrante</th>
+<th style="text-align: center;">Commits</th>
+<th style="text-align: left;">Issues principais</th>
+<th style="text-align: left;">Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Diogo</td>
+<td style="text-align: center;">93</td>
+<td style="text-align: left;">#57, #72, refactor front, admin, CI/CD, deploy, docs, governança</td>
+<td style="text-align: left;">Concluída</td>
+</tr>
+<tr>
+<td style="text-align: left;">Hugo</td>
+<td style="text-align: center;">8</td>
+<td style="text-align: left;">#56, #57 (UserType.ADMIN, seed, endpoint de logs)</td>
+<td style="text-align: left;">Concluída</td>
+</tr>
+<tr>
+<td style="text-align: left;">Martin</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: left;">#54, #55 (auditoria de arquivos e vínculo, AuthRequest)</td>
+<td style="text-align: left;">Concluída</td>
+</tr>
+<tr>
+<td style="text-align: left;">Lucas</td>
+<td style="text-align: center;">7</td>
+<td style="text-align: left;">#29 (Meus médicos), toolbars, A11y, ícones</td>
+<td style="text-align: left;">Concluída</td>
+</tr>
+<tr>
+<td style="text-align: left;">Luíza</td>
+<td style="text-align: center;">-</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">-</td>
+</tr>
+<tr>
+<td style="text-align: left;">Gabriel</td>
+<td style="text-align: center;">-</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">-</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="bloqueios-e-riscos">Bloqueios e Riscos</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Bloqueio / Risco</th>
+<th style="text-align: left;">Impacto</th>
+<th style="text-align: left;">Responsável</th>
+<th style="text-align: left;">Prazo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Retenção/arquivamento de logs de auditoria (#60) não iniciada</td>
+<td style="text-align: left;">Médio — a tabela <code>audit_logs</code> cresce indefinidamente hoje</td>
+<td style="text-align: left;">Hugo, Martin</td>
+<td style="text-align: left;">13/07</td>
+</tr>
+<tr>
+<td style="text-align: left;">Fechar manualmente os 13 PRs individuais do Dependabot após merge do #93</td>
+<td style="text-align: left;">Baixo — apenas ruído no board de PRs</td>
+<td style="text-align: left;">Diogo</td>
+<td style="text-align: left;">13/07</td>
+</tr>
+<tr>
+<td style="text-align: left;">Bump Docker <code>node:22-alpine → node:26-alpine</code> adiado</td>
+<td style="text-align: left;">Baixo — aguardar Node 24 LTS antes de subir</td>
+<td style="text-align: left;">Diogo</td>
+<td style="text-align: left;">—</td>
+</tr>
+</tbody>
+</table>
 <hr />
 <h2 id="pendencias-para-a-proxima-semana-fechamento-do-ciclo">Pendências para a Próxima Semana (fechamento do ciclo)</h2>
 <table>
@@ -5199,22 +5820,28 @@
 </thead>
 <tbody>
 <tr>
-<td style="text-align: left;">Tela de consulta de logs (admin)</td>
-<td style="text-align: left;">Gabriel, Lucas</td>
-<td style="text-align: left;">#58</td>
-<td style="text-align: left;">Média</td>
+<td style="text-align: left;">Retenção/arquivamento de logs de auditoria</td>
+<td style="text-align: left;">Hugo, Martin</td>
+<td style="text-align: left;">#60</td>
+<td style="text-align: left;">Alta</td>
 </tr>
 <tr>
 <td style="text-align: left;">Apresentação final e demo do fluxo completo</td>
 <td style="text-align: left;">Todos</td>
-<td style="text-align: left;">-</td>
+<td style="text-align: left;">—</td>
 <td style="text-align: left;">Alta</td>
 </tr>
 <tr>
-<td style="text-align: left;">Revisão da documentação de arquitetura</td>
+<td style="text-align: left;">Revisão final da documentação de arquitetura</td>
 <td style="text-align: left;">Diogo</td>
-<td style="text-align: left;">-</td>
+<td style="text-align: left;">—</td>
 <td style="text-align: left;">Alta</td>
+</tr>
+<tr>
+<td style="text-align: left;">Fechamento dos PRs individuais do Dependabot</td>
+<td style="text-align: left;">Diogo</td>
+<td style="text-align: left;">—</td>
+<td style="text-align: left;">Baixa</td>
 </tr>
 </tbody>
 </table>
